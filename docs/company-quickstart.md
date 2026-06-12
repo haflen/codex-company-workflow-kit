@@ -176,6 +176,32 @@ specs/global/assets.generated/
 bash scripts/install.sh update-templates /path/to/company-project --lang zh --force
 ```
 
+## 如何卸载或停用
+
+卸载本机全局插件：
+
+```bash
+bash scripts/install.sh uninstall-plugin --lang zh
+```
+
+同时卸载中英文全局插件：
+
+```bash
+bash scripts/install.sh uninstall-plugin --all
+```
+
+停用某个业务项目里的公司 workflow：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/company-project
+```
+
+默认只移除 `AGENTS.md` 里的公司 workflow marker 段落，并保留 `specs/features/`、`specs/global/INDEX.md` 和已有需求设计文档。确认要清理模板目录时再执行：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/company-project --force
+```
+
 ## 常见安装问题
 
 ### `/path/to/project` 可以直接复制吗？

@@ -5,7 +5,8 @@ param(
   [string]$ProjectPath,
   [ValidateSet("zh", "en")]
   [string]$Lang = "zh",
-  [switch]$Force
+  [switch]$Force,
+  [switch]$All
 )
 
 $ErrorActionPreference = "Stop"
@@ -27,11 +28,23 @@ $ValidatorPath = if ($env:CODEX_PLUGIN_VALIDATOR) {
 function Show-Usage {
   Write-Host "Usage:"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 uninstall-plugin [-Lang zh|en|-All]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 bootstrap-project <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project <project-path> [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 verify [-Lang zh|en]"
+}
+
+function Get-PluginNameForLang($Code) {
+  if ($Code -eq "zh") {
+    return "company-codex-workflow-v2-zh"
+  }
+  if ($Code -eq "en") {
+    return "company-codex-workflow-v2"
+  }
+  throw "Unsupported language: $Code. Use zh or en."
 }
 
 function Copy-DirSafe($Source, $Destination) {
@@ -87,6 +100,31 @@ function Install-Plugin {
   Write-Host "Language: $Lang"
 }
 
+function Uninstall-PluginName($Name) {
+  $destination = Join-Path $MarketplaceRoot "plugins/$Name"
+  if (Test-Path $destination) {
+    Remove-Item -Recurse -Force $destination
+    Write-Host "Removed plugin directory: $destination"
+  } else {
+    Write-Host "Plugin directory not found: $destination"
+  }
+  if (Test-Path $MarketplaceFile) {
+    $data = Get-Content -Raw $MarketplaceFile | ConvertFrom-Json
+    $data.plugins = @($data.plugins | Where-Object { $_.name -ne $Name })
+    $data | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $MarketplaceFile
+  }
+  Write-Host "Marketplace entry removed if present: $Name"
+}
+
+function Uninstall-Plugin {
+  if ($All) {
+    Uninstall-PluginName (Get-PluginNameForLang "zh")
+    Uninstall-PluginName (Get-PluginNameForLang "en")
+  } else {
+    Uninstall-PluginName $PluginName
+  }
+}
+
 function Append-AgentsBlock($Target) {
   $content = if (Test-Path $Target) { Get-Content -Raw $Target } else { "" }
   if ($content -match [regex]::Escape($MarkerBegin) -or $content -match [regex]::Escape($LegacyMarkerBegin)) {
@@ -97,6 +135,35 @@ function Append-AgentsBlock($Target) {
   Add-Content $Target $MarkerBegin
   Add-Content $Target (Get-Content -Raw (Join-Path $PluginSrc "AGENTS.md"))
   Add-Content $Target $MarkerEnd
+}
+
+function Write-InstallManifest($Path) {
+  $workflowDir = Join-Path $Path ".codex-workflow"
+  New-Item -ItemType Directory -Force -Path $workflowDir | Out-Null
+  $manifest = [pscustomobject]@{
+    kit = "codex-company-workflow-kit"
+    profile = "company"
+    plugin = $PluginName
+    language = $Lang
+    installedAt = [DateTimeOffset]::UtcNow.ToString("o")
+    managedMarkers = [pscustomobject]@{
+      agentsBegin = $MarkerBegin
+      agentsEnd = $MarkerEnd
+    }
+    managedPaths = @(
+      "AGENTS.md marker block",
+      "specs/global/assets/",
+      "specs/global/assets.generated/",
+      ".codex-workflow/install.json"
+    )
+    preservedProjectAssets = @(
+      "specs/features/",
+      "specs/global/INDEX.md",
+      "specs/global/INDEX.generated.md"
+    )
+  }
+  $manifest | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $workflowDir "install.json")
+  Write-Host "Install manifest written: $(Join-Path $workflowDir "install.json")"
 }
 
 function Generate-Index($Path, $OutputPath, [bool]$Overwrite) {
@@ -131,7 +198,8 @@ function Bootstrap-Project($Path) {
     Append-AgentsBlock $agents
     Write-Host "Merged AGENTS.md: $agents"
   } else {
-    Copy-Item (Join-Path $PluginSrc "AGENTS.md") $agents
+    New-Item -ItemType File -Force -Path $agents | Out-Null
+    Append-AgentsBlock $agents
     Write-Host "Created AGENTS.md: $agents"
   }
   Copy-DirSafe (Join-Path $PluginSrc "specs") (Join-Path $Path "specs")
@@ -143,7 +211,67 @@ function Bootstrap-Project($Path) {
     Generate-Index $Path $generatedPath $true
     Write-Host "Existing INDEX.md preserved. Review INDEX.generated.md before replacing it."
   }
+  Write-InstallManifest $Path
   Write-Host "Next: review the generated INDEX draft and confirm project context."
+}
+
+function Deactivate-Project($Path) {
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    Show-Usage
+    exit 1
+  }
+  $agents = Join-Path $Path "AGENTS.md"
+  $workflowDir = Join-Path $Path ".codex-workflow"
+  $report = Join-Path $workflowDir "deactivation-report.md"
+  New-Item -ItemType Directory -Force -Path $workflowDir | Out-Null
+  if (Test-Path $agents) {
+    $content = Get-Content -Raw $agents
+    $start = $content.IndexOf($MarkerBegin)
+    if ($start -ge 0) {
+      $finish = $content.IndexOf($MarkerEnd, $start)
+      if ($finish -ge 0) {
+        $finish += $MarkerEnd.Length
+        $newContent = ($content.Substring(0, $start).TrimEnd() + "`n" + $content.Substring($finish).TrimStart()).TrimEnd() + "`n"
+        Set-Content -Encoding UTF8 $agents $newContent
+        Write-Host "Removed company workflow block from AGENTS.md."
+      }
+    } else {
+      Write-Host "No managed company workflow marker found in AGENTS.md; left it unchanged."
+    }
+  } else {
+    Write-Host "AGENTS.md not found; nothing to update."
+  }
+  if ($Force) {
+    foreach ($relative in @("specs/global/assets", "specs/global/assets.generated")) {
+      $target = Join-Path $Path $relative
+      if (Test-Path $target) {
+        Remove-Item -Recurse -Force $target
+      }
+    }
+    Write-Host "Removed managed template directories."
+  } else {
+    Write-Host "Project specs preserved. Use -Force to remove managed template directories only."
+  }
+  $removedTemplates = if ($Force) { "yes" } else { "no" }
+  $body = @"
+# Company Workflow Deactivation Report
+
+- Deactivated at: $([DateTimeOffset]::UtcNow.ToString("o"))
+- AGENTS.md marker block: removed when present
+- Template directories removed: $removedTemplates
+
+## Preserved by default
+
+- specs/features/
+- specs/global/INDEX.md
+- specs/global/INDEX.generated.md
+
+## Notes
+
+Project requirement, design, task, and verification documents are treated as project assets and are not deleted by this command.
+"@
+  Set-Content -Encoding UTF8 $report $body
+  Write-Host "Deactivation report written: $report"
 }
 
 function Update-Templates($Path) {
@@ -213,7 +341,9 @@ function Verify-Kit {
 
 switch ($Command) {
   "install-plugin" { Install-Plugin }
+  "uninstall-plugin" { Uninstall-Plugin }
   "bootstrap-project" { Bootstrap-Project $ProjectPath }
+  "deactivate-project" { Deactivate-Project $ProjectPath }
   "update-templates" { Update-Templates $ProjectPath }
   "generate-index" { Generate-Index $ProjectPath (Join-Path $ProjectPath "specs/global/INDEX.md") $Force }
   "all" {

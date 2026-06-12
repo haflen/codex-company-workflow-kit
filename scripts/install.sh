@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MARKETPLACE_ROOT="${HOME}/.agents/plugins"
 MARKETPLACE_FILE="$MARKETPLACE_ROOT/marketplace.json"
 FORCE=0
+ALL_LANGS=0
 LANG_CODE="zh"
 PLUGIN_NAME=""
 PLUGIN_SRC=""
@@ -18,7 +19,9 @@ usage() {
   cat <<'USAGE'
 Usage:
   bash scripts/install.sh install-plugin [--lang zh|en] [--force]
+  bash scripts/install.sh uninstall-plugin [--lang zh|en|--all]
   bash scripts/install.sh bootstrap-project <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh deactivate-project <project-path> [--force]
   bash scripts/install.sh update-templates <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh generate-index <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh all <project-path> [--lang zh|en] [--force]
@@ -31,6 +34,10 @@ parse_options() {
     case "$1" in
       --force)
         FORCE=1
+        shift
+        ;;
+      --all)
+        ALL_LANGS=1
         shift
         ;;
       --lang)
@@ -56,6 +63,17 @@ parse_options() {
   esac
   PLUGIN_SRC="$ROOT_DIR/outputs/$PLUGIN_NAME"
   PLUGIN_DST="$MARKETPLACE_ROOT/plugins/$PLUGIN_NAME"
+}
+
+plugin_name_for_lang() {
+  case "$1" in
+    zh) echo "company-codex-workflow-v2-zh" ;;
+    en) echo "company-codex-workflow-v2" ;;
+    *)
+      echo "Unsupported language: $1. Use zh or en." >&2
+      exit 1
+      ;;
+  esac
 }
 
 copy_dir_safe() {
@@ -116,6 +134,40 @@ PY
   echo "Language: $LANG_CODE"
 }
 
+uninstall_plugin_name() {
+  local name="$1"
+  local dst="$MARKETPLACE_ROOT/plugins/$name"
+  if [[ -d "$dst" ]]; then
+    rm -rf "$dst"
+    echo "Removed plugin directory: $dst"
+  else
+    echo "Plugin directory not found: $dst"
+  fi
+  MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$name" python3 - <<'PY'
+import json
+import os
+from pathlib import Path
+
+path = Path(os.environ["MARKETPLACE_FILE"])
+if not path.exists():
+    raise SystemExit(0)
+data = json.loads(path.read_text())
+plugins = data.get("plugins", [])
+data["plugins"] = [plugin for plugin in plugins if plugin.get("name") != os.environ["PLUGIN_NAME"]]
+path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+PY
+  echo "Marketplace entry removed if present: $name"
+}
+
+uninstall_plugin() {
+  if [[ "$ALL_LANGS" == "1" ]]; then
+    uninstall_plugin_name "$(plugin_name_for_lang zh)"
+    uninstall_plugin_name "$(plugin_name_for_lang en)"
+  else
+    uninstall_plugin_name "$PLUGIN_NAME"
+  fi
+}
+
 append_agents_block() {
   local target="$1"
   if [[ -f "$target" ]] && grep -q "$MARKER_BEGIN" "$target"; then
@@ -132,6 +184,44 @@ append_agents_block() {
     cat "$PLUGIN_SRC/AGENTS.md"
     echo "$MARKER_END"
   } >> "$target"
+}
+
+write_install_manifest() {
+  local project_path="$1"
+  mkdir -p "$project_path/.codex-workflow"
+  PROJECT_PATH="$project_path" PLUGIN_NAME="$PLUGIN_NAME" LANG_CODE="$LANG_CODE" python3 - <<'PY'
+import json
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+
+project = Path(os.environ["PROJECT_PATH"])
+manifest = {
+    "kit": "codex-company-workflow-kit",
+    "profile": "company",
+    "plugin": os.environ["PLUGIN_NAME"],
+    "language": os.environ["LANG_CODE"],
+    "installedAt": datetime.now(timezone.utc).isoformat(),
+    "managedMarkers": {
+        "agentsBegin": "<!-- codex-workflow-kit:company:start -->",
+        "agentsEnd": "<!-- codex-workflow-kit:company:end -->"
+    },
+    "managedPaths": [
+        "AGENTS.md marker block",
+        "specs/global/assets/",
+        "specs/global/assets.generated/",
+        ".codex-workflow/install.json"
+    ],
+    "preservedProjectAssets": [
+        "specs/features/",
+        "specs/global/INDEX.md",
+        "specs/global/INDEX.generated.md"
+    ]
+}
+path = project / ".codex-workflow" / "install.json"
+path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+PY
+  echo "Install manifest written: $project_path/.codex-workflow/install.json"
 }
 
 generate_index() {
@@ -158,7 +248,8 @@ bootstrap_project() {
     append_agents_block "$agents"
     echo "Merged AGENTS.md: $agents"
   else
-    cp "$PLUGIN_SRC/AGENTS.md" "$agents"
+    : > "$agents"
+    append_agents_block "$agents"
     echo "Created AGENTS.md: $agents"
   fi
   copy_dir_safe "$PLUGIN_SRC/specs" "$project_path/specs"
@@ -169,7 +260,67 @@ bootstrap_project() {
     generate_index "$project_path" "$project_path/specs/global/INDEX.generated.md" 1
     echo "Existing INDEX.md preserved. Review INDEX.generated.md before replacing it."
   fi
+  write_install_manifest "$project_path"
   echo "Next: review the generated INDEX draft and confirm project context."
+}
+
+deactivate_project() {
+  local project_path="$1"
+  local agents="$project_path/AGENTS.md"
+  local workflow_dir="$project_path/.codex-workflow"
+  local report="$workflow_dir/deactivation-report.md"
+  mkdir -p "$workflow_dir"
+  if [[ -f "$agents" ]] && grep -q "$MARKER_BEGIN" "$agents"; then
+    AGENTS_PATH="$agents" MARKER_BEGIN="$MARKER_BEGIN" MARKER_END="$MARKER_END" python3 - <<'PY'
+import os
+from pathlib import Path
+
+path = Path(os.environ["AGENTS_PATH"])
+begin = os.environ["MARKER_BEGIN"]
+end = os.environ["MARKER_END"]
+text = path.read_text()
+start = text.find(begin)
+finish = text.find(end, start)
+if start != -1 and finish != -1:
+    finish += len(end)
+    new_text = text[:start].rstrip() + "\n" + text[finish:].lstrip()
+    path.write_text(new_text.rstrip() + "\n")
+PY
+    echo "Removed company workflow block from AGENTS.md."
+  else
+    echo "No managed company workflow marker found in AGENTS.md; left it unchanged."
+  fi
+  if [[ "$FORCE" == "1" ]]; then
+    rm -rf "$project_path/specs/global/assets" "$project_path/specs/global/assets.generated"
+    echo "Removed managed template directories."
+  else
+    echo "Project specs preserved. Use --force to remove managed template directories only."
+  fi
+  REPORT_PATH="$report" FORCE="$FORCE" python3 - <<'PY'
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+
+force = os.environ["FORCE"] == "1"
+body = f"""# Company Workflow Deactivation Report
+
+- Deactivated at: {datetime.now(timezone.utc).isoformat()}
+- AGENTS.md marker block: removed when present
+- Template directories removed: {"yes" if force else "no"}
+
+## Preserved by default
+
+- specs/features/
+- specs/global/INDEX.md
+- specs/global/INDEX.generated.md
+
+## Notes
+
+Project requirement, design, task, and verification documents are treated as project assets and are not deleted by this command.
+"""
+Path(os.environ["REPORT_PATH"]).write_text(body)
+PY
+  echo "Deactivation report written: $report"
 }
 
 update_templates() {
@@ -252,6 +403,11 @@ case "$cmd" in
     parse_options "$@"
     install_plugin
     ;;
+  uninstall-plugin)
+    shift || true
+    parse_options "$@"
+    uninstall_plugin
+    ;;
   bootstrap-project)
     shift || true
     project_path="${1:-}"
@@ -259,6 +415,14 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     bootstrap_project "$project_path"
+    ;;
+  deactivate-project)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    deactivate_project "$project_path"
     ;;
   update-templates)
     shift || true

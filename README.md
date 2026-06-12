@@ -109,6 +109,38 @@ specs/global/assets.generated/
 bash scripts/install.sh update-templates /path/to/company-project --lang zh --force
 ```
 
+## 卸载和停用
+
+卸载本机全局插件：
+
+```bash
+bash scripts/install.sh uninstall-plugin --lang zh
+```
+
+同时卸载中英文全局插件：
+
+```bash
+bash scripts/install.sh uninstall-plugin --all
+```
+
+停用某个项目里的公司工作流：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/company-project
+```
+
+默认只移除 `AGENTS.md` 里的公司 workflow marker 段落，并生成：
+
+```text
+.codex-workflow/deactivation-report.md
+```
+
+项目里的 `specs/features/`、`specs/global/INDEX.md` 和验证记录默认保留。需要同时清理模板目录时，显式执行：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/company-project --force
+```
+
 ## 常用说法
 
 ```text

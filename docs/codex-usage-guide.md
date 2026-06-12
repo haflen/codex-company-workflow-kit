@@ -133,6 +133,77 @@ PowerShell：
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates C:\path\to\project -Lang zh -Force
 ```
 
+### 卸载全局插件
+
+如果只想从本机 Codex 里移除公司 workflow 插件：
+
+macOS/Linux：
+
+```bash
+bash scripts/install.sh uninstall-plugin --lang zh
+```
+
+Windows PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 uninstall-plugin -Lang zh
+```
+
+同时卸载中英文版本：
+
+```bash
+bash scripts/install.sh uninstall-plugin --all
+```
+
+PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 uninstall-plugin -All
+```
+
+这会删除本机 marketplace 里的插件目录和插件记录，不会修改任何业务项目。
+
+### 停用项目内工作流
+
+如果某个业务项目不再使用公司 workflow：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/project
+```
+
+PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project C:\path\to\project
+```
+
+默认只移除 `AGENTS.md` 里由 kit 管理的 marker 段落，并写入：
+
+```text
+.codex-workflow/deactivation-report.md
+```
+
+以下内容默认保留，因为它们可能已经成为项目资产：
+
+- `specs/features/`
+- `specs/global/INDEX.md`
+- `specs/global/INDEX.generated.md`
+- 已产生的需求、设计、任务和验证记录
+
+如果确认要清理模板目录，再显式执行：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/project --force
+```
+
+PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project C:\path\to\project -Force
+```
+
+`--force` 只清理可识别的模板目录：`specs/global/assets/` 和 `specs/global/assets.generated/`，不会删除 `specs/features/` 或 `INDEX.md`。
+
 ## 3. 确认项目上下文
 
 打开业务项目里的：
