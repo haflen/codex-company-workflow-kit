@@ -1,0 +1,12 @@
+# macOS local metadata
+.DS_Store
+**/.DS_Store
+
+# Local scratch output not part of the company kit
+# None
+
+# Runtime/cache artifacts
+node_modules/
+.cache/
+.tmp/
+tmp/

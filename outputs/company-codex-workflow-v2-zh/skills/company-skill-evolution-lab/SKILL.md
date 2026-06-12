@@ -1,0 +1,43 @@
+---
+name: company-skill-evolution-lab
+description: Use when company workflow skills repeatedly misfire, feel too heavy or too weak, miss expert routing, or need controlled self-improvement proposals.
+---
+
+# 公司技能演进实验室
+
+## 目的
+
+把自改进纳入工作流，但不允许技能未经审查直接改写自己。
+
+## 原则
+
+自改进先产出提案。正式 skill 只有在审查、安全检查和回归用例之后才变更。
+
+## 触发
+
+- 同一 skill 以同样方式误触发三次。
+- 用户反复反馈流程太重、太轻或缺步骤。
+- 专家路由失败或选错专家。
+- 框架/API 变化导致指导过期。
+- 重复手工 workaround 应沉淀为工作流知识。
+
+## 工作流
+
+1. 用具体例子记录摩擦或失败。
+2. 判断问题来自触发文本、工作流正文、专家路由、模板形态还是缺失依赖。
+3. 如果问题是专家选择，先提议修改 `BUNDLES.md` 或 `company-expert-routing`。
+4. 起草改进提案，不直接改生产版本。
+5. 增加或更新能捕捉旧问题的回归用例。
+6. 如果提案改变权限、工具、外部技能、脚本或专家依赖，运行 `company-skill-security-review`。
+7. 建议接受、修改或拒绝。
+
+## 提案输出
+
+- 受影响 skill：
+- 失败模式：
+- 证据：
+- 建议变更：
+- 回归用例：
+- 安全影响：
+- 回滚：
+
