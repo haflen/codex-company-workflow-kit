@@ -1,20 +1,45 @@
-# Implementation Tasks
+# Task Plan
+
+## Metadata
+
+- Feature:
+- Owner:
+- Status: draft / confirmed / in progress / complete
+- Requirements:
+- Design:
 
 ## Preconditions
 
 - Requirements confirmed:
 - Design confirmed:
-- API contracts confirmed, if applicable:
+- API contract confirmed, if applicable:
+- Test strategy confirmed:
 
-## Tasks
+## Implementation Tasks
 
-| Task | Change | Verification |
+| ID | Task | Files / modules | Verification | Depends on |
+| --- | --- | --- | --- | --- |
+| T1 |  |  |  |  |
+
+## AI Execution Notes
+
+- Keep edits scoped to the task ID being executed.
+- Do not advance to the next task when verification for the current task fails.
+- Record any assumption changes as a requirement or design update.
+
+## Verification Plan
+
+| Check | Command or manual step | Expected result |
 | --- | --- | --- |
-| 1 |  |  |
+|  |  |  |
 
 ## Completion Evidence
 
-- Commands:
+- Commands run:
 - Manual checks:
+- Screenshots or logs:
 - Known residual risk:
 
+## Human Confirmation
+
+Implementation is complete only after the agreed verification evidence is recorded.

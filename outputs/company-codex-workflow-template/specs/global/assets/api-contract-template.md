@@ -1,36 +1,59 @@
 # API Contract
 
-## Endpoint or Interface
+## Metadata
 
-- Name:
+- Interface:
 - Owner:
+- Status: draft / confirmed / changed
 - Consumers:
+- Related requirement/design:
 
-## Request
+## Purpose
+
+Describe what this contract enables and which workflow depends on it.
+
+## Request or Input
 
 ```json
 {}
 ```
 
-## Response
+## Response or Output
 
 ```json
 {}
 ```
+
+## Validation Rules
+
+| Field | Rule | Error |
+| --- | --- | --- |
+|  |  |  |
 
 ## Errors
 
-| Condition | Status/Code | Response | Client Behavior |
+| Condition | Code/Status | Response | Consumer behavior |
 | --- | --- | --- | --- |
 |  |  |  |  |
 
 ## Compatibility
 
-- Backward compatibility:
-- Migration notes:
+- Backward compatible:
+- Migration needed:
+- Versioning:
 
-## Verification
+## Security and Privacy
 
-- Contract tests:
+- Auth/permission:
+- Sensitive fields:
+- Logging constraints:
+
+## Contract Verification
+
+- Provider checks:
 - Consumer checks:
+- Mock or fixture:
 
+## Human Confirmation
+
+This contract is ready when provider and consumer expectations are explicit and testable.

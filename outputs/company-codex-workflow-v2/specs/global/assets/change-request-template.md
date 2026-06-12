@@ -1,18 +1,50 @@
 # Change Request
 
-## Change
+## Metadata
+
+- Feature:
+- Requester:
+- Owner:
+- Status: proposed / accepted / rejected / deferred
+- Date:
+
+## Original Baseline
+
+- Requirement:
+- Design:
+- Task plan:
+
+## Requested Change
+
+- 
 
 ## Reason
 
-## Impact
+- User/business reason:
+- Technical reason:
+- Evidence:
 
-- Requirements:
-- Design:
-- API/data:
-- Tests:
-- Rollout:
+## Impact Analysis
+
+| Area | Impact | Required update |
+| --- | --- | --- |
+| Requirements |  |  |
+| Design |  |  |
+| API/data |  |  |
+| Tests |  |  |
+| Rollout |  |  |
+| Documentation |  |  |
 
 ## Updated Acceptance Criteria
 
-## Incremental Tasks
+- 
 
+## Decision
+
+- Accept / reject / defer:
+- Decision owner:
+- Conditions:
+
+## Follow-Up Tasks
+
+- 

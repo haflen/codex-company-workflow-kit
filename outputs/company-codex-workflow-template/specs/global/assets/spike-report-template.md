@@ -1,33 +1,47 @@
 # Spike Report
 
-## Question
+## Metadata
 
-What uncertainty was explored?
+- Question:
+- Owner:
+- Time box:
+- Status: planned / complete / abandoned
 
-## Time Box
+## Decision Needed
 
-- Started:
-- Ended:
+What decision should this spike enable?
+
+## Options Considered
+
+| Option | Evidence needed | Result |
+| --- | --- | --- |
+|  |  |  |
+
+## Experiment
+
+- Setup:
+- Files or sandbox:
+- Commands:
+- External docs checked:
 
 ## Findings
 
 - 
 
-## Prototype Notes
-
-- Files touched:
-- Throwaway code:
-- Reusable code:
-
-## Recommendation
+## Decision
 
 - Adopt:
 - Reject:
-- Continue researching:
+- Continue:
+- Reason:
 
 ## Follow-Up Debt
 
-- Tests to add:
-- Design work needed:
-- Cleanup needed:
+- Tests:
+- Cleanup:
+- Design:
+- Production hardening:
 
+## Human Confirmation
+
+Spike code is not production code unless explicitly converted through design and task planning.

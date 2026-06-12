@@ -159,13 +159,13 @@ Codex 应该做最小实验，输出结论、推荐方案和后续风险。spike
 错误示例：
 
 ```bash
-bash scripts/install.sh bootstrap-project /path/to/rinova-trade-platform --lang zh
+bash scripts/install.sh bootstrap-project /path/to/company-trade-platform --lang zh
 ```
 
 正确示例：
 
 ```bash
-bash scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+bash scripts/install.sh bootstrap-project /absolute/path/to/company-trade-platform --lang zh
 ```
 
 ### `bash: scripts/install.sh: No such file or directory` 是什么原因？
@@ -175,12 +175,12 @@ bash scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/
 推荐方式：
 
 ```bash
-cd /Users/dan/Documents/Codex/codex-company-workflow-kit
-bash scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+cd /absolute/path/to/codex-company-workflow-kit
+bash scripts/install.sh bootstrap-project /absolute/path/to/company-trade-platform --lang zh
 ```
 
 如果已经在业务项目目录，也可以用绝对路径调用脚本：
 
 ```bash
-bash /Users/dan/Documents/Codex/codex-company-workflow-kit/scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+bash /absolute/path/to/codex-company-workflow-kit/scripts/install.sh bootstrap-project /absolute/path/to/company-trade-platform --lang zh
 ```

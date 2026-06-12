@@ -12,6 +12,7 @@ PLUGIN_DST=""
 MARKER_BEGIN="<!-- codex-workflow-kit:company:start -->"
 MARKER_END="<!-- codex-workflow-kit:company:end -->"
 LEGACY_MARKER_BEGIN="<!-- company-codex-workflow-kit:start -->"
+VALIDATOR_PATH="${CODEX_PLUGIN_VALIDATOR:-$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py}"
 
 usage() {
   cat <<'USAGE'
@@ -171,7 +172,9 @@ bootstrap_project() {
 }
 
 verify() {
-  if ! python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py "$PLUGIN_SRC"; then
+  if [[ -f "$VALIDATOR_PATH" ]] && python3 "$VALIDATOR_PATH" "$PLUGIN_SRC"; then
+    :
+  else
     echo "Codex validator unavailable in this environment; running basic plugin manifest check."
     PLUGIN_SRC="$PLUGIN_SRC" python3 - <<'PY'
 import json
@@ -193,7 +196,9 @@ PY
   for plugin in \
     "$ROOT_DIR/outputs/company-codex-workflow-v2" \
     "$ROOT_DIR/outputs/company-codex-workflow-v2-zh"; do
-    python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py "$plugin" >/dev/null 2>&1 || true
+    if [[ -f "$VALIDATOR_PATH" ]]; then
+      python3 "$VALIDATOR_PATH" "$plugin" >/dev/null 2>&1 || true
+    fi
   done
   legacy_pattern="t""rae"
   if rg -n -i --hidden --glob '!.git/**' "$legacy_pattern" "$ROOT_DIR"; then

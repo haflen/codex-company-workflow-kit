@@ -18,6 +18,11 @@ $PluginSrc = Join-Path $RootDir "outputs/$PluginName"
 $MarketplaceRoot = Join-Path $HOME ".agents/plugins"
 $PluginDst = Join-Path $MarketplaceRoot "plugins/$PluginName"
 $MarketplaceFile = Join-Path $MarketplaceRoot "marketplace.json"
+$ValidatorPath = if ($env:CODEX_PLUGIN_VALIDATOR) {
+  $env:CODEX_PLUGIN_VALIDATOR
+} else {
+  Join-Path $HOME ".codex/skills/.system/plugin-creator/scripts/validate_plugin.py"
+}
 
 function Show-Usage {
   Write-Host "Usage:"
@@ -141,8 +146,12 @@ function Bootstrap-Project($Path) {
 }
 
 function Verify-Kit {
-  python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py $PluginSrc
-  if ($LASTEXITCODE -ne 0) {
+  $validated = $false
+  if (Test-Path $ValidatorPath) {
+    python3 $ValidatorPath $PluginSrc
+    $validated = ($LASTEXITCODE -eq 0)
+  }
+  if (-not $validated) {
     Write-Host "Codex validator unavailable in this environment; running basic plugin manifest check."
     $manifest = Join-Path $PluginSrc ".codex-plugin/plugin.json"
     $data = Get-Content -Raw $manifest | ConvertFrom-Json

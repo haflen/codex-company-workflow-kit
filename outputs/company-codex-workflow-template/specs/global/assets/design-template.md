@@ -1,38 +1,72 @@
 # Technical Design
 
+## Metadata
+
+- Feature:
+- Owner:
+- Status: draft / confirmed / changed
+- Last updated:
+- Requirements:
+
 ## Summary
 
-Describe the chosen approach in a few sentences.
+State the chosen approach in a few sentences.
 
-## Relevant Context
+## Context Used
 
 - Requirements:
-- Existing code paths:
-- Dependencies:
+- Existing source paths:
+- Existing patterns:
+- External docs checked:
 
-## API and Data Contracts
+## Non-Goals
 
-Reference `api-contract-template.md` when work crosses service, frontend/backend, or module boundaries.
+- 
+
+## Architecture and Data Flow
+
+Describe the components, responsibilities, and data flow. Include diagrams only when they reduce ambiguity.
+
+## API or Module Contracts
+
+Use `api-contract-template.md` for service, frontend/backend, or module boundaries.
+
+## Data and State
+
+- Data model changes:
+- State transitions:
+- Persistence/cache behavior:
 
 ## Implementation Approach
 
-- 
+1. 
 
-## Risks and Tradeoffs
+## Alternatives Considered
 
-- 
+| Option | Pros | Cons | Decision |
+| --- | --- | --- | --- |
+|  |  |  |  |
+
+## Risks and Mitigations
+
+| Risk | Impact | Mitigation | Owner |
+| --- | --- | --- | --- |
+|  |  |  |  |
 
 ## Test Strategy
 
 - Unit:
 - Integration:
 - E2E/manual:
+- Regression:
 
-## Rollback or Recovery
+## Rollout and Recovery
 
-- 
+- Rollout plan:
+- Feature flag or config:
+- Rollback:
+- Data recovery:
 
-## Confirmation
+## Human Confirmation
 
-Design is ready for implementation when contracts, risks, and verification strategy are explicit.
-
+Design is ready for task planning when contracts, risks, rollout, and verification strategy are explicit.

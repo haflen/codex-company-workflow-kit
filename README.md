@@ -61,7 +61,7 @@ bash scripts/install.sh bootstrap-project /path/to/company-project --lang zh
 `/path/to/company-project` 是占位符，需要替换成真实项目路径，例如：
 
 ```bash
-bash scripts/install.sh bootstrap-project /Users/dan/work/rinova-backend --lang zh
+bash scripts/install.sh bootstrap-project /absolute/path/to/company-trade-platform --lang zh
 ```
 
 全局插件安装 + 项目初始化一起执行：

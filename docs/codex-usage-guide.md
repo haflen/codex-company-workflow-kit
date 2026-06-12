@@ -5,7 +5,7 @@
 ## 1. 获取仓库
 
 ```bash
-git clone https://github.com/haflen/codex-company-workflow-kit.git
+git clone https://github.com/<your-org>/codex-company-workflow-kit.git
 cd codex-company-workflow-kit
 ```
 
