@@ -8,6 +8,7 @@
 - [常用唤起语](common-prompts.md)
 - [公司试点手册](pilot-playbook.md)
 - [旧项目迁移指南](legacy-project-migration.md)
+- [公司内部培训文档](internal-training-guide.md)
 
 ## 第一次放进项目
 

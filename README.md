@@ -170,6 +170,7 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 6. [公司试点手册](docs/pilot-playbook.md)
 7. [旧项目迁移指南](docs/legacy-project-migration.md)
 8. [技能升级 dry-run 工作流](docs/skill-upgrade-dry-run.md)
+9. [公司内部培训文档](docs/internal-training-guide.md)
 
 ## Git 策略
 
