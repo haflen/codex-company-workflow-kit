@@ -36,6 +36,33 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 旧项目已有 `INDEX.md` 时，项目初始化默认不会覆盖。脚本会生成 `specs/global/INDEX.generated.md`，先由项目负责人确认，再决定是否替换原索引。
 
+## 空项目或需求雏形
+
+如果项目还是空目录，或者还在需求梳理阶段，`bootstrap-project` 仍然适合先执行。它会先放入 `AGENTS.md` 和 `specs/`，让 Codex 有统一的需求沉淀位置。
+
+这种阶段不要急着进入技术设计或实现。建议先说：
+
+```text
+我现在是项目发起人，这还是一个空项目，需求只有雏形。请帮我走公司需求澄清流程，先不要写代码。
+```
+
+然后让 Codex 产出或维护：
+
+- 项目愿景和业务目标。
+- 目标用户和核心场景。
+- MVP 范围。
+- 暂不做范围。
+- 验收标准。
+- 关键风险和待确认问题。
+
+推荐把第一版需求放在：
+
+```text
+specs/features/project-kickoff/requirements.md
+```
+
+`specs/global/INDEX.md` 在空项目里会有很多“待用户确认”，这是正常的。先确认产品名、业务边界和当前阶段即可；技术栈、启动命令、测试命令可以等技术方案确定后再补。
+
 ## 做一个普通功能
 
 如果不知道入口，可以先说：
@@ -122,3 +149,38 @@ Codex 应该做最小实验，输出结论、推荐方案和后续风险。spike
 ```
 
 完整说明见 [技能升级 dry-run 工作流](skill-upgrade-dry-run.md)。
+
+## 常见安装问题
+
+### `/path/to/project` 可以直接复制吗？
+
+不可以。`/path/to/project` 是占位符，要替换成真实项目路径。
+
+错误示例：
+
+```bash
+bash scripts/install.sh bootstrap-project /path/to/rinova-trade-platform --lang zh
+```
+
+正确示例：
+
+```bash
+bash scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+```
+
+### `bash: scripts/install.sh: No such file or directory` 是什么原因？
+
+说明你当前目录不是 workflow kit 仓库。`scripts/install.sh` 在 `codex-company-workflow-kit` 里，不在业务项目里。
+
+推荐方式：
+
+```bash
+cd /Users/dan/Documents/Codex/codex-company-workflow-kit
+bash scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+```
+
+如果已经在业务项目目录，也可以用绝对路径调用脚本：
+
+```bash
+bash /Users/dan/Documents/Codex/codex-company-workflow-kit/scripts/install.sh bootstrap-project /Users/dan/Desktop/Rinova/dev_project/rinova-trade-platform --lang zh
+```

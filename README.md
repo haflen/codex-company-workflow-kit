@@ -104,6 +104,7 @@ bash scripts/install.sh generate-index /path/to/company-project --lang zh
 /spike <技术问题>
 请帮我把这个旧项目接入公司 Codex 工作流
 请生成并检查这个项目的 INDEX.md 草稿
+我现在是项目发起人，这还是一个空项目，需求只有雏形。请帮我走公司需求澄清流程，先不要写代码。
 检查专家技能更新
 对比并升级 java-pro，先不要覆盖
 确认覆盖 java-pro

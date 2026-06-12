@@ -30,6 +30,20 @@ Superpowers 结合方式见 [Superpowers Integration](superpowers-integration.md
 请对比 specs/global/INDEX.md 和 specs/global/INDEX.generated.md，告诉我哪些字段需要确认
 ```
 
+## 空项目启动
+
+```text
+我现在是项目发起人，这还是一个空项目，需求只有雏形。请帮我走公司需求澄清流程，先不要写代码。
+```
+
+```text
+请帮我把这个项目雏形整理成 MVP 范围、暂不做范围、验收标准和待确认问题。
+```
+
+```text
+请基于当前讨论创建 specs/features/project-kickoff/requirements.md 的第一版草稿。
+```
+
 ## 新功能
 
 ```text
