@@ -30,6 +30,12 @@ outputs/company-codex-workflow-v2/
 outputs/company-codex-workflow-template-zh/
 ```
 
+轻量模板英文版：
+
+```text
+outputs/company-codex-workflow-template/
+```
+
 关键文件：
 
 - `AGENTS.md`：公司项目硬约束和常用唤起语。
