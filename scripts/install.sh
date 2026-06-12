@@ -19,6 +19,7 @@ usage() {
 Usage:
   bash scripts/install.sh install-plugin [--lang zh|en] [--force]
   bash scripts/install.sh bootstrap-project <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh update-templates <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh generate-index <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh all <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh verify [--lang zh|en]
@@ -171,6 +172,31 @@ bootstrap_project() {
   echo "Next: review the generated INDEX draft and confirm project context."
 }
 
+update_templates() {
+  local project_path="$1"
+  local src="$PLUGIN_SRC/specs/global/assets"
+  local dst="$project_path/specs/global/assets"
+  local review_dst="$project_path/specs/global/assets.generated"
+  if [[ ! -d "$src" ]]; then
+    echo "Template source not found: $src" >&2
+    exit 1
+  fi
+  mkdir -p "$project_path/specs/global"
+  if [[ -e "$dst" && "$FORCE" != "1" ]]; then
+    rm -rf "$review_dst"
+    cp -R "$src" "$review_dst"
+    find "$review_dst" -name ".DS_Store" -delete
+    echo "Existing templates preserved: $dst"
+    echo "Generated updated templates for review: $review_dst"
+    echo "Next: compare assets and assets.generated, then rerun with --force if you approve replacement."
+  else
+    rm -rf "$dst"
+    cp -R "$src" "$dst"
+    find "$dst" -name ".DS_Store" -delete
+    echo "Updated project templates: $dst"
+  fi
+}
+
 verify() {
   if [[ -f "$VALIDATOR_PATH" ]] && python3 "$VALIDATOR_PATH" "$PLUGIN_SRC"; then
     :
@@ -233,6 +259,14 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     bootstrap_project "$project_path"
+    ;;
+  update-templates)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    update_templates "$project_path"
     ;;
   generate-index)
     shift || true

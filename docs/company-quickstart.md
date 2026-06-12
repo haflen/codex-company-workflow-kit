@@ -150,6 +150,32 @@ Codex 应该做最小实验，输出结论、推荐方案和后续风险。spike
 
 完整说明见 [技能升级 dry-run 工作流](skill-upgrade-dry-run.md)。
 
+## 已初始化项目如何更新模板
+
+当仓库里的工作流模板升级后，已初始化过的业务项目不需要重新执行完整初始化。推荐只更新模板：
+
+```bash
+bash scripts/install.sh update-templates /path/to/company-project --lang zh
+```
+
+默认不会覆盖项目现有模板，而是生成：
+
+```text
+specs/global/assets.generated/
+```
+
+然后在业务项目里让 Codex 对比：
+
+```text
+请对比 specs/global/assets 和 specs/global/assets.generated，说明模板变化，并建议是否覆盖。
+```
+
+确认后再执行：
+
+```bash
+bash scripts/install.sh update-templates /path/to/company-project --lang zh --force
+```
+
 ## 常见安装问题
 
 ### `/path/to/project` 可以直接复制吗？

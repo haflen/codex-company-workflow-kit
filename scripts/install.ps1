@@ -28,6 +28,7 @@ function Show-Usage {
   Write-Host "Usage:"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 bootstrap-project <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 verify [-Lang zh|en]"
@@ -145,6 +146,37 @@ function Bootstrap-Project($Path) {
   Write-Host "Next: review the generated INDEX draft and confirm project context."
 }
 
+function Update-Templates($Path) {
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    Show-Usage
+    exit 1
+  }
+  $source = Join-Path $PluginSrc "specs/global/assets"
+  $destination = Join-Path $Path "specs/global/assets"
+  $reviewDestination = Join-Path $Path "specs/global/assets.generated"
+  if (-not (Test-Path $source)) {
+    throw "Template source not found: $source"
+  }
+  New-Item -ItemType Directory -Force -Path (Join-Path $Path "specs/global") | Out-Null
+  if ((Test-Path $destination) -and (-not $Force)) {
+    if (Test-Path $reviewDestination) {
+      Remove-Item -Recurse -Force $reviewDestination
+    }
+    Copy-Item -Recurse -Force $source $reviewDestination
+    Get-ChildItem -Path $reviewDestination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
+    Write-Host "Existing templates preserved: $destination"
+    Write-Host "Generated updated templates for review: $reviewDestination"
+    Write-Host "Next: compare assets and assets.generated, then rerun with -Force if you approve replacement."
+  } else {
+    if (Test-Path $destination) {
+      Remove-Item -Recurse -Force $destination
+    }
+    Copy-Item -Recurse -Force $source $destination
+    Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
+    Write-Host "Updated project templates: $destination"
+  }
+}
+
 function Verify-Kit {
   $validated = $false
   if (Test-Path $ValidatorPath) {
@@ -182,6 +214,7 @@ function Verify-Kit {
 switch ($Command) {
   "install-plugin" { Install-Plugin }
   "bootstrap-project" { Bootstrap-Project $ProjectPath }
+  "update-templates" { Update-Templates $ProjectPath }
   "generate-index" { Generate-Index $ProjectPath (Join-Path $ProjectPath "specs/global/INDEX.md") $Force }
   "all" {
     Install-Plugin

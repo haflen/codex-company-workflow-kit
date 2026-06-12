@@ -91,6 +91,48 @@ Windows PowerShell：
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index C:\path\to\project -Lang zh
 ```
 
+### 只更新已初始化项目里的模板
+
+当公司 workflow kit 升级了 `specs/global/assets/` 里的模板，而业务项目已经初始化过时，不建议重新执行 `bootstrap-project --force`，因为那会替换整个 `specs/` 目录，可能影响项目里已有的需求、设计和任务文档。
+
+推荐使用专门的模板更新命令。
+
+macOS/Linux：
+
+```bash
+bash scripts/install.sh update-templates /path/to/project --lang zh
+```
+
+Windows PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates C:\path\to\project -Lang zh
+```
+
+默认安全模式不会覆盖现有模板，而是生成：
+
+```text
+specs/global/assets.generated/
+```
+
+你可以让 Codex 对比：
+
+```text
+请对比 specs/global/assets 和 specs/global/assets.generated，说明模板有哪些变化，以及是否建议覆盖。
+```
+
+确认无问题后再覆盖：
+
+```bash
+bash scripts/install.sh update-templates /path/to/project --lang zh --force
+```
+
+PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates C:\path\to\project -Lang zh -Force
+```
+
 ## 3. 确认项目上下文
 
 打开业务项目里的：

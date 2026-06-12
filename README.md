@@ -91,6 +91,24 @@ bash scripts/install.sh all /path/to/company-project --lang zh
 bash scripts/install.sh generate-index /path/to/company-project --lang zh
 ```
 
+只更新已初始化项目里的工作流模板：
+
+```bash
+bash scripts/install.sh update-templates /path/to/company-project --lang zh
+```
+
+默认不覆盖现有模板，而是生成：
+
+```text
+specs/global/assets.generated/
+```
+
+确认新旧模板差异后，再显式覆盖：
+
+```bash
+bash scripts/install.sh update-templates /path/to/company-project --lang zh --force
+```
+
 ## 常用说法
 
 ```text
