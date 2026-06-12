@@ -1,14 +1,13 @@
 # Company Quickstart
 
-这份文档面向公司项目用户。用户不需要理解所有 skill，只需要知道在什么场景说什么。
+这份文档面向公司项目用户，也是内部培训的主入口。用户不需要记住所有 skill 名称，只需要知道在什么场景说什么。
 
 如果你是第一次使用，建议先看：
 
 - [Codex 使用完整说明](codex-usage-guide.md)
-- [常用唤起语](common-prompts.md)
 - [公司试点手册](pilot-playbook.md)
-- [旧项目迁移指南](legacy-project-migration.md)
-- [公司内部培训文档](internal-training-guide.md)
+- [技能树清单](skill-tree.md)
+- [技能升级 dry-run 工作流](skill-upgrade-dry-run.md)
 
 ## 第一次放进项目
 
@@ -25,6 +24,14 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 ```
 
 英文版本使用 `--lang en` 或 `-Lang en`。
+
+如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
+
+```bash
+npx codex-company-workflow all /path/to/project --lang zh
+```
+
+这个 npm 命令只是包装层，实际执行的还是仓库里的 `scripts/install.sh` 和 `scripts/install.ps1`。
 
 手工方式：
 
@@ -64,120 +71,124 @@ specs/features/project-kickoff/requirements.md
 
 `specs/global/INDEX.md` 在空项目里会有很多“待用户确认”，这是正常的。先确认产品名、业务边界和当前阶段即可；技术栈、启动命令、测试命令可以等技术方案确定后再补。
 
-## 做一个普通功能
+## 旧项目接入
 
-如果不知道入口，可以先说：
+旧项目不要一上来强制套完整流程。推荐先把工作流作为旁路治理层接入，跑通后再逐步收敛到标准 SDLC。
+
+推荐节奏：
+
+```text
+安装工作流
+-> 自动生成 INDEX.md 草稿
+-> 用户/项目负责人确认上下文
+-> 选择一个小功能或 bugfix 试点
+-> 复盘流程负担和产物质量
+-> 再决定是否扩大到团队默认流程
+```
+
+推荐先说：
+
+```text
+请帮我把这个旧项目接入公司 Codex 工作流
+```
+
+Codex 应先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。旧项目已有规则优先保留，公司 workflow 只追加约束段落。
+
+## 常用说法
 
 ```text
 我现在该走哪个流程？背景是：<当前情况>
 ```
 
-用户可以这样说：
+```text
+帮我判断这个任务应该走需求、设计、实现、bugfix、hotfix 还是 spike：<任务描述>
+```
 
 ```text
 帮我梳理这个功能需求：<功能描述>
 ```
 
-Codex 应该输出目标、范围、验收标准、边界条件。确认后继续：
-
 ```text
-需求已确认，进入技术设计
+请结合 Superpowers brainstorming 帮我梳理这个方案：<背景>
 ```
 
-设计确认后：
-
 ```text
-方案已确认，进入任务拆解
+请用 Superpowers systematic-debugging 排查这个问题：<问题描述>
 ```
 
-任务确认后：
-
 ```text
-任务已确认，开始实现
+请帮我把这个旧项目接入公司 Codex 工作流
 ```
 
-## 修 bug
+```text
+请生成并检查这个项目的 INDEX.md 草稿
+```
+
+```text
+我现在是项目发起人，这还是一个空项目，需求只有雏形。请帮我走公司需求澄清流程，先不要写代码。
+```
 
 ```text
 开始 bugfix：<现象、复现步骤、期望行为>
 ```
 
-Codex 应该先判断这是 bug 还是需求变更，再复现或收集证据，然后做最小修复和回归验证。
-
-## 线上 hotfix
-
 ```text
 /hotfix <事故描述>
 ```
-
-Codex 应该优先止血，记录原因、修复、验证和后续补偿任务。hotfix 不应该顺手加入新功能。
-
-## 技术 spike
 
 ```text
 /spike <需要验证的技术问题>
 ```
 
-Codex 应该做最小实验，输出结论、推荐方案和后续风险。spike 代码默认不是生产代码。
+## 连接 Superpowers
 
-## 专家技能自动路由
+公司 workflow 不要求用户手动输入 `Superpowers` skill 名称。更自然的方式是直接说业务目标，让工作流在节点里自动结合对应能力。
 
-用户不需要说“请调用 frontend-developer”。工作流会根据任务自动选择 `BUNDLES.md` 里的组合。
-
-示例：
-
-- 前端交互：自动偏向 `company-frontend-delivery`。
-- Java 后端：自动偏向 `company-backend-java`。
-- AI/RAG：自动偏向 `company-ai-feature`。
-- 紧急缺陷：自动偏向 `company-hotfix`。
-- 技能更新：自动偏向 `company-skill-governance`。
-
-用户仍然可以显式点名专家；显式请求优先，但不能绕过安全和验证要求。
-
-## 技能更新
-
-默认先 dry-run：
+用户通常只需要这样说：
 
 ```text
-检查专家技能更新
-对比并升级 java-pro，先不要覆盖
+帮我梳理这个功能需求：...
+开始 bugfix：...
+任务已确认，开始实现
 ```
 
-确认报告后再说：
+如果需要显式强调，也可以说：
 
 ```text
-确认覆盖 java-pro
+请结合 Superpowers brainstorming 帮我澄清这个方案
+请用 Superpowers systematic-debugging 排查这个问题
+请用 Superpowers test-driven-development 实现这个任务
 ```
 
-完整说明见 [技能升级 dry-run 工作流](skill-upgrade-dry-run.md)。
+如果当前 Codex 环境支持 `$superpowers:<skill>` 形式，也可以用：
 
-## 已初始化项目如何更新模板
+```text
+$superpowers:brainstorming
+$superpowers:systematic-debugging
+$superpowers:test-driven-development
+```
 
-当仓库里的工作流模板升级后，已初始化过的业务项目不需要重新执行完整初始化。推荐只更新模板：
+## 更新、停用和卸载
+
+更新已初始化项目里的模板：
 
 ```bash
-bash scripts/install.sh update-templates /path/to/company-project --lang zh
+bash scripts/install.sh update-templates /path/to/project --lang zh
 ```
 
-默认不会覆盖项目现有模板，而是生成：
-
-```text
-specs/global/assets.generated/
-```
-
-然后在业务项目里让 Codex 对比：
-
-```text
-请对比 specs/global/assets 和 specs/global/assets.generated，说明模板变化，并建议是否覆盖。
-```
-
-确认后再执行：
+默认只生成 `specs/global/assets.generated/` 供对比。确认后再覆盖：
 
 ```bash
-bash scripts/install.sh update-templates /path/to/company-project --lang zh --force
+bash scripts/install.sh update-templates /path/to/project --lang zh --force
 ```
 
-## 如何卸载或停用
+停用项目内 workflow：
+
+```bash
+bash scripts/install.sh deactivate-project /path/to/project
+```
+
+默认保留项目资产，只移除 `AGENTS.md` 里的 workflow marker 段落。
 
 卸载本机全局插件：
 
@@ -185,23 +196,25 @@ bash scripts/install.sh update-templates /path/to/company-project --lang zh --fo
 bash scripts/install.sh uninstall-plugin --lang zh
 ```
 
-同时卸载中英文全局插件：
+同时卸载中英文插件：
 
 ```bash
 bash scripts/install.sh uninstall-plugin --all
 ```
 
-停用某个业务项目里的公司 workflow：
+## 培训时怎么讲
 
-```bash
-bash scripts/install.sh deactivate-project /path/to/company-project
-```
+第一次内部培训可以直接按这个顺序讲：
 
-默认只移除 `AGENTS.md` 里的公司 workflow marker 段落，并保留 `specs/features/`、`specs/global/INDEX.md` 和已有需求设计文档。确认要清理模板目录时再执行：
+1. 为什么需要这套 workflow。
+2. 怎么安装到 Codex。
+3. 空项目怎么从需求雏形开始。
+4. 旧项目怎么接入。
+5. 一个 feature、一个 bugfix、一个 spike 分别怎么走。
+6. 怎么和 Superpowers 配合。
+7. 模板更新、停用和卸载怎么做。
 
-```bash
-bash scripts/install.sh deactivate-project /path/to/company-project --force
-```
+如果要给新人一页纸说明，直接复用本文件，不再单独维护另一份培训文档。
 
 ## 常见安装问题
 

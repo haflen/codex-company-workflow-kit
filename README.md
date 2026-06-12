@@ -72,6 +72,14 @@ bash scripts/install.sh all /path/to/company-project --lang zh
 
 英文版本使用 `--lang en`。
 
+npm 一键入口：
+
+```bash
+npx codex-company-workflow all /path/to/company-project --lang zh
+```
+
+本地开发时也可以先执行 `npm link`，再直接用 `codex-company-workflow ...`。
+
 默认不覆盖已有文件。需要覆盖时显式加 `--force`。
 
 ## 项目初始化会做什么
@@ -164,13 +172,9 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 
 1. [公司用户快速上手](docs/company-quickstart.md)
 2. [Codex 使用完整说明](docs/codex-usage-guide.md)
-3. [常用唤起语](docs/common-prompts.md)
-4. [技能树清单](docs/skill-tree.md)
-5. [Superpowers 结合方式](docs/superpowers-integration.md)
-6. [公司试点手册](docs/pilot-playbook.md)
-7. [旧项目迁移指南](docs/legacy-project-migration.md)
-8. [技能升级 dry-run 工作流](docs/skill-upgrade-dry-run.md)
-9. [公司内部培训文档](docs/internal-training-guide.md)
+3. [技能树清单](docs/skill-tree.md)
+4. [公司试点手册](docs/pilot-playbook.md)
+5. [技能升级 dry-run 工作流](docs/skill-upgrade-dry-run.md)
 
 ## Git 策略
 

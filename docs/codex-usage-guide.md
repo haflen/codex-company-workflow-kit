@@ -75,6 +75,12 @@ Windows PowerShell：
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\project -Lang zh
 ```
 
+npm 一键入口：
+
+```bash
+npx codex-company-workflow all /path/to/project --lang zh
+```
+
 默认不会覆盖已有文件。需要覆盖时显式加 `--force`。英文版本使用 `--lang en` 或 `-Lang en`。
 
 ### 只生成或刷新项目上下文索引
@@ -274,13 +280,13 @@ Codex 应进入 `company-legacy-project-onboarding`，先检查已有 `AGENTS.md
 
 不建议旧项目一开始就要求所有历史需求补齐 specs。更稳的做法是：从接入后的第一个新功能或第一个 bugfix 开始沉淀需求、设计、任务和验证证据。
 
-完整说明见 [旧项目迁移指南](legacy-project-migration.md)。
+完整说明见 [公司用户快速上手](company-quickstart.md)。
 
 ## 6. 在 Codex 里使用
 
 当前可用技能树见 [Skill Tree](skill-tree.md)。公司用户通常不需要记 skill 名称，先用入口帮助即可。
 
-公司 workflow 会在合适节点复用 Superpowers 和 Codex 内置能力。完整说明见 [Superpowers Integration](superpowers-integration.md)。
+公司 workflow 会在合适节点复用 Superpowers 和 Codex 内置能力。完整说明见 [公司用户快速上手](company-quickstart.md)。
 
 如果不知道入口，说：
 

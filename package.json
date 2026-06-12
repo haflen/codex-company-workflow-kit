@@ -1,0 +1,23 @@
+{
+  "name": "codex-company-workflow",
+  "version": "0.1.0",
+  "description": "Codex company workflow kit with a thin npm CLI wrapper.",
+  "license": "UNLICENSED",
+  "bin": {
+    "codex-company-workflow": "bin/codex-company-workflow.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "docs/company-quickstart.md",
+    "docs/codex-usage-guide.md",
+    "docs/pilot-playbook.md",
+    "docs/skill-tree.md",
+    "docs/skill-upgrade-dry-run.md",
+    "outputs/",
+    "README.md"
+  ],
+  "scripts": {
+    "verify": "node --check bin/codex-company-workflow.js && bash -n scripts/install.sh"
+  }
+}
