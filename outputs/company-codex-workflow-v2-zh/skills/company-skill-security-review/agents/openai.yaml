@@ -1,4 +1,4 @@
 interface:
-  display_name: "公司技能安全审查"
+  display_name: "/company-skill-security"
   short_description: "审查外部或自进化技能风险"
   default_prompt: "Use $company-skill-security-review to review an external or changed skill for safety risks."

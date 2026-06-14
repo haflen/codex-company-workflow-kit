@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Skill Maintenance"
-  short_description: "Maintain expert pins sources and rollback notes"
+  display_name: "/company-skill-maintenance"
+  short_description: "Maintain expert versions sources and rollback notes"
   default_prompt: "Use $company-skill-maintenance to update the expert dependency lock and bundle impact notes."

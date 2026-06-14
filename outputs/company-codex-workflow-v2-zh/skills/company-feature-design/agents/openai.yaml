@@ -1,4 +1,4 @@
 interface:
-  display_name: "公司技术设计"
+  display_name: "/company-design"
   short_description: "产出技术方案接口数据流和风险"
   default_prompt: "Use $company-feature-design to create the technical design for confirmed requirements."

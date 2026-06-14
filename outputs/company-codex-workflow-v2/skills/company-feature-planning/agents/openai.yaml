@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Task Planning"
+  display_name: "/company-planning"
   short_description: "Break confirmed design into executable tasks"
   default_prompt: "Use $company-feature-planning to turn the confirmed design into implementation tasks."

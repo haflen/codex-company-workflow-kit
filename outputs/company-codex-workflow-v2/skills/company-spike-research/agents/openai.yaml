@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Spike Research"
-  short_description: "Run bounded feasibility experiments"
+  display_name: "/company-spike"
+  short_description: "Run a bounded feasibility experiment"
   default_prompt: "Use $company-spike-research to run a bounded feasibility spike."

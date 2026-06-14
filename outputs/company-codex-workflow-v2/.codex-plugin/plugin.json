@@ -1,20 +1,24 @@
 {
   "name": "company-codex-workflow-v2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Company Codex workflow starter kit with centralized expert routing, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
   "author": {
-    "name": "Local developer"
+    "name": "haflen",
+    "url": "https://github.com/haflen"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Company Codex Workflow V2",
     "shortDescription": "Governed company workflow skills.",
     "longDescription": "Company Codex Workflow V2 provides lightweight SDLC skills, centralized expert routing, expert dependency maintenance, security review, user-confirmed skill upgrades, and controlled skill evolution.",
-    "developerName": "Local developer",
+    "developerName": "haflen",
     "category": "Productivity",
     "capabilities": [
       "skills"
     ],
-    "defaultPrompt": "Help me run company work with traceable requirements, design, implementation, verification, expert routing, and controlled skill maintenance."
-  }
+    "defaultPrompt": "Help me run company work with traceable requirements, design, implementation, verification, expert routing, and controlled skill maintenance.",
+    "websiteURL": "https://github.com/haflen"
+  },
+  "homepage": "https://github.com/haflen",
+  "repository": "https://github.com/haflen/codex-company-workflow-kit"
 }

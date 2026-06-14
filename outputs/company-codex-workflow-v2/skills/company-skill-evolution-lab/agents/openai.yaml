@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Skill Evolution Lab"
-  short_description: "Propose controlled workflow improvements"
+  display_name: "/company-skill-evolution"
+  short_description: "Propose controlled improvements from repeated issues"
   default_prompt: "Use $company-skill-evolution-lab to propose controlled workflow skill improvements from repeated issues."

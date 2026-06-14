@@ -1,4 +1,4 @@
 interface:
-  display_name: "公司工作流入口"
+  display_name: "/company-workflow-help"
   short_description: "判断当前应该进入哪条公司工作流"
   default_prompt: "Use $company-workflow-help to choose the right company workflow for my current task."

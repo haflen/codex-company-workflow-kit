@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Requirements"
-  short_description: "Clarify scope acceptance criteria and risks"
+  display_name: "/company-requirements"
+  short_description: "Clarify goals scope acceptance criteria and risks"
   default_prompt: "Use $company-feature-requirements to clarify this feature before design or implementation."

@@ -1,4 +1,4 @@
 interface:
-  display_name: "公司任务拆解"
+  display_name: "/company-planning"
   short_description: "把已确认方案拆成可执行任务"
   default_prompt: "Use $company-feature-planning to turn the confirmed design into implementation tasks."

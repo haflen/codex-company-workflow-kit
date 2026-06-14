@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Context Index"
-  short_description: "Build or refresh project context index"
+  display_name: "/company-context-index"
+  short_description: "Create or refresh the project context index"
   default_prompt: "Use $company-context-index to inspect this project and refresh its context index."

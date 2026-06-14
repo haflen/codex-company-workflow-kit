@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Implementation"
+  display_name: "/company-implement"
   short_description: "Implement confirmed tasks with verification"
   default_prompt: "Use $company-implementation-runner to implement confirmed tasks with verification."

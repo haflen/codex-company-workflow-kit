@@ -1,4 +1,4 @@
 interface:
-  display_name: "公司 Bugfix"
+  display_name: "/company-bugfix"
   short_description: "复现定位修复并回归验证问题"
   default_prompt: "Use $company-bugfix-runner to diagnose and fix this bug with regression evidence."

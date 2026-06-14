@@ -1,4 +1,4 @@
 interface:
-  display_name: "Company Skill Upgrade"
-  short_description: "Review compare approve and apply skill updates"
+  display_name: "/company-skill-upgrade"
+  short_description: "Run skill update diff review and approval"
   default_prompt: "Use $company-skill-upgrade-runner to review and upgrade workflow or expert skills safely."
