@@ -7,7 +7,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## Purpose / 目的
 
-Help company users enter the right workflow without knowing skill names.
+Help company users enter the right workflow without knowing skill names. The `/hotfix` and `/spike` strings below are suggested prompt phrases, not real Codex slash commands.
 
 帮助公司用户在不知道 skill 名称的情况下，判断当前应该进入哪条工作流。
 
@@ -24,8 +24,8 @@ Use the user's current goal, project state, and available artifacts:
 | Design is confirmed / 技术方案已确认 | `company-feature-planning` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | `company-implementation-runner` | `任务已确认，开始实现` |
 | Existing behavior is wrong / 现有行为不符合预期 | `company-bugfix-runner` | `开始 bugfix：...` |
-| Urgent production issue / 紧急线上问题 | `company-bugfix-runner` with hotfix path | `/hotfix ...` |
-| Need feasibility research / 需要技术可行性验证 | `company-spike-research` | `/spike ...` |
+| Urgent production issue / 紧急线上问题 | `company-bugfix-runner` with hotfix path | `start hotfix: ...` |
+| Need feasibility research / 需要技术可行性验证 | `company-spike-research` | `start spike: ...` |
 | Need expert skill update / 需要更新专家技能 | `company-skill-upgrade-runner` | `检查专家技能更新` |
 | Need expert routing explanation / 想知道需要哪些专家组合 | `company-expert-routing` | `这个任务需要哪些专家组合？` |
 | Existing project needs adoption or context draft / 旧项目需要接入或生成上下文草稿 | `company-legacy-project-onboarding` | `请帮我把这个旧项目接入公司 Codex 工作流` |

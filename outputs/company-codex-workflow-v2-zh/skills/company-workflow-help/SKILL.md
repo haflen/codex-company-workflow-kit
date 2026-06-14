@@ -7,7 +7,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 目的
 
-帮助公司用户在不知道 skill 名称的情况下，判断当前应该进入哪条工作流。
+帮助公司用户在不知道 skill 名称的情况下，判断当前应该进入哪条工作流。这里的 `/hotfix`、`/spike` 只是推荐说法，不是 Codex UI 里注册出来的真实 slash 命令。
 
 ## 路由判断
 
@@ -20,8 +20,8 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 技术方案已确认 | `company-feature-planning` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | `company-implementation-runner` | `任务已确认，开始实现` |
 | 现有行为不符合预期 | `company-bugfix-runner` | `开始 bugfix：...` |
-| 紧急线上问题 | `company-bugfix-runner` hotfix 路径 | `/hotfix ...` |
-| 需要技术可行性验证 | `company-spike-research` | `/spike ...` |
+| 紧急线上问题 | `company-bugfix-runner` hotfix 路径 | `热修复：...` 或 `开始 hotfix：...` |
+| 需要技术可行性验证 | `company-spike-research` | `快速验证：...` 或 `开始 spike：...` |
 | 需要更新专家技能 | `company-skill-upgrade-runner` | `检查专家技能更新` |
 | 想知道需要哪些专家组合 | `company-expert-routing` | `这个任务需要哪些专家组合？` |
 | 旧项目需要接入或生成上下文草稿 | `company-legacy-project-onboarding` | `请帮我把这个旧项目接入公司 Codex 工作流` |

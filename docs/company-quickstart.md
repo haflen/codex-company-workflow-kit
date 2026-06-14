@@ -25,6 +25,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 英文版本使用 `--lang en` 或 `-Lang en`。
 
+注意：本仓库里写的 `/hotfix`、`/spike` 只是推荐输入法，不是 Codex UI 里自动注册的 slash 命令；在 Codex 里直接输入这些句子即可触发路由。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash
