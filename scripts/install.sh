@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MARKETPLACE_ROOT="${HOME}/.agents/plugins"
 MARKETPLACE_FILE="$MARKETPLACE_ROOT/marketplace.json"
+PLUGIN_INSTALL_ROOT="${HOME}/plugins"
 FORCE=0
 ALL_LANGS=0
 LANG_CODE="zh"
@@ -62,7 +63,7 @@ parse_options() {
       ;;
   esac
   PLUGIN_SRC="$ROOT_DIR/outputs/$PLUGIN_NAME"
-  PLUGIN_DST="$MARKETPLACE_ROOT/plugins/$PLUGIN_NAME"
+  PLUGIN_DST="$PLUGIN_INSTALL_ROOT/$PLUGIN_NAME"
 }
 
 plugin_name_for_lang() {
@@ -89,11 +90,23 @@ copy_dir_safe() {
   find "$dst" -name ".DS_Store" -delete
 }
 
+ensure_root_plugin_json() {
+  local plugin_root="$1"
+  local manifest="$plugin_root/.codex-plugin/plugin.json"
+  local root_manifest="$plugin_root/plugin.json"
+  if [[ ! -f "$manifest" ]]; then
+    echo "Plugin manifest not found: $manifest" >&2
+    exit 1
+  fi
+  cp "$manifest" "$root_manifest"
+}
+
 install_plugin() {
   if [[ ! -d "$PLUGIN_SRC/.codex-plugin" ]]; then
     echo "Plugin source not found: $PLUGIN_SRC" >&2
     exit 1
   fi
+  ensure_root_plugin_json "$PLUGIN_SRC"
   if [[ -e "$PLUGIN_DST" && "$FORCE" != "1" ]]; then
     echo "Plugin already installed: $PLUGIN_DST"
     echo "Use --force to replace it."
@@ -101,7 +114,10 @@ install_plugin() {
     copy_dir_safe "$PLUGIN_SRC" "$PLUGIN_DST"
     echo "Installed plugin: $PLUGIN_DST"
   fi
-  mkdir -p "$MARKETPLACE_ROOT/plugins"
+  if [[ -d "$PLUGIN_DST" ]]; then
+    ensure_root_plugin_json "$PLUGIN_DST"
+  fi
+  mkdir -p "$MARKETPLACE_ROOT" "$PLUGIN_INSTALL_ROOT"
   MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$PLUGIN_NAME" python3 - <<'PY'
 import json
 import os
@@ -136,12 +152,17 @@ PY
 
 uninstall_plugin_name() {
   local name="$1"
-  local dst="$MARKETPLACE_ROOT/plugins/$name"
+  local dst="$PLUGIN_INSTALL_ROOT/$name"
   if [[ -d "$dst" ]]; then
     rm -rf "$dst"
     echo "Removed plugin directory: $dst"
   else
     echo "Plugin directory not found: $dst"
+  fi
+  local legacy_dst="$MARKETPLACE_ROOT/plugins/$name"
+  if [[ -d "$legacy_dst" ]]; then
+    rm -rf "$legacy_dst"
+    echo "Removed legacy plugin directory: $legacy_dst"
   fi
   MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$name" python3 - <<'PY'
 import json
@@ -349,6 +370,7 @@ update_templates() {
 }
 
 verify() {
+  ensure_root_plugin_json "$PLUGIN_SRC"
   if [[ -f "$VALIDATOR_PATH" ]] && python3 "$VALIDATOR_PATH" "$PLUGIN_SRC"; then
     :
   else

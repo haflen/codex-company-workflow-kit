@@ -1,0 +1,20 @@
+{
+  "name": "company-codex-workflow-v2-zh",
+  "version": "0.2.0",
+  "description": "公司 Codex 工作流 starter kit，提供专家路由、依赖治理、用户确认式技能升级和受控自进化。",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "公司 Codex 工作流 V2 中文版",
+    "shortDescription": "公司治理型工作流 skills 中文版。",
+    "longDescription": "公司 Codex 工作流 V2 中文版提供轻量 SDLC、专家路由、专家依赖维护、安全审查、用户确认式技能升级和受控自进化。",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [
+      "skills"
+    ],
+    "defaultPrompt": "请使用公司工作流推进需求、设计、实现、验证、专家路由和受控技能维护。"
+  }
+}

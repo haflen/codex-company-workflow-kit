@@ -35,6 +35,8 @@ macOS/Linux：
 bash scripts/install.sh install-plugin --lang zh
 ```
 
+安装脚本会把插件源码放到 `~/plugins/<plugin-name>`，并把 marketplace 索引写入 `~/.agents/plugins/marketplace.json`。如果插件菜单能看到卡片但点击添加失败，优先检查插件是否误放到了 `~/.agents/plugins/plugins/<plugin-name>`。
+
 Windows PowerShell：
 
 ```powershell

@@ -53,6 +53,8 @@ outputs/company-codex-workflow-template/
 bash scripts/install.sh install-plugin --lang zh
 ```
 
+全局安装会把插件源码复制到 `~/plugins/<plugin-name>`，并把索引写入 `~/.agents/plugins/marketplace.json`。这是 Codex personal marketplace 的路径约定；不要手工改成 `~/.agents/plugins/plugins/<plugin-name>`。
+
 初始化真实公司项目：
 
 ```bash

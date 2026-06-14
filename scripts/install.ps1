@@ -17,7 +17,8 @@ $LegacyMarkerBegin = "<!-- company-codex-workflow-kit:start -->"
 $RootDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $PluginSrc = Join-Path $RootDir "outputs/$PluginName"
 $MarketplaceRoot = Join-Path $HOME ".agents/plugins"
-$PluginDst = Join-Path $MarketplaceRoot "plugins/$PluginName"
+$PluginInstallRoot = Join-Path $HOME "plugins"
+$PluginDst = Join-Path $PluginInstallRoot $PluginName
 $MarketplaceFile = Join-Path $MarketplaceRoot "marketplace.json"
 $ValidatorPath = if ($env:CODEX_PLUGIN_VALIDATOR) {
   $env:CODEX_PLUGIN_VALIDATOR
@@ -60,10 +61,20 @@ function Copy-DirSafe($Source, $Destination) {
   Get-ChildItem -Path $Destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
 }
 
+function Ensure-RootPluginJson($PluginRoot) {
+  $manifest = Join-Path $PluginRoot ".codex-plugin/plugin.json"
+  $rootManifest = Join-Path $PluginRoot "plugin.json"
+  if (-not (Test-Path $manifest)) {
+    throw "Plugin manifest not found: $manifest"
+  }
+  Copy-Item -Force $manifest $rootManifest
+}
+
 function Install-Plugin {
   if (-not (Test-Path (Join-Path $PluginSrc ".codex-plugin"))) {
     throw "Plugin source not found: $PluginSrc"
   }
+  Ensure-RootPluginJson $PluginSrc
   if ((Test-Path $PluginDst) -and (-not $Force)) {
     Write-Host "Plugin already installed: $PluginDst"
     Write-Host "Use -Force to replace it."
@@ -71,7 +82,11 @@ function Install-Plugin {
     Copy-DirSafe $PluginSrc $PluginDst
     Write-Host "Installed plugin: $PluginDst"
   }
-  New-Item -ItemType Directory -Force -Path (Join-Path $MarketplaceRoot "plugins") | Out-Null
+  if (Test-Path $PluginDst) {
+    Ensure-RootPluginJson $PluginDst
+  }
+  New-Item -ItemType Directory -Force -Path $MarketplaceRoot | Out-Null
+  New-Item -ItemType Directory -Force -Path $PluginInstallRoot | Out-Null
   if (Test-Path $MarketplaceFile) {
     $data = Get-Content -Raw $MarketplaceFile | ConvertFrom-Json
   } else {
@@ -101,12 +116,17 @@ function Install-Plugin {
 }
 
 function Uninstall-PluginName($Name) {
-  $destination = Join-Path $MarketplaceRoot "plugins/$Name"
+  $destination = Join-Path $PluginInstallRoot $Name
   if (Test-Path $destination) {
     Remove-Item -Recurse -Force $destination
     Write-Host "Removed plugin directory: $destination"
   } else {
     Write-Host "Plugin directory not found: $destination"
+  }
+  $legacyDestination = Join-Path $MarketplaceRoot "plugins/$Name"
+  if (Test-Path $legacyDestination) {
+    Remove-Item -Recurse -Force $legacyDestination
+    Write-Host "Removed legacy plugin directory: $legacyDestination"
   }
   if (Test-Path $MarketplaceFile) {
     $data = Get-Content -Raw $MarketplaceFile | ConvertFrom-Json
@@ -306,6 +326,7 @@ function Update-Templates($Path) {
 }
 
 function Verify-Kit {
+  Ensure-RootPluginJson $PluginSrc
   $validated = $false
   if (Test-Path $ValidatorPath) {
     python3 $ValidatorPath $PluginSrc
