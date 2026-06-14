@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Workflow Help"
+  short_description: "Choose the right company workflow entry"
+  default_prompt: "Use $company-workflow-help to choose the right company workflow for my current task."

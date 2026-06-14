@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Bugfix"
+  short_description: "Reproduce diagnose fix and verify bugs"
+  default_prompt: "Use $company-bugfix-runner to diagnose and fix this bug with regression evidence."

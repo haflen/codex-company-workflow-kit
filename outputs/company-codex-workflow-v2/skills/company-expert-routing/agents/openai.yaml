@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Expert Routing"
+  short_description: "Select expert bundles and knowledge sources"
+  default_prompt: "Use $company-expert-routing to decide which expert bundle should help this task."

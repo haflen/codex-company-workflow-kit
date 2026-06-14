@@ -27,6 +27,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 注意：本仓库里写的 `/hotfix`、`/spike` 只是推荐输入法，不是 Codex UI 里自动注册的 slash 命令；在 Codex 里直接输入这些句子即可触发路由。
 
+公司 workflow skills 已补齐 `agents/openai.yaml`，和常见开源 Codex skills 一样提供 UI 技能列表/chips 所需的名称、简介和默认提示。安装插件后，如果 Codex 客户端展示 skill picker 或 skill chips，应该能看到这些公司 workflow 入口；如果客户端只把 `/` 菜单用于内置命令，则请使用自然语言或 `$company-workflow-help` 触发。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash

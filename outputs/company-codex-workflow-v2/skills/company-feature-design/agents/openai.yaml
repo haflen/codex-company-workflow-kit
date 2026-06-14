@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Technical Design"
+  short_description: "Draft architecture APIs data flow and risks"
+  default_prompt: "Use $company-feature-design to create the technical design for confirmed requirements."

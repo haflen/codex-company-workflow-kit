@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Skill Security Review"
+  short_description: "Review external or evolved skill risks"
+  default_prompt: "Use $company-skill-security-review to review an external or changed skill for safety risks."

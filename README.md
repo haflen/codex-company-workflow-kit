@@ -42,6 +42,7 @@ outputs/company-codex-workflow-template/
 - `BUNDLES.md`：专家技能组合，工作流自动选择。
 - `EXPERTS.lock.md`：外部专家技能依赖锁、来源、风险、bundle 影响面。
 - `skills/`：公司工作流 skills。
+- `skills/*/agents/openai.yaml`：Codex UI 技能列表/chips 使用的名称、简介和默认提示。
 - `specs/global/assets/`：需求、设计、任务、hotfix、spike、技能升级报告模板。
 
 ## 安装

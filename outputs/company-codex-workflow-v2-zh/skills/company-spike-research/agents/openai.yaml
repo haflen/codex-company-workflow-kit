@@ -1,0 +1,4 @@
+interface:
+  display_name: "公司 Spike 预研"
+  short_description: "用最小实验验证技术可行性"
+  default_prompt: "Use $company-spike-research to run a bounded feasibility spike."

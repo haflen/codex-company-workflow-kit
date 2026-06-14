@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Spike Research"
+  short_description: "Run bounded feasibility experiments"
+  default_prompt: "Use $company-spike-research to run a bounded feasibility spike."

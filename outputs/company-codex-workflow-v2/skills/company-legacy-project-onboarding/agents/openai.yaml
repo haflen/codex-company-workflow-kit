@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legacy Project Onboarding"
+  short_description: "Adopt an existing project into the workflow"
+  default_prompt: "Use $company-legacy-project-onboarding to onboard this existing project into the company workflow."

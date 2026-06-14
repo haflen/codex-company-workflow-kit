@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Skill Upgrade"
+  short_description: "Review compare approve and apply skill updates"
+  default_prompt: "Use $company-skill-upgrade-runner to review and upgrade workflow or expert skills safely."

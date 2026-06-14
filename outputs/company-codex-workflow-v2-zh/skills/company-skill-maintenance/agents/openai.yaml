@@ -1,0 +1,4 @@
+interface:
+  display_name: "公司技能维护"
+  short_description: "维护专家依赖版本来源和回滚记录"
+  default_prompt: "Use $company-skill-maintenance to update the expert dependency lock and bundle impact notes."

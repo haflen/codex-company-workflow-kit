@@ -43,6 +43,14 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 英文版本使用 `--lang en` 或 `-Lang en`。
 
+全局插件安装后，公司 workflow skills 会以标准 Codex skill 形式提供，并包含 `agents/openai.yaml` UI 元数据。实际使用时有三种入口：
+
+- 自然语言：例如“帮我判断现在该走哪个公司流程”。
+- 显式 skill：例如 `$company-workflow-help`。
+- Codex 客户端支持时的 skill picker / skill chips：显示名称、简介和默认提示来自每个 skill 下的 `agents/openai.yaml`。
+
+这里不额外承诺自定义 `/company-...` slash 命令注册；如果当前 Codex 客户端只把 `/` 菜单用于内置命令，请使用自然语言或 `$skill` 入口。
+
 ### 项目安装
 
 把公司规范和模板放进某个业务项目。

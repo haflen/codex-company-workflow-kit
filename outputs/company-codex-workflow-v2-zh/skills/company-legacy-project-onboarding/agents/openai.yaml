@@ -1,0 +1,4 @@
+interface:
+  display_name: "旧项目接入"
+  short_description: "把已有项目平滑接入公司工作流"
+  default_prompt: "Use $company-legacy-project-onboarding to onboard this existing project into the company workflow."
