@@ -19,7 +19,10 @@ Provide a controlled Codex spike workflow.
 
 ## Artifact
 
-Use `spike-report-template.md`.
+When a spike template is needed, resolve it in this order:
+
+1. Project copy: `specs/global/assets/spike-report-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/spike-report-template.md` relative to this skill directory.
 
 ## Boundary
 

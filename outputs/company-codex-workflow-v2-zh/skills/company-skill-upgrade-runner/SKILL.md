@@ -26,7 +26,7 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 ## 工作流
 
 1. 识别目标 skill、来源仓库或 hub、当前安装路径和目标位置。
-2. 阅读 `EXPERTS.lock.md` 和 `BUNDLES.md`，了解当前 pin、审查状态和影响范围。
+2. 阅读 `EXPERTS.lock.md` 和 `BUNDLES.md`，了解当前 pin、审查状态和影响范围；优先项目根目录，其次插件内置 fallback `../../EXPERTS.lock.md` 和 `../../BUNDLES.md`。
 3. 将候选版本放到临时审查位置，不直接覆盖当前技能。
 4. 比对新旧版本：frontmatter、触发范围、正文、脚本、工具、网络、shell、浏览器自动化、文件写入、许可、来源、pin、setup 和风险。
 5. 对候选版本运行 `company-skill-security-review`。
@@ -60,5 +60,9 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 
 ## 升级报告
 
-复杂升级使用 `specs/global/assets/skill-upgrade-report-template.md`。小升级可在对话中报告，但必须包含目标、当前版本、候选版本、diff 摘要、风险、用户决策、文件变更和验证。
+复杂升级使用技能升级报告模板，按以下顺序查找：
 
+1. 项目内：`specs/global/assets/skill-upgrade-report-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/skill-upgrade-report-template.md`。
+
+小升级可在对话中报告，但必须包含目标、当前版本、候选版本、diff 摘要、风险、用户决策、文件变更和验证。

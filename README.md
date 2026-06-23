@@ -90,11 +90,14 @@ npx codex-company-workflow all /path/to/company-project --lang zh
 `bootstrap-project` 会把公司工作流初始化到某个具体项目里：
 
 - 创建或合并 `AGENTS.md`。
-- 复制 `specs/` 模板。
+- 补齐 `specs/global/assets/` 模板。
+- 补齐项目根目录的 `BUNDLES.md` 和 `EXPERTS.lock.md`，用于专家技能组合和版本锁定。
 - 自动扫描 README、manifest、测试目录、启动/构建/测试命令和常见源码入口。
 - 生成 `specs/global/INDEX.md` 草稿。
 
 如果旧项目已有 `INDEX.md`，默认保留原文件，并生成 `specs/global/INDEX.generated.md` 供确认。
+
+如果项目中已有 `BUNDLES.md` 或 `EXPERTS.lock.md`，默认不会覆盖，而是生成 `BUNDLES.generated.md` 或 `EXPERTS.lock.generated.md` 供对比。确认后再使用 `--force` 覆盖。
 
 只刷新项目上下文索引：
 
@@ -108,10 +111,12 @@ bash scripts/install.sh generate-index /path/to/company-project --lang zh
 bash scripts/install.sh update-templates /path/to/company-project --lang zh
 ```
 
-默认不覆盖现有模板，而是生成：
+这个命令也会检查并补齐 `BUNDLES.md` 和 `EXPERTS.lock.md`。默认不覆盖现有模板和专家依赖文件，而是生成：
 
 ```text
 specs/global/assets.generated/
+BUNDLES.generated.md
+EXPERTS.lock.generated.md
 ```
 
 确认新旧模板差异后，再显式覆盖：

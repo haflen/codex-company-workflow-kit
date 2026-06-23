@@ -22,7 +22,12 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 
 ## Artifact
 
-For urgent production work, use `hotfix-report-template.md`. For ordinary bugs, update the feature notes or progress document.
+For urgent production work, resolve the hotfix template in this order:
+
+1. Project copy: `specs/global/assets/hotfix-report-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/hotfix-report-template.md` relative to this skill directory.
+
+For ordinary bugs, update the feature notes or progress document.
 
 ## Boundary
 

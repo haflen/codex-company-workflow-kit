@@ -20,6 +20,16 @@ description: Use when a company workflow needs to decide whether an expert skill
 7. 如果没有可用 skill 或 subagent，明确使用专家视角并说明没有单独专家可用。
 8. 对变化快的 API，优先当前官方文档或本地包文档。
 
+## 文件查找顺序
+
+优先使用业务项目内的专家依赖文件；找不到时使用插件内置版本，不要直接放弃专家路由。
+
+1. 项目根目录：`BUNDLES.md`、`EXPERTS.lock.md`。
+2. 项目规范目录：`specs/global/BUNDLES.md`、`specs/global/EXPERTS.lock.md`。
+3. 插件内置 fallback：相对当前 skill 目录读取 `../../BUNDLES.md`、`../../EXPERTS.lock.md`。
+
+如果三个位置都不可用，才说明无法读取专家依赖文件，并退化为当前 agent 的专家视角。
+
 ## 自动 Bundle 选择
 
 | 信号 | Bundle |

@@ -20,7 +20,12 @@ Provide a Codex-ready requirements workflow.
 
 ## Artifact
 
-Use `specs/global/assets/requirements-template.md`. Save under the team's active version/milestone path, or `specs/features/<feature>/requirements.md` for small work.
+When a requirements template is needed, resolve it in this order:
+
+1. Project copy: `specs/global/assets/requirements-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/requirements-template.md` relative to this skill directory.
+
+Save small work under `specs/features/<feature>/requirements.md`. If the user explicitly wants lightweight solution exploration, do not force a full requirements document; provide goals, options, risks, open questions, and next-step recommendations.
 
 ## Boundary
 

@@ -2,7 +2,7 @@
 
 Start with the company quickstart in `docs/company-quickstart.md` if you are trying this workflow for the first time.
 
-1. For project-only use, copy or merge `AGENTS.md` into the company project root and copy `specs/`.
+1. For project-only use, copy or merge `AGENTS.md` into the company project root, copy `specs/global/assets/` into the project, and place `BUNDLES.md` plus `EXPERTS.lock.md` at the project root.
 2. For plugin use, install this directory as a local Codex plugin; `.codex-plugin/plugin.json` points at `./skills/`.
 3. Use the installer to generate a draft `specs/global/INDEX.md`, then have the project owner confirm stack, commands, current version, and active milestone.
 4. Fill `EXPERTS.lock.md` with the real source, license, and pin for every external expert skill the team will trust.
@@ -22,6 +22,14 @@ bash scripts/install.sh generate-index /path/to/project --lang en
 ```
 
 If an existing project already has `INDEX.md`, the installer preserves it by default and writes `specs/global/INDEX.generated.md` for review.
+
+If a project reports missing templates, `BUNDLES.md`, or `EXPERTS.lock.md`, run:
+
+```bash
+bash scripts/install.sh update-templates /path/to/project --lang en
+```
+
+Existing files are preserved by default; the installer writes `.generated` files for comparison.
 
 This v2 starter kit is based on the audited source skills. It intentionally removes fear-based language, unconditional expert delegation, and hard requirements that do not fit Codex.
 

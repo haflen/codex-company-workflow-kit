@@ -20,9 +20,13 @@ description: Use when a company project needs feature requirements, acceptance c
 
 ## 产物
 
-使用 `specs/global/assets/requirements-template.md`。小需求可保存到 `specs/features/<feature>/requirements.md`。
+使用需求模板时按以下顺序查找：
+
+1. 项目内：`specs/global/assets/requirements-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/requirements-template.md`。
+
+小需求可保存到 `specs/features/<feature>/requirements.md`。如果用户明确只想轻量探讨方案，不要强制落正式需求文档；可以只输出目标、方案选项、风险、待确认问题和下一步建议。
 
 ## 边界
 
 需求工作不得修改实现代码，也不要规定过细的底层架构。
-

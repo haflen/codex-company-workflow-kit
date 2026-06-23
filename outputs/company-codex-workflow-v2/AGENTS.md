@@ -37,7 +37,9 @@ Users should not need to name experts in chat for normal work. Workflow skills s
 
 When third-party APIs or framework behavior may have changed, prefer official/current documentation. If a Context7-style MCP is not available, state that and use official docs or local package docs when possible.
 
-Use `company-expert-routing` as the single source of truth for expert selection. Use `BUNDLES.md` for expert combinations and `EXPERTS.lock.md` to check source, pin, license, and review status for external expert skills.
+Use `company-expert-routing` as the single source of truth for expert selection. Use `BUNDLES.md` for expert combinations and `EXPERTS.lock.md` to check source, pin, license, and review status for external expert skills. Prefer project-root files; if project files are missing, read the plugin-bundled fallback instead of disabling expert routing.
+
+When using templates, prefer project-local `specs/global/assets/`; if project templates are missing, read the plugin-bundled fallback and remind the user to run `bootstrap-project` or `update-templates` to repair project assets.
 
 Do not auto-update external expert skills. Use `company-skill-maintenance` and `company-skill-security-review` before adopting updates from open-source hubs or self-improvement output.
 

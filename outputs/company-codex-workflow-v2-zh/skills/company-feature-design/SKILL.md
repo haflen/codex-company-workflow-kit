@@ -20,9 +20,11 @@ description: Use when company feature requirements are confirmed and a technical
 
 ## 产物
 
-使用 `design-template.md`；跨边界工作使用 `api-contract-template.md`。
+使用模板时按以下顺序查找：
+
+1. 项目内：`specs/global/assets/design-template.md`；跨边界工作使用 `specs/global/assets/api-contract-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/design-template.md` 或 `../../specs/global/assets/api-contract-template.md`。
 
 ## 边界
 
 设计工作不得编辑实现代码。
-

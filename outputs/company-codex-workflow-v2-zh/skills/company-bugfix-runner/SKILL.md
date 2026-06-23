@@ -22,9 +22,13 @@ description: Use when company code behavior differs from requirements, design, a
 
 ## 产物
 
-紧急生产问题使用 `hotfix-report-template.md`。普通 bug 更新功能说明或进度文档。
+紧急生产问题使用 hotfix 模板，按以下顺序查找：
+
+1. 项目内：`specs/global/assets/hotfix-report-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/hotfix-report-template.md`。
+
+普通 bug 更新功能说明或进度文档即可。
 
 ## 边界
 
 不要把新功能行为打包进 bugfix。
-

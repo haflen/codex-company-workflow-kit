@@ -61,6 +61,26 @@ function Copy-DirSafe($Source, $Destination) {
   Get-ChildItem -Path $Destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
 }
 
+function Copy-FileSafe($Source, $Destination, $GeneratedDestination = $null) {
+  if (-not (Test-Path $Source)) {
+    throw "Source file not found: $Source"
+  }
+  if ((Test-Path $Destination) -and (-not $Force)) {
+    if (-not [string]::IsNullOrWhiteSpace($GeneratedDestination)) {
+      New-Item -ItemType Directory -Force -Path (Split-Path $GeneratedDestination) | Out-Null
+      Copy-Item -Force $Source $GeneratedDestination
+      Write-Host "Existing file preserved: $Destination"
+      Write-Host "Generated updated file for review: $GeneratedDestination"
+    } else {
+      Write-Host "Skip existing: $Destination"
+    }
+    return
+  }
+  New-Item -ItemType Directory -Force -Path (Split-Path $Destination) | Out-Null
+  Copy-Item -Force $Source $Destination
+  Write-Host "Wrote file: $Destination"
+}
+
 function Ensure-RootPluginJson($PluginRoot) {
   $manifest = Join-Path $PluginRoot ".codex-plugin/plugin.json"
   $rootManifest = Join-Path $PluginRoot "plugin.json"
@@ -172,6 +192,8 @@ function Write-InstallManifest($Path) {
     }
     managedPaths = @(
       "AGENTS.md marker block",
+      "BUNDLES.md",
+      "EXPERTS.lock.md",
       "specs/global/assets/",
       "specs/global/assets.generated/",
       ".codex-workflow/install.json"
@@ -184,6 +206,30 @@ function Write-InstallManifest($Path) {
   }
   $manifest | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $workflowDir "install.json")
   Write-Host "Install manifest written: $(Join-Path $workflowDir "install.json")"
+}
+
+function Ensure-ProjectGovernanceFiles($Path) {
+  Copy-FileSafe (Join-Path $PluginSrc "BUNDLES.md") (Join-Path $Path "BUNDLES.md") (Join-Path $Path "BUNDLES.generated.md")
+  Copy-FileSafe (Join-Path $PluginSrc "EXPERTS.lock.md") (Join-Path $Path "EXPERTS.lock.md") (Join-Path $Path "EXPERTS.lock.generated.md")
+}
+
+function Ensure-ProjectTemplates($Path) {
+  $source = Join-Path $PluginSrc "specs/global/assets"
+  $destination = Join-Path $Path "specs/global/assets"
+  if (-not (Test-Path $source)) {
+    throw "Template source not found: $source"
+  }
+  New-Item -ItemType Directory -Force -Path (Join-Path $Path "specs/global") | Out-Null
+  if ((Test-Path $destination) -and (-not $Force)) {
+    Write-Host "Project templates already present: $destination"
+  } else {
+    if (Test-Path $destination) {
+      Remove-Item -Recurse -Force $destination
+    }
+    Copy-Item -Recurse -Force $source $destination
+    Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
+    Write-Host "Project templates ready: $destination"
+  }
 }
 
 function Generate-Index($Path, $OutputPath, [bool]$Overwrite) {
@@ -222,8 +268,9 @@ function Bootstrap-Project($Path) {
     Append-AgentsBlock $agents
     Write-Host "Created AGENTS.md: $agents"
   }
-  Copy-DirSafe (Join-Path $PluginSrc "specs") (Join-Path $Path "specs")
-  Write-Host "Project specs ready: $(Join-Path $Path "specs")"
+  Ensure-ProjectTemplates $Path
+  Ensure-ProjectGovernanceFiles $Path
+  Write-Host "Project workflow assets ready: $(Join-Path $Path "specs")"
   if ((-not $indexExisted) -or $Force) {
     Generate-Index $Path $indexPath $true
   } else {
@@ -323,6 +370,7 @@ function Update-Templates($Path) {
     Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
     Write-Host "Updated project templates: $destination"
   }
+  Ensure-ProjectGovernanceFiles $Path
 }
 
 function Verify-Kit {

@@ -20,7 +20,10 @@ Provide executable Codex task planning.
 
 ## Artifact
 
-Use `tasks-template.md`.
+When a task template is needed, resolve it in this order:
+
+1. Project copy: `specs/global/assets/tasks-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/tasks-template.md` relative to this skill directory.
 
 ## Good Tasks
 

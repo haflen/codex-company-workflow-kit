@@ -20,6 +20,16 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 7. If no skill or subagent is available, apply the expert lens explicitly and state that no separate expert was available.
 8. For fast-moving APIs, prefer current official docs or local package docs.
 
+## File Lookup Order
+
+Prefer expert dependency files from the business project. If they are missing, use the plugin-bundled fallback instead of disabling expert routing.
+
+1. Project root: `BUNDLES.md`, `EXPERTS.lock.md`.
+2. Project specs directory: `specs/global/BUNDLES.md`, `specs/global/EXPERTS.lock.md`.
+3. Plugin fallback: read `../../BUNDLES.md`, `../../EXPERTS.lock.md` relative to this skill directory.
+
+Only state that expert dependency files are unavailable when all three locations fail, then continue with the current agent's explicit expert lens.
+
 ## Automatic Bundle Selection
 
 Workflow skills should call this routing skill without requiring the user to name experts. Use these defaults:

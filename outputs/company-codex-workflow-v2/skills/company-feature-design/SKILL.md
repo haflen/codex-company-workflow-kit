@@ -20,7 +20,10 @@ Provide a Codex-ready design workflow.
 
 ## Artifact
 
-Use `design-template.md`; use `api-contract-template.md` when work crosses boundaries.
+When templates are needed, resolve them in this order:
+
+1. Project copy: `specs/global/assets/design-template.md`; use `specs/global/assets/api-contract-template.md` when work crosses boundaries.
+2. Plugin fallback: read `../../specs/global/assets/design-template.md` or `../../specs/global/assets/api-contract-template.md` relative to this skill directory.
 
 ## Boundary
 

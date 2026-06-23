@@ -109,7 +109,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index C:\p
 
 ### 只更新已初始化项目里的模板
 
-当公司 workflow kit 升级了 `specs/global/assets/` 里的模板，而业务项目已经初始化过时，不建议重新执行 `bootstrap-project --force`，因为那会替换整个 `specs/` 目录，可能影响项目里已有的需求、设计和任务文档。
+当公司 workflow kit 升级了 `specs/global/assets/` 里的模板，而业务项目已经初始化过时，不建议重新执行 `bootstrap-project --force`，因为那可能影响项目里已有的需求、设计和任务文档。
 
 推荐使用专门的模板更新命令。
 
@@ -131,10 +131,30 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates C:
 specs/global/assets.generated/
 ```
 
+这个命令也会检查项目根目录的专家依赖文件：
+
+```text
+BUNDLES.md
+EXPERTS.lock.md
+```
+
+如果文件不存在，会自动补齐；如果文件已存在，默认生成下面两个文件供对比确认，不直接覆盖：
+
+```text
+BUNDLES.generated.md
+EXPERTS.lock.generated.md
+```
+
 你可以让 Codex 对比：
 
 ```text
 请对比 specs/global/assets 和 specs/global/assets.generated，说明模板有哪些变化，以及是否建议覆盖。
+```
+
+如果专家依赖文件也生成了 `.generated` 版本，可以继续让 Codex 对比：
+
+```text
+请对比 BUNDLES.md 和 BUNDLES.generated.md、EXPERTS.lock.md 和 EXPERTS.lock.generated.md，说明专家组合和版本锁有哪些变化。
 ```
 
 确认无问题后再覆盖：

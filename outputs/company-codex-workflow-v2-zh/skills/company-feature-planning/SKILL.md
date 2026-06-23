@@ -20,11 +20,13 @@ description: Use when company requirements and technical design are confirmed an
 
 ## 产物
 
-使用 `tasks-template.md`。
+使用任务模板时按以下顺序查找：
+
+1. 项目内：`specs/global/assets/tasks-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/tasks-template.md`。
 
 ## 好任务标准
 
 - 足够小，可以在一次聚焦实现中完成。
 - 有具体验证命令或手工检查。
 - 不把无关重构混入功能交付。
-

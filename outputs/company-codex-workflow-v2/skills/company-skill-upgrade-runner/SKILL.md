@@ -22,7 +22,7 @@ Examples:
 ## Workflow
 
 1. Identify target skills, source repository or hub, current installed path, and expected destination.
-2. Read `EXPERTS.lock.md` and `BUNDLES.md` to understand current pin, review status, and impacted bundles.
+2. Read `EXPERTS.lock.md` and `BUNDLES.md` to understand current pin, review status, and impacted bundles; prefer the project root, then plugin fallbacks `../../EXPERTS.lock.md` and `../../BUNDLES.md`.
 3. Fetch or inspect the candidate version into a temporary review location. Do not overwrite current skills yet.
 4. Compare old and new versions:
    - frontmatter name and description
@@ -69,7 +69,10 @@ Ambiguous phrases such as "looks good", "continue", "seems fine", or "anything e
 
 ## Upgrade Report
 
-Use `specs/global/assets/skill-upgrade-report-template.md` when a written artifact is useful.
+When a written artifact is useful, resolve the skill-upgrade report template in this order:
+
+1. Project copy: `specs/global/assets/skill-upgrade-report-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/skill-upgrade-report-template.md` relative to this skill directory.
 
 For small updates, a chat report is enough if it includes:
 

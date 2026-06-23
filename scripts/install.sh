@@ -90,6 +90,30 @@ copy_dir_safe() {
   find "$dst" -name ".DS_Store" -delete
 }
 
+copy_file_safe() {
+  local src="$1"
+  local dst="$2"
+  local generated_dst="${3:-}"
+  if [[ ! -f "$src" ]]; then
+    echo "Source file not found: $src" >&2
+    exit 1
+  fi
+  if [[ -f "$dst" && "$FORCE" != "1" ]]; then
+    if [[ -n "$generated_dst" ]]; then
+      mkdir -p "$(dirname "$generated_dst")"
+      cp "$src" "$generated_dst"
+      echo "Existing file preserved: $dst"
+      echo "Generated updated file for review: $generated_dst"
+    else
+      echo "Skip existing: $dst"
+    fi
+    return
+  fi
+  mkdir -p "$(dirname "$dst")"
+  cp "$src" "$dst"
+  echo "Wrote file: $dst"
+}
+
 ensure_root_plugin_json() {
   local plugin_root="$1"
   local manifest="$plugin_root/.codex-plugin/plugin.json"
@@ -229,6 +253,8 @@ manifest = {
     },
     "managedPaths": [
         "AGENTS.md marker block",
+        "BUNDLES.md",
+        "EXPERTS.lock.md",
         "specs/global/assets/",
         "specs/global/assets.generated/",
         ".codex-workflow/install.json"
@@ -243,6 +269,31 @@ path = project / ".codex-workflow" / "install.json"
 path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
 PY
   echo "Install manifest written: $project_path/.codex-workflow/install.json"
+}
+
+ensure_project_governance_files() {
+  local project_path="$1"
+  copy_file_safe "$PLUGIN_SRC/BUNDLES.md" "$project_path/BUNDLES.md" "$project_path/BUNDLES.generated.md"
+  copy_file_safe "$PLUGIN_SRC/EXPERTS.lock.md" "$project_path/EXPERTS.lock.md" "$project_path/EXPERTS.lock.generated.md"
+}
+
+ensure_project_templates() {
+  local project_path="$1"
+  local src="$PLUGIN_SRC/specs/global/assets"
+  local dst="$project_path/specs/global/assets"
+  if [[ ! -d "$src" ]]; then
+    echo "Template source not found: $src" >&2
+    exit 1
+  fi
+  mkdir -p "$project_path/specs/global"
+  if [[ -d "$dst" && "$FORCE" != "1" ]]; then
+    echo "Project templates already present: $dst"
+  else
+    rm -rf "$dst"
+    cp -R "$src" "$dst"
+    find "$dst" -name ".DS_Store" -delete
+    echo "Project templates ready: $dst"
+  fi
 }
 
 generate_index() {
@@ -273,8 +324,9 @@ bootstrap_project() {
     append_agents_block "$agents"
     echo "Created AGENTS.md: $agents"
   fi
-  copy_dir_safe "$PLUGIN_SRC/specs" "$project_path/specs"
-  echo "Project specs ready: $project_path/specs"
+  ensure_project_templates "$project_path"
+  ensure_project_governance_files "$project_path"
+  echo "Project workflow assets ready: $project_path/specs"
   if [[ "$index_existed" == "0" || "$FORCE" == "1" ]]; then
     generate_index "$project_path" "$index_path" 1
   else
@@ -367,6 +419,7 @@ update_templates() {
     find "$dst" -name ".DS_Store" -delete
     echo "Updated project templates: $dst"
   fi
+  ensure_project_governance_files "$project_path"
 }
 
 verify() {

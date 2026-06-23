@@ -19,9 +19,11 @@ description: Use when company work needs a time-boxed technical feasibility expe
 
 ## 产物
 
-使用 `spike-report-template.md`。
+使用 spike 模板时按以下顺序查找：
+
+1. 项目内：`specs/global/assets/spike-report-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/spike-report-template.md`。
 
 ## 边界
 
 Spike 代码默认不是生产代码，除非经过正常设计和实现流程转正。
-

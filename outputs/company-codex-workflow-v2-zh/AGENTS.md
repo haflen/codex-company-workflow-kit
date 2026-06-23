@@ -37,7 +37,9 @@
 
 第三方 API 或框架行为可能变化时，优先使用官方最新文档。没有 Context7 类 MCP 时，说明限制并使用官方文档或本地包文档。
 
-使用 `company-expert-routing` 作为专家选择入口。使用 `BUNDLES.md` 管理专家组合，使用 `EXPERTS.lock.md` 检查外部专家技能的来源、pin、许可和审查状态。
+使用 `company-expert-routing` 作为专家选择入口。使用 `BUNDLES.md` 管理专家组合，使用 `EXPERTS.lock.md` 检查外部专家技能的来源、pin、许可和审查状态。优先读取项目根目录文件；如果项目内缺失，读取插件内置 fallback，不要直接放弃专家路由。
+
+使用模板时优先读取项目内 `specs/global/assets/`；如果项目模板缺失，读取插件内置 fallback，并提醒用户执行 `bootstrap-project` 或 `update-templates` 补齐项目模板。
 
 不要自动更新外部专家技能。采用 `company-skill-upgrade-runner` 获取候选版本、比对新旧内容、安全审查、输出建议，并等待用户明确确认后再覆盖。
 
@@ -56,4 +58,3 @@
 - 版本化 specs 可使用 `specs/versions/<version>/<milestone>/`。
 - 小变更可使用 `specs/features/<feature>/` 下的紧凑 spec。
 - 公共 API 和复杂逻辑需要注释；常规函数不需要样板注释。
-
