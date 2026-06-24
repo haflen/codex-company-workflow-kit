@@ -54,6 +54,9 @@ Overwriting, deleting, moving, or installing production skills requires explicit
 
 Before applying changes, present:
 
+- Workflow layer: `company-skill-upgrade-runner`
+- Superpowers layer: `superpowers:verification-before-completion`
+- Execution strategy: dry-run by default; overwrite only after explicit user confirmation.
 - Skills to update:
 - Source and candidate pin:
 - Impacted bundles:

@@ -15,7 +15,7 @@ description: Use when introducing the company workflow into an existing project,
 2. 使用安装脚本或 `generate-index` 生成 `specs/global/INDEX.md` 草稿。
 3. 标出自动推断字段和需要用户确认的字段。
 4. 保留旧项目已有规范，只追加公司工作流段落。
-5. 选择一个小 feature、一个 bugfix 或一个 spike 做试点。
+5. 显式叠加 `superpowers:brainstorming`，选择一个小 feature、一个 bugfix 或一个 spike 做试点。
 6. 试点后复盘流程负担、验证证据和专家路由是否合适。
 7. 试点稳定后，再将工作流设为团队默认。
 
@@ -27,10 +27,12 @@ description: Use when introducing the company workflow into an existing project,
 
 ## 输出
 
+- 工作流层：`company-legacy-project-onboarding`
+- Superpowers 叠加：`superpowers:brainstorming`
+- 执行策略：渐进接入，不改业务代码。
 - 当前项目状态：
 - 自动推断的上下文：
 - 需要用户确认：
 - 建议试点任务：
 - 不建议立即切换的风险：
 - 下一步：
-

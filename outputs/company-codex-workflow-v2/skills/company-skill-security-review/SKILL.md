@@ -32,6 +32,9 @@ Prevent malicious, overbroad, or unsafe skills from entering company workflows.
 
 ## Output
 
+- Workflow layer: `company-skill-security-review`
+- Superpowers layer: `superpowers:verification-before-completion`
+- Execution strategy: evidence-based checklist review.
 - Skill reviewed:
 - Source:
 - Current version:

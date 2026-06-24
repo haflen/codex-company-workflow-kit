@@ -47,6 +47,9 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 
 覆盖前必须展示：
 
+- 工作流层：`company-skill-upgrade-runner`
+- Superpowers 叠加：`superpowers:verification-before-completion`
+- 执行策略：默认 dry-run，用户确认后才覆盖。
 - 待更新 skills：
 - 来源和候选 pin：
 - 受影响 bundle：

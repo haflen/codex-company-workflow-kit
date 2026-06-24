@@ -14,9 +14,15 @@ Provide executable Codex task planning.
 1. Confirm requirements and design are available.
 2. Confirm API contracts exist when boundaries require them.
 3. Split work into small tasks with verification for each task.
-4. Use `writing-plans` style decomposition when the plan is complex enough to need a separate executable implementation plan.
+4. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
 5. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
 6. Stop after task planning unless the user gives the implementation handoff signal.
+
+## Superpowers Layer
+
+- L1 small change: usually skip Superpowers and use a lightweight task card; if behavior changes, apply the minimal-failing-case idea from `superpowers:test-driven-development`.
+- L2/L3 standard or complex work: use `superpowers:writing-plans`.
+- Every task must include a verification anchor for later TDD and completion verification.
 
 ## Artifact
 
@@ -30,3 +36,12 @@ When a task template is needed, resolve it in this order:
 - Small enough for one focused implementation pass.
 - Have a concrete verification command or manual check.
 - Avoid mixing unrelated refactors with feature delivery.
+
+## Output
+
+- Workflow layer: `company-feature-planning`
+- Superpowers layer:
+- Execution strategy:
+- Tasks:
+- Minimal failing case or verification anchor per task:
+- Implementation handoff phrase:

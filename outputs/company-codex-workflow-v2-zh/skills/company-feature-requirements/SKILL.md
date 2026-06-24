@@ -14,9 +14,15 @@ description: Use when a company project needs feature requirements, acceptance c
 1. 使用 `company-context-index` 建立上下文。
 2. 澄清目标、用户、范围内、范围外、依赖和风险。
 3. 需求复杂时使用 `company-expert-routing`，由它从 `BUNDLES.md` 自动选择组合。
-4. 如果想法有多个方向，或用户仍在探索，使用 `brainstorming`。
+4. 如果想法有多个方向，或用户仍在探索，显式使用 `superpowers:brainstorming`。
 5. 编写 Given-When-Then 验收标准。
 6. 需求阶段结束后停止，除非用户明确给出设计交接口令。
+
+## Superpowers 叠加
+
+- L0 轻量探讨：默认叠加 `superpowers:brainstorming`，只输出目标、方案选项、风险、待确认问题和下一步建议。
+- L2 标准需求：默认叠加 `superpowers:brainstorming`，用于澄清意图、比较路径和收敛验收标准。
+- 需求已经很明确时：可以不叠加，但输出必须写明 `Superpowers 叠加：无，原因：需求边界已明确`。
 
 ## 产物
 
@@ -30,3 +36,13 @@ description: Use when a company project needs feature requirements, acceptance c
 ## 边界
 
 需求工作不得修改实现代码，也不要规定过细的底层架构。
+
+## 输出格式
+
+- 工作流层：`company-feature-requirements`
+- Superpowers 叠加：
+- 执行策略：
+- 需求结论：
+- 方案选项：
+- 风险和待确认问题：
+- 下一步建议：

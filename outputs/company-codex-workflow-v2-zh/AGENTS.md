@@ -17,6 +17,15 @@
 - 实现阶段只在需求、设计和任务确认后开始，`/spike` 和 `/hotfix` 除外。
 - 模糊的“继续”表示继续当前阶段，不表示进入下一阶段。
 
+## Superpowers 可见叠加
+
+- 每个 workflow 输出都必须显式包含 `工作流层`、`Superpowers 叠加` 和 `执行策略`。
+- 需求探索默认叠加 `superpowers:brainstorming`。
+- 复杂任务拆解默认叠加 `superpowers:writing-plans`。
+- 实现阶段默认叠加 `superpowers:test-driven-development` 和 `superpowers:verification-before-completion`。
+- Bugfix 默认叠加 `superpowers:systematic-debugging`，完成前叠加 `superpowers:verification-before-completion`。
+- 如果某个简单任务不叠加 Superpowers，必须明确说明原因。
+
 ## 交接口令
 
 - `需求已确认，进入技术设计`

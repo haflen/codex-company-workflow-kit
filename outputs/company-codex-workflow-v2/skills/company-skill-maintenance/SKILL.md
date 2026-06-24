@@ -31,6 +31,9 @@ Treat expert skills like dependencies: pinned, reviewed, updated deliberately, a
 
 ## Output
 
+- Workflow layer: `company-skill-maintenance`
+- Superpowers layer: `superpowers:verification-before-completion`
+- Execution strategy: dependency review, version lock, reversible change.
 - Skill:
 - Source and pin:
 - License:

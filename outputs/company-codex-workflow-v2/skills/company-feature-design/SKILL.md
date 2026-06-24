@@ -13,10 +13,17 @@ Provide a Codex-ready design workflow.
 
 1. Confirm requirements exist and include acceptance criteria.
 2. Read routed project context, existing patterns, and relevant source files.
-3. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
-4. Produce design, contracts, risk notes, and test strategy.
-5. For frontend/backend or service boundaries, create an API contract before task planning.
-6. Stop after design unless the user gives the task-planning handoff signal.
+3. Explicitly use `superpowers:brainstorming` when design direction is not obvious or trade-offs need comparison.
+4. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
+5. Produce design, contracts, risk notes, and test strategy.
+6. For frontend/backend or service boundaries, create an API contract before task planning.
+7. Stop after design unless the user gives the task-planning handoff signal.
+
+## Superpowers Layer
+
+- Default: use `superpowers:brainstorming` when multiple design paths exist.
+- High-risk design: use `company-expert-routing`, then use brainstorming to converge the design when useful.
+- If the design is obvious and low-risk, the skill may skip Superpowers but must state why.
 
 ## Artifact
 
@@ -28,3 +35,14 @@ When templates are needed, resolve them in this order:
 ## Boundary
 
 Design work must not edit implementation code.
+
+## Output
+
+- Workflow layer: `company-feature-design`
+- Superpowers layer:
+- Execution strategy:
+- Recommended design:
+- Alternatives and trade-offs:
+- Risks:
+- Test strategy:
+- Next step:

@@ -33,6 +33,9 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 
 ## 提案输出
 
+- 工作流层：`company-skill-evolution-lab`
+- Superpowers 叠加：`superpowers:brainstorming` 用于比较改进路径；完成前使用 `superpowers:verification-before-completion` 检查提案完整性。
+- 执行策略：只产出提案，不直接改生产 skill。
 - 受影响 skill：
 - 失败模式：
 - 证据：
@@ -40,4 +43,3 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 - 回归用例：
 - 安全影响：
 - 回滚：
-

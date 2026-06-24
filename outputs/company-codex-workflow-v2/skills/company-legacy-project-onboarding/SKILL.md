@@ -15,7 +15,7 @@ Introduce the company Codex workflow into an existing project without disrupting
 2. Use the installer or `generate-index` command to create a draft `specs/global/INDEX.md`.
 3. Mark inferred fields and fields that need user or project-owner confirmation.
 4. Preserve existing project rules and append the company workflow block only.
-5. Choose one small feature, one bugfix, or one spike as the pilot.
+5. Explicitly use `superpowers:brainstorming` to choose one small feature, one bugfix, or one spike as the pilot.
 6. After the pilot, review process cost, verification evidence, and expert routing accuracy.
 7. Promote the workflow to the team default only after the pilot is stable.
 
@@ -27,6 +27,9 @@ Introduce the company Codex workflow into an existing project without disrupting
 
 ## Output
 
+- Workflow layer: `company-legacy-project-onboarding`
+- Superpowers layer: `superpowers:brainstorming`
+- Execution strategy: gradual adoption; do not edit business code.
 - Current project state:
 - Auto-inferred context:
 - Needs user confirmation:

@@ -32,6 +32,9 @@ description: Use when reviewing third-party, open-source, hub-downloaded, or sel
 
 ## 输出
 
+- 工作流层：`company-skill-security-review`
+- Superpowers 叠加：`superpowers:verification-before-completion`
+- 执行策略：逐项审查证据，不凭直觉批准。
 - 已审查 skill：
 - 来源：
 - 当前版本：
@@ -42,4 +45,3 @@ description: Use when reviewing third-party, open-source, hub-downloaded, or sel
 - 必须修改：
 - 是否批准使用：
 - 过期或下次审查日期：
-

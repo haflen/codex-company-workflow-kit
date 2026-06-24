@@ -31,6 +31,9 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 
 ## 输出
 
+- 工作流层：`company-skill-maintenance`
+- Superpowers 叠加：`superpowers:verification-before-completion`
+- 执行策略：依赖审查、版本锁定、可回滚。
 - Skill：
 - 来源和 pin：
 - 许可：
@@ -39,4 +42,3 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 - 兼容性说明：
 - 建议：
 - 回滚：
-

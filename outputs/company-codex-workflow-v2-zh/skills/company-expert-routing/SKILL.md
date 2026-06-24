@@ -54,7 +54,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 | --- | --- |
 | 产品范围、用户故事、优先级、AC 质量 | `product-manager` |
 | 业务流程、指标、报表、政策、审批、状态流转 | `business-analyst` |
-| 开放想法有多个方向 | `brainstorming` |
+| 开放想法有多个方向 | `superpowers:brainstorming` |
 | LLM、RAG、prompt、agent workflow、AI 安全、Provider API | `ai-product` |
 | Java/Spring 后端、事务、并发、JVM 行为 | `java-pro` |
 | Python 运行时、异步、工具链、API | `python-pro` 或 `python-patterns` |
@@ -67,8 +67,8 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 用户需要工作流入口指导 | `company-workflow-help` |
 | 旧项目接入或项目上下文草稿审查 | `company-legacy-project-onboarding` |
 | 技能更新、比对、安全审查、确认和应用 | `company-skill-upgrade-runner` |
-| 根因不清、 flaky 测试、回归、卡死 | `systematic-debugging` |
-| 非平凡行为实现或易出错逻辑 | `test-driven-development` |
+| 根因不清、 flaky 测试、回归、卡死 | `superpowers:systematic-debugging` |
+| 非平凡行为实现或易出错逻辑 | `superpowers:test-driven-development` |
 
 ## 不路由
 
@@ -78,6 +78,9 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 ## 输出
 
+- 工作流层：`company-expert-routing`
+- Superpowers 叠加：
+- 执行策略：
 - 选择的 bundle：
 - 使用的专家：
 - 原因：

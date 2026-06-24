@@ -14,9 +14,15 @@ Provide a Codex-ready requirements workflow.
 1. Establish context with `company-context-index`.
 2. Clarify goal, users, in-scope behavior, out-of-scope behavior, dependencies, and risks.
 3. Use `company-expert-routing` when the requirement is non-trivial; let it select the matching bundle automatically from `BUNDLES.md`.
-4. Use `brainstorming` when the idea has multiple plausible directions or the user is still exploring options.
+4. Explicitly use `superpowers:brainstorming` when the idea has multiple plausible directions or the user is still exploring options.
 5. Write Given-When-Then acceptance criteria.
 6. Stop after requirements unless the user explicitly gives the design handoff signal.
+
+## Superpowers Layer
+
+- L0 lightweight exploration: use `superpowers:brainstorming` and return goals, options, risks, open questions, and next-step recommendations only.
+- L2 standard requirements: use `superpowers:brainstorming` to clarify intent, compare paths, and converge acceptance criteria.
+- If requirements are already clear, the skill may skip Superpowers but must state why.
 
 ## Artifact
 
@@ -30,3 +36,13 @@ Save small work under `specs/features/<feature>/requirements.md`. If the user ex
 ## Boundary
 
 Requirements work must not modify implementation code or prescribe low-level architecture.
+
+## Output
+
+- Workflow layer: `company-feature-requirements`
+- Superpowers layer:
+- Execution strategy:
+- Requirements conclusion:
+- Options:
+- Risks and open questions:
+- Next step:

@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2-zh",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "公司 Codex 工作流 starter kit，提供专家路由、依赖治理、用户确认式技能升级和受控自进化。",
   "author": {
     "name": "haflen",

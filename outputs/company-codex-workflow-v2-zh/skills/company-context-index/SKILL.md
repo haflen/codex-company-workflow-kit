@@ -19,6 +19,9 @@ description: Use when starting work in a company project, resuming an existing f
 
 ## 输出
 
+- 工作流层：`company-context-index`
+- Superpowers 叠加：无，原因：本阶段只做上下文路由和最小信息收集；如需迁移策略讨论，转入 `company-legacy-project-onboarding` 并叠加 `superpowers:brainstorming`。
+- 执行策略：按需读取，不全量扫描。
 - 项目：
 - 当前阶段：
 - 相关 spec：
@@ -32,4 +35,3 @@ description: Use when starting work in a company project, resuming an existing f
 - 不要全量扫描文档。
 - 不要在上下文阶段编辑实现代码。
 - 缺失信息可以标记为待用户或项目负责人补充。
-

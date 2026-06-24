@@ -56,7 +56,7 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 | --- | --- |
 | Product scope, user stories, prioritization, AC quality | `product-manager` |
 | Business process, metrics, reporting, policy, approvals, state transitions | `business-analyst` |
-| Vague idea with multiple viable directions | `brainstorming` |
+| Vague idea with multiple viable directions | `superpowers:brainstorming` |
 | LLM, RAG, prompt, agent workflow, AI safety, provider APIs | `ai-product` |
 | Java/Spring backend, transactions, concurrency, JVM behavior | `java-pro` |
 | Python runtime, async, tooling, FastAPI-style APIs | `python-pro` or `python-patterns` |
@@ -69,8 +69,8 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 | User needs workflow entry guidance or next-step routing | `company-workflow-help` |
 | Existing project onboarding or project context draft review | `company-legacy-project-onboarding` |
 | User-friendly skill update, comparison, security review, confirmation, and apply workflow | `company-skill-upgrade-runner` |
-| Unclear root cause, flaky tests, regressions, hangs | `systematic-debugging` |
-| Non-trivial behavior implementation or bug-prone logic | `test-driven-development` |
+| Unclear root cause, flaky tests, regressions, hangs | `superpowers:systematic-debugging` |
+| Non-trivial behavior implementation or bug-prone logic | `superpowers:test-driven-development` |
 
 ## Do Not Route
 
@@ -82,6 +82,9 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 
 When routing matters, include:
 
+- Workflow layer: `company-expert-routing`
+- Superpowers layer:
+- Execution strategy:
 - Bundle selected:
 - Expert used:
 - Why:

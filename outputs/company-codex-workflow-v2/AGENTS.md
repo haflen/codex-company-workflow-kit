@@ -17,6 +17,15 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to the next phase.
 
+## Visible Superpowers Layer
+
+- Every workflow output must explicitly include `Workflow layer`, `Superpowers layer`, and `Execution strategy`.
+- Requirements exploration defaults to `superpowers:brainstorming`.
+- Complex planning defaults to `superpowers:writing-plans`.
+- Implementation defaults to `superpowers:test-driven-development` and `superpowers:verification-before-completion`.
+- Bugfix defaults to `superpowers:systematic-debugging`, with `superpowers:verification-before-completion` before completion.
+- If a simple task skips Superpowers, state the reason explicitly.
+
 ## Handoff Signals
 
 - `需求已确认，进入技术设计`
