@@ -53,6 +53,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 这里不额外承诺自定义 `/company-...` slash 命令注册；如果当前 Codex 客户端只把 `/` 菜单用于内置命令，请使用自然语言或 `$skill` 入口。
 
+安装公司插件也会安装强依赖专家 skills。用户不需要逐个安装 `frontend-design`、`frontend-developer`、`typescript-expert`、`testing-qa` 等专家；安装脚本会自动生成 `EXPERT-READINESS.md` 安全审查和就绪报告。安装完成后新开 Codex 线程，确保当前会话看到新 skills。
+
 ### 项目安装
 
 把公司规范和模板放进某个业务项目。
@@ -136,6 +138,7 @@ specs/global/assets.generated/
 ```text
 BUNDLES.md
 EXPERTS.lock.md
+.codex-workflow/EXPERT-READINESS.md
 ```
 
 如果文件不存在，会自动补齐；如果文件已存在，默认生成下面两个文件供对比确认，不直接覆盖：

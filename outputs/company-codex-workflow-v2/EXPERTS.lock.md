@@ -6,30 +6,31 @@ All vertical expert skills in this workflow are managed as dependencies from:
 - URL: https://github.com/sickn33/antigravity-awesome-skills
 - README-observed release: `V12.3.0`
 - README-observed size: `1,527+` skills
-- README-observed Codex install: `npx antigravity-awesome-skills --codex`
+- Codex install mode: required experts are vendored inside this company plugin under `skills/`; users do not install them one by one.
 - Repository code license: MIT
 - Repository original non-code content license: CC BY 4.0 unless a more specific upstream notice applies
 - Canonical manifest: `skills_index.json`
 - Dependency review date: 2026-06-11
 
-Important note: upstream README and package metadata can drift. README currently advertises `V12.3.0`, while the raw `package.json` observed during review reports package version `12.2.1`. Treat README release as the human-facing release label and require an exact tag or commit before production rollout.
+Important note: upstream README and package metadata can drift. This company plugin uses its bundled copy as the runtime dependency. Future updates must go through `company-skill-maintenance` and automated or human review.
 
 ## Policy
 
-- Pin every expert skill to an exact upstream release tag or commit before company-wide production use.
+- Verify every required expert skill is bundled when the company plugin is installed.
 - Do not auto-update expert skills from GitHub, npm, ClawHub-style hubs, or self-improvement output.
-- Review license, risk, setup, and trigger scope before trusting a skill.
+- Run install-time static security review and generate `EXPERT-READINESS.md` / `EXPERT-READINESS.json`.
 - Use `company-skill-security-review` for new, updated, or self-improved skills.
 - Use `company-skill-maintenance` to update this lock file and record rollback information.
 - If a skill includes scripts, shell commands, network access, browser automation, or filesystem writes, treat it as higher risk even if the manifest marks setup as `none`.
 
 ## Install and Pin Guidance
 
-Recommended install for Codex-compatible direct skills:
+Company users do not manually install expert skills. Plugin install and project bootstrap automatically perform:
 
-```bash
-npx antigravity-awesome-skills --codex
-```
+- bundled expert completeness checks
+- static security review and risk labeling
+- project-level `.codex-workflow/EXPERT-READINESS.md`
+- a reminder to open a new Codex thread after install so the session skill list refreshes
 
 Recommended production pinning options:
 
@@ -46,15 +47,15 @@ Do not use `--tag main` for production unless the team intentionally wants curre
 | `product-manager` | `skills/product-manager` | business | safe | `Digidai/product-manager-skills (MIT)` | Upstream MIT plus AAS metadata | AAS release `V12.3.0`; exact commit pending | supported | none | Approved for pilot | 2026-06-11 | Good for AC quality, PRD-level scope, user stories. Verify upstream MIT attribution before production. |
 | `business-analyst` | `skills/business-analyst` | business | safe | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Approved for pilot | 2026-06-11 | Use for business processes, metrics, reporting, policy, and state transitions. |
 | `ai-product` | `skills/ai-product` | ai-ml | safe | `vibeship-spawner-skills (Apache 2.0)` | Apache 2.0 upstream plus AAS metadata | AAS release `V12.3.0`; exact commit pending | supported | none | Approved for pilot | 2026-06-11 | Use for LLM/RAG/prompt/agent workflow architecture. Prefer current official provider docs for APIs. |
-| `java-pro` | `skills/java-pro` | code | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | High-value if company stack is Java/Spring. Replace with internal standards where possible. |
-| `python-pro` | `skills/python-pro` | code | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | Confirm runtime and dependency manager before relying on advice. |
-| `python-patterns` | `skills/python-patterns` | development | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | Architecture guidance; may be long. Prefer selective use or internal summary. |
-| `django-pro` | `skills/django-pro` | framework | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | Use only for Django projects; verify Django version-specific claims. |
-| `frontend-developer` | `skills/frontend-developer` | front-end | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | React/Next-oriented. Extend or replace for Vue, Uni-app, or mini-program stacks. |
-| `typescript-expert` | `skills/typescript-expert` | framework | critical | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Quarantine until reviewed | 2026-06-11 | Manifest marks risk `critical`; inspect before company use. Likely due broad/tool-heavy guidance. |
-| `frontend-design` | `skills/frontend-design` | front-end | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | Use for UI craft and visual correctness; avoid duplicating Codex app design instructions. |
+| `java-pro` | `skills/java-pro` | code | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | High-value if company stack is Java/Spring. Replace with internal standards where possible. |
+| `python-pro` | `skills/python-pro` | code | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | Confirm runtime and dependency manager before relying on advice. |
+| `python-patterns` | `skills/python-patterns` | development | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | Architecture guidance; may be long. Prefer selective use or internal summary. |
+| `django-pro` | `skills/django-pro` | framework | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | Use only for Django projects; verify Django version-specific claims. |
+| `frontend-developer` | `skills/frontend-developer` | front-end | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | React/Next-oriented. For Vue projects, combine with project standards. |
+| `typescript-expert` | `skills/typescript-expert` | framework | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | Use for type and module boundary decisions; major migrations still need review. |
+| `frontend-design` | `skills/frontend-design` | front-end | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | none | Bundled auto-reviewed approved | 2026-06-24 | Use for UI craft and visual correctness; still follow project UI standards. |
 | `testing-qa` | `skills/testing-qa` | workflow-bundle | safe | personal | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Approved for pilot | 2026-06-11 | Use for QA strategy and gates; keep Superpowers verification as final evidence rule. |
-| `webapp-testing` | `skills/webapp-testing` | test-automation | unknown | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Needs production review | 2026-06-11 | Uses Playwright-style browser testing guidance. Confirm Codex Browser/Playwright availability. |
+| `webapp-testing` | `skills/webapp-testing` | test-automation | medium | community | AAS content license / upstream unknown | Bundled from AAS release `V12.3.0`; exact commit pending | supported | helper script | Bundled auto-reviewed approved | 2026-06-24 | Uses Playwright-style browser testing guidance. Confirm Codex Browser/Playwright availability. |
 | `e2e-testing-patterns` | `skills/e2e-testing-patterns` | test-automation | safe | community | AAS content license / upstream unknown | AAS release `V12.3.0`; exact commit pending | supported | none | Approved for pilot | 2026-06-11 | Use for E2E strategy. Prefer `webapp-testing` for concrete browser execution. |
 | `systematic-debugging` | `skills/systematic-debugging` or Superpowers | development-and-testing | unknown | community / Superpowers | Prefer installed Superpowers | Superpowers bundled; AAS exact commit pending | supported | none | Prefer Superpowers | 2026-06-11 | Use installed Superpowers version when available; AAS copy is fallback only. |
 | `test-driven-development` | `skills/test-driven-development` or Superpowers | testing | unknown | community / Superpowers | Prefer installed Superpowers | Superpowers bundled; AAS exact commit pending | supported | none | Prefer Superpowers | 2026-06-11 | Use installed Superpowers version when available; AAS copy is fallback only. |
@@ -101,3 +102,4 @@ Use `BUNDLES.md` as the runnable bundle map. This section is a dependency-mainte
 | 2026-06-11 | all listed experts | Initial dependency lock normalized to `sickn33/antigravity-awesome-skills`; source, path, risk, target, setup, and status recorded | Pilot approved for safe entries; unknown/critical entries require production review | Revert this file or use prior starter-kit template |
 | 2026-06-11 | all listed experts | Added bundle membership and automatic workflow routing dependency view | Keeps bundle routing separate from expert pin/license review | Revert `BUNDLES.md`, `company-expert-routing`, and this membership section |
 | 2026-06-11 | skill governance workflow | Added user-friendly skill upgrade workflow with candidate fetch, diff, security review, confirmation gate, apply, validation, and rollback record | Upgrade operations now route through `company-skill-upgrade-runner` before production overwrite | Revert `company-skill-upgrade-runner`, upgrade report template, and related routing updates |
+| 2026-06-24 | all required expert skills | Vendored required AAS expert skills into the company plugin and added install-time readiness/security reports | Out-of-box usable after plugin install and new Codex thread; future updates stay controlled | Revert vendored expert skill directories and this lock update |

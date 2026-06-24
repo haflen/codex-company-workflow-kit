@@ -29,6 +29,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 公司 workflow skills 已补齐 `agents/openai.yaml`，和常见开源 Codex skills 一样提供 UI 技能列表/chips 所需的名称、简介和默认提示。安装插件后，如果 Codex 客户端展示 skill picker 或 skill chips，应该能看到这些公司 workflow 入口；如果客户端只把 `/` 菜单用于内置命令，则请使用自然语言或 `$company-workflow-help` 触发。
 
+强依赖专家 skills 也随公司插件一起安装，例如 `frontend-developer`、`typescript-expert`、`frontend-design`、`testing-qa`。安装或更新插件后，请新开 Codex 线程让当前会话刷新 skill 列表。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash
@@ -45,7 +47,7 @@ npx codex-company-workflow all /path/to/project --lang zh
 4. 运行 `bash scripts/install.sh generate-index /path/to/project --lang zh` 生成 `specs/global/INDEX.md` 草稿。
 5. 检查并确认产品名称、当前版本、里程碑、技术栈、启动/测试/构建命令和主要源码入口。
 6. 根据公司实际技术栈调整 `BUNDLES.md`。
-7. 根据实际可信专家技能调整 `EXPERTS.lock.md`。
+7. 检查 `.codex-workflow/EXPERT-READINESS.md`，确认强依赖专家已随插件内置、自动审查并可在新会话中暴露。
 
 旧项目已有 `INDEX.md` 时，项目初始化默认不会覆盖。脚本会生成 `specs/global/INDEX.generated.md`，先由项目负责人确认，再决定是否替换原索引。
 

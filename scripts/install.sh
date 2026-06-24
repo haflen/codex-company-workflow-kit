@@ -25,6 +25,7 @@ Usage:
   bash scripts/install.sh deactivate-project <project-path> [--force]
   bash scripts/install.sh update-templates <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh generate-index <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh expert-preflight <project-path> [--lang zh|en]
   bash scripts/install.sh all <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh verify [--lang zh|en]
 USAGE
@@ -125,12 +126,34 @@ ensure_root_plugin_json() {
   cp "$manifest" "$root_manifest"
 }
 
+review_bundled_experts() {
+  local plugin_root="$1"
+  local report_path="$plugin_root/EXPERT-READINESS.md"
+  local json_path="$plugin_root/EXPERT-READINESS.json"
+  python3 "$ROOT_DIR/scripts/expert_dependencies.py" review \
+    --plugin-root "$plugin_root" \
+    --lang "$LANG_CODE" \
+    --output "$report_path" \
+    --json-output "$json_path"
+}
+
+write_project_expert_readiness() {
+  local project_path="$1"
+  python3 "$ROOT_DIR/scripts/expert_dependencies.py" project-report \
+    --plugin-root "$PLUGIN_SRC" \
+    --project-path "$project_path" \
+    --lang "$LANG_CODE" \
+    --output "$project_path/.codex-workflow/EXPERT-READINESS.md" \
+    --json-output "$project_path/.codex-workflow/EXPERT-READINESS.json"
+}
+
 install_plugin() {
   if [[ ! -d "$PLUGIN_SRC/.codex-plugin" ]]; then
     echo "Plugin source not found: $PLUGIN_SRC" >&2
     exit 1
   fi
   ensure_root_plugin_json "$PLUGIN_SRC"
+  review_bundled_experts "$PLUGIN_SRC"
   if [[ -e "$PLUGIN_DST" && "$FORCE" != "1" ]]; then
     echo "Plugin already installed: $PLUGIN_DST"
     echo "Use --force to replace it."
@@ -140,6 +163,7 @@ install_plugin() {
   fi
   if [[ -d "$PLUGIN_DST" ]]; then
     ensure_root_plugin_json "$PLUGIN_DST"
+    review_bundled_experts "$PLUGIN_DST"
   fi
   mkdir -p "$MARKETPLACE_ROOT" "$PLUGIN_INSTALL_ROOT"
   MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$PLUGIN_NAME" python3 - <<'PY'
@@ -334,6 +358,7 @@ bootstrap_project() {
     echo "Existing INDEX.md preserved. Review INDEX.generated.md before replacing it."
   fi
   write_install_manifest "$project_path"
+  write_project_expert_readiness "$project_path"
   echo "Next: review the generated INDEX draft and confirm project context."
 }
 
@@ -420,6 +445,7 @@ update_templates() {
     echo "Updated project templates: $dst"
   fi
   ensure_project_governance_files "$project_path"
+  write_project_expert_readiness "$project_path"
 }
 
 verify() {
@@ -463,6 +489,7 @@ PY
     exit 1
   fi
   bash -n "$ROOT_DIR/scripts/install.sh"
+  review_bundled_experts "$PLUGIN_SRC" >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"
   else
@@ -514,6 +541,14 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     generate_index "$project_path" "$project_path/specs/global/INDEX.md"
+    ;;
+  expert-preflight)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    write_project_expert_readiness "$project_path"
     ;;
   all)
     shift || true

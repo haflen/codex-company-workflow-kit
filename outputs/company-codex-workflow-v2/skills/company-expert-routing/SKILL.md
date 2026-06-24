@@ -13,11 +13,11 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 
 1. Check whether the task is non-trivial enough to need a bundle or expert.
 2. Read `BUNDLES.md` and select the smallest matching bundle from request, spec, file paths, and stack.
-3. Check `EXPERTS.lock.md` for expected source, pin, status, and review notes before using external expert skills.
+3. Check `EXPERTS.lock.md` and `.codex-workflow/EXPERT-READINESS.md`; required experts should be bundled with the company plugin.
 4. Within the selected bundle, use only the experts needed for the current phase.
-5. If the expert is installed as a Codex skill, use it when its trigger matches.
+5. If the expert is exposed as a Codex skill in the current session, use it when its trigger matches.
 6. If multi-agent support is available and the issue is complex, dispatch a focused expert review.
-7. If no skill or subagent is available, apply the expert lens explicitly and state that no separate expert was available.
+7. If an expert is bundled but not visible in the current session, say that a new Codex thread is needed to refresh the skill list; do not ask users to install experts one by one.
 8. For fast-moving APIs, prefer current official docs or local package docs.
 
 ## File Lookup Order
@@ -26,7 +26,7 @@ Prefer expert dependency files from the business project. If they are missing, u
 
 1. Project root: `BUNDLES.md`, `EXPERTS.lock.md`.
 2. Project specs directory: `specs/global/BUNDLES.md`, `specs/global/EXPERTS.lock.md`.
-3. Plugin fallback: read `../../BUNDLES.md`, `../../EXPERTS.lock.md` relative to this skill directory.
+3. Plugin fallback: read `../../BUNDLES.md`, `../../EXPERTS.lock.md`, and `../../EXPERT-READINESS.md` relative to this skill directory.
 
 Only state that expert dependency files are unavailable when all three locations fail, then continue with the current agent's explicit expert lens.
 
@@ -45,7 +45,7 @@ Workflow skills should call this routing skill without requiring the user to nam
 | Urgent production issue or rollback-sensitive defect | `company-hotfix` |
 | Feasibility experiment or unfamiliar technical choice | `company-spike` |
 | Skill update, expert dependency update, self-improvement proposal | `company-skill-governance` |
-| User unsure where to start, asks what to do next, or asks for a prompt phrase | `company-workflow-entry` |
+| User unsure where to start, asks what to do next, asks for a prompt phrase, or needs expert readiness checking | `company-workflow-entry` |
 | Existing project adoption, context index draft, or first workflow pilot | `company-legacy-onboarding` |
 
 If more than one bundle matches, choose the one that owns the riskiest decision in the current phase. Add one secondary expert only if needed.
@@ -67,6 +67,7 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 | Test strategy, QA gates, regression coverage | `testing-qa` |
 | Browser automation or E2E validation | `webapp-testing` |
 | User needs workflow entry guidance or next-step routing | `company-workflow-help` |
+| User needs expert dependency install, review, or exposure status | `company-expert-readiness` |
 | Existing project onboarding or project context draft review | `company-legacy-project-onboarding` |
 | User-friendly skill update, comparison, security review, confirmation, and apply workflow | `company-skill-upgrade-runner` |
 | Unclear root cause, flaky tests, regressions, hangs | `superpowers:systematic-debugging` |
@@ -89,5 +90,6 @@ When routing matters, include:
 - Expert used:
 - Why:
 - Source status from `EXPERTS.lock.md`:
+- Readiness status from `EXPERT-READINESS.md`:
 - Result:
 - Any official docs checked:

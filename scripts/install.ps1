@@ -34,6 +34,7 @@ function Show-Usage {
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project <project-path> [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 expert-preflight <project-path> [-Lang zh|en]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 verify [-Lang zh|en]"
 }
@@ -90,11 +91,33 @@ function Ensure-RootPluginJson($PluginRoot) {
   Copy-Item -Force $manifest $rootManifest
 }
 
+function Review-BundledExperts($PluginRoot) {
+  $report = Join-Path $PluginRoot "EXPERT-READINESS.md"
+  $json = Join-Path $PluginRoot "EXPERT-READINESS.json"
+  python3 (Join-Path $RootDir "scripts/expert_dependencies.py") review `
+    --plugin-root $PluginRoot `
+    --lang $Lang `
+    --output $report `
+    --json-output $json
+}
+
+function Write-ProjectExpertReadiness($Path) {
+  $workflowDir = Join-Path $Path ".codex-workflow"
+  New-Item -ItemType Directory -Force -Path $workflowDir | Out-Null
+  python3 (Join-Path $RootDir "scripts/expert_dependencies.py") project-report `
+    --plugin-root $PluginSrc `
+    --project-path $Path `
+    --lang $Lang `
+    --output (Join-Path $workflowDir "EXPERT-READINESS.md") `
+    --json-output (Join-Path $workflowDir "EXPERT-READINESS.json")
+}
+
 function Install-Plugin {
   if (-not (Test-Path (Join-Path $PluginSrc ".codex-plugin"))) {
     throw "Plugin source not found: $PluginSrc"
   }
   Ensure-RootPluginJson $PluginSrc
+  Review-BundledExperts $PluginSrc
   if ((Test-Path $PluginDst) -and (-not $Force)) {
     Write-Host "Plugin already installed: $PluginDst"
     Write-Host "Use -Force to replace it."
@@ -104,6 +127,7 @@ function Install-Plugin {
   }
   if (Test-Path $PluginDst) {
     Ensure-RootPluginJson $PluginDst
+    Review-BundledExperts $PluginDst
   }
   New-Item -ItemType Directory -Force -Path $MarketplaceRoot | Out-Null
   New-Item -ItemType Directory -Force -Path $PluginInstallRoot | Out-Null
@@ -279,6 +303,7 @@ function Bootstrap-Project($Path) {
     Write-Host "Existing INDEX.md preserved. Review INDEX.generated.md before replacing it."
   }
   Write-InstallManifest $Path
+  Write-ProjectExpertReadiness $Path
   Write-Host "Next: review the generated INDEX draft and confirm project context."
 }
 
@@ -371,6 +396,7 @@ function Update-Templates($Path) {
     Write-Host "Updated project templates: $destination"
   }
   Ensure-ProjectGovernanceFiles $Path
+  Write-ProjectExpertReadiness $Path
 }
 
 function Verify-Kit {
@@ -405,6 +431,7 @@ function Verify-Kit {
     Write-Error "Unexpected disallowed wording found.`n$risk"
   }
   $null = [scriptblock]::Create((Get-Content -Raw (Join-Path $RootDir "scripts/install.ps1")))
+  Review-BundledExperts $PluginSrc | Out-Null
   Write-Host "Verification passed."
 }
 
@@ -415,6 +442,7 @@ switch ($Command) {
   "deactivate-project" { Deactivate-Project $ProjectPath }
   "update-templates" { Update-Templates $ProjectPath }
   "generate-index" { Generate-Index $ProjectPath (Join-Path $ProjectPath "specs/global/INDEX.md") $Force }
+  "expert-preflight" { Write-ProjectExpertReadiness $ProjectPath }
   "all" {
     Install-Plugin
     Bootstrap-Project $ProjectPath

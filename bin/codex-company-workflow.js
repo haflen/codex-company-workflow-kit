@@ -17,6 +17,7 @@ function printUsage() {
   codex-company-workflow deactivate-project <project-path> [--force]
   codex-company-workflow update-templates <project-path> [--lang zh|en] [--force]
   codex-company-workflow generate-index <project-path> [--lang zh|en] [--force]
+  codex-company-workflow expert-preflight <project-path> [--lang zh|en]
   codex-company-workflow all <project-path> [--lang zh|en] [--force]
   codex-company-workflow verify [--lang zh|en]
 `);

@@ -31,7 +31,8 @@
 └── company-spike-research
 
 专家路由
-└── company-expert-routing
+├── company-expert-routing
+└── company-expert-readiness
 
 技能治理
 ├── company-skill-upgrade-runner
@@ -70,6 +71,7 @@
 | `company-bugfix-runner` | 区分 bug/变更，复现、修复、回归验证 | Behavior differs from requirements, tests, or documented expectations. |
 | `company-spike-research` | 做限时技术预研和最小实验 | Feasibility, unfamiliar library, or architecture uncertainty needs reduction. |
 | `company-expert-routing` | 自动选择专家组合、skill、subagent 或官方文档 | A workflow needs expert routing or current documentation strategy. |
+| `company-expert-readiness` | 检查强依赖专家是否已内置安装、自动审查并在当前会话暴露 | A project needs expert dependency install, review, or exposure status. |
 | `company-skill-upgrade-runner` | 完成技能更新 dry-run、diff、安全审查、确认后覆盖 | User wants to check, update, replace, or install workflow/expert skills. |
 | `company-skill-security-review` | 审查第三方、开源、自进化 skill 的安全风险 | External or self-improved skills need review before trust. |
 | `company-skill-maintenance` | 维护专家依赖、pin、bundle 影响面和回滚记录 | Updating, pinning, auditing, replacing, or reviewing trusted skills. |

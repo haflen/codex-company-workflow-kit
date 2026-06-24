@@ -13,11 +13,11 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 1. 判断任务是否复杂到需要 bundle 或专家。
 2. 阅读 `BUNDLES.md`，根据请求、spec、文件路径和技术栈选择最小匹配 bundle。
-3. 使用外部专家 skill 前，检查 `EXPERTS.lock.md` 的来源、pin、状态和审查说明。
+3. 使用专家 skill 前，检查 `EXPERTS.lock.md` 和 `.codex-workflow/EXPERT-READINESS.md`；强依赖专家应已随公司插件内置。
 4. 在选中 bundle 内，只使用当前阶段需要的专家。
-5. 如果专家已安装为 Codex skill，在触发条件匹配时使用。
+5. 如果专家在当前会话已暴露为 Codex skill，在触发条件匹配时直接使用。
 6. 如果支持多 agent 且问题复杂，派发聚焦专家审查。
-7. 如果没有可用 skill 或 subagent，明确使用专家视角并说明没有单独专家可用。
+7. 如果专家已随插件安装但当前会话不可见，说明需要新开 Codex 线程刷新技能列表；不要要求用户逐个安装。
 8. 对变化快的 API，优先当前官方文档或本地包文档。
 
 ## 文件查找顺序
@@ -26,7 +26,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 1. 项目根目录：`BUNDLES.md`、`EXPERTS.lock.md`。
 2. 项目规范目录：`specs/global/BUNDLES.md`、`specs/global/EXPERTS.lock.md`。
-3. 插件内置 fallback：相对当前 skill 目录读取 `../../BUNDLES.md`、`../../EXPERTS.lock.md`。
+3. 插件内置 fallback：相对当前 skill 目录读取 `../../BUNDLES.md`、`../../EXPERTS.lock.md`、`../../EXPERT-READINESS.md`。
 
 如果三个位置都不可用，才说明无法读取专家依赖文件，并退化为当前 agent 的专家视角。
 
@@ -43,7 +43,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 紧急生产问题或回滚敏感缺陷 | `company-hotfix` |
 | 可行性实验或不熟悉技术选择 | `company-spike` |
 | 技能更新、专家依赖更新、自进化提案 | `company-skill-governance` |
-| 用户不知道从哪里开始或需要推荐说法 | `company-workflow-entry` |
+| 用户不知道从哪里开始、需要推荐说法或专家就绪检查 | `company-workflow-entry` |
 | 旧项目接入、上下文索引草稿或首次流程试点 | `company-legacy-onboarding` |
 
 多个 bundle 都匹配时，选择承担当前阶段最大风险的 bundle。只有必要时添加一个辅助专家。
@@ -65,6 +65,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 测试策略、QA gate、回归覆盖 | `testing-qa` |
 | 浏览器自动化或 E2E 验证 | `webapp-testing` |
 | 用户需要工作流入口指导 | `company-workflow-help` |
+| 用户需要确认专家依赖是否已安装、审查或暴露 | `company-expert-readiness` |
 | 旧项目接入或项目上下文草稿审查 | `company-legacy-project-onboarding` |
 | 技能更新、比对、安全审查、确认和应用 | `company-skill-upgrade-runner` |
 | 根因不清、 flaky 测试、回归、卡死 | `superpowers:systematic-debugging` |
@@ -85,5 +86,6 @@ description: Use when a company workflow needs to decide whether an expert skill
 - 使用的专家：
 - 原因：
 - `EXPERTS.lock.md` 来源状态：
+- `EXPERT-READINESS.md` 状态：
 - 结果：
 - 已检查的官方文档：

@@ -6,8 +6,9 @@
 
 - 需求、设计、实现、验证可追溯。
 - 旧项目能平滑接入，不覆盖已有规范。
-- 专家 skills 通过 bundle 自动路由，不要求用户手动点名。
-- 外部专家技能更新走 dry-run、diff、安全审查、用户确认和回滚记录。
+- 强依赖专家 skills 随公司插件内置安装，用户不需要逐个对话安装。
+- 专家 skills 通过 bundle 自动路由；安装和项目初始化会自动生成专家就绪和安全审查报告。
+- 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
 
 ## 当前主包
@@ -41,6 +42,7 @@ outputs/company-codex-workflow-template/
 - `AGENTS.md`：公司项目硬约束和常用唤起语。
 - `BUNDLES.md`：专家技能组合，工作流自动选择。
 - `EXPERTS.lock.md`：外部专家技能依赖锁、来源、风险、bundle 影响面。
+- `EXPERT-READINESS.md`：安装期自动生成的专家依赖就绪和安全审查报告。
 - `skills/`：公司工作流 skills。
 - `skills/*/agents/openai.yaml`：Codex UI 技能列表/chips 使用的名称、简介和默认提示。
 - `specs/global/assets/`：需求、设计、任务、hotfix、spike、技能升级报告模板。
@@ -92,6 +94,7 @@ npx codex-company-workflow all /path/to/company-project --lang zh
 - 创建或合并 `AGENTS.md`。
 - 补齐 `specs/global/assets/` 模板。
 - 补齐项目根目录的 `BUNDLES.md` 和 `EXPERTS.lock.md`，用于专家技能组合和版本锁定。
+- 生成 `.codex-workflow/EXPERT-READINESS.md` 和 `.codex-workflow/EXPERT-READINESS.json`。
 - 自动扫描 README、manifest、测试目录、启动/构建/测试命令和常见源码入口。
 - 生成 `specs/global/INDEX.md` 草稿。
 
@@ -103,6 +106,12 @@ npx codex-company-workflow all /path/to/company-project --lang zh
 
 ```bash
 bash scripts/install.sh generate-index /path/to/company-project --lang zh
+```
+
+只检查专家依赖是否开箱可用：
+
+```bash
+bash scripts/install.sh expert-preflight /path/to/company-project --lang zh
 ```
 
 只更新已初始化项目里的工作流模板：
@@ -172,6 +181,7 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 请生成并检查这个项目的 INDEX.md 草稿
 我现在是项目发起人，这还是一个空项目，需求只有雏形。请帮我走公司需求澄清流程，先不要写代码。
 检查专家技能更新
+检查这个项目的专家依赖是否就绪
 对比并升级 java-pro，先不要覆盖
 确认覆盖 java-pro
 ```
@@ -192,4 +202,4 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 - `v0.3.x`：专家依赖、bundle、升级流程调整。
 - `v1.0.0`：公司项目试点稳定后发布。
 
-不要自动拉取外部专家技能到生产版本。外部技能更新必须走 dry-run、diff、安全审查、用户确认、覆盖更新、验证和回滚记录。
+强依赖专家已作为 vendored skills 随公司插件发布，保证开箱即用。后续不要静默拉取外部专家技能覆盖生产版本；外部技能更新必须走 dry-run、diff、安全审查、用户确认、覆盖更新、验证和回滚记录。

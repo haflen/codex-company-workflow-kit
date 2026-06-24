@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, requirements, design, planning, implementation, bugfix, hotfix, spike, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # 公司工作流入口帮助
@@ -25,6 +25,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 紧急线上问题 | L3 | `company-bugfix-runner` hotfix 路径 | `superpowers:systematic-debugging` + `superpowers:verification-before-completion` | `热修复：...` 或 `开始 hotfix：...` |
 | 需要技术可行性验证 | L1/L2 | `company-spike-research` | `superpowers:brainstorming` 用于实验方案，必要时 `superpowers:verification-before-completion` 检查证据 | `快速验证：...` 或 `开始 spike：...` |
 | 需要更新专家技能 | L3 | `company-skill-upgrade-runner` | `superpowers:verification-before-completion` 用于完成前校验 | `检查专家技能更新` |
+| 需要确认专家是否已安装、审查或可调用 | L1/L2 | `company-expert-readiness` | 无；这是安装和依赖诊断 | `检查这个项目的专家依赖是否就绪` |
 | 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | 按任务补充 `superpowers:brainstorming` / `superpowers:systematic-debugging` / `superpowers:test-driven-development` | `这个任务需要哪些专家组合？` |
 | 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` 用于试点选择和迁移策略 | `请帮我把这个旧项目接入公司 Codex 工作流` |
 

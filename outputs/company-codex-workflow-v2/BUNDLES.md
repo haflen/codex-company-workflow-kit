@@ -24,8 +24,8 @@ The workflow should pick the smallest matching bundle automatically. Users may s
 | `company-ai-feature` | LLM, RAG, prompt, agent workflow, AI safety, provider API design | `product-manager`, `ai-product`, `testing-qa` | `python-pro`, `frontend-developer` |
 | `company-hotfix` | Urgent production defect or rollback-sensitive change | `systematic-debugging`, `testing-qa` | stack expert matching the failing area |
 | `company-spike` | Time-boxed feasibility, unfamiliar library, architecture uncertainty | stack expert matching the question | `ai-product`, `webapp-testing`, `testing-qa` |
-| `company-skill-governance` | Adding, updating, reviewing, upgrading, or evolving workflow/expert skills | `company-skill-upgrade-runner`, `company-skill-maintenance`, `company-skill-security-review` | `company-skill-evolution-lab` |
-| `company-workflow-entry` | User is unsure which workflow to start or asks what to do next | `company-workflow-help` | `company-expert-routing` |
+| `company-skill-governance` | Adding, updating, reviewing, upgrading, readiness-checking, or evolving workflow/expert skills | `company-skill-upgrade-runner`, `company-skill-maintenance`, `company-skill-security-review`, `company-expert-readiness` | `company-skill-evolution-lab` |
+| `company-workflow-entry` | User is unsure which workflow to start, asks what to do next, or needs expert readiness confirmation | `company-workflow-help` | `company-expert-routing`, `company-expert-readiness` |
 | `company-legacy-onboarding` | Existing project adoption, project context draft generation, or first workflow pilot | `company-legacy-project-onboarding`, `company-context-index` | `company-workflow-help`, stack expert matching the project |
 
 ## Phase Defaults
