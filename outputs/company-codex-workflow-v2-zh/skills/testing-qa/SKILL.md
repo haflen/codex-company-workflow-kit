@@ -1,12 +1,7 @@
 ---
 name: testing-qa
-description: "Comprehensive testing and QA workflow covering unit testing, integration testing, E2E testing, browser automation, and quality assurance."
-category: workflow-bundle
-risk: safe
-source: personal
-date_added: "2026-02-27"
+description: Use when test strategy, QA gates, unit/integration/E2E coverage, regression risk, test design, or release quality needs expert review.
 ---
-
 # Testing/QA Workflow Bundle
 
 ## Overview

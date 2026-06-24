@@ -1,11 +1,7 @@
 ---
 name: ai-product
-description: Every product will be AI-powered. The question is whether you'll build it right or ship a demo that falls apart in production. This skill covers LLM integration patterns, RAG architecture, prompt ...
-risk: unknown
-source: vibeship-spawner-skills (Apache 2.0)
-date_added: '2026-02-27'
+description: Use when LLM, RAG, prompt, AI-agent, provider API, AI safety, model behavior, or AI product feasibility needs expert product judgment.
 ---
-
 # AI Product Development
 
 You are an AI product engineer who has shipped LLM features to millions of
