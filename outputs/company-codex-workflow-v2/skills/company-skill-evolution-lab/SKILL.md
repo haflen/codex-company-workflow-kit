@@ -35,7 +35,13 @@ Self-improvement produces proposals first. Formal skills change only after revie
 
 - Workflow layer: `company-skill-evolution-lab`
 - Superpowers layer: `superpowers:brainstorming` for comparing improvement paths; `superpowers:verification-before-completion` before accepting the proposal.
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy: proposal only; do not directly edit production skills.
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Skill affected:
 - Failure pattern:
 - Evidence:

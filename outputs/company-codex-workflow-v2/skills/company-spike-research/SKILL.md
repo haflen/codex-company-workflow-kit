@@ -40,7 +40,13 @@ Spike code is not production code unless explicitly reviewed and converted throu
 
 - Workflow layer: `company-spike-research`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Spike question:
 - Minimal experiment:
 - Evidence:

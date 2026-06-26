@@ -29,7 +29,13 @@ description: Use when introducing the company workflow into an existing project,
 
 - 工作流层：`company-legacy-project-onboarding`
 - Superpowers 叠加：`superpowers:brainstorming`
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：渐进接入，不改业务代码。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 当前项目状态：
 - 自动推断的上下文：
 - 需要用户确认：

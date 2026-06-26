@@ -44,7 +44,13 @@ description: Use when company code behavior differs from requirements, design, a
 
 - 工作流层：`company-bugfix-runner`
 - Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 复现或证据：
 - 根因：
 - 最小修复：

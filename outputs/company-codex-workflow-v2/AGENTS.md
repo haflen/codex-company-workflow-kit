@@ -20,11 +20,34 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 ## Visible Superpowers Layer
 
 - Every workflow output must explicitly include `Workflow layer`, `Superpowers layer`, and `Execution strategy`.
+- Every workflow opening must explicitly include `Actual calls`, `Expert/plugin capabilities`, and `Not called, lens only`; do not say "expert lens" without stating whether the skill was actually invoked.
+- Every workflow closing must explicitly include `Verification evidence`, `Unverified items`, and `Remaining risk`. If verification is not needed for the current phase, state why.
+- If a Superpowers skill, expert skill, MCP, browser capability, or other Codex plugin capability is not actually exposed or invoked in the current session, record it under `Not called, lens only` with the reason.
 - Requirements exploration defaults to `superpowers:brainstorming`.
 - Complex planning defaults to `superpowers:writing-plans`.
 - Implementation defaults to `superpowers:test-driven-development` and `superpowers:verification-before-completion`.
 - Bugfix defaults to `superpowers:systematic-debugging`, with `superpowers:verification-before-completion` before completion.
 - If a simple task skips Superpowers, state the reason explicitly.
+
+## Capability Trace
+
+All company workflows use this trace protocol by default unless the user explicitly asks for a minimal answer:
+
+Opening:
+
+- `Workflow layer:`
+- `Actual calls:` list workflow, Superpowers, expert skill, MCP, browser, or plugin capabilities actually triggered or read.
+- `Expert/plugin capabilities:` list the experts, Superpowers, or Codex plugin capabilities selected for this turn.
+- `Not called, lens only:` list capabilities that were unavailable, unsuitable for the phase, or not worth invoking.
+- `Execution strategy:`
+
+Closing:
+
+- `Verification evidence:` include commands, check results, file changes, screenshots, logs, or manual evidence.
+- `Unverified items:` include anything not checked or not applicable to this phase.
+- `Remaining risk:`
+
+Do not use "executed with expert lens" as a substitute for call evidence; always distinguish `actually invoked` from `lens only`.
 
 ## Handoff Signals
 

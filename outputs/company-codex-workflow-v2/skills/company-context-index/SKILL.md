@@ -21,7 +21,13 @@ Build enough project context without loading everything.
 
 - Workflow layer: `company-context-index`
 - Superpowers layer: none; context indexing only routes and minimizes context. For migration strategy discussion, route to `company-legacy-project-onboarding` with `superpowers:brainstorming`.
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy: read on demand; do not scan everything.
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Current task:
 - Current version/milestone:
 - Relevant docs:

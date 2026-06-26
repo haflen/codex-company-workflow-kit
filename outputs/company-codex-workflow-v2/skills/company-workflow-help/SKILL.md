@@ -46,7 +46,13 @@ Use the user's current goal, project state, and available artifacts:
 - Recommended workflow / 推荐工作流:
 - Complexity level / 复杂度级别:
 - Superpowers layer / Superpowers 叠加:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy / 执行策略:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Why / 原因:
 - Suggested user phrase / 推荐用户说法:
 - Required input from user / 还需要用户补充:

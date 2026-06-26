@@ -85,7 +85,13 @@ When routing matters, include:
 
 - Workflow layer: `company-expert-routing`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Bundle selected:
 - Expert used:
 - Why:

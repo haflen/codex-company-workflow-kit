@@ -40,7 +40,13 @@ description: Use when company feature requirements are confirmed and a technical
 
 - 工作流层：`company-feature-design`
 - Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 推荐设计：
 - 备选方案和取舍：
 - 风险：

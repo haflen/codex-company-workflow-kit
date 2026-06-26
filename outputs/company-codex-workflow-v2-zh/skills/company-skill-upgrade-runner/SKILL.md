@@ -49,7 +49,13 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 
 - 工作流层：`company-skill-upgrade-runner`
 - Superpowers 叠加：`superpowers:verification-before-completion`
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：默认 dry-run，用户确认后才覆盖。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 待更新 skills：
 - 来源和候选 pin：
 - 受影响 bundle：

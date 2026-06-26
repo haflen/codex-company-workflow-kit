@@ -29,7 +29,13 @@ Introduce the company Codex workflow into an existing project without disrupting
 
 - Workflow layer: `company-legacy-project-onboarding`
 - Superpowers layer: `superpowers:brainstorming`
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy: gradual adoption; do not edit business code.
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Current project state:
 - Auto-inferred context:
 - Needs user confirmation:

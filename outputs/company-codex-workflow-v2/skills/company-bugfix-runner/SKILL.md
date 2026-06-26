@@ -44,7 +44,13 @@ Do not bundle new feature behavior into a bugfix.
 
 - Workflow layer: `company-bugfix-runner`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Reproduction or evidence:
 - Root cause:
 - Minimal fix:

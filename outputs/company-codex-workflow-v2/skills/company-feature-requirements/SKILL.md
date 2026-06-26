@@ -41,7 +41,13 @@ Requirements work must not modify implementation code or prescribe low-level arc
 
 - Workflow layer: `company-feature-requirements`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Requirements conclusion:
 - Options:
 - Risks and open questions:

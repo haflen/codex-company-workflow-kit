@@ -30,7 +30,13 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 
 - Workflow layer: `company-implementation-runner`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Minimal failing case or verification anchor:
 - Task completed:
 - Files changed:

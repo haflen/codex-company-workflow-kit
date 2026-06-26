@@ -33,7 +33,13 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 
 - 工作流层：`company-skill-maintenance`
 - Superpowers 叠加：`superpowers:verification-before-completion`
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：依赖审查、版本锁定、可回滚。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - Skill：
 - 来源和 pin：
 - 许可：

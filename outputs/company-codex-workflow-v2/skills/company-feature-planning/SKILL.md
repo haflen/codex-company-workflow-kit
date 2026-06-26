@@ -41,7 +41,13 @@ When a task template is needed, resolve it in this order:
 
 - Workflow layer: `company-feature-planning`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Tasks:
 - Minimal failing case or verification anchor per task:
 - Implementation handoff phrase:

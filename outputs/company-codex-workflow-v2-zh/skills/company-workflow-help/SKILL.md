@@ -42,7 +42,13 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 复杂度级别：
 - 推荐工作流：
 - Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 原因：
 - 推荐用户说法：
 - 还需要用户补充：

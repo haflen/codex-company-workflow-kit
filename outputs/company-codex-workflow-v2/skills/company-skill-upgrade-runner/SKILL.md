@@ -56,7 +56,13 @@ Before applying changes, present:
 
 - Workflow layer: `company-skill-upgrade-runner`
 - Superpowers layer: `superpowers:verification-before-completion`
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy: dry-run by default; overwrite only after explicit user confirmation.
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Skills to update:
 - Source and candidate pin:
 - Impacted bundles:

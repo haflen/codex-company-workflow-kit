@@ -20,11 +20,34 @@
 ## Superpowers 可见叠加
 
 - 每个 workflow 输出都必须显式包含 `工作流层`、`Superpowers 叠加` 和 `执行策略`。
+- 每个 workflow 开头都必须显式包含 `实际调用`、`专家/插件能力` 和 `未调用但采用视角`，不能只写“专家视角”而不说明是否真实调用 skill。
+- 每个 workflow 结尾都必须显式包含 `验证证据`、`未验证项` 和 `剩余风险`。如果本阶段不需要验证，必须说明原因。
+- 如果某个 Superpowers、专家 skill、MCP、浏览器或其他 Codex 插件能力没有在当前会话真实暴露或真实调用，必须写入 `未调用但采用视角`，并说明原因。
 - 需求探索默认叠加 `superpowers:brainstorming`。
 - 复杂任务拆解默认叠加 `superpowers:writing-plans`。
 - 实现阶段默认叠加 `superpowers:test-driven-development` 和 `superpowers:verification-before-completion`。
 - Bugfix 默认叠加 `superpowers:systematic-debugging`，完成前叠加 `superpowers:verification-before-completion`。
 - 如果某个简单任务不叠加 Superpowers，必须明确说明原因。
+
+## 能力调用透明度
+
+所有公司 workflow 默认使用以下透明度协议，除非用户明确要求极简输出：
+
+开头：
+
+- `工作流层：`
+- `实际调用：` 写真实触发或读取的 workflow、Superpowers、专家 skill、MCP、浏览器能力。
+- `专家/插件能力：` 写本轮需要或已选择的专家、Superpowers、Codex 插件能力。
+- `未调用但采用视角：` 写当前会话不可见、阶段不适合或风险不值得真实调用的能力。
+- `执行策略：`
+
+结尾：
+
+- `验证证据：` 写命令、检查结果、文件变更、截图、日志或人工检查证据。
+- `未验证项：` 写未能验证或本阶段无需验证的内容。
+- `剩余风险：`
+
+不能用“已按专家视角执行”替代真实调用说明；必须区分 `已真实调用` 与 `仅采用视角`。
 
 ## 交接口令
 

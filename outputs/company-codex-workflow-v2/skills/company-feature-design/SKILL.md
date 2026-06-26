@@ -40,7 +40,13 @@ Design work must not edit implementation code.
 
 - Workflow layer: `company-feature-design`
 - Superpowers layer:
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy:
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Recommended design:
 - Alternatives and trade-offs:
 - Risks:

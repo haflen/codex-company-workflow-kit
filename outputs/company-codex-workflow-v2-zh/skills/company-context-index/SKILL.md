@@ -21,7 +21,13 @@ description: Use when starting work in a company project, resuming an existing f
 
 - 工作流层：`company-context-index`
 - Superpowers 叠加：无，原因：本阶段只做上下文路由和最小信息收集；如需迁移策略讨论，转入 `company-legacy-project-onboarding` 并叠加 `superpowers:brainstorming`。
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：按需读取，不全量扫描。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 项目：
 - 当前阶段：
 - 相关 spec：

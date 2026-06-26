@@ -41,7 +41,13 @@ description: Use when company requirements and technical design are confirmed an
 
 - 工作流层：`company-feature-planning`
 - Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 任务列表：
 - 每个任务的最小失败案例或验证锚点：
 - 实现交接口令：

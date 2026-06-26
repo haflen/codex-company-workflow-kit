@@ -10,6 +10,7 @@
 - 专家 skills 通过 bundle 自动路由；安装和项目初始化会自动生成专家就绪和安全审查报告。
 - 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
+- 每轮执行会显式区分实际调用的 Superpowers/专家/插件能力，以及未调用但采用的专家视角。
 
 ## 当前主包
 
@@ -46,6 +47,18 @@ outputs/company-codex-workflow-template/
 - `skills/`：公司工作流 skills。
 - `skills/*/agents/openai.yaml`：Codex UI 技能列表/chips 使用的名称、简介和默认提示。
 - `specs/global/assets/`：需求、设计、任务、hotfix、spike、技能升级报告模板。
+
+## 能力调用透明度
+
+公司 workflow 默认要求每轮输出明确区分：
+
+- `实际调用`：本轮真实触发或读取的 workflow、Superpowers、专家 skill、MCP、浏览器或 Codex 插件能力。
+- `专家/插件能力`：本轮选择或依赖的专家、Superpowers、Codex 插件能力。
+- `未调用但采用视角`：当前会话不可见、阶段不适合或风险不值得真实调用的能力。
+- `验证证据`：命令、检查结果、文件变更、截图、日志或人工检查证据。
+- `未验证项` 和 `剩余风险`。
+
+这条规则已经写入插件 `AGENTS.md` 和所有 `company-*` workflow skill，不需要用户每次在对话里重复提醒。
 
 ## 安装
 

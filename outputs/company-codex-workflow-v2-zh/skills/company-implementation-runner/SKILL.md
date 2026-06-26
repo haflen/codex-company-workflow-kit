@@ -30,7 +30,13 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 - 工作流层：`company-implementation-runner`
 - Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 最小失败案例或验证锚点：
 - 完成任务：
 - 变更文件：

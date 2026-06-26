@@ -22,7 +22,13 @@ Ensure the company workflow works out of the box: required external experts must
 
 - Workflow layer: `company-expert-readiness`
 - Superpowers layer: none; this is installation and dependency diagnosis.
+- Actual calls:
+- Expert/plugin capabilities:
+- Not called, lens only:
 - Execution strategy: check bundled experts first, then current-session exposure.
+- Verification evidence:
+- Unverified items:
+- Remaining risk:
 - Bundle:
 - Installed and callable:
 - Installed but not exposed in current session:

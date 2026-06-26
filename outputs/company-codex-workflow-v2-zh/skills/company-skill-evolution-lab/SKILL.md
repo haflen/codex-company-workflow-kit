@@ -35,7 +35,13 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 
 - 工作流层：`company-skill-evolution-lab`
 - Superpowers 叠加：`superpowers:brainstorming` 用于比较改进路径；完成前使用 `superpowers:verification-before-completion` 检查提案完整性。
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：只产出提案，不直接改生产 skill。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - 受影响 skill：
 - 失败模式：
 - 证据：

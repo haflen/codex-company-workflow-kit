@@ -22,7 +22,13 @@ description: Use when a company project needs to verify bundled expert skills, c
 
 - 工作流层：`company-expert-readiness`
 - Superpowers 叠加：无；这是安装和依赖诊断。
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
 - 执行策略：先检查随包内置专家，再检查当前会话暴露状态。
+- 验证证据：
+- 未验证项：
+- 剩余风险：
 - Bundle：
 - 已安装并可调用：
 - 已安装但当前会话未暴露：
