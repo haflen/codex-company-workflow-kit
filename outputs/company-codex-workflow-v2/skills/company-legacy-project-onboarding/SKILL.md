@@ -28,6 +28,7 @@ Introduce the company Codex workflow into an existing project without disrupting
 ## Output
 
 - Workflow layer: `company-legacy-project-onboarding`
+- Trace mode:
 - Superpowers layer: `superpowers:brainstorming`
 - Actual calls:
 - Expert/plugin capabilities:

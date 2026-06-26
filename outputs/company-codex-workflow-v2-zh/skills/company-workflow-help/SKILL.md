@@ -9,6 +9,13 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 帮助公司用户在不知道 skill 名称的情况下，判断当前应该进入哪条工作流。这里的 `/hotfix`、`/spike` 只是推荐说法，不是 Codex UI 里注册出来的真实 slash 命令。
 
+## 与专家路由的区别
+
+- `company-workflow-help` 决定“现在该走哪条 workflow”：需求、设计、任务、实现、bugfix、hotfix、spike、旧项目接入、技能升级等。
+- `company-expert-routing` 决定“进入某条 workflow 后，需要哪些专家、bundle、Superpowers、MCP、浏览器或官方文档”。
+- 用户不知道从哪里开始时，先用 `company-workflow-help`；进入明确 workflow 后，只有非平凡技术、业务、测试或风险判断才调用 `company-expert-routing`。
+- 本 skill 不做详细专家选择，只判断是否需要进入专家路由。
+
 ## 路由判断
 
 根据用户当前目标、项目状态和已有产物判断入口：
@@ -36,9 +43,27 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - L2：标准交付，按需求、设计、任务、实现推进。
 - L3：高风险变更，完整流程、专家路由、严格验证和用户确认。
 
+## 透明度分级判定
+
+用户不需要判断使用哪种透明度级别；本 skill 必须自动选择：
+
+- `light`：默认模式。适合普通阶段内推进、小改动、低风险文档更新、简单入口推荐。
+- `full-audit`：命中以下任一条件时自动启用：
+  - 阶段交接：需求到设计、设计到任务、任务到实现。
+  - 实现完成、bugfix 完成、hotfix 任意阶段、spike 结论输出。
+  - 技能升级、安全审查、专家依赖异常或自进化提案。
+  - 当前会话缺少应有 Superpowers、专家 skill、MCP、浏览器或插件能力。
+  - 出现“仅采用专家视角，没有真实调用”的情况。
+  - 验证失败、验证缺失、无法运行测试。
+  - 涉及生产、数据、权限、架构、性能或安全风险。
+  - 用户要求审计、复核流程或确认是否合规。
+
+如果推荐入口触发 `full-audit`，必须说明触发原因。
+
 ## 输出格式
 
 - 工作流层：`company-workflow-help`
+- 透明度模式：
 - 复杂度级别：
 - 推荐工作流：
 - Superpowers 叠加：
@@ -53,6 +78,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 推荐用户说法：
 - 还需要用户补充：
 - 需要检查的文件或产物：
+- Workflow Audit（仅 full-audit 时输出）：
 
 ## 约束
 
@@ -61,3 +87,4 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 如果用户正在某个阶段中，默认继续当前阶段，除非用户明确要求进入下一阶段。
 - 如果多个入口都可能适用，优先选择能补齐最早缺失产物的入口。
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
+- 不要在入口帮助阶段展开详细专家清单；只判断是否需要进入 `company-expert-routing`。

@@ -20,6 +20,7 @@ description: Use when starting work in a company project, resuming an existing f
 ## 输出
 
 - 工作流层：`company-context-index`
+- 透明度模式：
 - Superpowers 叠加：无，原因：本阶段只做上下文路由和最小信息收集；如需迁移策略讨论，转入 `company-legacy-project-onboarding` 并叠加 `superpowers:brainstorming`。
 - 实际调用：
 - 专家/插件能力：

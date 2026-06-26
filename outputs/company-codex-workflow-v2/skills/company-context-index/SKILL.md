@@ -20,6 +20,7 @@ Build enough project context without loading everything.
 ## Output
 
 - Workflow layer: `company-context-index`
+- Trace mode:
 - Superpowers layer: none; context indexing only routes and minimizes context. For migration strategy discussion, route to `company-legacy-project-onboarding` with `superpowers:brainstorming`.
 - Actual calls:
 - Expert/plugin capabilities:

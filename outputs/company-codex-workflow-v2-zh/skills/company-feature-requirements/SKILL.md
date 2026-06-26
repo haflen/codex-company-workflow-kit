@@ -40,6 +40,7 @@ description: Use when a company project needs feature requirements, acceptance c
 ## 输出格式
 
 - 工作流层：`company-feature-requirements`
+- 透明度模式：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：

@@ -28,6 +28,7 @@ description: Use when introducing the company workflow into an existing project,
 ## 输出
 
 - 工作流层：`company-legacy-project-onboarding`
+- 透明度模式：
 - Superpowers 叠加：`superpowers:brainstorming`
 - 实际调用：
 - 专家/插件能力：

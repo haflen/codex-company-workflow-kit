@@ -33,6 +33,7 @@ Prevent malicious, overbroad, or unsafe skills from entering company workflows.
 ## Output
 
 - Workflow layer: `company-skill-security-review`
+- Trace mode:
 - Superpowers layer: `superpowers:verification-before-completion`
 - Actual calls:
 - Expert/plugin capabilities:

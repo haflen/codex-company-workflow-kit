@@ -9,6 +9,13 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 Centralize bundle and expert selection so workflow skills do not duplicate and drift.
 
+## Difference From Workflow Help
+
+- `company-workflow-help` decides which workflow the user should enter.
+- `company-expert-routing` is used only after the workflow is clear, and chooses the smallest needed bundle, expert skill, Superpowers skill, MCP, browser capability, or official documentation source.
+- If the user is only asking "what should I do next?", route back to `company-workflow-help`.
+- If the task is already in requirements, design, planning, implementation, bugfix, hotfix, spike, or skill governance and contains a non-trivial decision, use this skill.
+
 ## Routing Method
 
 1. Check whether the task is non-trivial enough to need a bundle or expert.
@@ -17,7 +24,7 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 4. Within the selected bundle, use only the experts needed for the current phase.
 5. If the expert is exposed as a Codex skill in the current session, use it when its trigger matches.
 6. If multi-agent support is available and the issue is complex, dispatch a focused expert review.
-7. If an expert is bundled but not visible in the current session, say that a new Codex thread is needed to refresh the skill list; do not ask users to install experts one by one.
+7. If an expert is bundled but not visible in the current session, record it under `Not called, lens only`, say that a new Codex thread is needed to refresh the skill list, and do not ask users to install experts one by one.
 8. For fast-moving APIs, prefer current official docs or local package docs.
 
 ## File Lookup Order
@@ -79,11 +86,27 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 - Tasks where the workflow already has enough local evidence.
 - Expert use that would reopen confirmed requirements without a concrete inconsistency.
 
+## Trace-Level Decision
+
+This skill must choose the trace level automatically:
+
+- `light`: default mode when experts are actually callable, risk is low, and expert use is only auxiliary.
+- `full-audit`: automatically enable when any of these is true:
+  - Any expert, Superpowers skill, MCP, browser capability, or plugin capability is only listed as `Not called, lens only`.
+  - `BUNDLES.md`, `EXPERTS.lock.md`, or `EXPERT-READINESS.md` is missing or has an abnormal source.
+  - Security review, expert dependency update, skill upgrade, or self-improvement proposal is involved.
+  - Official documentation cannot verify a fast-moving API.
+  - Production, data, permission, architecture, performance, or security risk is involved.
+  - The user asks to audit, review the process, or confirm actual invocation.
+
+If `full-audit` is active, output the trigger reason and `Workflow Audit`.
+
 ## Output
 
 When routing matters, include:
 
 - Workflow layer: `company-expert-routing`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:
@@ -99,3 +122,4 @@ When routing matters, include:
 - Readiness status from `EXPERT-READINESS.md`:
 - Result:
 - Any official docs checked:
+- Workflow Audit (only in full-audit mode):

@@ -21,6 +21,7 @@ description: Use when a company project needs to verify bundled expert skills, c
 ## 输出
 
 - 工作流层：`company-expert-readiness`
+- 透明度模式：
 - Superpowers 叠加：无；这是安装和依赖诊断。
 - 实际调用：
 - 专家/插件能力：

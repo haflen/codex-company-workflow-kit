@@ -15,6 +15,7 @@
 
 入口帮助
 └── company-workflow-help
+    └── 决定进入哪条 workflow，并自动判定 light/full-audit
 
 项目上下文
 ├── company-context-index
@@ -32,6 +33,7 @@
 
 专家路由
 ├── company-expert-routing
+│   └── 在已选 workflow 内选择 bundle、专家、Superpowers、MCP、浏览器或官方文档
 └── company-expert-readiness
 
 技能治理
@@ -76,6 +78,14 @@
 | `company-skill-security-review` | 审查第三方、开源、自进化 skill 的安全风险 | External or self-improved skills need review before trust. |
 | `company-skill-maintenance` | 维护专家依赖、pin、bundle 影响面和回滚记录 | Updating, pinning, auditing, replacing, or reviewing trusted skills. |
 | `company-skill-evolution-lab` | 记录 workflow 误触发/过重/过轻，并提出改进 | Workflow skills repeatedly misfire or need controlled improvement proposals. |
+
+## Typical Flow
+
+## Workflow Help vs Expert Routing
+
+- `company-workflow-help` 是入口层：回答“我现在该走需求、设计、任务、实现、bugfix、spike、旧项目接入还是技能升级？”
+- `company-expert-routing` 是执行层内的专家选择：回答“当前 workflow 里，需要前端、后端、测试、产品、业务、Superpowers、浏览器验证、MCP 或官方文档中的哪些组合？”
+- 用户不需要主动判断 `light/full-audit`。入口和执行 workflow 会自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。
 
 ## Typical Flow
 

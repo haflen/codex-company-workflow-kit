@@ -21,6 +21,7 @@ Ensure the company workflow works out of the box: required external experts must
 ## Output
 
 - Workflow layer: `company-expert-readiness`
+- Trace mode:
 - Superpowers layer: none; this is installation and dependency diagnosis.
 - Actual calls:
 - Expert/plugin capabilities:

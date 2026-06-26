@@ -9,6 +9,13 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 集中管理 bundle 和专家选择，避免各工作流重复维护路由表。
 
+## 与入口帮助的区别
+
+- `company-workflow-help` 负责判断用户当前应该进入哪条 workflow。
+- `company-expert-routing` 只在 workflow 已经明确后使用，负责选择最小必要 bundle、专家 skill、Superpowers、MCP、浏览器能力或官方文档。
+- 如果用户只是问“现在该怎么做”，先回到 `company-workflow-help`。
+- 如果当前任务已经进入需求、设计、任务、实现、bugfix、hotfix、spike 或技能治理阶段，并且存在非平凡判断，再使用本 skill。
+
 ## 路由方法
 
 1. 判断任务是否复杂到需要 bundle 或专家。
@@ -17,7 +24,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 4. 在选中 bundle 内，只使用当前阶段需要的专家。
 5. 如果专家在当前会话已暴露为 Codex skill，在触发条件匹配时直接使用。
 6. 如果支持多 agent 且问题复杂，派发聚焦专家审查。
-7. 如果专家已随插件安装但当前会话不可见，说明需要新开 Codex 线程刷新技能列表；不要要求用户逐个安装。
+7. 如果专家已随插件安装但当前会话不可见，记录到 `未调用但采用视角`，说明需要新开 Codex 线程刷新技能列表；不要要求用户逐个安装。
 8. 对变化快的 API，优先当前官方文档或本地包文档。
 
 ## 文件查找顺序
@@ -77,9 +84,25 @@ description: Use when a company workflow needs to decide whether an expert skill
 - 当前工作流已有足够本地证据。
 - 没有具体不一致时，不用专家重新打开已确认需求。
 
+## 透明度分级判定
+
+本 skill 必须自动选择透明度级别：
+
+- `light`：默认模式。专家真实可调用、风险较低、专家只作为辅助校验时使用。
+- `full-audit`：命中以下任一条件时自动启用：
+  - 任一专家、Superpowers、MCP、浏览器或插件能力只是 `未调用但采用视角`。
+  - `BUNDLES.md`、`EXPERTS.lock.md`、`EXPERT-READINESS.md` 三类依赖信息缺失或来源异常。
+  - 安全审查、专家依赖更新、技能升级或自进化提案。
+  - 官方文档无法确认变化快的 API。
+  - 涉及生产、数据、权限、架构、性能或安全风险。
+  - 用户要求审计、复核流程或确认是否真实调用。
+
+如果启用 `full-audit`，必须输出触发原因和 `Workflow Audit`。
+
 ## 输出
 
 - 工作流层：`company-expert-routing`
+- 透明度模式：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：
@@ -95,3 +118,4 @@ description: Use when a company workflow needs to decide whether an expert skill
 - `EXPERT-READINESS.md` 状态：
 - 结果：
 - 已检查的官方文档：
+- Workflow Audit（仅 full-audit 时输出）：

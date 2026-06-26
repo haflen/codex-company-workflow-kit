@@ -43,6 +43,7 @@ Do not bundle new feature behavior into a bugfix.
 ## Output
 
 - Workflow layer: `company-bugfix-runner`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

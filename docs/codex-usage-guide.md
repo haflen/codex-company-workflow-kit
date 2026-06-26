@@ -55,7 +55,12 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 安装公司插件也会安装强依赖专家 skills。用户不需要逐个安装 `frontend-design`、`frontend-developer`、`typescript-expert`、`testing-qa` 等专家；安装脚本会自动生成 `EXPERT-READINESS.md` 安全审查和就绪报告。安装完成后新开 Codex 线程，确保当前会话看到新 skills。
 
-每轮公司 workflow 还会默认输出能力调用透明度信息，包括 `实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。这用于区分“真实调用了 Superpowers/专家 skill/插件能力”和“只是按对应视角执行”，团队成员不需要每次额外提醒。
+每轮公司 workflow 还会默认输出能力调用透明度信息，包括 `透明度模式`、`实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。透明度级别由 workflow 自动选择：
+
+- `light`：普通阶段内推进、小改动、低风险文档更新、简单入口推荐。
+- `full-audit`：阶段交接、实现完成、bugfix 完成、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用、验证缺失，或涉及生产、数据、权限、架构、性能、安全风险。
+
+这用于区分“真实调用了 Superpowers/专家 skill/插件能力”和“只是按对应视角执行”，团队成员不需要每次额外提醒。
 
 ### 项目安装
 

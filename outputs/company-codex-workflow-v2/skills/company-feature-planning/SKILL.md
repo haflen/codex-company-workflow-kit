@@ -40,6 +40,7 @@ When a task template is needed, resolve it in this order:
 ## Output
 
 - Workflow layer: `company-feature-planning`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

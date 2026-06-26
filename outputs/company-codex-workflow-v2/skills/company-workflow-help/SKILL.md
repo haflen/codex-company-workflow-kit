@@ -11,6 +11,13 @@ Help company users enter the right workflow without knowing skill names. The `/h
 
 帮助公司用户在不知道 skill 名称的情况下，判断当前应该进入哪条工作流。
 
+## Difference From Expert Routing / 与专家路由的区别
+
+- `company-workflow-help` decides which workflow to enter: requirements, design, planning, implementation, bugfix, hotfix, spike, legacy onboarding, skill upgrade, or expert readiness.
+- `company-expert-routing` decides which experts, bundles, Superpowers, MCPs, browser capabilities, or official docs are needed inside an already selected workflow.
+- If the user is unsure where to start, use `company-workflow-help` first. After a workflow is concrete, call `company-expert-routing` only for non-trivial technical, business, testing, or risk decisions.
+- This skill does not perform detailed expert selection; it only decides whether expert routing is needed.
+
 ## Routing / 路由判断
 
 Use the user's current goal, project state, and available artifacts:
@@ -40,9 +47,27 @@ Use the user's current goal, project state, and available artifacts:
 - L2: standard delivery through requirements, design, planning, and implementation.
 - L3: high-risk change with full workflow, expert routing, strict verification, and user confirmation.
 
+## Trace-Level Decision / 透明度分级判定
+
+Users do not decide the trace level; this skill must choose automatically:
+
+- `light`: default mode for normal in-phase progress, small changes, low-risk doc updates, and simple routing suggestions.
+- `full-audit`: automatically enable when any of these is true:
+  - Phase handoff: requirements to design, design to planning, planning to implementation.
+  - Implementation completion, bugfix completion, any hotfix phase, or spike conclusion.
+  - Skill upgrade, security review, expert dependency exception, or self-improvement proposal.
+  - The current session lacks an expected Superpowers skill, expert skill, MCP, browser capability, or plugin capability.
+  - Any expert/plugin capability is only used as a lens instead of actually invoked.
+  - Verification failed, is missing, or tests cannot be run.
+  - Production, data, permission, architecture, performance, or security risk is involved.
+  - The user asks to audit, review the process, or confirm compliance.
+
+If the recommended route triggers `full-audit`, state the trigger reason.
+
 ## Output / 输出格式
 
 - Workflow layer / 工作流层: `company-workflow-help`
+- Trace mode / 透明度模式:
 - Recommended workflow / 推荐工作流:
 - Complexity level / 复杂度级别:
 - Superpowers layer / Superpowers 叠加:
@@ -57,6 +82,7 @@ Use the user's current goal, project state, and available artifacts:
 - Suggested user phrase / 推荐用户说法:
 - Required input from user / 还需要用户补充:
 - Files or artifacts to check / 需要检查的文件或产物:
+- Workflow Audit (only in full-audit mode):
 
 ## Guardrails / 约束
 
@@ -70,3 +96,4 @@ Use the user's current goal, project state, and available artifacts:
 - 如果多个入口都可能适用，优先选择能补齐最早缺失产物的入口。
 - Every routing answer must explicitly state whether a Superpowers layer is used; if not, state that the task is simple enough to skip it.
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
+- Do not expand a detailed expert list in the entry-help phase; only decide whether `company-expert-routing` is needed.

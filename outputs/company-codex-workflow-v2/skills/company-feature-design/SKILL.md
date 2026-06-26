@@ -39,6 +39,7 @@ Design work must not edit implementation code.
 ## Output
 
 - Workflow layer: `company-feature-design`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

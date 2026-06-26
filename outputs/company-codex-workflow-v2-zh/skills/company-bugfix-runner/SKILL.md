@@ -43,6 +43,7 @@ description: Use when company code behavior differs from requirements, design, a
 ## 输出格式
 
 - 工作流层：`company-bugfix-runner`
+- 透明度模式：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：

@@ -29,6 +29,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 ## 完成报告
 
 - 工作流层：`company-implementation-runner`
+- 透明度模式：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：

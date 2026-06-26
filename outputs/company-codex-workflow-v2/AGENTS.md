@@ -33,9 +33,25 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 
 All company workflows use this trace protocol by default unless the user explicitly asks for a minimal answer:
 
+### Automatic Levels
+
+Users do not decide which trace level to use; the workflow must choose automatically:
+
+- `light`: default mode for normal in-phase progress, small changes, doc updates, and low-risk continuation. Keep only the required actual calls, lens-only usage, verification evidence, and risk notes.
+- `full-audit`: key-node or exception mode. Enable the full `Workflow Audit` when any of these is true:
+  - Phase handoff: requirements to design, design to planning, planning to implementation.
+  - Implementation completion, bugfix completion, any hotfix phase, or spike conclusion.
+  - Skill upgrade, expert dependency update, security review, or self-improvement proposal.
+  - An expert/plugin capability was not actually invoked and only used as a lens.
+  - The current session lacks an expected Superpowers skill, expert skill, MCP, browser capability, or plugin capability.
+  - Verification failed, is missing, or tests cannot be run.
+  - Production, data, permission, architecture, performance, or security risk is involved.
+  - The user asks to audit, check the process, or confirm compliance.
+
 Opening:
 
 - `Workflow layer:`
+- `Trace mode: light` or `Trace mode: full-audit`
 - `Actual calls:` list workflow, Superpowers, expert skill, MCP, browser, or plugin capabilities actually triggered or read.
 - `Expert/plugin capabilities:` list the experts, Superpowers, or Codex plugin capabilities selected for this turn.
 - `Not called, lens only:` list capabilities that were unavailable, unsuitable for the phase, or not worth invoking.
@@ -48,6 +64,17 @@ Closing:
 - `Remaining risk:`
 
 Do not use "executed with expert lens" as a substitute for call evidence; always distinguish `actually invoked` from `lens only`.
+
+When `full-audit` is active, also output:
+
+- `Workflow Audit:`
+- `Phase boundary:`
+- `Superpowers declaration:`
+- `Expert/plugin actual calls:`
+- `Lens-only usage:`
+- `Verification evidence:`
+- `Unverified items:`
+- `Conclusion:`
 
 ## Handoff Signals
 

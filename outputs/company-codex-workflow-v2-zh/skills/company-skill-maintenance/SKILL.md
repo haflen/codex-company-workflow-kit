@@ -32,6 +32,7 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 ## 输出
 
 - 工作流层：`company-skill-maintenance`
+- 透明度模式：
 - Superpowers 叠加：`superpowers:verification-before-completion`
 - 实际调用：
 - 专家/插件能力：

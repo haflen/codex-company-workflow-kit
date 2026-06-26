@@ -50,15 +50,21 @@ outputs/company-codex-workflow-template/
 
 ## 能力调用透明度
 
-公司 workflow 默认要求每轮输出明确区分：
+公司 workflow 默认自动判定透明度级别，用户不需要自己选择：
 
+- `light`：普通阶段内推进、小改动、低风险文档更新、简单入口推荐。
+- `full-audit`：阶段交接、实现完成、bugfix 完成、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用、验证缺失，或涉及生产、数据、权限、架构、性能、安全风险。
+
+每轮输出会明确区分：
+
+- `透明度模式`：本轮自动选择的 `light` 或 `full-audit`。
 - `实际调用`：本轮真实触发或读取的 workflow、Superpowers、专家 skill、MCP、浏览器或 Codex 插件能力。
 - `专家/插件能力`：本轮选择或依赖的专家、Superpowers、Codex 插件能力。
 - `未调用但采用视角`：当前会话不可见、阶段不适合或风险不值得真实调用的能力。
 - `验证证据`：命令、检查结果、文件变更、截图、日志或人工检查证据。
 - `未验证项` 和 `剩余风险`。
 
-这条规则已经写入插件 `AGENTS.md` 和所有 `company-*` workflow skill，不需要用户每次在对话里重复提醒。
+`full-audit` 会额外输出 `Workflow Audit`，说明阶段边界、Superpowers 声明、专家/插件真实调用、仅采用视角、验证证据和未验证项。这条规则已经写入插件 `AGENTS.md` 和所有 `company-*` workflow skill，不需要用户每次在对话里重复提醒。
 
 ## 安装
 

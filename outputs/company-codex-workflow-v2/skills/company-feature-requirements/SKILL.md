@@ -40,6 +40,7 @@ Requirements work must not modify implementation code or prescribe low-level arc
 ## Output
 
 - Workflow layer: `company-feature-requirements`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

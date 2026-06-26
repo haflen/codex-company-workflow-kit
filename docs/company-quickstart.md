@@ -31,7 +31,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 强依赖专家 skills 也随公司插件一起安装，例如 `frontend-developer`、`typescript-expert`、`frontend-design`、`testing-qa`。安装或更新插件后，请新开 Codex 线程让当前会话刷新 skill 列表。
 
-公司 workflow 每轮默认输出能力调用透明度信息。试点验收时，除了看需求、设计、任务和代码产物，还要检查回复是否包含 `实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。如果缺少这些字段，说明 workflow 没有完整执行透明度协议。
+公司 workflow 每轮默认输出能力调用透明度信息。试点验收时，除了看需求、设计、任务和代码产物，还要检查回复是否包含 `透明度模式`、`实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。`透明度模式` 由 workflow 自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。如果缺少这些字段，说明 workflow 没有完整执行透明度协议。
 
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 

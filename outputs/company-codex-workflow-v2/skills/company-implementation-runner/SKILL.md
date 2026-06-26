@@ -29,6 +29,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 ## Completion Report
 
 - Workflow layer: `company-implementation-runner`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

@@ -40,6 +40,7 @@ description: Use when company requirements and technical design are confirmed an
 ## 输出格式
 
 - 工作流层：`company-feature-planning`
+- 透明度模式：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：

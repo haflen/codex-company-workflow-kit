@@ -39,6 +39,7 @@ Spike code is not production code unless explicitly reviewed and converted throu
 ## Output
 
 - Workflow layer: `company-spike-research`
+- Trace mode:
 - Superpowers layer:
 - Actual calls:
 - Expert/plugin capabilities:

@@ -34,6 +34,7 @@ Self-improvement produces proposals first. Formal skills change only after revie
 ## Proposal Output
 
 - Workflow layer: `company-skill-evolution-lab`
+- Trace mode:
 - Superpowers layer: `superpowers:brainstorming` for comparing improvement paths; `superpowers:verification-before-completion` before accepting the proposal.
 - Actual calls:
 - Expert/plugin capabilities:

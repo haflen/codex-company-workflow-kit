@@ -55,6 +55,7 @@ Overwriting, deleting, moving, or installing production skills requires explicit
 Before applying changes, present:
 
 - Workflow layer: `company-skill-upgrade-runner`
+- Trace mode:
 - Superpowers layer: `superpowers:verification-before-completion`
 - Actual calls:
 - Expert/plugin capabilities:

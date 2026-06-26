@@ -48,6 +48,7 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 覆盖前必须展示：
 
 - 工作流层：`company-skill-upgrade-runner`
+- 透明度模式：
 - Superpowers 叠加：`superpowers:verification-before-completion`
 - 实际调用：
 - 专家/插件能力：

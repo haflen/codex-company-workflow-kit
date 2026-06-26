@@ -32,6 +32,7 @@ Treat expert skills like dependencies: pinned, reviewed, updated deliberately, a
 ## Output
 
 - Workflow layer: `company-skill-maintenance`
+- Trace mode:
 - Superpowers layer: `superpowers:verification-before-completion`
 - Actual calls:
 - Expert/plugin capabilities:

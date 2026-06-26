@@ -34,6 +34,7 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 ## 提案输出
 
 - 工作流层：`company-skill-evolution-lab`
+- 透明度模式：
 - Superpowers 叠加：`superpowers:brainstorming` 用于比较改进路径；完成前使用 `superpowers:verification-before-completion` 检查提案完整性。
 - 实际调用：
 - 专家/插件能力：
