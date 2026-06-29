@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.10 - 2026-06-29
+
+- Synced 13 vendored expert skills from `sickn33/antigravity-awesome-skills@e0ef87efd0ad5a18a23e21bb08406b3eaf563b35`.
+- Preserved Codex-optimized `Use when...` trigger descriptions while updating upstream bodies, references, scripts, and metadata.
+- Updated `EXPERTS.lock.md` to `V13.4.0` / `1,693+` observed upstream catalog state and recorded the exact vendored pin.
+- Reclassified script-bearing experts: `typescript-expert` remains high risk and `webapp-testing` remains medium risk; both require runtime approval before script execution.
+
 ## 0.2.9 - 2026-06-29
 
 - Added workflow document ownership rules for project entry pages, spike logs, formal specs, and lifecycle summaries.

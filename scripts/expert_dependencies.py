@@ -37,7 +37,10 @@ EXPERTS = [
 SOURCE = {
     "repository": "sickn33/antigravity-awesome-skills",
     "url": "https://github.com/sickn33/antigravity-awesome-skills",
-    "observed_version": "V12.3.0",
+    "observed_version": "V13.4.0",
+    "observed_size": "1,693+ skills",
+    "vendored_pin": "e0ef87efd0ad5a18a23e21bb08406b3eaf563b35",
+    "review_date": "2026-06-29",
     "license": "MIT for code; CC BY 4.0 for original non-code content unless upstream states otherwise",
 }
 
@@ -140,6 +143,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             f"- Generated at: `{now}`",
             f"- Source: `{SOURCE['repository']}`",
             f"- Observed upstream version: `{SOURCE['observed_version']}`",
+            f"- Observed catalog size: `{SOURCE['observed_size']}`",
+            f"- Vendored pin: `{SOURCE['vendored_pin']}`",
             f"- Installed experts: `{len(approved)}/{len(reviews)}`",
             f"- Auto-reviewed and approved for bundled use: `{len(approved)}`",
             f"- High-risk findings requiring runtime guardrails: `{len(high_risk)}`",
@@ -162,6 +167,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             f"- 生成时间：`{now}`",
             f"- 来源：`{SOURCE['repository']}`",
             f"- 观察上游版本：`{SOURCE['observed_version']}`",
+            f"- 观察目录规模：`{SOURCE['observed_size']}`",
+            f"- Vendored pin：`{SOURCE['vendored_pin']}`",
             f"- 已安装专家：`{len(approved)}/{len(reviews)}`",
             f"- 自动审查并批准随包使用：`{len(approved)}`",
             f"- 高风险发现，需运行时护栏：`{len(high_risk)}`",

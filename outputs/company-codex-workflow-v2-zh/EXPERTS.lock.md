@@ -6,13 +6,15 @@
 
 - 仓库：`sickn33/antigravity-awesome-skills`
 - URL：https://github.com/sickn33/antigravity-awesome-skills
-- README 观察版本：`V12.3.0`
-- README 观察规模：`1,527+` skills
+- README 观察版本：`V13.4.0`
+- README 观察规模：`1,693+` skills
 - Codex 安装方式：强依赖专家已 vendored 到本公司插件 `skills/` 目录；不要求用户逐个运行外部安装命令。
 - 代码许可：MIT
 - 原始非代码内容许可：CC BY 4.0，除非上游有更具体声明
 - 清单：`skills_index.json`
-- 审查日期：2026-06-11
+- 当前 vendored pin：`e0ef87efd0ad5a18a23e21bb08406b3eaf563b35`
+- 候选 commit 日期：2026-06-29T07:45:17Z
+- 审查日期：2026-06-29
 
 注意：README 和 package 元数据可能漂移。当前公司插件固定使用本仓库随包内置副本；后续更新必须走 `company-skill-maintenance` 和自动/人工复核。
 
@@ -54,10 +56,10 @@
 | `python-patterns` | `skills/python-patterns` | development | medium | 内置自动审查通过 | 架构指导较重，建议选择性使用。 |
 | `django-pro` | `skills/django-pro` | framework | medium | 内置自动审查通过 | 仅 Django 项目使用。 |
 | `frontend-developer` | `skills/frontend-developer` | front-end | medium | 内置自动审查通过 | React/Next 导向，Vue 项目使用时结合项目本地规范。 |
-| `typescript-expert` | `skills/typescript-expert` | framework | medium | 内置自动审查通过 | 允许作为类型和模块边界专家调用；高风险迁移仍需 review。 |
+| `typescript-expert` | `skills/typescript-expert` | framework | high | 内置审查通过，脚本运行前审批 | 上游标记 critical；包含诊断脚本且使用 shell 执行固定命令，作为类型和模块边界专家使用。 |
 | `frontend-design` | `skills/frontend-design` | front-end | medium | 内置自动审查通过 | 用于 UI 质量和视觉正确性；仍遵守公司/项目 UI 规范。 |
 | `testing-qa` | `skills/testing-qa` | workflow-bundle | safe | Pilot 批准 | 用于 QA 策略和 gate。 |
-| `webapp-testing` | `skills/webapp-testing` | test-automation | medium | 内置自动审查通过 | 用于浏览器/E2E 验证；含 helper script，运行前仍需遵守 sandbox/审批。 |
+| `webapp-testing` | `skills/webapp-testing` | test-automation | medium | 内置审查通过，脚本运行前审批 | Helper script 含命令白名单、禁 shell 元字符和项目目录限制；运行前仍需遵守 sandbox/审批。 |
 | `e2e-testing-patterns` | `skills/e2e-testing-patterns` | test-automation | safe | Pilot 批准 | 用于 E2E 策略。 |
 | `systematic-debugging` | Superpowers 优先 | debugging | unknown | Prefer Superpowers | AAS 版本仅作 fallback。 |
 | `test-driven-development` | Superpowers 优先 | testing | unknown | Prefer Superpowers | AAS 版本仅作 fallback。 |
@@ -83,3 +85,4 @@
 | 日期 | 对象 | 变更 | 审查结果 | 回滚 |
 | --- | --- | --- | --- | --- |
 | 2026-06-24 | 全部强依赖专家 | 改为随公司插件 vendored 安装，并由安装脚本自动生成安全审查和就绪报告 | 开箱可用；后续更新仍走受控审查 | 回退本文件、移除 vendored expert skill 目录或使用上一版 starter kit |
+| 2026-06-29 | 13 个 vendored 专家 | 同步上游 `sickn33/antigravity-awesome-skills@e0ef87efd0ad`；保留 Codex 化触发 description，更新正文和配套资源 | 通过静态审查；纯 Markdown 为 safe/medium，`typescript-expert`/`webapp-testing` 脚本运行前审批 | 回退本次 commit 或恢复上一版 vendored `skills/<expert>` 目录 |

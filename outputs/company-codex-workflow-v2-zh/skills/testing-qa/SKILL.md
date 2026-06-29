@@ -1,6 +1,10 @@
 ---
 name: testing-qa
 description: Use when test strategy, QA gates, unit/integration/E2E coverage, regression risk, test design, or release quality needs expert review.
+upstream_risk: safe
+upstream_source: personal
+upstream_date_added: 2026-02-27
+upstream_category: workflow-bundle
 ---
 # Testing/QA Workflow Bundle
 
@@ -223,3 +227,8 @@ Use @verification-before-completion to verify changes
 - `security-audit` - Security testing
 - `cloud-devops` - CI/CD integration
 - `ai-ml` - AI testing
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
