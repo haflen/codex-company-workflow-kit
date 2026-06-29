@@ -64,6 +64,17 @@ outputs/company-codex-workflow-template/
 
 这些检查已经写入 `AGENTS.md`、核心 workflow skills 和项目模板。普通小改动可以跳过，但必须说明原因。
 
+## 文档职责和编号命名空间
+
+公司 workflow 还内置文档职责协议，避免把项目入口、spike 现场日志、正式 specs 和生命周期总结混成一条任务链：
+
+- `说明文档.md` 或等价入口页只写项目入口、当前状态、最近重要事件和阅读路线，不承载 spike 流水任务。
+- Spike 工作日志使用 spike 内部编号，例如 `SPK02-T001`。
+- 正式任务使用 feature、版本或正式任务编号，例如 `FEAT-DT-T01`。
+- `specs/global/INDEX.md` 维护文档职责地图、编号命名空间和更新触发条件。
+
+如果旧项目出现同一个裸编号同时存在于入口文档和 spike 日志中，先修正文档职责地图和编号命名空间，再继续写入。
+
 每轮输出会明确区分：
 
 - `透明度模式`：本轮自动选择的 `light` 或 `full-audit`。
@@ -125,7 +136,7 @@ npx codex-company-workflow all /path/to/company-project --lang zh
 - 补齐项目根目录的 `BUNDLES.md` 和 `EXPERTS.lock.md`，用于专家技能组合和版本锁定。
 - 生成 `.codex-workflow/EXPERT-READINESS.md` 和 `.codex-workflow/EXPERT-READINESS.json`。
 - 自动扫描 README、manifest、测试目录、启动/构建/测试命令和常见源码入口。
-- 生成 `specs/global/INDEX.md` 草稿。
+- 生成 `specs/global/INDEX.md` 草稿，包含文档职责地图和编号命名空间。
 
 如果旧项目已有 `INDEX.md`，默认保留原文件，并生成 `specs/global/INDEX.generated.md` 供确认。
 

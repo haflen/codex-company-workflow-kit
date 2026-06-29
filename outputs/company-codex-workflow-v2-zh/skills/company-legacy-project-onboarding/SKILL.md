@@ -13,11 +13,12 @@ description: Use when introducing the company workflow into an existing project,
 
 1. 检查项目已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令。
 2. 使用安装脚本或 `generate-index` 生成 `specs/global/INDEX.md` 草稿。
-3. 标出自动推断字段和需要用户确认的字段。
-4. 保留旧项目已有规范，只追加公司工作流段落。
-5. 显式叠加 `superpowers:brainstorming`，选择一个小 feature、一个 bugfix 或一个 spike 做试点。
-6. 试点后复盘流程负担、验证证据和专家路由是否合适。
-7. 试点稳定后，再将工作流设为团队默认。
+3. 生成或补全文档职责地图：入口页、现场日志、正式 specs、生命周期文档、编号命名空间和更新触发条件。
+4. 标出自动推断字段和需要用户确认的字段。
+5. 保留旧项目已有规范，只追加公司工作流段落。
+6. 显式叠加 `superpowers:brainstorming`，选择一个小 feature、一个 bugfix 或一个 spike 做试点。
+7. 试点后复盘流程负担、验证证据、专家路由和文档职责是否合适。
+8. 试点稳定后，再将工作流设为团队默认。
 
 ## 推荐用户说法
 
@@ -41,7 +42,10 @@ description: Use when introducing the company workflow into an existing project,
 - 剩余风险：
 - 当前项目状态：
 - 自动推断的上下文：
+- 文档职责地图：
+- 编号命名空间：
 - 需要用户确认：
 - 建议试点任务：
 - 不建议立即切换的风险：
+- 需要修复的文档职责冲突：
 - 下一步：

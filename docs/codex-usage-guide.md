@@ -275,8 +275,19 @@ specs/global/INDEX.md
 - Build command
 - Local run command
 - Main source entrypoints
+- Document ownership map
+- Numbering namespaces
 
 旧项目已有 `INDEX.md` 时，默认不会覆盖。脚本会生成 `specs/global/INDEX.generated.md`，你可以让 Codex 对比两个文件，然后确认是否替换。
+
+如果旧项目里存在 `说明文档.md`、spike 工作日志、生命周期总结或历史日报，先确认文档职责：
+
+- 入口页只写当前状态、最近重要事件和阅读路线。
+- Spike 工作日志只写现场流水，使用 `SPKxx-T001` 这类编号。
+- 正式 specs 使用 feature、版本或正式任务编号。
+- 生命周期文档只写阶段总结。
+
+同一个裸编号出现在不同层级文档时，先让 Codex 修正 `INDEX.md` 的文档职责地图和编号命名空间，再继续推进需求、设计或实现。
 
 ## 4. 空项目如何开始
 

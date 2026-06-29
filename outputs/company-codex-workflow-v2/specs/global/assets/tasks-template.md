@@ -5,6 +5,7 @@
 - Feature:
 - Owner:
 - Status: draft / confirmed / in progress / complete
+- Formal task numbering namespace: for example `FEAT-xxx`
 - Requirements:
 - Design:
 
@@ -26,6 +27,7 @@
 - Keep edits scoped to the task ID being executed.
 - Do not advance to the next task when verification for the current task fails.
 - Record any assumption changes as a requirement or design update.
+- Formal tasks do not inherit spike-internal work-log IDs; create a new formal task namespace when converting spike output into production work.
 
 ## Verification Plan
 

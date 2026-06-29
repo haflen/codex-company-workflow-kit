@@ -12,10 +12,12 @@ Build enough project context without loading everything.
 ## Workflow
 
 1. Read `specs/global/INDEX.md`.
-2. If present, read `说明文档.md` or the configured progress document.
-3. Identify current version, milestone, feature, relevant docs, and commands.
-4. Read only the routed docs and source files needed for the task.
-5. If routing is stale, propose a concise index update.
+2. Confirm whether `INDEX.md` contains a document ownership map: entry page, work log, formal specs, lifecycle docs, numbering namespaces, and update triggers.
+3. If present, read `说明文档.md` or the configured progress document.
+4. Identify current version, milestone, feature, relevant docs, and commands.
+5. Read only the routed docs and source files needed for the task.
+6. If routing is stale, propose a concise index update; if bare task numbers are reused across document levels, flag a document ownership risk first.
+7. Output the context summary, document to update, and next step.
 
 ## Output
 
@@ -33,13 +35,17 @@ Build enough project context without loading everything.
 - Remaining risk:
 - Current task:
 - Current version/milestone:
+- Document ownership map:
+- Numbering namespaces:
 - Relevant docs:
 - Relevant code paths:
 - Verification commands:
 - Missing context:
+- Recommended document to update:
 
 ## Guardrails
 
 - Do not edit implementation code during context indexing.
 - Do not read every spec by default.
 - Do not block trivial tasks on missing company process documents; state the gap and continue if safe.
+- Do not treat `说明文档.md`, spike work logs, and formal specs as one continuous task chain.

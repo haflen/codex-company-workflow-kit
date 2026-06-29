@@ -49,11 +49,13 @@ npx codex-company-workflow all /path/to/project --lang zh
 2. 把 `outputs/company-codex-workflow-v2-zh/specs/global/assets/` 复制到目标项目的 `specs/global/assets/`。
 3. 把 `outputs/company-codex-workflow-v2-zh/BUNDLES.md` 和 `outputs/company-codex-workflow-v2-zh/EXPERTS.lock.md` 复制到目标项目根目录。
 4. 运行 `bash scripts/install.sh generate-index /path/to/project --lang zh` 生成 `specs/global/INDEX.md` 草稿。
-5. 检查并确认产品名称、当前版本、里程碑、技术栈、启动/测试/构建命令和主要源码入口。
+5. 检查并确认产品名称、当前版本、里程碑、技术栈、启动/测试/构建命令、主要源码入口、文档职责地图和编号命名空间。
 6. 根据公司实际技术栈调整 `BUNDLES.md`。
 7. 检查 `.codex-workflow/EXPERT-READINESS.md`，确认强依赖专家已随插件内置、自动审查并可在新会话中暴露。
 
 旧项目已有 `INDEX.md` 时，项目初始化默认不会覆盖。脚本会生成 `specs/global/INDEX.generated.md`，先由项目负责人确认，再决定是否替换原索引。
+
+如果项目里已经有 `说明文档.md`、spike 工作日志、`docs/lifecycle/` 或多套历史日报，优先确认 `INDEX.md` 里的“文档职责地图”。入口页不延续 spike 任务号；spike 日志使用 `SPKxx-T001`；正式任务使用 feature、版本或正式任务编号。
 
 如果项目运行工作流时提示找不到 `BUNDLES.md`、`EXPERTS.lock.md` 或 `specs/global/assets/` 模板，执行下面命令补齐：
 

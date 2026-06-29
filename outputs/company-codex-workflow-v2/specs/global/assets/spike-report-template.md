@@ -4,6 +4,7 @@
 
 - Question:
 - Owner:
+- Spike numbering namespace: for example `SPK02`
 - Time box:
 - Status: planned / complete / abandoned
 
@@ -30,6 +31,12 @@ What decision should this spike enable?
 - Commands:
 - External docs checked:
 - Counterexample or boundary experiment:
+
+## Spike-Internal Tasks
+
+| ID | Item | Result |
+| --- | --- | --- |
+| `SPKxx-T001` |  |  |
 
 ## Findings
 

@@ -21,7 +21,9 @@
 
 项目上下文
 ├── company-context-index
+│   └── 读取文档职责地图、编号命名空间和当前任务路由
 └── company-legacy-project-onboarding
+    └── 旧项目接入时生成或修正文档职责地图
 
 功能交付主链路
 ├── company-feature-requirements
@@ -89,6 +91,7 @@
 - `company-expert-routing` 是执行层内的专家选择：回答“当前 workflow 里，需要前端、后端、测试、产品、业务、Superpowers、浏览器验证、MCP 或官方文档中的哪些组合？”
 - 用户不需要主动判断 `light/full-audit`。入口和执行 workflow 会自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。
 - 用户也不需要手动输入“从第一性原理出发”或“做对抗式审查”。复杂设计、bugfix、spike 和完成前验证会自动触发；普通小改动可跳过但需要说明原因。
+- `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
 
 ## Typical Flow
 

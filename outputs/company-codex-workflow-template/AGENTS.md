@@ -17,6 +17,13 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Do not scan every Markdown file unless the task explicitly requires broad audit work.
 - If the index is stale, update it as part of planning or after completing the related spec change.
 
+## Document Ownership And Numbering
+
+- Before writing any project document, confirm its role, information level, numbering namespace, and update trigger.
+- `说明文档.md` or an equivalent entry page is only for project entry, current state, recent important events, and reading route; it must not become a spike field log.
+- Spike logs use spike-scoped IDs such as `SPK02-T001`; formal tasks use feature, version, or formal task IDs. Do not reuse bare `Task 001` across documents.
+- `specs/global/INDEX.md` should maintain the document ownership map.
+
 ## Phase Boundaries
 
 - Requirements clarification produces acceptance criteria and edge cases. Do not edit implementation code in this phase.

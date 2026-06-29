@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.9 - 2026-06-29
+
+- Added workflow document ownership rules for project entry pages, spike logs, formal specs, and lifecycle summaries.
+- Added numbering namespace guidance to prevent bare task IDs from crossing document levels.
+- Updated context indexing, legacy onboarding, spike workflow, INDEX generation, templates, and docs in zh/en packages.
+
 ## 0.2.8 - 2026-06-29
 
 - Added built-in First Principles Check for complex requirements, design, bugfix root cause analysis, and spike conclusions.

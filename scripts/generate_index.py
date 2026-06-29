@@ -245,6 +245,23 @@ def render_zh(root):
 - 测试位置：{format_list(tests, fallback)}
 - 主要源码入口：{format_list(entries, fallback)}
 
+## 文档职责地图
+
+| 文档 | 职责 | 更新触发 | 编号命名空间 |
+| --- | --- | --- | --- |
+| `说明文档.md` 或等价入口页 | 项目入口、当前状态、最近重要事件、阅读路线 | 当前阶段、最近重要事件、阅读路线或关键状态变化 | 不使用 spike 任务号；使用日期型项目事件或最近变更 |
+| `spike_*_工作日志.md` 或 spike 目录日志 | spike 现场流水、实验过程、临时结论 | spike 实验、观察、决策或临时任务变化 | `SPKxx-T001` 或 `Sxx-001` |
+| `specs/versions/...` 或 `specs/features/...` | 正式需求、设计、任务计划、验收依据 | 需求、设计、任务、验收或正式变更被确认 | feature、版本或正式任务编号 |
+| `docs/lifecycle/` | 生命周期阶段总结、里程碑回顾 | 版本阶段结束、里程碑变化或管理层摘要 | 日期或版本阶段编号 |
+
+## 编号规则
+
+- 不同层级文档不得共享裸 `任务 001` 这类编号。
+- Spike 内部任务使用 spike 命名空间，例如 `SPK02-T183`。
+- 正式任务使用 feature、版本或正式任务编号，例如 `FEAT-DT-T01`。
+- 项目入口页记录“项目事件”或“最近变更”，不延续 spike 流水号。
+- 发现编号冲突时，先修正文档职责地图，再继续写入。
+
 ## 工作流文档
 
 | 需求 | 模板 |
@@ -312,6 +329,23 @@ Start here before using any company workflow.
 - Test locations: {format_list(tests, fallback)}
 - Main source entrypoints: {format_list(entries, fallback)}
 
+## Document Ownership Map
+
+| Document | Role | Update trigger | Numbering namespace |
+| --- | --- | --- | --- |
+| `说明文档.md` or equivalent entry page | Project entry, current state, recent important events, reading route | Current phase, recent important event, reading route, or key status change | Do not use spike task IDs; use date-based project events or recent changes |
+| `spike_*_工作日志.md` or spike-local log | Spike field log, experiment flow, temporary conclusions | Spike experiment, observation, decision, or temporary task change | `SPKxx-T001` or `Sxx-001` |
+| `specs/versions/...` or `specs/features/...` | Formal requirements, design, task plan, acceptance basis | Requirements, design, tasks, acceptance criteria, or approved changes are confirmed | Feature, version, or formal task IDs |
+| `docs/lifecycle/` | Lifecycle phase summaries and milestone retrospectives | Version phase completion, milestone change, or management-summary need | Date or version-phase IDs |
+
+## Numbering Rules
+
+- Documents at different levels must not share bare IDs such as `Task 001`.
+- Spike-internal tasks use a spike namespace, for example `SPK02-T183`.
+- Formal tasks use feature, version, or formal task IDs, for example `FEAT-DT-T01`.
+- Project entry pages record "project events" or "recent changes"; they do not continue spike work-log IDs.
+- If numbering conflicts appear, fix the document ownership map before writing more content.
+
 ## Workflow Documents
 
 | Need | Template |
@@ -323,6 +357,7 @@ Start here before using any company workflow.
 | Spike report | `specs/global/assets/spike-report-template.md` |
 | Hotfix report | `specs/global/assets/hotfix-report-template.md` |
 | Change request | `specs/global/assets/change-request-template.md` |
+| Skill upgrade report | `specs/global/assets/skill-upgrade-report-template.md` |
 
 ## Needs User Confirmation
 

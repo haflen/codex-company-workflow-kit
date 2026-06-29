@@ -9,6 +9,27 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 - Read only the current version, milestone, feature docs, and source files relevant to the task.
 - Do not scan all Markdown files unless the task is an audit or migration.
 
+## Workflow Document Ownership
+
+Before writing any project document, confirm its role, information level, numbering namespace, and update trigger. Do not merge the project entry summary, spike work log, formal requirements/design/tasks, and lifecycle summaries into one continuous task chain.
+
+Default ownership:
+
+- `说明文档.md` or equivalent entry page: project entry, current state, recent important events, and reading route. It must not contain spike work-log flow and must not use spike-internal task IDs.
+- `spike_*_工作日志.md` or spike-local log: spike field log, experiment flow, observations, and temporary decisions. Use spike-scoped IDs such as `SPK02-T001`; do not use bare `Task 001`.
+- `specs/versions/...` or `specs/features/...`: formal requirements, design, task plans, and acceptance basis. Use feature, version, or formal task IDs, not spike work-log IDs.
+- `docs/lifecycle/`: lifecycle phase summaries and milestone retrospectives. Summarize phases; do not track every small task.
+- `specs/global/INDEX.md`: document ownership map and routing index; start here when deciding which document to update.
+
+Update triggers:
+
+- Project entry pages update only when current phase, recent important events, reading route, or key status changes.
+- Spike logs update only when spike experiments, observations, decisions, or temporary tasks change.
+- Formal specs update only when requirements, design, tasks, acceptance criteria, or approved changes are confirmed.
+- Lifecycle docs update only at version phase completion, milestone changes, or management-summary needs.
+
+If the same bare task number appears in documents at different levels, pause before writing and recommend namespace IDs such as `SPK02-T183`, `FEAT-DT-T01`, or date-based project events.
+
 ## Phase Boundaries
 
 - Requirements work produces goals, scope, acceptance criteria, and edge cases. Do not edit implementation code.
@@ -141,6 +162,8 @@ Self-improvement is proposal-only by default. Use `company-skill-evolution-lab` 
 ## Documentation
 
 - Company projects should keep `说明文档.md` or an equivalent progress document.
+- Projects should keep a document ownership map, preferably in `specs/global/INDEX.md`.
+- Documents at different levels must not share bare task numbers; spike tasks, feature tasks, version tasks, and project events must use separate namespaces.
 - Versioned specs may use `specs/versions/<version>/<milestone>/`.
 - Small changes may use one compact feature spec under `specs/features/<feature>/`.
 - Public APIs and complex logic need comments; routine functions do not need boilerplate comments.
