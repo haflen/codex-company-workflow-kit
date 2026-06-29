@@ -23,18 +23,33 @@ Examples:
 
 1. Identify target skills, source repository or hub, current installed path, and expected destination.
 2. Read `EXPERTS.lock.md` and `BUNDLES.md` to understand current pin, review status, and impacted bundles; prefer the project root, then plugin fallbacks `../../EXPERTS.lock.md` and `../../BUNDLES.md`.
-3. Fetch or inspect the candidate version into a temporary review location. Do not overwrite current skills yet.
-4. Compare old and new versions:
+3. Derive an exact target list from lock/bundle data; inspect only external experts referenced by the company workflow, not the whole upstream skill catalog.
+4. Prefer GitHub raw/API, sparse checkout, or single-file download into a temporary review location; expand the fetch only when manifest, directory, or license review requires it.
+5. For each candidate skill, fetch `SKILL.md` plus only its own `references/`, `resources/`, `scripts/`, `LICENSE`, or other directly related support files.
+6. Compare old and new versions:
    - frontmatter name and description
    - trigger scope and likely overuse risk
    - workflow/body changes
    - scripts, tools, network access, shell commands, browser automation, filesystem writes
    - license, upstream source, pin, setup, and declared risk
-5. Run `company-skill-security-review` on the candidate version, including adversarial review for misfires, permission expansion, context growth, tool calls, and rollback failure.
-6. Produce an upgrade report and recommendation.
-7. Ask the user for explicit confirmation before replacing, installing, or deleting any production skill.
-8. After approval, apply the update, update `EXPERTS.lock.md`, update `BUNDLES.md` only if bundle membership changed, and record rollback instructions.
-9. Validate the plugin and run a trigger sanity check for the updated skill.
+7. When adopting external skill content, preserve local Codex frontmatter by default, especially `name` and `description: Use when...`; write upstream risk, source, version, author, or category into `upstream_*` metadata.
+8. Overwrite local `description` only when the user explicitly asks to reset trigger strategy and the trigger sanity check passes.
+9. Run `company-skill-security-review` on the candidate version, including adversarial review for misfires, permission expansion, context growth, tool calls, script permission drift, generated artifact pollution, and rollback failure.
+10. Produce an upgrade report and recommendation.
+11. Ask the user for explicit confirmation before replacing, installing, or deleting any production skill.
+12. After approval, apply the update, update `EXPERTS.lock.md`, update `BUNDLES.md` only if bundle membership changed, and record rollback instructions.
+13. Validate the plugin and run a trigger sanity check for the updated skill.
+
+## Sync Scope and Local Preservation
+
+- Sync only external expert skills listed in `EXPERTS.lock.md` or explicitly named by the user.
+- Do not clone or download thousands of upstream skills to update a small expert set; if full clone is slow or wasteful, switch to raw/API/sparse immediately.
+- Do not update internal workflow skills unless the user explicitly asks for internal workflow upgrades.
+- Do not overwrite local Codex trigger `description`, naming conventions, routing constraints, Superpowers layering, or company safety guardrails.
+- External bodies, examples, references, resources, and scripts may be synced, but local frontmatter trigger semantics must stay intact.
+- If upstream adds scripts, executable bits, network access, shell commands, browser automation, or credential handling, call it out separately and require runtime approval before script execution.
+- Clean generated install/verification artifacts after validation, such as `EXPERT-READINESS.md` and `EXPERT-READINESS.json`; do not commit temporary reports as source.
+- If raw download drops executable bits, restore the previous executable bit or explain why the script became a plain file.
 
 ## Default Dry Run
 
@@ -45,6 +60,7 @@ Overwriting, deleting, moving, or installing production skills requires explicit
 ## Decision Rules
 
 - If the candidate has broader triggers, scripts, shell commands, network access, credentials handling, or unclear license, recommend review or rejection.
+- If the candidate body is useful but would overwrite local trigger descriptions, reject direct overwrite and merge as "preserve local description + sync upstream body".
 - If the candidate only updates examples or narrow guidance, recommend pilot approval.
 - If a skill is marked high or critical risk, require explicit user approval even for pilot use.
 - If the update changes bundle membership, call out impacted workflows before asking for approval.
@@ -69,6 +85,8 @@ Before applying changes, present:
 - Skills to update:
 - Source and candidate pin:
 - Impacted bundles:
+- Sync scope:
+- Local preserved fields:
 - Key differences:
 - Security review result:
 - Recommendation:

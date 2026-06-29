@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.11 - 2026-06-29
+
+- Hardened skill upgrade governance to sync only referenced or explicitly named external experts instead of cloning large upstream catalogs.
+- Added a preservation rule for local Codex `description: Use when...` frontmatter, routing constraints, Superpowers layering, and company guardrails during expert updates.
+- Added upgrade hygiene rules for raw/API/sparse fetching, script permission drift, generated readiness artifacts, and runtime approval requirements.
+
 ## 0.2.10 - 2026-06-29
 
 - Synced 13 vendored expert skills from `sickn33/antigravity-awesome-skills@e0ef87efd0ad5a18a23e21bb08406b3eaf563b35`.

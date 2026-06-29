@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Company Codex workflow starter kit with bundled expert dependencies, centralized expert routing, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
   "author": {
     "name": "haflen",

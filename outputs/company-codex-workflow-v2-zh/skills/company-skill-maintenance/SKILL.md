@@ -17,10 +17,11 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 4. 检查 `BUNDLES.md`，了解哪些工作流依赖该 skill。
 5. 审查来源、许可、pin、变更文件和风险指令。
 6. 采纳外部变更前运行 `company-skill-security-review`。
-7. 比对新旧触发描述是否漂移。
-8. 审查后才更新 `EXPERTS.lock.md`。
-9. 只有 bundle 归属或默认路由变化时才更新 `BUNDLES.md`。
-10. 记录发布说明和回滚方式。
+7. 比对新旧触发描述是否漂移；本地 Codex 化 `description: Use when...` 默认受保护。
+8. 确认同步范围只覆盖被引用或被点名的外部专家 skill，不做全量仓库导入。
+9. 审查后才更新 `EXPERTS.lock.md`。
+10. 只有 bundle 归属或默认路由变化时才更新 `BUNDLES.md`。
+11. 记录发布说明和回滚方式。
 
 ## 更新策略
 
@@ -28,6 +29,10 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 - 安全或供应链问题：立即审查。
 - 不自动合并外部 hub 更新。
 - 新外部专家必须先有 lock entry 和审查。
+- 外部专家更新默认保留本地触发 frontmatter、公司路由规则和 Superpowers 叠加规则。
+- 大型上游仓库只做目标清单同步；优先 raw/API/sparse，避免全量拉取浪费时间和流量。
+- 运行安装或验证生成的报告属于产物，除非明确设计为模板，否则不要提交。
+- 脚本文件的可执行位、sandbox 风险和运行前审批要求必须作为依赖状态的一部分维护。
 
 ## 输出
 
@@ -47,6 +52,8 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 - 来源和 pin：
 - 许可：
 - Diff 摘要：
+- 同步范围：
+- 本地保留项：
 - 安全审查：
 - 兼容性说明：
 - 建议：
