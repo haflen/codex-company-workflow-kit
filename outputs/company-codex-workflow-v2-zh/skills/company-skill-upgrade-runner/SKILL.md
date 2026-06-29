@@ -29,7 +29,7 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 2. 阅读 `EXPERTS.lock.md` 和 `BUNDLES.md`，了解当前 pin、审查状态和影响范围；优先项目根目录，其次插件内置 fallback `../../EXPERTS.lock.md` 和 `../../BUNDLES.md`。
 3. 将候选版本放到临时审查位置，不直接覆盖当前技能。
 4. 比对新旧版本：frontmatter、触发范围、正文、脚本、工具、网络、shell、浏览器自动化、文件写入、许可、来源、pin、setup 和风险。
-5. 对候选版本运行 `company-skill-security-review`。
+5. 对候选版本运行 `company-skill-security-review`，并做对抗式审查：误触发、权限扩大、上下文膨胀、工具调用和回滚失败。
 6. 输出升级报告和建议。
 7. 覆盖、安装或删除生产 skill 前，询问用户明确确认。
 8. 用户批准后应用更新，更新 `EXPERTS.lock.md`，必要时更新 `BUNDLES.md`，记录回滚。
@@ -53,6 +53,8 @@ description: Use when a user wants to check, update, upgrade, replace, or instal
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：默认 dry-run，用户确认后才覆盖。
 - 验证证据：
 - 未验证项：

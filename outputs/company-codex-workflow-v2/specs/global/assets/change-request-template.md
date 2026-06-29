@@ -39,6 +39,18 @@
 
 - 
 
+## First Principles Check
+
+- Underlying facts behind the change:
+- Minimum condition where the original plan fails:
+- Constraints that must not change:
+
+## Adversarial Impact Check
+
+| Scenario | Behavior that could break | Additional verification needed |
+| --- | --- | --- |
+|  |  |  |
+
 ## Decision
 
 - Accept / reject / defer:

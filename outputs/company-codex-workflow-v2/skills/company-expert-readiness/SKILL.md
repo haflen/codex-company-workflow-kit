@@ -26,6 +26,8 @@ Ensure the company workflow works out of the box: required external experts must
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: check bundled experts first, then current-session exposure.
 - Verification evidence:
 - Unverified items:

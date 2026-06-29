@@ -73,6 +73,8 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 | Visual craft, design system, responsive or visual regression | `frontend-design` |
 | Test strategy, QA gates, regression coverage | `testing-qa` |
 | Browser automation or E2E validation | `webapp-testing` |
+| Adversarial review, extreme input, abnormal states, or pre-release counterexample validation | `testing-qa`; add `webapp-testing` for browser-facing work |
+| First-principles architecture reasoning, cross-boundary design, or root-cause fact chain | Current stack expert + `testing-qa` |
 | User needs workflow entry guidance or next-step routing | `company-workflow-help` |
 | User needs expert dependency install, review, or exposure status | `company-expert-readiness` |
 | Existing project onboarding or project context draft review | `company-legacy-project-onboarding` |
@@ -96,6 +98,7 @@ This skill must choose the trace level automatically:
   - `BUNDLES.md`, `EXPERTS.lock.md`, or `EXPERT-READINESS.md` is missing or has an abnormal source.
   - Security review, expert dependency update, skill upgrade, or self-improvement proposal is involved.
   - Official documentation cannot verify a fast-moving API.
+  - First-principles check finds an unverified core assumption, or adversarial review finds an uncovered high-risk counterexample.
   - Production, data, permission, architecture, performance, or security risk is involved.
   - The user asks to audit, review the process, or confirm actual invocation.
 
@@ -111,6 +114,8 @@ When routing matters, include:
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:

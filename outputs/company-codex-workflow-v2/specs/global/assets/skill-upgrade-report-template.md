@@ -37,6 +37,14 @@
 - Approved for pilot:
 - Approved for production:
 
+## Adversarial Review
+
+- Misfire risk:
+- Permission or tool-call risk:
+- Context growth risk:
+- Conflict with existing workflows:
+- Rollback condition:
+
 ## Recommendation
 
 - Accept / revise / reject:
@@ -56,4 +64,3 @@
 - Bundle map updated:
 - Verification:
 - Rollback:
-

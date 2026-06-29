@@ -15,9 +15,10 @@ Provide a Codex-ready design workflow.
 2. Read routed project context, existing patterns, and relevant source files.
 3. Explicitly use `superpowers:brainstorming` when design direction is not obvious or trade-offs need comparison.
 4. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
-5. Produce design, contracts, risk notes, and test strategy.
-6. For frontend/backend or service boundaries, create an API contract before task planning.
-7. Stop after design unless the user gives the task-planning handoff signal.
+5. For non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundaries, run a first-principles check.
+6. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
+7. For frontend/backend or service boundaries, create an API contract before task planning.
+8. Stop after design unless the user gives the task-planning handoff signal.
 
 ## Superpowers Layer
 
@@ -44,12 +45,16 @@ Design work must not edit implementation code.
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:
 - Remaining risk:
 - Recommended design:
 - Alternatives and trade-offs:
+- Underlying facts and minimum conditions:
+- Key counterexample scenarios:
 - Risks:
 - Test strategy:
 - Next step:

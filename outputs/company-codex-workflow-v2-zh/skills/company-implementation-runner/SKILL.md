@@ -16,8 +16,9 @@ description: Use when company requirements, design, and task plan are confirmed 
 3. 默认显式叠加 `superpowers:test-driven-development`；先定义最小失败案例或最小验证锚点，再写实现。
 4. 实现依赖框架内部、类型、性能、并发、数据建模或 UI 质量时，使用 `company-expert-routing`。
 5. 做范围内的最小改动。
-6. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-7. 运行验证；项目使用进度文档时同步更新。
+6. 完成声明前执行对抗式审查，覆盖极端输入、异常状态、权限、并发、性能或 UI 渲染风险中与本任务相关的场景。
+7. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+8. 运行验证；项目使用进度文档时同步更新。
 
 ## Superpowers 叠加
 
@@ -34,11 +35,14 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：
 - 剩余风险：
 - 最小失败案例或验证锚点：
+- 对抗式审查结果：
 - 完成任务：
 - 变更文件：
 - 验证：

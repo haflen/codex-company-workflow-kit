@@ -15,8 +15,9 @@ Provide a Codex-ready requirements workflow.
 2. Clarify goal, users, in-scope behavior, out-of-scope behavior, dependencies, and risks.
 3. Use `company-expert-routing` when the requirement is non-trivial; let it select the matching bundle automatically from `BUNDLES.md`.
 4. Explicitly use `superpowers:brainstorming` when the idea has multiple plausible directions or the user is still exploring options.
-5. Write Given-When-Then acceptance criteria.
-6. Stop after requirements unless the user explicitly gives the design handoff signal.
+5. For L2/L3 or complex business rules, add a first-principles check: core assumptions, non-negotiable constraints, and minimum conditions.
+6. Write Given-When-Then acceptance criteria and include key counterexamples or abnormal scenarios.
+7. Stop after requirements unless the user explicitly gives the design handoff signal.
 
 ## Superpowers Layer
 
@@ -45,6 +46,8 @@ Requirements work must not modify implementation code or prescribe low-level arc
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:
@@ -52,4 +55,5 @@ Requirements work must not modify implementation code or prescribe low-level arc
 - Requirements conclusion:
 - Options:
 - Risks and open questions:
+- Core assumptions and counterexamples:
 - Next step:

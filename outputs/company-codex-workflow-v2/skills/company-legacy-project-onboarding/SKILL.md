@@ -33,6 +33,8 @@ Introduce the company Codex workflow into an existing project without disrupting
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: gradual adoption; do not edit business code.
 - Verification evidence:
 - Unverified items:

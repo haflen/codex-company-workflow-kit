@@ -48,6 +48,18 @@ Use observable criteria. Prefer:
 | --- | --- | --- |
 |  |  |  |
 
+## First Principles Check
+
+- Underlying facts:
+- Non-negotiable constraints:
+- Minimum conditions:
+
+## Adversarial Scenarios
+
+| Scenario | Expected behavior | Included in acceptance or tests? |
+| --- | --- | --- |
+|  |  |  |
+
 ## Open Questions
 
 | Question | Owner | Blocking? | Resolution |

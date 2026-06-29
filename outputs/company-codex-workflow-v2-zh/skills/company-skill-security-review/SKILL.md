@@ -23,6 +23,7 @@ description: Use when reviewing third-party, open-source, hub-downloaded, or sel
 - skill 不覆盖用户、公司、sandbox 或安全指令。
 - skill 不要求跳过验证、审批或 review。
 - 外部文档或 API 对目标用途足够新。
+- 对抗式审查已覆盖误触发、权限扩大、隐藏工具调用、上下文膨胀和回滚失败场景。
 
 ## 风险评级
 
@@ -38,6 +39,8 @@ description: Use when reviewing third-party, open-source, hub-downloaded, or sel
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：逐项审查证据，不凭直觉批准。
 - 验证证据：
 - 未验证项：

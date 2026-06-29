@@ -15,8 +15,9 @@ description: Use when a company project needs feature requirements, acceptance c
 2. 澄清目标、用户、范围内、范围外、依赖和风险。
 3. 需求复杂时使用 `company-expert-routing`，由它从 `BUNDLES.md` 自动选择组合。
 4. 如果想法有多个方向，或用户仍在探索，显式使用 `superpowers:brainstorming`。
-5. 编写 Given-When-Then 验收标准。
-6. 需求阶段结束后停止，除非用户明确给出设计交接口令。
+5. L2/L3 或业务规则复杂时，补充第一性原理检查：核心假设、不可破坏约束、最小成立条件。
+6. 编写 Given-When-Then 验收标准，并至少列出关键反例或异常场景。
+7. 需求阶段结束后停止，除非用户明确给出设计交接口令。
 
 ## Superpowers 叠加
 
@@ -45,6 +46,8 @@ description: Use when a company project needs feature requirements, acceptance c
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：
@@ -52,4 +55,5 @@ description: Use when a company project needs feature requirements, acceptance c
 - 需求结论：
 - 方案选项：
 - 风险和待确认问题：
+- 核心假设和反例场景：
 - 下一步建议：

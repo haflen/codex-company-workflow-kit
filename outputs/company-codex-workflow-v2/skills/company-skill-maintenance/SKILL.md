@@ -37,6 +37,8 @@ Treat expert skills like dependencies: pinned, reviewed, updated deliberately, a
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: dependency review, version lock, reversible change.
 - Verification evidence:
 - Unverified items:

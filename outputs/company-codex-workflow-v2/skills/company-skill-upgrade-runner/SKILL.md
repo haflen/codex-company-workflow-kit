@@ -30,7 +30,7 @@ Examples:
    - workflow/body changes
    - scripts, tools, network access, shell commands, browser automation, filesystem writes
    - license, upstream source, pin, setup, and declared risk
-5. Run `company-skill-security-review` on the candidate version.
+5. Run `company-skill-security-review` on the candidate version, including adversarial review for misfires, permission expansion, context growth, tool calls, and rollback failure.
 6. Produce an upgrade report and recommendation.
 7. Ask the user for explicit confirmation before replacing, installing, or deleting any production skill.
 8. After approval, apply the update, update `EXPERTS.lock.md`, update `BUNDLES.md` only if bundle membership changed, and record rollback instructions.
@@ -60,6 +60,8 @@ Before applying changes, present:
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: dry-run by default; overwrite only after explicit user confirmation.
 - Verification evidence:
 - Unverified items:

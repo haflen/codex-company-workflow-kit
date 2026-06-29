@@ -33,6 +33,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 公司 workflow 每轮默认输出能力调用透明度信息。试点验收时，除了看需求、设计、任务和代码产物，还要检查回复是否包含 `透明度模式`、`实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。`透明度模式` 由 workflow 自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。如果缺少这些字段，说明 workflow 没有完整执行透明度协议。
 
+复杂需求、技术设计、bugfix、hotfix、spike、实现完成和技能升级场景，还要检查回复是否包含 `第一性原理检查` 和 `对抗式审查`。普通小改动可以跳过，但 Codex 必须说明跳过原因。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash

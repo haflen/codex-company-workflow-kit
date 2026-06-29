@@ -71,6 +71,8 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 视觉质量、设计系统、响应式或视觉回归 | `frontend-design` |
 | 测试策略、QA gate、回归覆盖 | `testing-qa` |
 | 浏览器自动化或 E2E 验证 | `webapp-testing` |
+| 对抗式审查、极端输入、异常状态、上线前反例验证 | `testing-qa`，涉及浏览器时加 `webapp-testing` |
+| 第一性原理架构推导、跨边界方案或根因事实链 | 当前技术栈专家 + `testing-qa` |
 | 用户需要工作流入口指导 | `company-workflow-help` |
 | 用户需要确认专家依赖是否已安装、审查或暴露 | `company-expert-readiness` |
 | 旧项目接入或项目上下文草稿审查 | `company-legacy-project-onboarding` |
@@ -94,6 +96,7 @@ description: Use when a company workflow needs to decide whether an expert skill
   - `BUNDLES.md`、`EXPERTS.lock.md`、`EXPERT-READINESS.md` 三类依赖信息缺失或来源异常。
   - 安全审查、专家依赖更新、技能升级或自进化提案。
   - 官方文档无法确认变化快的 API。
+  - 第一性原理检查发现核心假设未验证，或对抗式审查发现未覆盖的高风险反例。
   - 涉及生产、数据、权限、架构、性能或安全风险。
   - 用户要求审计、复核流程或确认是否真实调用。
 
@@ -107,6 +110,8 @@ description: Use when a company workflow needs to decide whether an expert skill
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：

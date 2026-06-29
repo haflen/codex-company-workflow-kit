@@ -27,9 +27,10 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 2. 判断问题来自触发文本、工作流正文、专家路由、模板形态还是缺失依赖。
 3. 如果问题是专家选择，先提议修改 `BUNDLES.md` 或 `company-expert-routing`。
 4. 起草改进提案，不直接改生产版本。
-5. 增加或更新能捕捉旧问题的回归用例。
-6. 如果提案改变权限、工具、外部技能、脚本或专家依赖，运行 `company-skill-security-review`。
-7. 建议接受、修改或拒绝。
+5. 从第一性原理说明旧规则为什么失败：触发条件、阶段边界、上下文假设或验证锚点哪个不成立。
+6. 增加或更新能捕捉旧问题的回归用例，并做对抗式审查，确认新规则不会过度触发。
+7. 如果提案改变权限、工具、外部技能、脚本或专家依赖，运行 `company-skill-security-review`。
+8. 建议接受、修改或拒绝。
 
 ## 提案输出
 
@@ -39,6 +40,8 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：只产出提案，不直接改生产 skill。
 - 验证证据：
 - 未验证项：

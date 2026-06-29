@@ -25,6 +25,8 @@ Build enough project context without loading everything.
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: read on demand; do not scan everything.
 - Verification evidence:
 - Unverified items:

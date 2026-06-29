@@ -26,6 +26,8 @@ description: Use when a company project needs to verify bundled expert skills, c
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：先检查随包内置专家，再检查当前会话暴露状态。
 - 验证证据：
 - 未验证项：

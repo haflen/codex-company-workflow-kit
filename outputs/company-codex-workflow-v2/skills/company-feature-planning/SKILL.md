@@ -15,8 +15,9 @@ Provide executable Codex task planning.
 2. Confirm API contracts exist when boundaries require them.
 3. Split work into small tasks with verification for each task.
 4. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
-5. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
-6. Stop after task planning unless the user gives the implementation handoff signal.
+5. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
+6. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
+7. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -45,10 +46,13 @@ When a task template is needed, resolve it in this order:
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:
 - Remaining risk:
 - Tasks:
 - Minimal failing case or verification anchor per task:
+- Adversarial scenario per task:
 - Implementation handoff phrase:

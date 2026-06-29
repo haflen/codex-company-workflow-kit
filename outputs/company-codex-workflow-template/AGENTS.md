@@ -24,6 +24,13 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Implementation begins only after requirements and design are confirmed, unless the user explicitly invokes `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to coding.
 
+## First Principles And Adversarial Review
+
+- Before complex requirements, technical design, bugfix root-cause claims, and spike conclusions, run a first-principles check: underlying facts, key constraints, and minimum conditions.
+- Before implementation completion, bugfix completion, hotfix closure, spike conclusions, and pre-release verification, run adversarial review: extreme input, abnormal states, permission bypasses, concurrent retries, future timestamps, cache false positives, performance, or UI rendering pressure.
+- Trivial changes may skip these checks, but the reason must be stated.
+- Do not write only "checked"; include concrete facts, counterexample scenarios, or skip reasons.
+
 ## Standard Handoff Signals
 
 - "Requirements confirmed, enter design" moves from requirements to technical design.
@@ -44,4 +51,3 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - `/spike` may skip full SDLC documents, but must produce a short spike report.
 - `/hotfix` may prioritize recovery over design completeness, but must produce a hotfix report and follow-up test debt.
 - Exception work should be minimal, isolated, and followed by normal cleanup planning.
-

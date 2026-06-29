@@ -11,6 +11,12 @@
 
 What decision should this spike enable?
 
+## First-Principles Hypothesis
+
+- To prove:
+- Minimum conditions:
+- Evidence that would disprove the hypothesis:
+
 ## Options Considered
 
 | Option | Evidence needed | Result |
@@ -23,6 +29,7 @@ What decision should this spike enable?
 - Files or sandbox:
 - Commands:
 - External docs checked:
+- Counterexample or boundary experiment:
 
 ## Findings
 

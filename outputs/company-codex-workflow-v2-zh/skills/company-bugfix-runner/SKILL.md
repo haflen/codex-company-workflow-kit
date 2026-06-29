@@ -15,11 +15,12 @@ description: Use when company code behavior differs from requirements, design, a
 2. 如果是变更请求，路由回需求/变更规划。
 3. 复现问题或收集最强证据。
 4. 默认显式叠加 `superpowers:systematic-debugging`；先复现或收集证据，再定位根因。
-5. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
-6. 做最小修复。
-7. 增加或识别回归验证。
-8. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-9. 记录根因、修复和验证。
+5. 根因结论前执行第一性原理检查：事实链、最小复现条件、表层症状和底层原因的区别。
+6. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
+7. 做最小修复。
+8. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
+9. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+10. 记录根因、修复和验证。
 
 ## Superpowers 叠加
 
@@ -48,11 +49,14 @@ description: Use when company code behavior differs from requirements, design, a
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：
 - 剩余风险：
 - 复现或证据：
+- 事实链和最小复现条件：
 - 根因：
 - 最小修复：
 - 回归验证：

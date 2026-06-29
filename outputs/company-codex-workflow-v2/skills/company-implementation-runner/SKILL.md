@@ -16,8 +16,9 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 3. Explicitly use `superpowers:test-driven-development`; define the minimal failing case or verification anchor before implementation.
 4. Use `company-expert-routing` when implementation depends on framework internals, typing, performance, concurrency, data modeling, or UI craft; keep the bundle from design unless the touched area changed.
 5. Make scoped edits.
-6. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-7. Run verification and update the progress document when the company project uses one.
+6. Before claiming completion, run adversarial review for the relevant extreme input, abnormal state, permission, concurrency, performance, or UI rendering risks.
+7. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+8. Run verification and update the progress document when the company project uses one.
 
 ## Superpowers Layer
 
@@ -34,11 +35,14 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:
 - Remaining risk:
 - Minimal failing case or verification anchor:
+- Adversarial review result:
 - Task completed:
 - Files changed:
 - Verification:

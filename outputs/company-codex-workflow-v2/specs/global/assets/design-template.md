@@ -37,6 +37,13 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 - State transitions:
 - Persistence/cache behavior:
 
+## First Principles Check
+
+- Underlying facts:
+- Key constraints:
+- Minimum conditions:
+- Evidence that would disprove this design:
+
 ## Implementation Approach
 
 1. 
@@ -59,6 +66,7 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 - Integration:
 - E2E/manual:
 - Regression:
+- Adversarial review:
 
 ## Rollout and Recovery
 

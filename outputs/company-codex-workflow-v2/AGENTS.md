@@ -17,6 +17,29 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to the next phase.
 
+## First Principles And Adversarial Review
+
+Company workflows include two checks by default; users do not need to type special prompt phrases:
+
+- `First Principles Check`: return to underlying facts, constraints, and minimum conditions for the solution to be true. Do not replace root-cause analysis with analogy or surface symptoms.
+- `Adversarial Review`: validate the plan against malicious users, extreme data, abnormal states, permission bypasses, concurrent retries, oversized input, future timestamps, cache false positives, and rendering pressure.
+
+Automatic triggers:
+
+- Requirements: for L2/L3 or complex business rules, state core assumptions, non-negotiable constraints, and adversarial scenarios.
+- Design: for non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundary decisions, run `First Principles Check`.
+- Planning: every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
+- Implementation: before completion, run `Adversarial Review` unless the change is pure copy, comments, or no-behavior work; state the reason if skipped.
+- Bugfix/hotfix: before root-cause claims, run `First Principles Check`; before completion, run regression and adversarial review.
+- Spike: before conclusion, state the first-principles hypothesis, counterexample experiment, and evidence boundary.
+- Skill upgrade, security review, and self-improvement proposals default to `full-audit` and run adversarial review.
+
+Output requirements:
+
+- `First Principles Check:` list underlying facts, constraints, minimum conditions, or why it can be skipped.
+- `Adversarial Review:` list extreme, malicious, or abnormal scenarios and results, or why it can be skipped.
+- Do not write only "analyzed from first principles" or "ran adversarial review"; include concrete facts or scenarios.
+
 ## Visible Superpowers Layer
 
 - Every workflow output must explicitly include `Workflow layer`, `Superpowers layer`, and `Execution strategy`.
@@ -55,6 +78,8 @@ Opening:
 - `Actual calls:` list workflow, Superpowers, expert skill, MCP, browser, or plugin capabilities actually triggered or read.
 - `Expert/plugin capabilities:` list the experts, Superpowers, or Codex plugin capabilities selected for this turn.
 - `Not called, lens only:` list capabilities that were unavailable, unsuitable for the phase, or not worth invoking.
+- `First Principles Check:`
+- `Adversarial Review:`
 - `Execution strategy:`
 
 Closing:

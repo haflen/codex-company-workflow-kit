@@ -17,9 +17,9 @@
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Verification | Depends on |
-| --- | --- | --- | --- | --- |
-| T1 |  |  |  |  |
+| ID | Task | Files / modules | Minimal failing case or verification anchor | Adversarial scenario | Depends on |
+| --- | --- | --- | --- | --- | --- |
+| T1 |  |  |  |  |  |
 
 ## AI Execution Notes
 
@@ -32,6 +32,12 @@
 | Check | Command or manual step | Expected result |
 | --- | --- | --- |
 |  |  |  |
+
+## Adversarial Review Plan
+
+| Risk type | Scenario | Check method |
+| --- | --- | --- |
+| Extreme input / abnormal state / permission / concurrency / performance / UI rendering |  |  |
 
 ## Completion Evidence
 

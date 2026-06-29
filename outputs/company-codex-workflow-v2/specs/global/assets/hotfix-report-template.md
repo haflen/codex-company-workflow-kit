@@ -26,6 +26,8 @@
 - Confirmed cause:
 - Evidence:
 - Unknowns:
+- Fact chain and minimum reproduction conditions:
+- Difference between surface symptom and underlying cause:
 
 ## Minimal Fix
 
@@ -38,6 +40,7 @@
 - Commands:
 - Manual checks:
 - Monitoring:
+- Adversarial review:
 
 ## Rollback
 

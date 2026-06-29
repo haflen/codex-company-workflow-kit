@@ -37,6 +37,8 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：依赖审查、版本锁定、可回滚。
 - 验证证据：
 - 未验证项：

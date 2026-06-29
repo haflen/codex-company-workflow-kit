@@ -15,8 +15,9 @@ description: Use when company requirements and technical design are confirmed an
 2. 跨边界工作确认 API 契约已存在。
 3. 将工作拆成小任务，每个任务都包含验证方式。
 4. 复杂计划显式叠加 `superpowers:writing-plans`，输出可执行计划和检查点。
-5. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
-6. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+5. 每个非平凡任务都包含最小失败案例或验证锚点，并至少包含一个对抗场景。
+6. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
+7. 任务规划阶段结束后停止，除非用户给出实现交接口令。
 
 ## Superpowers 叠加
 
@@ -45,10 +46,13 @@ description: Use when company requirements and technical design are confirmed an
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：
 - 剩余风险：
 - 任务列表：
 - 每个任务的最小失败案例或验证锚点：
+- 每个任务的对抗场景：
 - 实现交接口令：

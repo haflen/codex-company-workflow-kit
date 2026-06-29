@@ -13,11 +13,12 @@ Provide a controlled Codex spike workflow.
 
 1. State the spike question and time box.
 2. Explicitly use `superpowers:brainstorming` when multiple experiment paths are possible.
-3. Isolate experiment code under `spikes/`, `playground/`, or another throwaway path.
-4. Use `company-expert-routing` when the experiment depends on non-obvious stack or API behavior; prefer the `company-spike` bundle plus one stack expert.
-5. Run the smallest experiment that answers the question.
-6. Explicitly use `superpowers:verification-before-completion` to check that evidence answers the spike question.
-7. Write findings, recommendation, and follow-up debt.
+3. State the first-principles hypothesis: what must be proven, the minimum conditions, and what evidence would disprove it.
+4. Isolate experiment code under `spikes/`, `playground/`, or another throwaway path.
+5. Use `company-expert-routing` when the experiment depends on non-obvious stack or API behavior; prefer the `company-spike` bundle plus one stack expert.
+6. Run the smallest experiment that answers the question, plus at least one counterexample or boundary experiment.
+7. Explicitly use `superpowers:verification-before-completion` to check that evidence answers the spike question.
+8. Write findings, recommendation, and follow-up debt.
 
 ## Superpowers Layer
 
@@ -44,12 +45,16 @@ Spike code is not production code unless explicitly reviewed and converted throu
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy:
 - Verification evidence:
 - Unverified items:
 - Remaining risk:
 - Spike question:
+- First-principles hypothesis:
 - Minimal experiment:
+- Counterexample or boundary experiment:
 - Evidence:
 - Conclusion:
 - Next step:

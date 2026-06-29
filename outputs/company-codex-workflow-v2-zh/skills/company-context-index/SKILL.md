@@ -25,6 +25,8 @@ description: Use when starting work in a company project, resuming an existing f
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：按需读取，不全量扫描。
 - 验证证据：
 - 未验证项：

@@ -62,6 +62,13 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 这用于区分“真实调用了 Superpowers/专家 skill/插件能力”和“只是按对应视角执行”，团队成员不需要每次额外提醒。
 
+公司 workflow 还内置两类质量检查：
+
+- `第一性原理检查`：复杂需求、设计、bugfix 根因和 spike 结论前，要求 Codex 回到底层事实、约束和最小成立条件。
+- `对抗式审查`：实现完成、bugfix 完成、hotfix、spike 结论、技能升级和安全审查前，要求 Codex 从极端输入、异常状态、权限绕过、并发重试、未来时间、缓存假阳性和 UI 渲染压力等反例角度验证。
+
+普通小改动可以跳过这些检查，但回复里必须说明跳过原因。
+
 ### 项目安装
 
 把公司规范和模板放进某个业务项目。

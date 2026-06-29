@@ -74,6 +74,8 @@ If the recommended route triggers `full-audit`, state the trigger reason.
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy / 执行策略:
 - Verification evidence:
 - Unverified items:

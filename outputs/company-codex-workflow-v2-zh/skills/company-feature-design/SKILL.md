@@ -15,9 +15,10 @@ description: Use when company feature requirements are confirmed and a technical
 2. 阅读项目上下文、现有模式和相关源文件。
 3. 设计方向不唯一或架构取舍不清时，显式叠加 `superpowers:brainstorming` 做方案比较。
 4. 对非平凡架构、框架、数据、UI 或测试决策使用 `company-expert-routing`，由它自动选择技术栈 bundle。
-5. 输出设计、契约、风险说明和测试策略。
-6. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
-7. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
+5. 对非平凡架构、数据、权限、性能、安全、外部 API、前端渲染或跨服务边界执行第一性原理检查。
+6. 输出设计、契约、风险说明、反例场景和测试策略。
+7. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
+8. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
 
 ## Superpowers 叠加
 
@@ -44,12 +45,16 @@ description: Use when company feature requirements are confirmed and a technical
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：
 - 剩余风险：
 - 推荐设计：
 - 备选方案和取舍：
+- 底层事实和最小成立条件：
+- 关键反例场景：
 - 风险：
 - 测试策略：
 - 下一步：

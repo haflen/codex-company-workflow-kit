@@ -11,6 +11,8 @@
 ├── Superpowers: test-driven-development
 ├── Superpowers: systematic-debugging
 ├── Superpowers: verification-before-completion
+├── First Principles Check: 底层事实、约束、最小成立条件
+├── Adversarial Review: 极端输入、异常状态、权限、并发、性能、渲染反例
 └── Codex built-in: file edits, commands, browser checks, Git
 
 入口帮助
@@ -57,6 +59,8 @@
 | `superpowers:test-driven-development` | 非平凡实现的测试先行纪律 | implementation |
 | `superpowers:systematic-debugging` | 复现、定位、验证根因 | bugfix, hotfix |
 | `superpowers:verification-before-completion` | 完成前验证证据 | implementation, bugfix |
+| First Principles Check | 回到底层事实、约束和最小成立条件 | requirements, design, bugfix, spike |
+| Adversarial Review | 从极端、恶意、异常和边界场景验证稳健性 | planning, implementation, bugfix, hotfix, spike, skill governance |
 | Codex built-in tools | 文件编辑、命令执行、浏览器验证、Git | all implementation and verification work |
 
 ## Company Skills
@@ -79,13 +83,12 @@
 | `company-skill-maintenance` | 维护专家依赖、pin、bundle 影响面和回滚记录 | Updating, pinning, auditing, replacing, or reviewing trusted skills. |
 | `company-skill-evolution-lab` | 记录 workflow 误触发/过重/过轻，并提出改进 | Workflow skills repeatedly misfire or need controlled improvement proposals. |
 
-## Typical Flow
-
 ## Workflow Help vs Expert Routing
 
 - `company-workflow-help` 是入口层：回答“我现在该走需求、设计、任务、实现、bugfix、spike、旧项目接入还是技能升级？”
 - `company-expert-routing` 是执行层内的专家选择：回答“当前 workflow 里，需要前端、后端、测试、产品、业务、Superpowers、浏览器验证、MCP 或官方文档中的哪些组合？”
 - 用户不需要主动判断 `light/full-audit`。入口和执行 workflow 会自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。
+- 用户也不需要手动输入“从第一性原理出发”或“做对抗式审查”。复杂设计、bugfix、spike 和完成前验证会自动触发；普通小改动可跳过但需要说明原因。
 
 ## Typical Flow
 

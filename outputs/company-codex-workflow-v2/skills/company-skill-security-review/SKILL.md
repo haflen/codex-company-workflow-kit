@@ -23,6 +23,7 @@ Prevent malicious, overbroad, or unsafe skills from entering company workflows.
 - Skill does not override user, company, sandbox, or security instructions.
 - Skill does not instruct the agent to ignore verification, approvals, or review.
 - External docs or APIs are current enough for the intended use.
+- Adversarial review covers misfires, permission expansion, hidden tool calls, context growth, and rollback failure.
 
 ## Risk Rating
 
@@ -38,6 +39,8 @@ Prevent malicious, overbroad, or unsafe skills from entering company workflows.
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: evidence-based checklist review.
 - Verification evidence:
 - Unverified items:

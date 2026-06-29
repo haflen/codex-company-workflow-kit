@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.8 - 2026-06-29
+
+- Added built-in First Principles Check for complex requirements, design, bugfix root cause analysis, and spike conclusions.
+- Added built-in Adversarial Review for implementation completion, bugfix completion, hotfix closure, spike conclusions, and skill governance.
+- Updated company workflow skills, templates, expert routing, and docs in zh/en packages.
+- Updated lightweight company templates with the same first-principles and adversarial-review guardrails.
+
 ## 0.2.0 - 2026-06-11
 
 - Added company Codex workflow v2 starter kit.

@@ -33,6 +33,8 @@ description: Use when introducing the company workflow into an existing project,
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：渐进接入，不改业务代码。
 - 验证证据：
 - 未验证项：

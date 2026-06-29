@@ -70,6 +70,8 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 实际调用：
 - 专家/插件能力：
 - 未调用但采用视角：
+- 第一性原理检查：
+- 对抗式审查：
 - 执行策略：
 - 验证证据：
 - 未验证项：

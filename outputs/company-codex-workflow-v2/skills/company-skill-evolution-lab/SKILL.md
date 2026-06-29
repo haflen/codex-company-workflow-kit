@@ -27,9 +27,10 @@ Self-improvement produces proposals first. Formal skills change only after revie
 2. Identify whether the issue is trigger text, workflow body, expert routing, template shape, or missing dependency.
 3. If the issue is expert selection, first propose a `BUNDLES.md` or `company-expert-routing` change before changing workflow skills.
 4. Draft an improvement proposal, not a direct production edit.
-5. Add or update a regression case that would catch the old failure.
-6. Run `company-skill-security-review` if the proposal changes permissions, tools, external skills, scripts, or expert dependencies.
-7. Recommend accept, revise, or reject.
+5. Explain from first principles why the old rule failed: trigger condition, phase boundary, context assumption, or verification anchor.
+6. Add or update a regression case that would catch the old failure, and run adversarial review to ensure the new rule will not over-trigger.
+7. Run `company-skill-security-review` if the proposal changes permissions, tools, external skills, scripts, or expert dependencies.
+8. Recommend accept, revise, or reject.
 
 ## Proposal Output
 
@@ -39,6 +40,8 @@ Self-improvement produces proposals first. Formal skills change only after revie
 - Actual calls:
 - Expert/plugin capabilities:
 - Not called, lens only:
+- First Principles Check:
+- Adversarial Review:
 - Execution strategy: proposal only; do not directly edit production skills.
 - Verification evidence:
 - Unverified items:
