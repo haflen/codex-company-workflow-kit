@@ -20,6 +20,7 @@ Provide a controlled Codex spike workflow.
 7. Run the smallest experiment that answers the question, plus at least one counterexample or boundary experiment.
 8. Explicitly use `superpowers:verification-before-completion` to check that evidence answers the spike question.
 9. Write findings, recommendation, and follow-up debt; if converting to production work, return to requirements/design/planning and create a new formal task namespace.
+10. If the spike conclusion affects the project entry, reading route, or current phase, non-integration branches write a public-doc update patch instead of directly editing `说明文档.md`.
 
 ## Superpowers Layer
 
@@ -38,6 +39,7 @@ When a spike template is needed, resolve it in this order:
 
 Spike code is not production code unless explicitly reviewed and converted through the normal design and implementation flow.
 The spike work log is not the project entry page; do not write spike-internal task IDs into `说明文档.md` as project-mainline task IDs.
+Before a spike branch is merged, do not write temporary spike conclusions as the public document's mainline current state.
 
 ## Output
 
@@ -61,4 +63,5 @@ The spike work log is not the project entry page; do not write spike-internal ta
 - Evidence:
 - Conclusion:
 - New numbering recommendation when converting to formal work:
+- Public-doc impact:
 - Next step:

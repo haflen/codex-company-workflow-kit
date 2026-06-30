@@ -20,6 +20,7 @@ description: Use when company work needs a time-boxed technical feasibility expe
 7. 运行能回答问题的最小实验，并至少尝试一个反例或边界实验。
 8. 完成前显式叠加 `superpowers:verification-before-completion`，检查证据是否足以回答 spike 问题。
 9. 输出发现、建议和后续债务；如果转正式开发，必须回到需求/设计/任务流程并建立新的正式任务编号。
+10. 如果 spike 结论影响项目入口、阅读路线或当前阶段，非集成分支写公共文档影响补丁，不直接改 `说明文档.md`。
 
 ## Superpowers 叠加
 
@@ -38,6 +39,7 @@ description: Use when company work needs a time-boxed technical feasibility expe
 
 Spike 代码默认不是生产代码，除非经过正常设计和实现流程转正。
 Spike 工作日志不是项目入口页；不要把 spike 内部任务号写入 `说明文档.md` 作为项目主线任务号。
+Spike 分支未合并前，不要把 spike 临时结论写成公共文档的主线当前状态。
 
 ## 输出格式
 
@@ -61,4 +63,5 @@ Spike 工作日志不是项目入口页；不要把 spike 内部任务号写入 
 - 证据：
 - 结论：
 - 转正式开发时的新编号建议：
+- 公共文档影响：
 - 下一步：

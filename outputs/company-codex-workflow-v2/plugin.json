@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Company Codex workflow starter kit with bundled expert dependencies, centralized expert routing, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
   "author": {
     "name": "haflen",
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "Company Codex Workflow V2",
     "shortDescription": "Governed company workflow skills.",
-    "longDescription": "Company Codex Workflow V2 provides lightweight SDLC skills, bundled expert dependencies, centralized expert routing, expert dependency maintenance, security review, user-confirmed skill upgrades, controlled skill evolution, and capability trace output for actual calls, lens-only usage, verification evidence, and remaining risk.",
+    "longDescription": "Company Codex Workflow V2 provides lightweight SDLC skills, bundled expert dependencies, centralized expert routing, public document boundary rules, expert dependency maintenance, security review, user-confirmed skill upgrades, controlled skill evolution, and capability trace output for actual calls, lens-only usage, verification evidence, and remaining risk.",
     "developerName": "haflen",
     "category": "Productivity",
     "capabilities": [

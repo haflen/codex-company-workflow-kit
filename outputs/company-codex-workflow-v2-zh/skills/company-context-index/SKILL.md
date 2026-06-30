@@ -12,11 +12,13 @@ description: Use when starting work in a company project, resuming an existing f
 ## 工作流
 
 1. 阅读 `specs/global/INDEX.md`。
-2. 确认 `INDEX.md` 是否包含文档职责地图：入口页、工作日志、正式 specs、生命周期文档、编号命名空间和更新触发条件。
+2. 确认 `INDEX.md` 是否包含文档职责地图：入口页、工作日志、正式 specs、生命周期文档、公共文档影响补丁、编号命名空间和更新触发条件。
 3. 确认当前产品、版本、里程碑、技术栈、命令和入口文件。
 4. 只读取与当前任务相关的 spec、源文件和测试文件。
-5. 如果索引过期，记录需要更新的字段；如果发现裸任务编号跨文档复用，先标记为文档职责风险。
-6. 输出本次任务的上下文摘要、应更新的文档和下一步建议。
+5. 判断当前分支是否为集成分支；非集成分支默认不直接更新 `说明文档.md` 或 `specs/global/INDEX.md` 的主线事实。
+6. 如果索引过期，记录需要更新的字段；如果发现裸任务编号跨文档复用，先标记为文档职责风险。
+7. 如果当前分支会影响公共入口、阅读路线、当前阶段或文档职责，建议写入 `docs/public-doc-updates/<branch-or-feature>.md`。
+8. 输出本次任务的上下文摘要、应更新的文档和下一步建议。
 
 ## 输出
 
@@ -35,6 +37,8 @@ description: Use when starting work in a company project, resuming an existing f
 - 项目：
 - 当前阶段：
 - 文档职责地图：
+- 当前分支公共文档策略：
+- 公共文档影响补丁：
 - 编号命名空间：
 - 相关 spec：
 - 相关源码：
@@ -49,3 +53,4 @@ description: Use when starting work in a company project, resuming an existing f
 - 不要在上下文阶段编辑实现代码。
 - 缺失信息可以标记为待用户或项目负责人补充。
 - 不要把 `说明文档.md`、spike 工作日志和正式 specs 视为同一条连续任务链。
+- 非集成分支不要把分支局部状态写成公共文档的主线当前状态；改写为公共文档影响补丁。

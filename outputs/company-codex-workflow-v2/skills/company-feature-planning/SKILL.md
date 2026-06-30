@@ -17,7 +17,8 @@ Provide executable Codex task planning.
 4. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
 5. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
 6. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
-7. Stop after task planning unless the user gives the implementation handoff signal.
+7. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
+8. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -31,6 +32,11 @@ When a task template is needed, resolve it in this order:
 
 1. Project copy: `specs/global/assets/tasks-template.md`.
 2. Plugin fallback: read `../../specs/global/assets/tasks-template.md` relative to this skill directory.
+
+Resolve the public-doc update patch template in this order:
+
+1. Project copy: `specs/global/assets/public-doc-update-template.md`.
+2. Plugin fallback: read `../../specs/global/assets/public-doc-update-template.md` relative to this skill directory.
 
 ## Good Tasks
 
@@ -55,4 +61,5 @@ When a task template is needed, resolve it in this order:
 - Tasks:
 - Minimal failing case or verification anchor per task:
 - Adversarial scenario per task:
+- Public-doc impact task:
 - Implementation handoff phrase:

@@ -20,7 +20,7 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 7. Make the minimal fix.
 8. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
 9. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-10. Record root cause, fix, and verification.
+10. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
 
 ## Superpowers Layer
 
@@ -35,7 +35,7 @@ For urgent production work, resolve the hotfix template in this order:
 1. Project copy: `specs/global/assets/hotfix-report-template.md`.
 2. Plugin fallback: read `../../specs/global/assets/hotfix-report-template.md` relative to this skill directory.
 
-For ordinary bugs, update the feature notes or progress document.
+For ordinary bugs, update feature notes or branch-local progress documents. Non-integration branches must not directly edit public entry current-state sections; write `docs/public-doc-updates/<branch-or-feature>.md`.
 
 ## Boundary
 
@@ -60,4 +60,5 @@ Do not bundle new feature behavior into a bugfix.
 - Root cause:
 - Minimal fix:
 - Regression verification:
+- Public-doc impact:
 - Remaining risk:

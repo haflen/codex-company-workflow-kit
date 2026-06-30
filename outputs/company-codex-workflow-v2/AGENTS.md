@@ -30,6 +30,18 @@ Update triggers:
 
 If the same bare task number appears in documents at different levels, pause before writing and recommend namespace IDs such as `SPK02-T183`, `FEAT-DT-T01`, or date-based project events.
 
+## Multi-Branch Public Document Protocol
+
+When multiple branches run in parallel, public entry documents represent mainline facts, not the local state of one development branch.
+
+- `说明文档.md`, `specs/global/INDEX.md`, and similar public mainline documents are updated by default only on `main`, `master`, `develop`, `integration`, or an explicit integration branch.
+- Feature, spike, and hotfix branches must not write unmerged branch-local status into the public "current state" sections.
+- If a branch affects the project entry, current phase, recent important events, reading route, document ownership, or numbering rules, write `docs/public-doc-updates/<branch-or-feature>.md`.
+- Branch-private process notes belong in `specs/features/<feature>/`, `specs/versions/...`, `spikes/`, or the relevant work log, not the public entry page.
+- During merge/integration, read the public-doc update patches and promote only merged facts into `说明文档.md` and `specs/global/INDEX.md`.
+- If multiple branches affect the same public section, do not fight over the public document in feature branches; keep patches and rewrite the public section once on the integration branch.
+- If a business branch must edit a public document directly, state why and mark `direct public-doc write risk` in the completion report.
+
 ## Phase Boundaries
 
 - Requirements work produces goals, scope, acceptance criteria, and edge cases. Do not edit implementation code.

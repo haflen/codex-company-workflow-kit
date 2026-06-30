@@ -75,6 +75,13 @@ outputs/company-codex-workflow-template/
 
 如果旧项目出现同一个裸编号同时存在于入口文档和 spike 日志中，先修正文档职责地图和编号命名空间，再继续写入。
 
+多分支并行时，公共入口文档按主线事实管理：
+
+- `说明文档.md`、`specs/global/INDEX.md` 默认只在 main、develop、integration 或明确集成分支更新。
+- feature、spike、hotfix 分支不把未合并内容写成项目“当前状态”。
+- 分支影响公共入口、阅读路线、当前阶段或文档职责时，写 `docs/public-doc-updates/<branch-or-feature>.md`。
+- 合并阶段统一把已合并事实同步到公共文档。
+
 每轮输出会明确区分：
 
 - `透明度模式`：本轮自动选择的 `light` 或 `full-audit`。

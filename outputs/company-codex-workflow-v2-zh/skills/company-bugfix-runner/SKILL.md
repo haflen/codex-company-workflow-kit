@@ -20,7 +20,7 @@ description: Use when company code behavior differs from requirements, design, a
 7. 做最小修复。
 8. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
 9. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-10. 记录根因、修复和验证。
+10. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
 
 ## Superpowers 叠加
 
@@ -35,7 +35,7 @@ description: Use when company code behavior differs from requirements, design, a
 1. 项目内：`specs/global/assets/hotfix-report-template.md`。
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/hotfix-report-template.md`。
 
-普通 bug 更新功能说明或进度文档即可。
+普通 bug 更新功能说明或分支内进度文档即可。非集成分支不要直接改公共入口页的主线当前状态；改写 `docs/public-doc-updates/<branch-or-feature>.md`。
 
 ## 边界
 
@@ -60,4 +60,5 @@ description: Use when company code behavior differs from requirements, design, a
 - 根因：
 - 最小修复：
 - 回归验证：
+- 公共文档影响：
 - 剩余风险：

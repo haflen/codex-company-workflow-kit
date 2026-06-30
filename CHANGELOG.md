@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.12 - 2026-06-30
+
+- Added a multi-branch public document protocol for company projects.
+- Added `public-doc-update-template.md` so feature, spike, and hotfix branches can propose public document updates without directly rewriting `说明文档.md`.
+- Updated AGENTS, INDEX templates, generated index output, context indexing, planning, implementation, bugfix, spike, and user docs to keep public docs as mainline facts.
+
 ## 0.2.11 - 2026-06-29
 
 - Hardened skill upgrade governance to sync only referenced or explicitly named external experts instead of cloning large upstream catalogs.

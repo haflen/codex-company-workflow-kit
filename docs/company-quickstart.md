@@ -57,6 +57,8 @@ npx codex-company-workflow all /path/to/project --lang zh
 
 如果项目里已经有 `说明文档.md`、spike 工作日志、`docs/lifecycle/` 或多套历史日报，优先确认 `INDEX.md` 里的“文档职责地图”。入口页不延续 spike 任务号；spike 日志使用 `SPKxx-T001`；正式任务使用 feature、版本或正式任务编号。
 
+多分支并行时，业务分支默认不要直接改 `说明文档.md` 或 `specs/global/INDEX.md` 的主线当前状态。分支如果影响公共入口或阅读路线，先写 `docs/public-doc-updates/<branch-or-feature>.md`，等合并到集成分支时再统一更新公共文档。
+
 如果项目运行工作流时提示找不到 `BUNDLES.md`、`EXPERTS.lock.md` 或 `specs/global/assets/` 模板，执行下面命令补齐：
 
 ```bash

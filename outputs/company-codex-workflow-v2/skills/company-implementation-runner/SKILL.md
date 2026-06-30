@@ -18,7 +18,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 5. Make scoped edits.
 6. Before claiming completion, run adversarial review for the relevant extreme input, abnormal state, permission, concurrency, performance, or UI rendering risks.
 7. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-8. Run verification and update the progress document when the company project uses one.
+8. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
 
 ## Superpowers Layer
 
@@ -45,6 +45,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 - Adversarial review result:
 - Task completed:
 - Files changed:
+- Public-doc impact:
 - Verification:
 - Progress document update:
 - Residual risk:
@@ -52,3 +53,5 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 ## Boundary
 
 Do not implement tasks that are not in the approved plan unless the user explicitly approves scope expansion.
+
+Non-integration branches must not write unmerged results directly into the current-state section of `说明文档.md`; record public entry changes as a public-doc update patch.
