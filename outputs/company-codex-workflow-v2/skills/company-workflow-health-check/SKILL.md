@@ -21,10 +21,11 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 2. Check root files: `AGENTS.md`, `BUNDLES.md`, `EXPERTS.lock.md`.
 3. Check index and templates: `specs/global/INDEX.md`, `specs/global/assets/`.
 4. Check required templates: requirements, business-rules, design, api-contract, tasks, spike, hotfix, change-request, public-doc-update, skill-upgrade, workflow-health-report.
-5. Check for current rule markers: visible Superpowers layer, first-principles check, adversarial review, business rules and calculation semantics, solution comparison, multi-branch public document protocol, validation level, documentation drift.
+5. Check for current rule markers: visible Superpowers layer, first-principles check, adversarial review, business rules and calculation semantics, solution comparison, multi-branch public document protocol, phase consistency preflight, validation level, documentation drift.
 6. Check for stale legacy rules or old-source residue. Mark them as migration risk; do not delete them automatically.
-7. Check current branch and public-document boundaries. Legacy projects on feature/spike/hotfix branches should not directly rewrite public entry documents.
-8. If templates or rules are missing, provide safe repair commands. Prefer `update-templates` by default; do not overwrite user documents directly.
+7. Check current branch, public-document boundaries, and phase consistency: entry page, `INDEX.md`, current version/feature README, and task documents should point to the same phase.
+8. If the entry page still points to spike/backlog while current task docs have entered formal implementation, mark this `yellow` or `red` and recommend repairing the public-doc patch or entry route first.
+9. If templates or rules are missing, provide safe repair commands. Prefer `update-templates` by default; do not overwrite user documents directly.
 
 ## Health Levels
 
@@ -54,6 +55,8 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 - Missing items:
 - Version or template drift:
 - Public-document boundary:
+- Phase Consistency Preflight:
+- Recommended authoritative document:
 - External expert status:
 - Recommended repair commands:
 - Do not auto-handle:

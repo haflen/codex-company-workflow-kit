@@ -50,6 +50,35 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to the next phase.
 
+## Phase Consistency Preflight
+
+Before implementation, bugfix, or hotfix work, run a lightweight `Phase Consistency Preflight` so public entry docs, indexes, and current task documents do not contradict each other after coding has already started.
+
+Read only the minimum necessary documents. Do not scan every Markdown file:
+
+- Current branch name and working-tree state.
+- `说明文档.md` or equivalent project entry page.
+- `specs/global/INDEX.md`.
+- Current feature, version, or milestone README/task document.
+- Current requirements, design, tasks, business-rules, and API contract when present.
+- `docs/public-doc-updates/` patches related to the current branch or feature.
+
+Authority order:
+
+- The current execution truth comes first from the confirmed feature/version task document.
+- `specs/global/INDEX.md` owns routing and document roles; it may not represent branch-local real-time state.
+- `说明文档.md` represents mainline entry and mainline current state, not feature/spike branch-local state.
+- On non-integration branches, public-entry impacts should be written to `docs/public-doc-updates/<branch-or-feature>.md` instead of directly rewriting public entry state.
+
+If phase, entry, version, task numbering, current state, or authoritative documents conflict, pause implementation and output:
+
+- `Phase Consistency Preflight: failed`
+- Conflicting files and concrete conflicts.
+- Provisional authoritative document for this turn.
+- Recommended repair: update public-doc patch, fix INDEX, fix entry summary, or wait for user confirmation.
+
+Only start code implementation or repair after the preflight passes, or after the user confirms which authoritative document to follow.
+
 ## First Principles And Adversarial Review
 
 Company workflows include two checks by default; users do not need to type special prompt phrases:

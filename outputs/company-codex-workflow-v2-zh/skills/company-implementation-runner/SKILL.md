@@ -12,15 +12,17 @@ description: Use when company requirements, design, and task plan are confirmed 
 ## 工作流
 
 1. 确认需求、设计和任务计划存在，`/hotfix` 或 `/spike` 除外；如任务涉及 `business-rules.md`，必须读取规则文档。
-2. 识别下一个任务及其验证方式。
-3. 默认显式叠加 `superpowers:test-driven-development`；先定义最小失败案例或最小验证锚点，再写实现。
-4. 实现依赖框架内部、类型、性能、并发、数据建模或 UI 质量时，使用 `company-expert-routing`。
-5. 做范围内的最小改动。
-6. 完成声明前执行对抗式审查，覆盖极端输入、异常状态、权限、并发、性能或 UI 渲染风险中与本任务相关的场景。
-7. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-8. 自动判定验证等级 `V0/V1/V2/V3`，选择足够但不过度的验证证据。
-9. 检查文档漂移：实现是否改变需求、业务规则、技术设计、API 契约、任务计划、项目入口或索引。
-10. 运行验证；项目使用进度文档时，根据当前分支策略更新：集成分支可同步公共入口，业务分支写 `docs/public-doc-updates/<branch-or-feature>.md`。
+2. 执行阶段一致性预检：检查 `说明文档.md`、`specs/global/INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch 是否一致。
+3. 如果预检发现公共入口、索引、版本 README 或任务文档冲突，暂停实现；输出冲突、暂定权威文档和修复建议，等待用户确认或先修文档路由。
+4. 识别下一个任务及其验证方式。
+5. 默认显式叠加 `superpowers:test-driven-development`；先定义最小失败案例或最小验证锚点，再写实现。
+6. 实现依赖框架内部、类型、性能、并发、数据建模或 UI 质量时，使用 `company-expert-routing`。
+7. 做范围内的最小改动。
+8. 完成声明前执行对抗式审查，覆盖极端输入、异常状态、权限、并发、性能或 UI 渲染风险中与本任务相关的场景。
+9. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+10. 自动判定验证等级 `V0/V1/V2/V3`，选择足够但不过度的验证证据。
+11. 检查文档漂移：实现是否改变需求、业务规则、技术设计、API 契约、任务计划、项目入口或索引。
+12. 运行验证；项目使用进度文档时，根据当前分支策略更新：集成分支可同步公共入口，业务分支写 `docs/public-doc-updates/<branch-or-feature>.md`。
 
 ## Superpowers 叠加
 
@@ -38,6 +40,19 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 不得为了省时间把 V2/V3 降级到 V1；也不要把 V0/V1 小改动强行全量验证。
 
+## 阶段一致性预检
+
+实现前只做轻量预检，不全量扫描文档。检查：
+
+- 当前分支是否为 main/develop/integration 或业务分支。
+- `说明文档.md` 当前阶段是否与任务文档一致。
+- `specs/global/INDEX.md` 路由是否指向当前 feature/version。
+- 当前 version/feature README 是否已确认进入实现阶段。
+- 当前任务文档是否包含已确认任务、任务 ID 和验证点。
+- 当前分支是否已有对应 `docs/public-doc-updates/` 补丁。
+
+如果入口页仍写 spike/待办，而当前 version README 已进入正式开发，以当前任务文档作为暂定权威，但必须先修正公共入口影响记录；非集成分支优先写 public-doc patch。
+
 ## 完成报告
 
 - 工作流层：`company-implementation-runner`
@@ -49,6 +64,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 第一性原理检查：
 - 对抗式审查：
 - 执行策略：
+- 阶段一致性预检：
+- 本轮权威文档：
 - 验证等级：
 - 验证证据：
 - 文档漂移影响：

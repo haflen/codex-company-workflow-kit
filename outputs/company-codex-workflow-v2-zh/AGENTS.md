@@ -50,6 +50,35 @@
 - 实现阶段只在需求、设计和任务确认后开始，`/spike` 和 `/hotfix` 除外。
 - 模糊的“继续”表示继续当前阶段，不表示进入下一阶段。
 
+## 阶段一致性预检
+
+进入实现、bugfix 或 hotfix 前，必须先做轻量 `Phase Consistency Preflight`，避免公共入口、索引和当前任务文档互相矛盾后才开始编码。
+
+只读取最小必要文档，不做全量 Markdown 扫描：
+
+- 当前分支名和工作区状态。
+- `说明文档.md` 或等价项目入口页。
+- `specs/global/INDEX.md`。
+- 当前 feature、version、milestone 的 README 或任务文档。
+- 当前 requirements、design、tasks、business-rules、api-contract，如存在。
+- `docs/public-doc-updates/` 中与当前分支或功能相关的补丁。
+
+权威层级：
+
+- 当前任务执行真相优先来自已确认的 feature/version 任务文档。
+- `specs/global/INDEX.md` 负责路由和文档职责，不一定代表分支实时状态。
+- `说明文档.md` 代表主线入口和当前主线状态，不代表 feature/spike 分支局部状态。
+- 非集成分支影响公共入口时，优先写 `docs/public-doc-updates/<branch-or-feature>.md`，不要直接把局部状态写入公共入口。
+
+如果发现阶段、入口、版本、任务编号、当前状态或权威文档冲突，必须先暂停实现并输出：
+
+- `阶段一致性预检：未通过`
+- 冲突文件和具体冲突。
+- 本轮暂定权威文档。
+- 建议修复动作：更新 public-doc patch、修正 INDEX、修正入口摘要、或等待用户确认。
+
+只有预检通过，或用户确认按某个权威文档继续，才进入代码实现或修复。
+
 ## 第一性原理与对抗式审查
 
 公司 workflow 内置两类检查，不要求用户每次手动输入提示词：

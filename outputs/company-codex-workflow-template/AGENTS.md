@@ -31,6 +31,12 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Implementation begins only after requirements and design are confirmed, unless the user explicitly invokes `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to coding.
 
+## Phase Consistency Preflight
+
+- Before implementation, bugfix, or hotfix, lightly check whether `说明文档.md`, `specs/global/INDEX.md`, current feature/version README, task documents, and related public-doc patches agree.
+- If entry docs, index, and task documents point to different phases, pause ordinary implementation/bugfix and repair document routing first.
+- Production hotfixes may restore service first, but the completion report must record conflicts and follow-up documentation work.
+
 ## First Principles And Adversarial Review
 
 - Before complex requirements, technical design, bugfix root-cause claims, and spike conclusions, run a first-principles check: underlying facts, key constraints, and minimum conditions.

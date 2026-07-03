@@ -51,8 +51,22 @@
 | Business rules and calculation semantics |  |  |
 | Technical solution comparison |  |  |
 | Multi-branch public document protocol |  |  |
+| Phase consistency preflight |  |  |
 | Validation level |  |  |
 | Documentation drift check |  |  |
+
+## Phase Consistency Check
+
+| Document | Current phase/state | Consistent With Current Task | Notes |
+| --- | --- | --- | --- |
+| `说明文档.md` or equivalent entry page |  |  |  |
+| `specs/global/INDEX.md` |  |  |  |
+| Current feature/version README |  |  |  |
+| Current task document |  |  |  |
+| Related `docs/public-doc-updates/` patch |  |  |  |
+
+- Recommended authoritative document:
+- Routing or entry docs to repair first:
 
 ## Findings
 

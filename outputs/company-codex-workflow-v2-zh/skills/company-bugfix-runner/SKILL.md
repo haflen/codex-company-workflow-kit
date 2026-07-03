@@ -13,16 +13,18 @@ description: Use when company code behavior differs from requirements, design, a
 
 1. 判断这是 bug 还是需求变更。
 2. 如果是变更请求，路由回需求/变更规划；如果根因是业务规则、公式、口径或状态流转缺失，先补 `business-rules.md`，再决定是否修代码。
-3. 复现问题或收集最强证据。
-4. 默认显式叠加 `superpowers:systematic-debugging`；先复现或收集证据，再定位根因。
-5. 根因结论前执行第一性原理检查：事实链、最小复现条件、表层症状和底层原因的区别。
-6. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
-7. 做最小修复。
-8. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
-9. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
-10. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
-11. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-12. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
+3. 执行阶段一致性预检：确认入口、索引、当前版本/功能文档和 bug 所属任务上下文是否一致。
+4. 如果是生产 hotfix 且正在止血，可先记录预检冲突并继续最小恢复；普通 bugfix 发现阶段冲突时先暂停并修正文档路由。
+5. 复现问题或收集最强证据。
+6. 默认显式叠加 `superpowers:systematic-debugging`；先复现或收集证据，再定位根因。
+7. 根因结论前执行第一性原理检查：事实链、最小复现条件、表层症状和底层原因的区别。
+8. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
+9. 做最小修复。
+10. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
+11. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
+12. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
+13. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+14. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
 
 ## Superpowers 叠加
 
@@ -38,6 +40,17 @@ description: Use when company code behavior differs from requirements, design, a
 - `V3`：生产、权限、安全、金额/指标计算、数据损坏、并发、性能、外部 API 或 hotfix。
 
 如果根因是规则缺失或文档承诺错误，不要只修代码；必须输出 `文档漂移影响` 并路由回需求或变更请求。
+
+## 阶段一致性预检
+
+Bugfix 前检查最小上下文：
+
+- 当前 bug 属于哪个 feature、version、hotfix 或线上事故。
+- `说明文档.md`、`specs/global/INDEX.md` 是否把当前阶段或入口指向正确位置。
+- 当前任务/版本文档是否能解释预期行为。
+- 相关 public-doc patch 是否记录了分支对公共入口的影响。
+
+普通 bugfix 发现入口或索引错误时，先修正文档路由再改代码。生产 hotfix 可先止血，但完成报告必须写明预检冲突和补偿文档任务。
 
 ## 产物
 
@@ -65,6 +78,8 @@ description: Use when company code behavior differs from requirements, design, a
 - 第一性原理检查：
 - 对抗式审查：
 - 执行策略：
+- 阶段一致性预检：
+- 本轮权威文档：
 - 验证等级：
 - 验证证据：
 - 文档漂移影响：

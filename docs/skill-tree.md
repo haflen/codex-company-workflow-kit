@@ -67,6 +67,7 @@
 | `superpowers:verification-before-completion` | 完成前验证证据 | implementation, bugfix |
 | First Principles Check | 回到底层事实、约束和最小成立条件 | requirements, design, bugfix, spike |
 | Adversarial Review | 从极端、恶意、异常和边界场景验证稳健性 | planning, implementation, bugfix, hotfix, spike, skill governance |
+| Phase Consistency Preflight | 实现或修复前检查入口、索引、版本 README、任务文档是否一致 | implementation, bugfix, hotfix, workflow health check |
 | Validation Levels `V0/V1/V2/V3` | 按风险自动选择验证成本，避免验证不足或全量过度验证 | planning, implementation, bugfix, hotfix |
 | Documentation Drift Check | 检查代码变更是否需要同步需求、业务规则、设计、任务或公共文档 | implementation, bugfix, hotfix |
 | Codex built-in tools | 文件编辑、命令执行、浏览器验证、Git | all implementation and verification work |
@@ -103,6 +104,7 @@
 - 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
 - 验证等级不是用户手动选择。实现、bugfix 和 hotfix 自动判定 `V0/V1/V2/V3`，并在完成报告里输出验证证据、未验证项和剩余风险。
 - 文档漂移检查是执行出口：如果实现改变了需求承诺、业务规则、API 契约、设计、任务或公共入口，必须补文档或标记待确认漂移。
+- 阶段一致性预检是执行入口：如果 `说明文档.md`、`INDEX.md`、当前 version/feature README 和任务文档互相矛盾，普通实现/bugfix 先暂停并修正文档路由；生产 hotfix 可先止血但必须记录补偿任务。
 
 ## Typical Flow
 

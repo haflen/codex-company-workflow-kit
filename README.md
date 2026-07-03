@@ -104,6 +104,12 @@ outputs/company-codex-workflow-template/
 - `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix，需要回归、对抗场景和回滚/恢复说明。
 - 实现、bugfix 和 hotfix 完成前会输出 `验证等级` 和 `文档漂移影响`；如果代码改变了需求承诺、业务规则、API 契约、设计或公共入口，必须补文档或标记待确认漂移。
 
+实现前阶段一致性预检用于避免旧项目入口和真实任务状态不一致：
+
+- 在 `任务已确认，开始实现`、bugfix 或 hotfix 前，workflow 会轻量检查 `说明文档.md`、`specs/global/INDEX.md`、当前 feature/version README、任务文档和相关 `docs/public-doc-updates/`。
+- 如果入口页仍停在 spike/待办，但当前任务文档已进入正式开发，workflow 会先暂停并说明冲突、本轮权威文档和修复建议。
+- 非集成分支默认不直接改公共入口；优先写 public-doc update patch，等合并阶段再升格到 `说明文档.md` 和 `INDEX.md`。
+
 每轮输出会明确区分：
 
 - `透明度模式`：本轮自动选择的 `light` 或 `full-audit`。

@@ -12,15 +12,17 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 ## Workflow
 
 1. Confirm requirements, design, and task plan exist unless this is `/hotfix` or `/spike`; if the task involves `business-rules.md`, read it.
-2. Identify the next task and its verification.
-3. Explicitly use `superpowers:test-driven-development`; define the minimal failing case or verification anchor before implementation.
-4. Use `company-expert-routing` when implementation depends on framework internals, typing, performance, concurrency, data modeling, or UI craft; keep the bundle from design unless the touched area changed.
-5. Make scoped edits.
-6. Before claiming completion, run adversarial review for the relevant extreme input, abnormal state, permission, concurrency, performance, or UI rendering risks.
-7. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-8. Choose validation level `V0/V1/V2/V3` automatically and gather sufficient but not excessive evidence.
-9. Check documentation drift: whether implementation changed requirements, business rules, technical design, API contracts, task plans, project entry docs, or indexes.
-10. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
+2. Run Phase Consistency Preflight: check whether `说明文档.md`, `specs/global/INDEX.md`, the current feature/version README, task document, and related public-doc patch agree.
+3. If public entry docs, indexes, version README, or task docs conflict, pause implementation; output the conflict, provisional authoritative document, and repair recommendation before coding.
+4. Identify the next task and its verification.
+5. Explicitly use `superpowers:test-driven-development`; define the minimal failing case or verification anchor before implementation.
+6. Use `company-expert-routing` when implementation depends on framework internals, typing, performance, concurrency, data modeling, or UI craft; keep the bundle from design unless the touched area changed.
+7. Make scoped edits.
+8. Before claiming completion, run adversarial review for the relevant extreme input, abnormal state, permission, concurrency, performance, or UI rendering risks.
+9. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+10. Choose validation level `V0/V1/V2/V3` automatically and gather sufficient but not excessive evidence.
+11. Check documentation drift: whether implementation changed requirements, business rules, technical design, API contracts, task plans, project entry docs, or indexes.
+12. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
 
 ## Superpowers Layer
 
@@ -38,6 +40,19 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 
 Do not downgrade V2/V3 to save time, and do not force full verification for V0/V1 small changes.
 
+## Phase Consistency Preflight
+
+Before implementation, run a lightweight preflight. Do not scan every document. Check:
+
+- Whether the current branch is main/develop/integration or a business branch.
+- Whether `说明文档.md` current phase matches the task document.
+- Whether `specs/global/INDEX.md` routes to the current feature/version.
+- Whether the current version/feature README confirms implementation stage.
+- Whether the task document includes confirmed tasks, task IDs, and verification anchors.
+- Whether the current branch has a related `docs/public-doc-updates/` patch.
+
+If the entry page still says spike/backlog while the current version README says formal implementation, treat the current task document as provisional authority, but first repair the public-entry impact record. On non-integration branches, prefer a public-doc patch.
+
 ## Completion Report
 
 - Workflow layer: `company-implementation-runner`
@@ -49,6 +64,8 @@ Do not downgrade V2/V3 to save time, and do not force full verification for V0/V
 - First Principles Check:
 - Adversarial Review:
 - Execution strategy:
+- Phase Consistency Preflight:
+- Authoritative document for this turn:
 - Validation level:
 - Verification evidence:
 - Documentation drift impact:

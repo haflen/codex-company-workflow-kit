@@ -76,6 +76,13 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 这两项用于控制验证成本：小任务不全量跑，大任务不低配验证。
 
+在实现、bugfix 或 hotfix 前，workflow 还会执行阶段一致性预检：
+
+- 读取入口页、`specs/global/INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch。
+- 判断公共入口、索引和当前任务文档是否指向同一阶段。
+- 如果发现入口页仍停在 spike/待办，但当前任务已经进入正式开发，Codex 会先说明冲突、本轮权威文档和修复建议。
+- 普通实现和 bugfix 应先修正路由再动代码；生产 hotfix 可先止血，但完成报告必须记录补偿文档任务。
+
 ### 项目安装
 
 把公司规范和模板放进某个业务项目。
@@ -478,7 +485,7 @@ Codex 应进入 `company-workflow-health-check`，只读检查 `AGENTS.md`、`BU
 
 8. Codex 按任务做 scoped edits，运行测试或给出手工验证。
 
-   如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；完成前应给出验证等级、验证证据和文档漂移影响。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
+   如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；写代码前应先通过阶段一致性预检，完成前应给出验证等级、验证证据和文档漂移影响。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
 
 9. 用户要求收尾：
 

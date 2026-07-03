@@ -37,6 +37,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 实现、bugfix 和 hotfix 完成时，还要检查是否包含 `验证等级` 和 `文档漂移影响`。验证等级由 workflow 自动判定：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。文档漂移用于判断是否需要同步需求、业务规则、设计、任务、`说明文档.md`、`INDEX.md` 或公共文档影响补丁。
 
+启动实现、bugfix 或 hotfix 前，workflow 还会做阶段一致性预检。它会轻量读取入口页、`INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch，判断“当前到底处于哪个阶段”。如果发现入口页还写 spike/待办，而任务文档已经进入正式开发，Codex 应先暂停并给出冲突和修复建议，不应直接开始写代码。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash
@@ -142,6 +144,14 @@ Codex 应先检查已有 `AGENTS.md`、README、manifest、docs、测试目录�
 ```
 
 Codex 应进入 `company-workflow-health-check`，只读诊断根目录文件、模板、`INDEX.md`、旧规则残留、插件/专家暴露和建议修复命令。健康检查默认不改项目文件。
+
+如果你是在任务开发前主动确认阶段状态，可以说：
+
+```text
+任务已确认，开始实现。但在写代码前，请先做阶段一致性预检。
+```
+
+新版 workflow 会自动做这件事；这句话只是显式提醒。
 
 ## 常用说法
 

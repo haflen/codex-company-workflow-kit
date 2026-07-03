@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.16 - 2026-07-03
+
+- Added Phase Consistency Preflight before implementation, bugfix, and hotfix work.
+- Required workflows to compare project entry docs, `specs/global/INDEX.md`, current feature/version README, task documents, and public-doc patches before coding.
+- Updated workflow health checks to diagnose entry/index/task-document phase conflicts in legacy projects.
+- Documented the authority order for public entry docs, routing indexes, branch-local task documents, and public-doc update patches.
+
 ## 0.2.15 - 2026-07-03
 
 - Added `company-workflow-health-check` for read-only diagnosis of legacy or partially bootstrapped project workflow health.

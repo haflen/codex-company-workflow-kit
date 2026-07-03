@@ -13,16 +13,18 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 
 1. Decide whether the issue is a bug or a requirement change.
 2. If it is a change request, route to requirements/change planning; if the root cause is missing business rules, formulas, semantics, or state transitions, complete `business-rules.md` before deciding whether code should change.
-3. Reproduce the issue or collect the strongest available evidence.
-4. Explicitly use `superpowers:systematic-debugging`; reproduce or collect evidence before fixing.
-5. Before claiming root cause, run a first-principles check: fact chain, minimum reproduction conditions, and the difference between surface symptoms and underlying cause.
-6. Use `company-expert-routing` for non-trivial failures, unclear root cause, or stack-specific failure modes; let it select `company-hotfix` or the affected stack bundle automatically.
-7. Make the minimal fix.
-8. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
-9. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
-10. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
-11. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-12. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
+3. Run Phase Consistency Preflight: confirm that entry docs, index, current version/feature docs, and the bug's task context agree.
+4. For production hotfix recovery, record preflight conflicts and continue with minimal service restoration if needed; for ordinary bugfix, pause and repair document routing before code changes.
+5. Reproduce the issue or collect the strongest available evidence.
+6. Explicitly use `superpowers:systematic-debugging`; reproduce or collect evidence before fixing.
+7. Before claiming root cause, run a first-principles check: fact chain, minimum reproduction conditions, and the difference between surface symptoms and underlying cause.
+8. Use `company-expert-routing` for non-trivial failures, unclear root cause, or stack-specific failure modes; let it select `company-hotfix` or the affected stack bundle automatically.
+9. Make the minimal fix.
+10. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
+11. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
+12. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
+13. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+14. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
 
 ## Superpowers Layer
 
@@ -38,6 +40,17 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 - `V3`: production, permissions, security, money/metric calculations, data corruption, concurrency, performance, external APIs, or hotfix.
 
 If the root cause is a missing rule or wrong documented promise, do not only fix code; output `Documentation drift impact` and route back to requirements or change request.
+
+## Phase Consistency Preflight
+
+Before bugfix work, check the minimum context:
+
+- Which feature, version, hotfix, or production incident owns this bug.
+- Whether `说明文档.md` and `specs/global/INDEX.md` point to the correct current phase or entry.
+- Whether the current task/version document explains expected behavior.
+- Whether a related public-doc patch records branch impact on public entry docs.
+
+For ordinary bugfixes, repair document routing before changing code when entry or index state is wrong. For production hotfixes, service recovery may proceed first, but the completion report must record preflight conflicts and follow-up documentation work.
 
 ## Artifact
 
@@ -65,6 +78,8 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - First Principles Check:
 - Adversarial Review:
 - Execution strategy:
+- Phase Consistency Preflight:
+- Authoritative document for this turn:
 - Validation level:
 - Verification evidence:
 - Documentation drift impact:
