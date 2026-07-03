@@ -20,9 +20,10 @@ description: Use when company requirements, design, and task plan are confirmed 
 7. 做范围内的最小改动。
 8. 完成声明前执行对抗式审查，覆盖极端输入、异常状态、权限、并发、性能或 UI 渲染风险中与本任务相关的场景。
 9. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-10. 自动判定验证等级 `V0/V1/V2/V3`，选择足够但不过度的验证证据。
-11. 检查文档漂移：实现是否改变需求、业务规则、技术设计、API 契约、任务计划、项目入口或索引。
-12. 运行验证；项目使用进度文档时，根据当前分支策略更新：集成分支可同步公共入口，业务分支写 `docs/public-doc-updates/<branch-or-feature>.md`。
+10. 检查中文代码逻辑备注：业务规则、计算口径、数据映射、异常分支和非显然技术决策必须有必要备注。
+11. 自动判定验证等级 `V0/V1/V2/V3`，选择足够但不过度的验证证据。
+12. 检查文档漂移：实现是否改变需求、业务规则、技术设计、API 契约、任务计划、项目入口或索引。
+13. 运行验证；项目使用进度文档时，根据当前分支策略更新：集成分支可同步公共入口，业务分支写 `docs/public-doc-updates/<branch-or-feature>.md`。
 
 ## Superpowers 叠加
 
@@ -39,6 +40,15 @@ description: Use when company requirements, design, and task plan are confirmed 
 - `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix；执行回归、对抗场景和回滚/恢复说明。
 
 不得为了省时间把 V2/V3 降级到 V1；也不要把 V0/V1 小改动强行全量验证。
+
+## 中文代码逻辑备注
+
+实现涉及 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本时，都按同一标准检查中文备注：
+
+- 必须解释业务规则、状态分支、公式/阈值、精度、数据映射、fallback/隐藏/降级、兼容策略和非显然性能/并发/缓存处理。
+- 不写语法翻译类废话备注。
+- 阈值、公式或映射来源不清时，不用备注糊弄；回到需求、`business-rules.md` 或设计文档补齐。
+- 如果逻辑改变，相关备注也必须同步改变。
 
 ## 阶段一致性预检
 
@@ -68,6 +78,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 本轮权威文档：
 - 验证等级：
 - 验证证据：
+- 代码备注检查：
+- 备注覆盖点：
 - 文档漂移影响：
 - 未验证项：
 - 剩余风险：
@@ -89,3 +101,5 @@ description: Use when company requirements, design, and task plan are confirmed 
 非集成分支不要把未合并结果直接写入 `说明文档.md` 的当前状态；如需记录公共入口变化，写公共文档影响补丁。
 
 如果实现改变了文档承诺但未同步，完成报告必须写明 `文档漂移影响`，并说明是已补齐、需用户确认，还是待后续公共文档补丁处理。
+
+如果实现包含复杂业务逻辑但没有必要中文备注，不得声称完成；必须补齐备注或说明为什么本次属于低风险自解释代码。

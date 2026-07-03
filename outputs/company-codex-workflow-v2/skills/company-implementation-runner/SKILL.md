@@ -20,9 +20,10 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 7. Make scoped edits.
 8. Before claiming completion, run adversarial review for the relevant extreme input, abnormal state, permission, concurrency, performance, or UI rendering risks.
 9. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-10. Choose validation level `V0/V1/V2/V3` automatically and gather sufficient but not excessive evidence.
-11. Check documentation drift: whether implementation changed requirements, business rules, technical design, API contracts, task plans, project entry docs, or indexes.
-12. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
+10. Check Chinese code logic comments: business rules, calculation semantics, data mapping, exceptional branches, and non-obvious technical decisions need useful comments.
+11. Choose validation level `V0/V1/V2/V3` automatically and gather sufficient but not excessive evidence.
+12. Check documentation drift: whether implementation changed requirements, business rules, technical design, API contracts, task plans, project entry docs, or indexes.
+13. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
 
 ## Superpowers Layer
 
@@ -39,6 +40,15 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 - `V3`: production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix; run regression, adversarial cases, and rollback/recovery notes.
 
 Do not downgrade V2/V3 to save time, and do not force full verification for V0/V1 small changes.
+
+## Chinese Code Logic Comments
+
+Use the same Chinese-comment standard for Java, frontend TypeScript/Vue/React, Python, SQL, and scripts:
+
+- Explain business rules, status branches, formulas/thresholds, precision, data mapping, fallback/hiding/degradation, compatibility strategy, and non-obvious performance/concurrency/cache handling.
+- Do not write comments that merely translate syntax.
+- If a threshold, formula, or mapping source is unclear, do not paper over it with a comment; route back to requirements, `business-rules.md`, or design docs.
+- When logic changes, update related comments too.
 
 ## Phase Consistency Preflight
 
@@ -68,6 +78,8 @@ If the entry page still says spike/backlog while the current version README says
 - Authoritative document for this turn:
 - Validation level:
 - Verification evidence:
+- Code comment check:
+- Comment coverage:
 - Documentation drift impact:
 - Unverified items:
 - Remaining risk:
@@ -89,3 +101,5 @@ If implementation reveals missing operation logic, formulas, field semantics, st
 Non-integration branches must not write unmerged results directly into the current-state section of `说明文档.md`; record public entry changes as a public-doc update patch.
 
 If implementation changes a documented promise but docs are not synchronized, the completion report must state `Documentation drift impact` and mark whether it was fixed, needs user confirmation, or should be handled by a later public-document patch.
+
+If implementation contains complex business logic without necessary Chinese comments, do not claim completion; add comments or explain why the code is low-risk and self-explanatory.

@@ -37,6 +37,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 实现、bugfix 和 hotfix 完成时，还要检查是否包含 `验证等级` 和 `文档漂移影响`。验证等级由 workflow 自动判定：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。文档漂移用于判断是否需要同步需求、业务规则、设计、任务、`说明文档.md`、`INDEX.md` 或公共文档影响补丁。
 
+如果本次涉及 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本里的非显然业务逻辑，还要检查是否包含 `代码备注检查` 和 `备注覆盖点`。AI 应补充中文逻辑备注，解释业务规则、计算口径、数据映射、异常分支、fallback/降级、兼容策略或性能/并发/缓存处理；不要写逐行翻译语法的废话备注。
+
 启动实现、bugfix 或 hotfix 前，workflow 还会做阶段一致性预检。它会轻量读取入口页、`INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch，判断“当前到底处于哪个阶段”。如果发现入口页还写 spike/待办，而任务文档已经进入正式开发，Codex 应先暂停并给出冲突和修复建议，不应直接开始写代码。
 
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：

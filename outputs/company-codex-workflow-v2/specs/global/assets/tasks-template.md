@@ -18,9 +18,9 @@
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Estimated validation level | Minimal failing case or verification anchor | Adversarial scenario | Documentation drift check | Depends on |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 |  |  | V0/V1/V2/V3 |  |  |  |  |
+| ID | Task | Files / modules | Estimated validation level | Minimal failing case or verification anchor | Adversarial scenario | Chinese comment coverage | Documentation drift check | Depends on |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T1 |  |  | V0/V1/V2/V3 |  |  | business rules / calculation semantics / data mapping / exceptional branch / none |  |  |
 
 ## AI Execution Notes
 
@@ -52,6 +52,16 @@ The final validation level is confirmed by implementation or bugfix before compl
 | Business rules / calculation semantics |  |  |
 | Technical design / API contract |  |  |
 | Project entry / INDEX / public-doc update patch |  |  |
+
+## Chinese Code Logic Comment Plan
+
+| Comment Trigger | In Scope | Location Or Notes |
+| --- | --- | --- |
+| Business rules / state branches / permission differences |  |  |
+| Formulas / thresholds / precision / sorting weights |  |  |
+| Data source / field mapping / enum mapping / DTO mapping |  |  |
+| Fallback / hiding / degradation / empty data / compatibility strategy |  |  |
+| Performance / concurrency / cache / retry / rendering strategy |  |  |
 
 ## Adversarial Review Plan
 

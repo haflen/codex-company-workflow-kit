@@ -73,6 +73,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 - `验证等级`：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。
 - `文档漂移影响`：判断是否需要同步 requirements、business-rules、design、api-contract、tasks、`说明文档.md`、`specs/global/INDEX.md` 或公共文档影响补丁。
+- `代码备注检查`：判断 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本中的业务规则、计算口径、数据映射、异常分支和非显然技术决策是否已有必要中文备注。
 
 这两项用于控制验证成本：小任务不全量跑，大任务不低配验证。
 

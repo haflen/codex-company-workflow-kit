@@ -65,6 +65,13 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Before implementation, bugfix, or hotfix completion, output validation level, verification evidence, unverified items, and remaining risk.
 - If code changes requirements, operation logic, calculation semantics, API contracts, technical design, task plans, or public entry docs, state the documentation drift impact and update docs or mark the drift for confirmation.
 
+## Chinese Code Logic Comments
+
+- Java, frontend TypeScript/Vue/React, Python, SQL, and scripts use the same comment standard.
+- Business rules, formula thresholds, precision, field mapping, enum/region mapping, fallback/hiding/degradation, exceptional handling, compatibility strategy, performance/concurrency/cache, and other non-obvious logic need Chinese comments.
+- Do not write syntax-translation comments such as "iterate list" or "set variable".
+- If threshold, formula, or mapping provenance is unclear, complete requirements or business-rule docs first; do not use comments as a substitute for missing semantics.
+
 ## Exception Channels
 
 - `/spike` may skip full SDLC documents, but must produce a short spike report.

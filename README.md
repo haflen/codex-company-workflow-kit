@@ -104,6 +104,13 @@ outputs/company-codex-workflow-template/
 - `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix，需要回归、对抗场景和回滚/恢复说明。
 - 实现、bugfix 和 hotfix 完成前会输出 `验证等级` 和 `文档漂移影响`；如果代码改变了需求承诺、业务规则、API 契约、设计或公共入口，必须补文档或标记待确认漂移。
 
+中文代码逻辑备注按需强制：
+
+- 适用于 Java、前端 TypeScript/Vue/React、Python、SQL、脚本和配置生成逻辑。
+- 业务规则、状态分支、公式阈值、精度、数据映射、fallback/隐藏/降级、异常处理、兼容策略、性能/并发/缓存等非显然逻辑，必须补中文备注。
+- 禁止写语法翻译式废话备注；阈值或公式来源不清时，回到需求或 `business-rules.md` 补齐。
+- 实现、bugfix 和 hotfix 完成报告会输出 `代码备注检查` 和 `备注覆盖点`。
+
 实现前阶段一致性预检用于避免旧项目入口和真实任务状态不一致：
 
 - 在 `任务已确认，开始实现`、bugfix 或 hotfix 前，workflow 会轻量检查 `说明文档.md`、`specs/global/INDEX.md`、当前 feature/version README、任务文档和相关 `docs/public-doc-updates/`。

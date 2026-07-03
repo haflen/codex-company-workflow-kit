@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.17 - 2026-07-03
+
+- Added cross-language Chinese code logic comment rules for Java, frontend TypeScript/Vue/React, Python, SQL, scripts, and generated configuration logic.
+- Required comments for business rules, calculation semantics, data mappings, exceptional branches, fallback/degradation behavior, compatibility strategy, and non-obvious performance/concurrency/cache logic.
+- Added `Code comment check` / `代码备注检查` and comment coverage fields to implementation and bugfix completion reports.
+- Updated task templates, lightweight templates, and user docs so comment coverage is planned before implementation and checked before completion.
+
 ## 0.2.16 - 2026-07-03
 
 - Added Phase Consistency Preflight before implementation, bugfix, and hotfix work.

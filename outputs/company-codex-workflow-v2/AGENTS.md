@@ -124,6 +124,28 @@ Output requirements:
 - Planning turns rule examples into automated tests or explicit manual verification steps.
 - Implementation or bugfix work that discovers missing rules must stop guessing and route back to requirements for a rule document or change request.
 
+## Chinese Code Logic Comments
+
+When AI writes or changes code, add necessary code-logic comments in Chinese by default. Comments should help later review, handoff, and business-semantics audits; they must not translate obvious syntax line by line.
+
+Chinese comments are required for these cases across Java, frontend TypeScript/Vue/React, Python, SQL, scripts, and generated configuration logic:
+
+- Business rules, status decisions, approval/task flows, permission branches, or role-specific behavior.
+- Metrics, formulas, money, precision, rounding, thresholds, sorting weights, and aggregation semantics.
+- Data sources, field mapping, region/enum/dictionary mapping, unit conversion, frontend-backend DTO/API mapping.
+- Fallback, hiding, degradation, empty data, abnormal values, legacy compatibility, or temporary transition strategies.
+- Non-obvious performance, concurrency, cache, retry, idempotency, or browser-rendering handling.
+- Implementation points tied to `business-rules.md`, API contracts, or design constraints.
+
+Do not write low-value comments:
+
+- Do not explain syntax itself, such as "iterate list", "set variable", or "return result".
+- Do not invent business provenance. If a threshold or formula source is unclear, route back to requirements or `business-rules.md`.
+- Do not use comments to hide complex code. Prefer names, extracted methods, and constants first; then add key rationale comments.
+- When logic changes, update related comments so comments do not drift from code.
+
+Implementation, bugfix, and hotfix completion must output `Code comment check: completed / not needed / needs comments`, with coverage points such as business rules, calculation semantics, data mapping, exceptional branches, performance strategy, or none.
+
 ## Technical Solution Comparison
 
 - Solution comparison is trigger-based, not mandatory for every design.

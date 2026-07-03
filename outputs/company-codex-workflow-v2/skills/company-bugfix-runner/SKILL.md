@@ -21,10 +21,11 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 8. Use `company-expert-routing` for non-trivial failures, unclear root cause, or stack-specific failure modes; let it select `company-hotfix` or the affected stack bundle automatically.
 9. Make the minimal fix.
 10. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
-11. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
-12. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
-13. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-14. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
+11. Check Chinese code logic comments: root-cause fixes, exceptional branches, compatibility strategy, business rules, and regression guards need useful comments.
+12. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
+13. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
+14. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+15. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
 
 ## Superpowers Layer
 
@@ -40,6 +41,15 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 - `V3`: production, permissions, security, money/metric calculations, data corruption, concurrency, performance, external APIs, or hotfix.
 
 If the root cause is a missing rule or wrong documented promise, do not only fix code; output `Documentation drift impact` and route back to requirements or change request.
+
+## Chinese Code Logic Comments
+
+Use the same Chinese-comment standard for Java, frontend TypeScript/Vue/React, Python, SQL, and scripts:
+
+- When the root-cause fix changes business decisions, state transitions, field mapping, exceptional handling, compatibility strategy, or thresholds, explain the reason and protected scenario in Chinese.
+- Do not write vague comments such as "fix bug" or "check null".
+- If correct behavior cannot be derived from requirements, design, or `business-rules.md`, complete the rule first; do not use comments as a substitute for missing requirements.
+- If regression coverage depends on special input, historical data, or edge conditions, explain the business meaning near the test or code.
 
 ## Phase Consistency Preflight
 
@@ -82,6 +92,8 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - Authoritative document for this turn:
 - Validation level:
 - Verification evidence:
+- Code comment check:
+- Comment coverage:
 - Documentation drift impact:
 - Unverified items:
 - Remaining risk:

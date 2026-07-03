@@ -21,10 +21,11 @@ description: Use when company code behavior differs from requirements, design, a
 8. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
 9. 做最小修复。
 10. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
-11. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
-12. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
-13. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-14. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
+11. 检查中文代码逻辑备注：根因修复、异常分支、兼容策略、业务规则和回归防线必须有必要备注。
+12. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
+13. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
+14. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+15. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
 
 ## Superpowers 叠加
 
@@ -40,6 +41,15 @@ description: Use when company code behavior differs from requirements, design, a
 - `V3`：生产、权限、安全、金额/指标计算、数据损坏、并发、性能、外部 API 或 hotfix。
 
 如果根因是规则缺失或文档承诺错误，不要只修代码；必须输出 `文档漂移影响` 并路由回需求或变更请求。
+
+## 中文代码逻辑备注
+
+Bugfix 涉及 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本时，都按同一标准检查中文备注：
+
+- 根因修复改变业务判断、状态流转、字段映射、异常处理、兼容策略或阈值时，必须用中文说明原因和保护的场景。
+- 不写“修复 bug”“判断为空”这类空泛备注。
+- 如果正确行为无法从需求、设计或 `business-rules.md` 推导出来，先补规则，不用备注替代缺失需求。
+- 回归防线如果依赖特殊输入、历史数据或边界条件，应在测试或代码旁说明业务意义。
 
 ## 阶段一致性预检
 
@@ -82,6 +92,8 @@ Bugfix 前检查最小上下文：
 - 本轮权威文档：
 - 验证等级：
 - 验证证据：
+- 代码备注检查：
+- 备注覆盖点：
 - 文档漂移影响：
 - 未验证项：
 - 剩余风险：
