@@ -11,7 +11,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 ## 工作流
 
-1. 确认需求、设计和任务计划存在，`/hotfix` 或 `/spike` 除外。
+1. 确认需求、设计和任务计划存在，`/hotfix` 或 `/spike` 除外；如任务涉及 `business-rules.md`，必须读取规则文档。
 2. 识别下一个任务及其验证方式。
 3. 默认显式叠加 `superpowers:test-driven-development`；先定义最小失败案例或最小验证锚点，再写实现。
 4. 实现依赖框架内部、类型、性能、并发、数据建模或 UI 质量时，使用 `company-expert-routing`。
@@ -53,5 +53,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 ## 边界
 
 不得实现未进入已确认任务计划的工作，除非用户明确批准扩展范围。
+
+如果实现过程中发现操作逻辑、计算公式、字段口径、状态流转或异常处理缺失，不要自行猜测；停止实现并回到 `company-feature-requirements` 补齐 `business-rules.md`。
 
 非集成分支不要把未合并结果直接写入 `说明文档.md` 的当前状态；如需记录公共入口变化，写公共文档影响补丁。

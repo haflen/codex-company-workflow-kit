@@ -25,6 +25,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 只想探讨想法，不写代码，不落正式文档 | L0 | `company-feature-requirements` 轻量模式 | `superpowers:brainstorming` | `轻量探讨：只聊方案，不写代码，不落正式文档。` |
 | 文案、字段、小 UI、小配置等低风险小改动 | L1 | 轻量 planning 或 `company-implementation-runner` | 通常无；涉及行为时用 `superpowers:test-driven-development` | `小改动：轻量处理，给我验证结果。` |
 | 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
+| 需要梳理操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` 并判定是否创建 `business-rules.md` | `superpowers:brainstorming`，必要时 `company-expert-routing` | `帮我梳理这个功能的业务规则和计算口径：...` |
 | 需求和验收标准已确认 | L2 | `company-feature-design` | 复杂设计可用 `superpowers:brainstorming` 辅助方案比较 | `需求已确认，进入技术设计` |
 | 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.13 - 2026-07-03
+
+- Added `business-rules-template.md` for operation logic, state transitions, calculation formulas, field semantics, exception handling, and example cases.
+- Added trigger-based rules so small requirements do not create business-rules documents, while complex metrics, formulas, state, data semantics, or abnormal-data cases do.
+- Updated requirements, design, planning, implementation, bugfix, context index, workflow help, AGENTS, generated INDEX output, and user docs to route business rules through requirements and convert examples into verification anchors.
+
 ## 0.2.12 - 2026-06-30
 
 - Added a multi-branch public document protocol for company projects.

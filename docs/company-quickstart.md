@@ -59,6 +59,14 @@ npx codex-company-workflow all /path/to/project --lang zh
 
 多分支并行时，业务分支默认不要直接改 `说明文档.md` 或 `specs/global/INDEX.md` 的主线当前状态。分支如果影响公共入口或阅读路线，先写 `docs/public-doc-updates/<branch-or-feature>.md`，等合并到集成分支时再统一更新公共文档。
 
+涉及操作逻辑、指标公式、计算口径、状态流转、字段精度、异常数据或角色差异时，让 Codex 先判断是否需要 `business-rules.md`。小文案、小 UI、小配置等低风险改动不需要额外增加这份文档。
+
+推荐说法：
+
+```text
+帮我梳理这个功能的业务规则和计算口径；如果只是小需求，不要强制创建 business-rules.md。
+```
+
 如果项目运行工作流时提示找不到 `BUNDLES.md`、`EXPERTS.lock.md` 或 `specs/global/assets/` 模板，执行下面命令补齐：
 
 ```bash

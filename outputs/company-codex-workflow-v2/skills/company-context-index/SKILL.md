@@ -12,7 +12,7 @@ Build enough project context without loading everything.
 ## Workflow
 
 1. Read `specs/global/INDEX.md`.
-2. Confirm whether `INDEX.md` contains a document ownership map: entry page, work log, formal specs, lifecycle docs, public-doc update patches, numbering namespaces, and update triggers.
+2. Confirm whether `INDEX.md` contains a document ownership map: entry page, work log, formal specs, business rules and calculation semantics, lifecycle docs, public-doc update patches, numbering namespaces, and update triggers.
 3. If present, read `说明文档.md` or the configured progress document.
 4. Identify current version, milestone, feature, relevant docs, and commands.
 5. Read only the routed docs and source files needed for the task.
@@ -40,6 +40,7 @@ Build enough project context without loading everything.
 - Document ownership map:
 - Current branch public-doc strategy:
 - Public-doc update patch:
+- Business rules and calculation semantics:
 - Numbering namespaces:
 - Relevant docs:
 - Relevant code paths:

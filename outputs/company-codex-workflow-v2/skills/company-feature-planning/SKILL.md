@@ -11,20 +11,22 @@ Provide executable Codex task planning.
 
 ## Workflow
 
-1. Confirm requirements and design are available.
+1. Confirm requirements and design are available; if requirements or design link `business-rules.md`, read it too.
 2. Confirm API contracts exist when boundaries require them.
 3. Split work into small tasks with verification for each task.
 4. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
 5. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
-6. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
-7. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
-8. Stop after task planning unless the user gives the implementation handoff signal.
+6. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
+7. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
+8. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
+9. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
 - L1 small change: usually skip Superpowers and use a lightweight task card; if behavior changes, apply the minimal-failing-case idea from `superpowers:test-driven-development`.
 - L2/L3 standard or complex work: use `superpowers:writing-plans`.
 - Every task must include a verification anchor for later TDD and completion verification.
+- Example cases from business-rules documents should become automated tests first; when automation is not practical, turn them into explicit manual checks.
 
 ## Artifact
 
@@ -61,5 +63,6 @@ Resolve the public-doc update patch template in this order:
 - Tasks:
 - Minimal failing case or verification anchor per task:
 - Adversarial scenario per task:
+- Business rules verification coverage:
 - Public-doc impact task:
 - Implementation handoff phrase:

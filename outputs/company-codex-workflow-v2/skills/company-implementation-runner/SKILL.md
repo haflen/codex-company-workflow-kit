@@ -11,7 +11,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 
 ## Workflow
 
-1. Confirm requirements, design, and task plan exist unless this is `/hotfix` or `/spike`.
+1. Confirm requirements, design, and task plan exist unless this is `/hotfix` or `/spike`; if the task involves `business-rules.md`, read it.
 2. Identify the next task and its verification.
 3. Explicitly use `superpowers:test-driven-development`; define the minimal failing case or verification anchor before implementation.
 4. Use `company-expert-routing` when implementation depends on framework internals, typing, performance, concurrency, data modeling, or UI craft; keep the bundle from design unless the touched area changed.
@@ -53,5 +53,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 ## Boundary
 
 Do not implement tasks that are not in the approved plan unless the user explicitly approves scope expansion.
+
+If implementation reveals missing operation logic, formulas, field semantics, state transitions, or exception handling, do not guess; stop implementation and route back to `company-feature-requirements` to complete `business-rules.md`.
 
 Non-integration branches must not write unmerged results directly into the current-state section of `说明文档.md`; record public entry changes as a public-doc update patch.

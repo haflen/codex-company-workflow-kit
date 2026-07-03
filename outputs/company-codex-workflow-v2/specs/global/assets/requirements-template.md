@@ -38,6 +38,19 @@ Use observable criteria. Prefer:
 
 - Given [context], when [action], then [observable result].
 
+## Business Rules Document Decision
+
+Create `business-rules.md` only when the feature involves metrics, money, scores, ordering, weights, aggregation, conversion, state transitions, approval/task flows, role differences, data mapping, missing data, abnormal values, batch processing, or complex operations.
+
+| Decision item | Involved | Notes |
+| --- | --- | --- |
+| Operation logic or state transitions | No / Yes |  |
+| Metrics, formulas, or calculation semantics | No / Yes |  |
+| Field source, unit, precision, or mapping | No / Yes |  |
+| Missing data, abnormal values, or boundary values | No / Yes |  |
+| Role differences, permissions, or approval rules | No / Yes |  |
+| Requires `business-rules.md` | No / Yes |  |
+
 ## Edge Cases
 
 - 

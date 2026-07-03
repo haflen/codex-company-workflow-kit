@@ -30,6 +30,7 @@
 | `说明文档.md` 或等价入口页 | 项目入口、当前状态、最近重要事件、阅读路线 | 当前阶段、最近重要事件、阅读路线或关键状态变化 | 不使用 spike 任务号；使用日期型项目事件或最近变更 |
 | `spike_*_工作日志.md` 或 spike 目录日志 | spike 现场流水、实验过程、临时结论 | spike 实验、观察、决策或临时任务变化 | `SPKxx-T001` 或 `Sxx-001` |
 | `specs/versions/...` 或 `specs/features/...` | 正式需求、设计、任务计划、验收依据 | 需求、设计、任务、验收或正式变更被确认 | feature、版本或正式任务编号 |
+| `business-rules.md` 或 `*_业务规则与计算口径.md` | 操作逻辑、状态流转、指标公式、字段口径、异常处理和样例用例 | 需求命中复杂业务规则、计算口径或状态流转触发条件 | feature、版本或正式任务编号 |
 | `docs/lifecycle/` | 生命周期阶段总结、里程碑回顾 | 版本阶段结束、里程碑变化或管理层摘要 | 日期或版本阶段编号 |
 | `docs/public-doc-updates/` | 多分支并行时的公共文档影响补丁 | 分支影响入口页、当前状态、阅读路线、文档职责或编号规则，但尚未合并主线 | 分支名、feature ID 或 PR ID |
 
@@ -54,6 +55,7 @@
 | 需求 | 模板 |
 | --- | --- |
 | 功能需求 | `specs/global/assets/requirements-template.md` |
+| 业务规则与计算口径 | `specs/global/assets/business-rules-template.md` |
 | 技术设计 | `specs/global/assets/design-template.md` |
 | API 契约 | `specs/global/assets/api-contract-template.md` |
 | 任务计划 | `specs/global/assets/tasks-template.md` |

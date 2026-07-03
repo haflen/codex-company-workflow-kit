@@ -12,7 +12,7 @@ description: Use when company code behavior differs from requirements, design, a
 ## 工作流
 
 1. 判断这是 bug 还是需求变更。
-2. 如果是变更请求，路由回需求/变更规划。
+2. 如果是变更请求，路由回需求/变更规划；如果根因是业务规则、公式、口径或状态流转缺失，先补 `business-rules.md`，再决定是否修代码。
 3. 复现问题或收集最强证据。
 4. 默认显式叠加 `superpowers:systematic-debugging`；先复现或收集证据，再定位根因。
 5. 根因结论前执行第一性原理检查：事实链、最小复现条件、表层症状和底层原因的区别。
@@ -40,6 +40,8 @@ description: Use when company code behavior differs from requirements, design, a
 ## 边界
 
 不要把新功能行为打包进 bugfix。
+
+不要把“规则文档缺失”伪装成代码 bug。若现有代码无法从需求、设计或 `business-rules.md` 推导出正确行为，先补规则文档或变更请求。
 
 ## 输出格式
 

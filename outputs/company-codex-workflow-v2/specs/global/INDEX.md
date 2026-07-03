@@ -30,6 +30,7 @@ Start here before using any company workflow.
 | `说明文档.md` or equivalent entry page | Project entry, current state, recent important events, reading route | Current phase, recent important event, reading route, or key status change | Do not use spike task IDs; use date-based project events or recent changes |
 | `spike_*_工作日志.md` or spike-local log | Spike field log, experiment flow, temporary conclusions | Spike experiment, observation, decision, or temporary task change | `SPKxx-T001` or `Sxx-001` |
 | `specs/versions/...` or `specs/features/...` | Formal requirements, design, task plan, acceptance basis | Requirements, design, tasks, acceptance criteria, or approved changes are confirmed | Feature, version, or formal task IDs |
+| `business-rules.md` or equivalent business-rules document | Operation logic, state transitions, formulas, field semantics, exception handling, and example cases | Requirements trigger complex business rules, calculation semantics, or state transitions | Feature, version, or formal task IDs |
 | `docs/lifecycle/` | Lifecycle phase summaries and milestone retrospectives | Version phase completion, milestone change, or management-summary need | Date or version-phase IDs |
 | `docs/public-doc-updates/` | Public document impact patches for parallel branches | A branch affects the entry page, current state, reading route, document ownership, or numbering rules before mainline merge | Branch name, feature ID, or PR ID |
 
@@ -54,6 +55,7 @@ Start here before using any company workflow.
 | Need | Template |
 | --- | --- |
 | Feature requirements | `specs/global/assets/requirements-template.md` |
+| Business rules and calculation semantics | `specs/global/assets/business-rules-template.md` |
 | Technical design | `specs/global/assets/design-template.md` |
 | API contract | `specs/global/assets/api-contract-template.md` |
 | Task plan | `specs/global/assets/tasks-template.md` |

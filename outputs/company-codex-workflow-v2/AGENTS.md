@@ -59,7 +59,7 @@ Company workflows include two checks by default; users do not need to type speci
 
 Automatic triggers:
 
-- Requirements: for L2/L3 or complex business rules, state core assumptions, non-negotiable constraints, and adversarial scenarios.
+- Requirements: for L2/L3 or complex business rules, state core assumptions, non-negotiable constraints, and adversarial scenarios; when metrics, formulas, state transitions, complex operations, field semantics, or abnormal-data handling are involved, create or update `business-rules.md`.
 - Design: for non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundary decisions, run `First Principles Check`.
 - Planning: every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
 - Implementation: before completion, run `Adversarial Review` unless the change is pure copy, comments, or no-behavior work; state the reason if skipped.
@@ -84,6 +84,15 @@ Output requirements:
 - Implementation defaults to `superpowers:test-driven-development` and `superpowers:verification-before-completion`.
 - Bugfix defaults to `superpowers:systematic-debugging`, with `superpowers:verification-before-completion` before completion.
 - If a simple task skips Superpowers, state the reason explicitly.
+
+## Business Rules And Calculation Semantics
+
+- `business-rules.md` is triggered only for complex business cases, not pure copy, small UI, small configuration, or other low-risk changes.
+- Trigger conditions include metrics/formulas/money/scores/ordering/weights/aggregation/conversion, state transitions, approval/task flows, role differences, permission rules, field source/unit/precision/mapping, missing data, abnormal values, batch processing, duplicate submission, and concurrency conflicts.
+- Requirements own the decision on whether `business-rules.md` is needed; if not needed, state the reason.
+- Design maps business rules; it must not reinvent formulas or semantics.
+- Planning turns rule examples into automated tests or explicit manual verification steps.
+- Implementation or bugfix work that discovers missing rules must stop guessing and route back to requirements for a rule document or change request.
 
 ## Capability Trace
 

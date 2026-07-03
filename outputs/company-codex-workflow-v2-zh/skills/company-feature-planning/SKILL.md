@@ -11,20 +11,22 @@ description: Use when company requirements and technical design are confirmed an
 
 ## 工作流
 
-1. 确认需求和设计已可用。
+1. 确认需求和设计已可用；如果需求或设计链接了 `business-rules.md`，必须同时读取。
 2. 跨边界工作确认 API 契约已存在。
 3. 将工作拆成小任务，每个任务都包含验证方式。
 4. 复杂计划显式叠加 `superpowers:writing-plans`，输出可执行计划和检查点。
 5. 每个非平凡任务都包含最小失败案例或验证锚点，并至少包含一个对抗场景。
-6. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
-7. 如果任务合并后需要更新 `说明文档.md`、`specs/global/INDEX.md` 或阅读路线，增加“公共文档影响补丁”任务，而不是在业务分支直接改公共文档。
-8. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+6. 如果存在 `business-rules.md`，把其中的样例用例、公式、状态流转和异常处理转成任务验证点；不得只写“按需求实现”。
+7. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
+8. 如果任务合并后需要更新 `说明文档.md`、`specs/global/INDEX.md` 或阅读路线，增加“公共文档影响补丁”任务，而不是在业务分支直接改公共文档。
+9. 任务规划阶段结束后停止，除非用户给出实现交接口令。
 
 ## Superpowers 叠加
 
 - L1 小改动：通常不叠加，使用轻量任务卡；如涉及行为变化，则叠加 `superpowers:test-driven-development` 的最小失败案例思路。
 - L2/L3 标准或复杂任务：默认叠加 `superpowers:writing-plans`。
 - 每个任务必须包含验证点，为后续 `superpowers:test-driven-development` 和 `superpowers:verification-before-completion` 留出执行锚点。
+- 业务规则文档中的样例用例优先转成自动测试；无法自动化时转成明确手工验证步骤。
 
 ## 产物
 
@@ -61,5 +63,6 @@ description: Use when company requirements and technical design are confirmed an
 - 任务列表：
 - 每个任务的最小失败案例或验证锚点：
 - 每个任务的对抗场景：
+- 业务规则验证覆盖：
 - 公共文档影响任务：
 - 实现交接口令：

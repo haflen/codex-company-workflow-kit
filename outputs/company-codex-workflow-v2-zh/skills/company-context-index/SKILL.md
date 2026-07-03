@@ -12,7 +12,7 @@ description: Use when starting work in a company project, resuming an existing f
 ## 工作流
 
 1. 阅读 `specs/global/INDEX.md`。
-2. 确认 `INDEX.md` 是否包含文档职责地图：入口页、工作日志、正式 specs、生命周期文档、公共文档影响补丁、编号命名空间和更新触发条件。
+2. 确认 `INDEX.md` 是否包含文档职责地图：入口页、工作日志、正式 specs、业务规则与计算口径、生命周期文档、公共文档影响补丁、编号命名空间和更新触发条件。
 3. 确认当前产品、版本、里程碑、技术栈、命令和入口文件。
 4. 只读取与当前任务相关的 spec、源文件和测试文件。
 5. 判断当前分支是否为集成分支；非集成分支默认不直接更新 `说明文档.md` 或 `specs/global/INDEX.md` 的主线事实。
@@ -39,6 +39,7 @@ description: Use when starting work in a company project, resuming an existing f
 - 文档职责地图：
 - 当前分支公共文档策略：
 - 公共文档影响补丁：
+- 业务规则与计算口径：
 - 编号命名空间：
 - 相关 spec：
 - 相关源码：

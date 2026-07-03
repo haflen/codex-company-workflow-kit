@@ -12,13 +12,14 @@ description: Use when company feature requirements are confirmed and a technical
 ## 工作流
 
 1. 确认需求已存在，并包含验收标准。
-2. 阅读项目上下文、现有模式和相关源文件。
+2. 阅读项目上下文、现有模式和相关源文件；如果需求判定需要 `business-rules.md`，必须先读取业务规则与计算口径。
 3. 设计方向不唯一或架构取舍不清时，显式叠加 `superpowers:brainstorming` 做方案比较。
 4. 对非平凡架构、框架、数据、UI 或测试决策使用 `company-expert-routing`，由它自动选择技术栈 bundle。
 5. 对非平凡架构、数据、权限、性能、安全、外部 API、前端渲染或跨服务边界执行第一性原理检查。
-6. 输出设计、契约、风险说明、反例场景和测试策略。
-7. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
-8. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
+6. 设计不得重新发明业务公式；只能把 `business-rules.md` 中的操作逻辑、状态流转、字段口径和计算公式映射到模块、接口、数据结构和测试策略。
+7. 输出设计、契约、风险说明、反例场景和测试策略。
+8. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
+9. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
 
 ## Superpowers 叠加
 
@@ -32,6 +33,8 @@ description: Use when company feature requirements are confirmed and a technical
 
 1. 项目内：`specs/global/assets/design-template.md`；跨边界工作使用 `specs/global/assets/api-contract-template.md`。
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/design-template.md` 或 `../../specs/global/assets/api-contract-template.md`。
+
+如需求阶段链接了 `business-rules.md`，设计产物必须在“使用的上下文”中列出它，并说明每条关键规则映射到哪里实现或验证。
 
 ## 边界
 
@@ -53,6 +56,7 @@ description: Use when company feature requirements are confirmed and a technical
 - 剩余风险：
 - 推荐设计：
 - 备选方案和取舍：
+- 业务规则映射：
 - 底层事实和最小成立条件：
 - 关键反例场景：
 - 风险：

@@ -12,7 +12,7 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 ## Workflow
 
 1. Decide whether the issue is a bug or a requirement change.
-2. If it is a change request, route to requirements/change planning.
+2. If it is a change request, route to requirements/change planning; if the root cause is missing business rules, formulas, semantics, or state transitions, complete `business-rules.md` before deciding whether code should change.
 3. Reproduce the issue or collect the strongest available evidence.
 4. Explicitly use `superpowers:systematic-debugging`; reproduce or collect evidence before fixing.
 5. Before claiming root cause, run a first-principles check: fact chain, minimum reproduction conditions, and the difference between surface symptoms and underlying cause.
@@ -40,6 +40,8 @@ For ordinary bugs, update feature notes or branch-local progress documents. Non-
 ## Boundary
 
 Do not bundle new feature behavior into a bugfix.
+
+Do not disguise "missing rule documentation" as a code bug. If correct behavior cannot be derived from requirements, design, or `business-rules.md`, complete the rule document or change request first.
 
 ## Output
 

@@ -27,6 +27,7 @@
 
 功能交付主链路
 ├── company-feature-requirements
+│   └── 按需触发 business-rules.md，沉淀操作逻辑、计算口径和样例用例
 ├── company-feature-design
 ├── company-feature-planning
 └── company-implementation-runner
@@ -92,6 +93,7 @@
 - 用户不需要主动判断 `light/full-audit`。入口和执行 workflow 会自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。
 - 用户也不需要手动输入“从第一性原理出发”或“做对抗式审查”。复杂设计、bugfix、spike 和完成前验证会自动触发；普通小改动可跳过但需要说明原因。
 - `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
+- `business-rules.md` 不是每个需求都要写。只有指标公式、操作逻辑、状态流转、字段口径、异常数据、角色差异或复杂权限等场景触发；触发后由需求阶段创建，设计阶段映射，任务阶段转成验证点。
 
 ## Typical Flow
 
@@ -102,6 +104,7 @@ company-workflow-help
 -> company-context-index
 -> company-feature-requirements
    -> optional superpowers:brainstorming
+   -> optional business-rules.md when rules/calculation semantics are non-trivial
 -> company-feature-design
 -> company-feature-planning
 -> company-implementation-runner

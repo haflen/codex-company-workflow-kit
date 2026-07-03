@@ -15,6 +15,7 @@ State the chosen approach in a few sentences.
 ## Context Used
 
 - Requirements:
+- Business rules and calculation semantics:
 - Existing source paths:
 - Existing patterns:
 - External docs checked:
@@ -36,6 +37,12 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 - Data model changes:
 - State transitions:
 - Persistence/cache behavior:
+
+## Business Rules Mapping
+
+| Rule/formula/operation | Source document location | Technical carrier | Verification method |
+| --- | --- | --- | --- |
+|  |  |  |  |
 
 ## First Principles Check
 

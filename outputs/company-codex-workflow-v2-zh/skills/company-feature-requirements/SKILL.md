@@ -15,9 +15,10 @@ description: Use when a company project needs feature requirements, acceptance c
 2. 澄清目标、用户、范围内、范围外、依赖和风险。
 3. 需求复杂时使用 `company-expert-routing`，由它从 `BUNDLES.md` 自动选择组合。
 4. 如果想法有多个方向，或用户仍在探索，显式使用 `superpowers:brainstorming`。
-5. L2/L3 或业务规则复杂时，补充第一性原理检查：核心假设、不可破坏约束、最小成立条件。
-6. 编写 Given-When-Then 验收标准，并至少列出关键反例或异常场景。
-7. 需求阶段结束后停止，除非用户明确给出设计交接口令。
+5. 判断是否需要独立业务规则文档。只有命中触发条件时才创建或更新 `business-rules.md`，小需求不要强制增加文档。
+6. L2/L3 或业务规则复杂时，补充第一性原理检查：核心假设、不可破坏约束、最小成立条件。
+7. 编写 Given-When-Then 验收标准，并至少列出关键反例或异常场景。
+8. 需求阶段结束后停止，除非用户明确给出设计交接口令。
 
 ## Superpowers 叠加
 
@@ -32,7 +33,24 @@ description: Use when a company project needs feature requirements, acceptance c
 1. 项目内：`specs/global/assets/requirements-template.md`。
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/requirements-template.md`。
 
+业务规则模板按以下顺序查找：
+
+1. 项目内：`specs/global/assets/business-rules-template.md`。
+2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/business-rules-template.md`。
+
 小需求可保存到 `specs/features/<feature>/requirements.md`。如果用户明确只想轻量探讨方案，不要强制落正式需求文档；可以只输出目标、方案选项、风险、待确认问题和下一步建议。
+
+## 业务规则文档触发条件
+
+命中以下任一条件时，需求阶段必须生成或更新 `business-rules.md`，并在需求文档中链接它：
+
+- 指标、金额、评分、排序、权重、汇总、折算、预测、分摊或任何公式。
+- 状态机、审批流、任务流、角色差异、权限规则或操作分支。
+- 字段来源、单位、精度、舍入、映射、口径、数据字典或跨系统数据一致性。
+- 缺失数据、异常值、边界值、批量处理、重复提交、并发操作或冲突处理。
+- 用户提到“公式、口径、逻辑、规则、计算、操作流程、状态变化、指标释义”。
+
+如果都不命中，输出写明：`业务规则文档：不需要，原因：...`。
 
 ## 边界
 
@@ -56,4 +74,6 @@ description: Use when a company project needs feature requirements, acceptance c
 - 方案选项：
 - 风险和待确认问题：
 - 核心假设和反例场景：
+- 业务规则文档判定：
+- 业务规则文档：
 - 下一步建议：
