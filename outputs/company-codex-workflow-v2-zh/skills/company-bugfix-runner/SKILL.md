@@ -19,14 +19,25 @@ description: Use when company code behavior differs from requirements, design, a
 6. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
 7. 做最小修复。
 8. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
-9. 完成声明前显式叠加 `superpowers:verification-before-completion`。
-10. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
+9. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
+10. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
+11. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+12. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
 
 ## Superpowers 叠加
 
 - 默认：`superpowers:systematic-debugging`。
 - 高风险、回归或 hotfix：额外叠加 `superpowers:verification-before-completion`。
 - 明确且低风险的小 bug：可以轻量使用 systematic-debugging，但仍必须说明复现/证据、最小修复和回归验证。
+
+## 验证等级
+
+- `V0`：仅修正文档、测试描述或无行为错别字。
+- `V1`：低风险单点 bug，复现路径明确，影响范围小。
+- `V2`：默认 bugfix，涉及用户可见行为、跨文件逻辑、接口、状态或数据。
+- `V3`：生产、权限、安全、金额/指标计算、数据损坏、并发、性能、外部 API 或 hotfix。
+
+如果根因是规则缺失或文档承诺错误，不要只修代码；必须输出 `文档漂移影响` 并路由回需求或变更请求。
 
 ## 产物
 
@@ -54,7 +65,9 @@ description: Use when company code behavior differs from requirements, design, a
 - 第一性原理检查：
 - 对抗式审查：
 - 执行策略：
+- 验证等级：
 - 验证证据：
+- 文档漂移影响：
 - 未验证项：
 - 剩余风险：
 - 复现或证据：

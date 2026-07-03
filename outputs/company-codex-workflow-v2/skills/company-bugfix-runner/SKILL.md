@@ -19,14 +19,25 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 6. Use `company-expert-routing` for non-trivial failures, unclear root cause, or stack-specific failure modes; let it select `company-hotfix` or the affected stack bundle automatically.
 7. Make the minimal fix.
 8. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
-9. Explicitly use `superpowers:verification-before-completion` before claiming completion.
-10. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
+9. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
+10. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
+11. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+12. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
 
 ## Superpowers Layer
 
 - Default: `superpowers:systematic-debugging`.
 - High-risk, regression, or hotfix work: also use `superpowers:verification-before-completion`.
 - For obvious low-risk bugs, keep systematic debugging lightweight but still report reproduction/evidence, minimal fix, and regression verification.
+
+## Validation Levels
+
+- `V0`: docs-only corrections, test wording, or no-behavior typos.
+- `V1`: isolated low-risk bug with a clear reproduction path and small impact.
+- `V2`: default bugfix involving user-visible behavior, cross-file logic, APIs, state, or data.
+- `V3`: production, permissions, security, money/metric calculations, data corruption, concurrency, performance, external APIs, or hotfix.
+
+If the root cause is a missing rule or wrong documented promise, do not only fix code; output `Documentation drift impact` and route back to requirements or change request.
 
 ## Artifact
 
@@ -54,7 +65,9 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - First Principles Check:
 - Adversarial Review:
 - Execution strategy:
+- Validation level:
 - Verification evidence:
+- Documentation drift impact:
 - Unverified items:
 - Remaining risk:
 - Reproduction or evidence:

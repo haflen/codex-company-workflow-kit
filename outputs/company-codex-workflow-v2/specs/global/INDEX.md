@@ -64,6 +64,7 @@ Start here before using any company workflow.
 | Change request | `specs/global/assets/change-request-template.md` |
 | Public doc update patch | `specs/global/assets/public-doc-update-template.md` |
 | Skill upgrade report | `specs/global/assets/skill-upgrade-report-template.md` |
+| Workflow health report | `specs/global/assets/workflow-health-report-template.md` |
 
 ## Active Risks
 

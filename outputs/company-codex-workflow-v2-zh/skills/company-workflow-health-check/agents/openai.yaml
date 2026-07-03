@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-workflow-health"
+  short_description: "只读检查公司工作流接入健康度"
+  default_prompt: "Use $company-workflow-health-check to diagnose this project's company workflow health."

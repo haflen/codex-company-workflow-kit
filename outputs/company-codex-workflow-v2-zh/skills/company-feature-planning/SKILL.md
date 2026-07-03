@@ -14,13 +14,14 @@ description: Use when company requirements and technical design are confirmed an
 1. 确认需求和设计已可用；如果需求或设计链接了 `business-rules.md`，必须同时读取。
 2. 如果设计阶段命中 L2/L3 方案对比条件，确认推荐方案已由用户确认；未确认时停止并回到 `company-feature-design`。
 3. 跨边界工作确认 API 契约已存在。
-4. 将工作拆成小任务，每个任务都包含验证方式。
+4. 将工作拆成小任务，每个任务都包含验证方式和预估验证等级。
 5. 复杂计划显式叠加 `superpowers:writing-plans`，输出可执行计划和检查点。
 6. 每个非平凡任务都包含最小失败案例或验证锚点，并至少包含一个对抗场景。
 7. 如果存在 `business-rules.md`，把其中的样例用例、公式、状态流转和异常处理转成任务验证点；不得只写“按需求实现”。
 8. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
 9. 如果任务合并后需要更新 `说明文档.md`、`specs/global/INDEX.md` 或阅读路线，增加“公共文档影响补丁”任务，而不是在业务分支直接改公共文档。
-10. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+10. 如果任务可能改变需求、业务规则、技术设计、API 契约或项目入口，增加“文档漂移检查”任务。
+11. 任务规划阶段结束后停止，除非用户给出实现交接口令。
 
 ## Superpowers 叠加
 
@@ -28,6 +29,7 @@ description: Use when company requirements and technical design are confirmed an
 - L2/L3 标准或复杂任务：默认叠加 `superpowers:writing-plans`。
 - 每个任务必须包含验证点，为后续 `superpowers:test-driven-development` 和 `superpowers:verification-before-completion` 留出执行锚点。
 - 业务规则文档中的样例用例优先转成自动测试；无法自动化时转成明确手工验证步骤。
+- 任务验证等级按 `V0/V1/V2/V3` 预估；最终等级由实现或 bugfix 完成前确认。
 
 ## 产物
 
@@ -64,7 +66,9 @@ description: Use when company requirements and technical design are confirmed an
 - 任务列表：
 - 方案确认状态：
 - 每个任务的最小失败案例或验证锚点：
+- 每个任务的预估验证等级：
 - 每个任务的对抗场景：
 - 业务规则验证覆盖：
+- 文档漂移检查任务：
 - 公共文档影响任务：
 - 实现交接口令：

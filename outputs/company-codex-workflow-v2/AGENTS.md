@@ -103,6 +103,31 @@ Output requirements:
 - Comparison must include the recommended option, alternatives, tradeoffs, risks, and a user confirmation point.
 - When L2/L3 comparison is triggered, task planning must not start until the user confirms the recommended option.
 
+## Validation Levels And Documentation Drift
+
+Workflow skills choose the validation level automatically. Users do not need to pick one. The goal is to control risk while keeping token, time, and local-machine cost low.
+
+- `V0`: docs, comments, formatting, prompts, or no-behavior changes. Evidence is a diff check, target-file review, or rendering check.
+- `V1`: low-risk small behavior, small UI, small config, or single-path changes. Evidence is a focused command, local test, manual path, or minimal page check.
+- `V2`: standard feature work, bugfixes, cross-file behavior, API/data contracts, or user-visible flows. Evidence is related automated tests, type/build checks, and browser/manual verification when needed.
+- `V3`: production, permissions, security, money/metric calculations, data migration, concurrency, performance, external APIs, hotfixes, or broad refactors. Evidence includes regression, adversarial cases, rollback/recovery notes, and E2E or performance checks when needed.
+
+Automatic selection:
+
+- Pure docs with no semantic rule change use `V0`.
+- Isolated low-risk changes use `V1`.
+- Normal feature work and ordinary bugfixes use `V2`.
+- Production, data, permission, security, performance, money/metric formulas, cross-system work, or hotfixes upgrade to `V3`.
+
+Implementation, bugfix, and hotfix completion must output:
+
+- `Validation level: V0/V1/V2/V3`
+- `Verification evidence:` actual commands, check results, screenshots, logs, or manual checks.
+- `Documentation drift impact:` whether requirements, business-rules, design, api-contract, tasks, `说明文档.md`, `specs/global/INDEX.md`, or public-doc update patches need changes.
+- `Unverified items:` why they were not verified and how to verify them later.
+
+If code changes operation logic, calculation semantics, field meaning, API contract, acceptance criteria, or user flow while docs remain stale, do not claim completion; update the docs or mark the drift as pending confirmation.
+
 ## Capability Trace
 
 All company workflows use this trace protocol by default unless the user explicitly asks for a minimal answer:

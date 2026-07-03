@@ -14,13 +14,14 @@ Provide executable Codex task planning.
 1. Confirm requirements and design are available; if requirements or design link `business-rules.md`, read it too.
 2. If L2/L3 solution-comparison conditions were hit in design, confirm the user approved the recommended option; if not, stop and route back to `company-feature-design`.
 3. Confirm API contracts exist when boundaries require them.
-4. Split work into small tasks with verification for each task.
+4. Split work into small tasks with verification and an estimated validation level for each task.
 5. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
 6. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
 7. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
 8. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
 9. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
-10. Stop after task planning unless the user gives the implementation handoff signal.
+10. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
+11. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -28,6 +29,7 @@ Provide executable Codex task planning.
 - L2/L3 standard or complex work: use `superpowers:writing-plans`.
 - Every task must include a verification anchor for later TDD and completion verification.
 - Example cases from business-rules documents should become automated tests first; when automation is not practical, turn them into explicit manual checks.
+- Estimate each task's validation level as `V0/V1/V2/V3`; implementation or bugfix confirms the final level before completion.
 
 ## Artifact
 
@@ -64,7 +66,9 @@ Resolve the public-doc update patch template in this order:
 - Tasks:
 - Solution confirmation status:
 - Minimal failing case or verification anchor per task:
+- Estimated validation level per task:
 - Adversarial scenario per task:
 - Business rules verification coverage:
+- Documentation-drift check task:
 - Public-doc impact task:
 - Implementation handoff phrase:

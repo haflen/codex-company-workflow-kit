@@ -35,6 +35,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 复杂需求、技术设计、bugfix、hotfix、spike、实现完成和技能升级场景，还要检查回复是否包含 `第一性原理检查` 和 `对抗式审查`。普通小改动可以跳过，但 Codex 必须说明跳过原因。
 
+实现、bugfix 和 hotfix 完成时，还要检查是否包含 `验证等级` 和 `文档漂移影响`。验证等级由 workflow 自动判定：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。文档漂移用于判断是否需要同步需求、业务规则、设计、任务、`说明文档.md`、`INDEX.md` 或公共文档影响补丁。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash
@@ -132,6 +134,14 @@ specs/features/project-kickoff/requirements.md
 ```
 
 Codex 应先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。旧项目已有规则优先保留，公司 workflow 只追加约束段落。
+
+如果旧项目已经接入过，但你不确定当前是否健康，先说：
+
+```text
+请检查这个项目的公司工作流健康度
+```
+
+Codex 应进入 `company-workflow-health-check`，只读诊断根目录文件、模板、`INDEX.md`、旧规则残留、插件/专家暴露和建议修复命令。健康检查默认不改项目文件。
 
 ## 常用说法
 

@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -13,8 +13,9 @@ Help company users enter the right workflow without knowing skill names. The `/h
 
 ## Difference From Expert Routing / 与专家路由的区别
 
-- `company-workflow-help` decides which workflow to enter: requirements, design, planning, implementation, bugfix, hotfix, spike, legacy onboarding, skill upgrade, or expert readiness.
+- `company-workflow-help` decides which workflow to enter: health check, requirements, design, planning, implementation, bugfix, hotfix, spike, legacy onboarding, skill upgrade, or expert readiness.
 - `company-expert-routing` decides which experts, bundles, Superpowers, MCPs, browser capabilities, or official docs are needed inside an already selected workflow.
+- `company-workflow-health-check` diagnoses whether a project workflow adoption is healthy, such as stale legacy rules, missing templates, installed-but-inactive plugins, or missing skills.
 - If the user is unsure where to start, use `company-workflow-help` first. After a workflow is concrete, call `company-expert-routing` only for non-trivial technical, business, testing, or risk decisions.
 - This skill does not perform detailed expert selection; it only decides whether expert routing is needed.
 
@@ -40,6 +41,7 @@ Use the user's current goal, project state, and available artifacts:
 | Need to confirm experts are installed, reviewed, or callable / 需要确认专家是否已安装、审查或可调用 | L1/L2 | `company-expert-readiness` | none; installation and dependency diagnosis | `检查这个项目的专家依赖是否就绪` |
 | Need expert routing explanation / 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | Depends on task: brainstorming / systematic-debugging / test-driven-development | `这个任务需要哪些专家组合？` |
 | Existing project needs adoption or context draft / 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` | `请帮我把这个旧项目接入公司 Codex 工作流` |
+| Existing project is already onboarded but needs health, freshness, or "why does this not work" diagnosis / 旧项目已接入但要检查健康度、模板新旧或插件是否生效 | L1/L2 | `company-workflow-health-check` | Usually none; add `superpowers:brainstorming` when designing a repair plan | `请检查这个项目的公司工作流健康度` |
 
 ## Complexity Levels / 复杂度分级
 
@@ -47,6 +49,17 @@ Use the user's current goal, project state, and available artifacts:
 - L1: small change; minimal context and minimal verification.
 - L2: standard delivery through requirements, design, planning, and implementation.
 - L3: high-risk change with full workflow, expert routing, strict verification, and user confirmation.
+
+## Validation-Level Routing / 验证等级路由
+
+Users do not choose the validation level. Once implementation, bugfix, or hotfix starts, that workflow chooses `V0/V1/V2/V3` automatically:
+
+- `V0`: docs-only or no-behavior changes.
+- `V1`: low-risk small changes.
+- `V2`: standard feature work or ordinary bugfixes.
+- `V3`: production, permissions, security, data, performance, money/metric formulas, cross-system work, or hotfixes.
+
+Entry help may state the expected level, but the execution workflow confirms the final level before completion.
 
 ## Trace-Level Decision / 透明度分级判定
 

@@ -53,6 +53,12 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Completion claims must cite the exact verification commands or manual checks performed.
 - If automated verification is unavailable, provide a focused manual checklist.
 
+## Validation Levels And Documentation Drift
+
+- Choose validation level automatically: `V0` docs-only or no-behavior change; `V1` low-risk small change; `V2` standard feature or ordinary bugfix; `V3` production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix.
+- Before implementation, bugfix, or hotfix completion, output validation level, verification evidence, unverified items, and remaining risk.
+- If code changes requirements, operation logic, calculation semantics, API contracts, technical design, task plans, or public entry docs, state the documentation drift impact and update docs or mark the drift for confirmation.
+
 ## Exception Channels
 
 - `/spike` may skip full SDLC documents, but must produce a short spike report.

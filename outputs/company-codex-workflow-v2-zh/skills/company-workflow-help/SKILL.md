@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # 公司工作流入口帮助
@@ -11,8 +11,9 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 与专家路由的区别
 
-- `company-workflow-help` 决定“现在该走哪条 workflow”：需求、设计、任务、实现、bugfix、hotfix、spike、旧项目接入、技能升级等。
+- `company-workflow-help` 决定“现在该走哪条 workflow”：健康检查、需求、设计、任务、实现、bugfix、hotfix、spike、旧项目接入、技能升级等。
 - `company-expert-routing` 决定“进入某条 workflow 后，需要哪些专家、bundle、Superpowers、MCP、浏览器或官方文档”。
+- `company-workflow-health-check` 诊断“这个项目的工作流接入是否健康”，例如旧项目仍有旧规则、模板缺失、插件装了但 skill 不生效。
 - 用户不知道从哪里开始时，先用 `company-workflow-help`；进入明确 workflow 后，只有非平凡技术、业务、测试或风险判断才调用 `company-expert-routing`。
 - 本 skill 不做详细专家选择，只判断是否需要进入专家路由。
 
@@ -36,6 +37,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 需要确认专家是否已安装、审查或可调用 | L1/L2 | `company-expert-readiness` | 无；这是安装和依赖诊断 | `检查这个项目的专家依赖是否就绪` |
 | 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | 按任务补充 `superpowers:brainstorming` / `superpowers:systematic-debugging` / `superpowers:test-driven-development` | `这个任务需要哪些专家组合？` |
 | 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` 用于试点选择和迁移策略 | `请帮我把这个旧项目接入公司 Codex 工作流` |
+| 旧项目已接入但想检查健康度、模板新旧、插件是否生效或为什么用起来不对 | L1/L2 | `company-workflow-health-check` | 通常无；需要设计修复方案时叠加 `superpowers:brainstorming` | `请检查这个项目的公司工作流健康度` |
 
 ## 复杂度分级
 
@@ -43,6 +45,17 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - L1：小改动，最小上下文、最小任务卡、最小验证。
 - L2：标准交付，按需求、设计、任务、实现推进。
 - L3：高风险变更，完整流程、专家路由、严格验证和用户确认。
+
+## 验证等级路由
+
+用户不需要判断验证等级。进入实现、bugfix 或 hotfix 后，由对应 workflow 自动判定 `V0/V1/V2/V3`：
+
+- `V0`：纯文档或无行为变更。
+- `V1`：低风险小改动。
+- `V2`：标准功能或普通 bugfix。
+- `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix。
+
+入口帮助只负责说明预计等级；最终等级由执行 workflow 在完成前确认。
 
 ## 透明度分级判定
 

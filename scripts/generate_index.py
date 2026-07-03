@@ -286,6 +286,7 @@ def render_zh(root):
 | 变更请求 | `specs/global/assets/change-request-template.md` |
 | 公共文档影响补丁 | `specs/global/assets/public-doc-update-template.md` |
 | 技能升级报告 | `specs/global/assets/skill-upgrade-report-template.md` |
+| 工作流健康检查报告 | `specs/global/assets/workflow-health-report-template.md` |
 
 ## 需要用户确认
 
@@ -382,6 +383,7 @@ Start here before using any company workflow.
 | Change request | `specs/global/assets/change-request-template.md` |
 | Public doc update patch | `specs/global/assets/public-doc-update-template.md` |
 | Skill upgrade report | `specs/global/assets/skill-upgrade-report-template.md` |
+| Workflow health report | `specs/global/assets/workflow-health-report-template.md` |
 
 ## Needs User Confirmation
 

@@ -18,9 +18,9 @@
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Minimal failing case or verification anchor | Adversarial scenario | Depends on |
-| --- | --- | --- | --- | --- | --- |
-| T1 |  |  |  |  |  |
+| ID | Task | Files / modules | Estimated validation level | Minimal failing case or verification anchor | Adversarial scenario | Documentation drift check | Depends on |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| T1 |  |  | V0/V1/V2/V3 |  |  |  |  |
 
 ## AI Execution Notes
 
@@ -34,6 +34,24 @@
 | Check | Command or manual step | Expected result |
 | --- | --- | --- |
 |  |  |  |
+
+## Validation Level Notes
+
+- V0: docs, comments, formatting, or no-behavior changes.
+- V1: low-risk isolated changes.
+- V2: standard feature work or ordinary bugfix.
+- V3: production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix.
+
+The final validation level is confirmed by implementation or bugfix before completion.
+
+## Documentation Drift Check
+
+| Change Type | Affected | Documents To Update |
+| --- | --- | --- |
+| Requirements / AC |  |  |
+| Business rules / calculation semantics |  |  |
+| Technical design / API contract |  |  |
+| Project entry / INDEX / public-doc update patch |  |  |
 
 ## Adversarial Review Plan
 

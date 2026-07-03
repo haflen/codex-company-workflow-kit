@@ -64,6 +64,7 @@
 | 变更请求 | `specs/global/assets/change-request-template.md` |
 | 公共文档影响补丁 | `specs/global/assets/public-doc-update-template.md` |
 | 技能升级报告 | `specs/global/assets/skill-upgrade-report-template.md` |
+| 工作流健康检查报告 | `specs/global/assets/workflow-health-report-template.md` |
 
 ## 当前风险
 

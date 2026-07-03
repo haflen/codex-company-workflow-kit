@@ -46,7 +46,7 @@ outputs/company-codex-workflow-template/
 - `EXPERT-READINESS.md`：安装期自动生成的专家依赖就绪和安全审查报告。
 - `skills/`：公司工作流 skills。
 - `skills/*/agents/openai.yaml`：Codex UI 技能列表/chips 使用的名称、简介和默认提示。
-- `specs/global/assets/`：需求、设计、任务、hotfix、spike、技能升级报告模板。
+- `specs/global/assets/`：需求、业务规则、设计、任务、hotfix、spike、技能升级和工作流健康检查模板。
 
 ## 能力调用透明度
 
@@ -95,6 +95,14 @@ outputs/company-codex-workflow-template/
 - L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能、业务规则或长期维护取舍场景，必须比较 2-3 个方案。
 - 方案对比必须给出推荐方案、备选方案、主要取舍、风险和用户确认点。
 - 命中 L2/L3 方案对比后，用户未确认推荐方案前，不进入任务拆解。
+
+验证等级和文档漂移按执行风险自动判定：
+
+- `V0`：纯文档、注释、格式或无行为变更，只需要 diff 或目标文件复核。
+- `V1`：低风险小改动，使用聚焦命令、局部测试或最小手工路径。
+- `V2`：标准功能或普通 bugfix，使用相关测试、类型/构建检查和必要浏览器/手工验证。
+- `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix，需要回归、对抗场景和回滚/恢复说明。
+- 实现、bugfix 和 hotfix 完成前会输出 `验证等级` 和 `文档漂移影响`；如果代码改变了需求承诺、业务规则、API 契约、设计或公共入口，必须补文档或标记待确认漂移。
 
 每轮输出会明确区分：
 
@@ -174,6 +182,14 @@ bash scripts/install.sh generate-index /path/to/company-project --lang zh
 ```bash
 bash scripts/install.sh expert-preflight /path/to/company-project --lang zh
 ```
+
+在旧项目或试点项目中检查工作流接入健康度，可以在 Codex 里说：
+
+```text
+请检查这个项目的公司工作流健康度
+```
+
+Codex 会进入 `company-workflow-health-check`，只读检查 `AGENTS.md`、`BUNDLES.md`、`EXPERTS.lock.md`、`specs/global/INDEX.md`、模板新旧、规则漂移、插件/专家暴露和建议修复命令。
 
 只更新已初始化项目里的工作流模板：
 

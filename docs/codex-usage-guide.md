@@ -69,6 +69,13 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 普通小改动可以跳过这些检查，但回复里必须说明跳过原因。
 
+实现、bugfix 和 hotfix 完成时还会输出：
+
+- `验证等级`：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。
+- `文档漂移影响`：判断是否需要同步 requirements、business-rules、design、api-contract、tasks、`说明文档.md`、`specs/global/INDEX.md` 或公共文档影响补丁。
+
+这两项用于控制验证成本：小任务不全量跑，大任务不低配验证。
+
 ### 项目安装
 
 把公司规范和模板放进某个业务项目。
@@ -389,6 +396,14 @@ Codex 应进入 `company-legacy-project-onboarding`，先检查已有 `AGENTS.md
 
 不建议旧项目一开始就要求所有历史需求补齐 specs。更稳的做法是：从接入后的第一个新功能或第一个 bugfix 开始沉淀需求、设计、任务和验证证据。
 
+如果旧项目已经接入过，但仍使用旧规则、模板可能过期，或你不确定插件是否生效，先说：
+
+```text
+请检查这个项目的公司工作流健康度
+```
+
+Codex 应进入 `company-workflow-health-check`，只读检查 `AGENTS.md`、`BUNDLES.md`、`EXPERTS.lock.md`、`specs/global/INDEX.md`、模板新旧、规则漂移、插件/专家暴露和建议修复命令。健康检查默认不改项目文件。
+
 完整说明见 [公司用户快速上手](company-quickstart.md)。
 
 ## 6. 在 Codex 里使用
@@ -463,7 +478,7 @@ Codex 应进入 `company-legacy-project-onboarding`，先检查已有 `AGENTS.md
 
 8. Codex 按任务做 scoped edits，运行测试或给出手工验证。
 
-   如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；完成前应给出验证证据。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
+   如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；完成前应给出验证等级、验证证据和文档漂移影响。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
 
 9. 用户要求收尾：
 

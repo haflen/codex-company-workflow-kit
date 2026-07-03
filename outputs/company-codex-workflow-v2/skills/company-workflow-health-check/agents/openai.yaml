@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-workflow-health"
+  short_description: "Diagnose company workflow adoption health"
+  default_prompt: "Use $company-workflow-health-check to diagnose this project's company workflow health."

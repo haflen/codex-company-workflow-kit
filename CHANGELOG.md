@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.15 - 2026-07-03
+
+- Added `company-workflow-health-check` for read-only diagnosis of legacy or partially bootstrapped project workflow health.
+- Added `workflow-health-report-template.md` and included it in project context indexes and generated INDEX drafts.
+- Added automatic validation levels `V0/V1/V2/V3` so implementation, bugfix, and hotfix work can balance verification cost with risk.
+- Added documentation-drift checks to implementation, bugfix, planning, task templates, docs, and lightweight templates.
+
 ## 0.2.14 - 2026-07-03
 
 - Added trigger-based technical solution comparison for design-stage work.

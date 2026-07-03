@@ -22,6 +22,8 @@
 项目上下文
 ├── company-context-index
 │   └── 读取文档职责地图、编号命名空间和当前任务路由
+├── company-workflow-health-check
+│   └── 诊断旧项目接入健康度、模板新旧、插件暴露和规则漂移
 └── company-legacy-project-onboarding
     └── 旧项目接入时生成或修正文档职责地图
 
@@ -65,6 +67,8 @@
 | `superpowers:verification-before-completion` | 完成前验证证据 | implementation, bugfix |
 | First Principles Check | 回到底层事实、约束和最小成立条件 | requirements, design, bugfix, spike |
 | Adversarial Review | 从极端、恶意、异常和边界场景验证稳健性 | planning, implementation, bugfix, hotfix, spike, skill governance |
+| Validation Levels `V0/V1/V2/V3` | 按风险自动选择验证成本，避免验证不足或全量过度验证 | planning, implementation, bugfix, hotfix |
+| Documentation Drift Check | 检查代码变更是否需要同步需求、业务规则、设计、任务或公共文档 | implementation, bugfix, hotfix |
 | Codex built-in tools | 文件编辑、命令执行、浏览器验证、Git | all implementation and verification work |
 
 ## Company Skills
@@ -73,6 +77,7 @@
 | --- | --- | --- |
 | `company-workflow-help` | 帮用户判断应该进入哪条工作流 | User is unsure where to start, asks what to do next, or needs a prompt phrase. |
 | `company-context-index` | 建立或更新项目上下文索引 | Starting or resuming company work and needing project context routing. |
+| `company-workflow-health-check` | 检查项目工作流健康度、模板新旧、插件暴露和旧规则残留 | Project workflow adoption, templates, plugin exposure, or old rules need diagnosis. |
 | `company-legacy-project-onboarding` | 旧项目接入、索引草稿确认、首个试点选择 | Introducing the workflow into an existing project or reviewing generated project context. |
 | `company-feature-requirements` | 澄清需求、范围、验收标准 | Feature requirements, acceptance criteria, scope, or change-request requirements are needed. |
 | `company-feature-design` | 产出技术设计、架构、API、数据流、测试策略 | Requirements are confirmed and design is needed before planning. |
@@ -96,6 +101,8 @@
 - `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
 - `business-rules.md` 不是每个需求都要写。只有指标公式、操作逻辑、状态流转、字段口径、异常数据、角色差异或复杂权限等场景触发；触发后由需求阶段创建，设计阶段映射，任务阶段转成验证点。
 - 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
+- 验证等级不是用户手动选择。实现、bugfix 和 hotfix 自动判定 `V0/V1/V2/V3`，并在完成报告里输出验证证据、未验证项和剩余风险。
+- 文档漂移检查是执行出口：如果实现改变了需求承诺、业务规则、API 契约、设计、任务或公共入口，必须补文档或标记待确认漂移。
 
 ## Typical Flow
 
@@ -140,6 +147,14 @@ company-workflow-help
 -> company-legacy-project-onboarding
 -> company-context-index
 -> first pilot feature, bugfix, or spike
+```
+
+旧项目健康检查：
+
+```text
+company-workflow-help
+-> company-workflow-health-check
+-> update-templates / bootstrap-project / reinstall plugin as recommended
 ```
 
 ## Expert Bundles
