@@ -61,6 +61,7 @@ Automatic triggers:
 
 - Requirements: for L2/L3 or complex business rules, state core assumptions, non-negotiable constraints, and adversarial scenarios; when metrics, formulas, state transitions, complex operations, field semantics, or abnormal-data handling are involved, create or update `business-rules.md`.
 - Design: for non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundary decisions, run `First Principles Check`.
+- Design: for L2/L3 large features, core modules, cross-boundary work, data models, permissions, security, performance, business rules, or clear technical tradeoffs, compare 2-3 options and get user confirmation; L1 small changes may skip comparison with a reason.
 - Planning: every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
 - Implementation: before completion, run `Adversarial Review` unless the change is pure copy, comments, or no-behavior work; state the reason if skipped.
 - Bugfix/hotfix: before root-cause claims, run `First Principles Check`; before completion, run regression and adversarial review.
@@ -93,6 +94,14 @@ Output requirements:
 - Design maps business rules; it must not reinvent formulas or semantics.
 - Planning turns rule examples into automated tests or explicit manual verification steps.
 - Implementation or bugfix work that discovers missing rules must stop guessing and route back to requirements for a rule document or change request.
+
+## Technical Solution Comparison
+
+- Solution comparison is trigger-based, not mandatory for every design.
+- L1 copy, small UI, small config, single-path low-risk changes may skip comparison, but must state why.
+- L2/L3 work involving new modules, core flows, service/frontend-backend boundaries, data models, permissions, security, performance, cache, concurrency, external APIs, business rules, or maintainability tradeoffs must compare 2-3 options.
+- Comparison must include the recommended option, alternatives, tradeoffs, risks, and a user confirmation point.
+- When L2/L3 comparison is triggered, task planning must not start until the user confirms the recommended option.
 
 ## Capability Trace
 

@@ -12,14 +12,15 @@ Provide executable Codex task planning.
 ## Workflow
 
 1. Confirm requirements and design are available; if requirements or design link `business-rules.md`, read it too.
-2. Confirm API contracts exist when boundaries require them.
-3. Split work into small tasks with verification for each task.
-4. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
-5. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
-6. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
-7. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
-8. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
-9. Stop after task planning unless the user gives the implementation handoff signal.
+2. If L2/L3 solution-comparison conditions were hit in design, confirm the user approved the recommended option; if not, stop and route back to `company-feature-design`.
+3. Confirm API contracts exist when boundaries require them.
+4. Split work into small tasks with verification for each task.
+5. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
+6. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
+7. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
+8. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
+9. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
+10. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -61,6 +62,7 @@ Resolve the public-doc update patch template in this order:
 - Unverified items:
 - Remaining risk:
 - Tasks:
+- Solution confirmation status:
 - Minimal failing case or verification anchor per task:
 - Adversarial scenario per task:
 - Business rules verification coverage:

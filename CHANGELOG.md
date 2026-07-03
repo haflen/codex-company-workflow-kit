@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.14 - 2026-07-03
+
+- Added trigger-based technical solution comparison for design-stage work.
+- Required 2-3 option comparison and user confirmation for L2/L3 large modules, cross-boundary designs, data/security/performance work, business rules, or maintainability tradeoffs.
+- Allowed L1 low-risk single-path changes to skip comparison with an explicit reason, and blocked task planning until triggered design comparisons are confirmed.
+
 ## 0.2.13 - 2026-07-03
 
 - Added `business-rules-template.md` for operation logic, state transitions, calculation formulas, field semantics, exception handling, and example cases.

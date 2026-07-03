@@ -29,6 +29,7 @@
 ├── company-feature-requirements
 │   └── 按需触发 business-rules.md，沉淀操作逻辑、计算口径和样例用例
 ├── company-feature-design
+│   └── L2/L3 触发式方案对比，用户确认推荐方案后再进入任务拆解
 ├── company-feature-planning
 └── company-implementation-runner
 
@@ -94,6 +95,7 @@
 - 用户也不需要手动输入“从第一性原理出发”或“做对抗式审查”。复杂设计、bugfix、spike 和完成前验证会自动触发；普通小改动可跳过但需要说明原因。
 - `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
 - `business-rules.md` 不是每个需求都要写。只有指标公式、操作逻辑、状态流转、字段口径、异常数据、角色差异或复杂权限等场景触发；触发后由需求阶段创建，设计阶段映射，任务阶段转成验证点。
+- 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
 
 ## Typical Flow
 
@@ -106,6 +108,7 @@ company-workflow-help
    -> optional superpowers:brainstorming
    -> optional business-rules.md when rules/calculation semantics are non-trivial
 -> company-feature-design
+   -> solution comparison for L2/L3 design triggers
 -> company-feature-planning
 -> company-implementation-runner
    -> superpowers:test-driven-development when behavior is non-trivial

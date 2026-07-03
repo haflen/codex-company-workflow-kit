@@ -51,15 +51,38 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 - Minimum conditions:
 - Evidence that would disprove this design:
 
+## Solution Comparison Decision
+
+| Decision item | Triggered | Notes |
+| --- | --- | --- |
+| Large feature module, core page, core workflow, or subsystem | No / Yes |  |
+| Crosses frontend/backend, services, data model, permissions, security, performance, cache, concurrency, or external API | No / Yes |  |
+| Involves business rules, calculation semantics, state machine, approval flow, task flow, or complex data mapping | No / Yes |  |
+| Clear tradeoff between fast delivery and long-term maintainability | No / Yes |  |
+| Affects extensibility, migration, testing, rollout/recovery, or team ownership boundaries | No / Yes |  |
+| Requires solution comparison | No / Yes |  |
+
+If comparison is not needed, state why. Suggested format: `Solution comparison: skipped, reason: L1 small change, single obvious technical path, low risk.`
+
 ## Implementation Approach
 
 1. 
 
 ## Alternatives Considered
 
-| Option | Pros | Cons | Decision |
-| --- | --- | --- | --- |
-|  |  |  |  |
+When L2/L3 solution-comparison conditions are hit, list at least 2 options. Large or high-risk designs should list 3 options.
+
+| Option | Best fit | Pros | Cost/risk | Decision |
+| --- | --- | --- | --- | --- |
+| Recommended option: |  |  |  |  |
+| Alternative A: |  |  |  |  |
+| Alternative B: |  |  |  |  |
+
+## User Confirmation Point
+
+- Recommended option:
+- Questions requiring user confirmation:
+- Confirmed for task planning: No / Yes
 
 ## Risks and Mitigations
 

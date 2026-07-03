@@ -13,19 +13,34 @@ Provide a Codex-ready design workflow.
 
 1. Confirm requirements exist and include acceptance criteria.
 2. Read routed project context, existing patterns, and relevant source files; if requirements say `business-rules.md` is needed, read business rules and calculation semantics first.
-3. Explicitly use `superpowers:brainstorming` when design direction is not obvious or trade-offs need comparison.
-4. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
-5. For non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundaries, run a first-principles check.
-6. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
-7. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
-8. For frontend/backend or service boundaries, create an API contract before task planning.
-9. Stop after design unless the user gives the task-planning handoff signal.
+3. Run a solution-comparison level decision: L1 small changes may skip comparison with a reason; L2/L3 work that hits trigger conditions must compare 2-3 options.
+4. When solution comparison is required, explicitly use `superpowers:brainstorming` and output the recommended option, alternatives, tradeoffs, and user-confirmation point.
+5. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
+6. For non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundaries, run a first-principles check.
+7. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
+8. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
+9. For frontend/backend or service boundaries, create an API contract before task planning.
+10. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
+11. Stop after design unless the user gives the task-planning handoff signal.
 
 ## Superpowers Layer
 
-- Default: use `superpowers:brainstorming` when multiple design paths exist.
+- Default: use `superpowers:brainstorming` when multiple design paths exist or L2/L3 solution-comparison triggers are hit.
 - High-risk design: use `company-expert-routing`, then use brainstorming to converge the design when useful.
 - If the design is obvious and low-risk, the skill may skip Superpowers but must state why.
+
+## Solution Comparison Triggers
+
+If any of the following apply, compare options and get user confirmation on the recommended option before task planning:
+
+- A large feature module, core page, core workflow, or subsystem is being added.
+- Work crosses frontend/backend boundaries, service boundaries, data models, permissions, security, performance, cache, concurrency, or external APIs.
+- Work involves `business-rules.md`, calculation semantics, state machines, approval flows, task flows, or complex data mapping.
+- There is an obvious tradeoff between fast delivery and long-term maintainability.
+- The solution affects extensibility, migration cost, testing strategy, rollout/recovery, or team ownership boundaries.
+- The user mentions large module, architecture, solution, technical direction, whether to do it this way, or asks for comparison.
+
+If none apply, the skill may skip comparison but must state: `Solution comparison: skipped, reason: L1 small change, single obvious technical path, low risk.`
 
 ## Artifact
 
@@ -55,10 +70,12 @@ Design work must not edit implementation code.
 - Unverified items:
 - Remaining risk:
 - Recommended design:
+- Solution comparison decision:
 - Alternatives and trade-offs:
+- User confirmation point:
 - Business rules mapping:
 - Underlying facts and minimum conditions:
 - Key counterexample scenarios:
 - Risks:
 - Test strategy:
-- Next step:
+- Next step: L2/L3 work can enter `company-feature-planning` only after the recommended option is confirmed.

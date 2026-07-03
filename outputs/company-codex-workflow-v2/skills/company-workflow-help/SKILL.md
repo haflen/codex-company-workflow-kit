@@ -30,7 +30,7 @@ Use the user's current goal, project state, and available artifacts:
 | Small copy, field, UI, or config change / 文案、字段、小 UI、小配置 | L1 | lightweight planning or `company-implementation-runner` | Usually none; behavior changes use `superpowers:test-driven-development` | `Small change: handle lightly and give verification evidence.` |
 | Idea or request is unclear / 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
 | Operation logic, metric formulas, calculation semantics, state transitions, or exception handling / 操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` and decide whether to create `business-rules.md` | `superpowers:brainstorming`; add `company-expert-routing` when needed | `帮我梳理这个功能的业务规则和计算口径：...` |
-| Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when options need comparison | `需求已确认，进入技术设计` |
+| Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when L2/L3 solution comparison is triggered | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | Design is confirmed / 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
 | Existing behavior is wrong / 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
