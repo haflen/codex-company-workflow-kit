@@ -41,6 +41,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 启动实现、bugfix 或 hotfix 前，workflow 还会做阶段一致性预检。它会轻量读取入口页、`INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch，判断“当前到底处于哪个阶段”。如果发现入口页还写 spike/待办，而任务文档已经进入正式开发，Codex 应先暂停并给出冲突和修复建议，不应直接开始写代码。
 
+如果在实现中发现“原任务漏了一个关键层”，例如新增 data-preparation、目标表、接口边界、字段映射或业务口径，旧的实现授权会失效。Codex 应先补文档并输出 `实现授权状态`，等你确认新范围后再继续编码。
+
 如果你想用 npm 一键入口，先把这个仓库发布成 npm 包，或者在本地 `npm link`，然后执行：
 
 ```bash

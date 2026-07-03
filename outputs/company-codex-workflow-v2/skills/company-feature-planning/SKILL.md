@@ -21,7 +21,8 @@ Provide executable Codex task planning.
 8. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
 9. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
 10. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
-11. Stop after task planning unless the user gives the implementation handoff signal.
+11. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
+12. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -72,3 +73,4 @@ Resolve the public-doc update patch template in this order:
 - Documentation-drift check task:
 - Public-doc impact task:
 - Implementation handoff phrase:
+- Implementation authorization:

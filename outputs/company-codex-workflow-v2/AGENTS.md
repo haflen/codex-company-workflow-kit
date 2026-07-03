@@ -50,6 +50,30 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to the next phase.
 
+## Scope Change Circuit Breaker
+
+Implementation authorization applies only to the requirements, design, and task scope that was confirmed at the time. After implementation starts, if the user or Codex discovers a material scope change, the old "start implementation" authorization immediately expires; pause coding and reconfirm the phase.
+
+Trigger the `Scope Change Circuit Breaker` by default when any of these appears:
+
+- A new or previously missing architecture layer, data-preparation layer, table, API boundary, scheduler chain, external system, or key module.
+- User intent such as "missing", "analyze first", "why", "how to fit this in", "update the docs", "business semantics are not confirmed", or "requirements/design/tasks need updates".
+- The implementation scope exceeds confirmed task planning, solution comparison, API contracts, or `business-rules.md`.
+- Field sources, calculation semantics, state transitions, exception/degradation strategy, permission boundaries, or data-sync strategy are not confirmed.
+- Documentation updates create a new contract, field mapping, task list, or public-doc impact note that the user has not confirmed.
+
+After the circuit breaker trips, allowed actions are:
+
+- Update only requirements, business rules, technical design, task planning, field mappings, or public-doc impact patches.
+- Output `Implementation authorization: expired; user confirmation required before coding`.
+- List the scope change, authoritative documents, and the next user phrase needed.
+
+After the circuit breaker trips, forbidden actions are:
+
+- Do not reuse an old `tasks confirmed, start implementation` authorization for the new scope.
+- Do not continue into coding immediately after updating docs.
+- Do not treat expert-routing output as a substitute for user confirmation on the changed implementation scope.
+
 ## Phase Consistency Preflight
 
 Before implementation, bugfix, or hotfix work, run a lightweight `Phase Consistency Preflight` so public entry docs, indexes, and current task documents do not contradict each other after coding has already started.

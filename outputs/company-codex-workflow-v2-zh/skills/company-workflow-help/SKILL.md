@@ -27,6 +27,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 文案、字段、小 UI、小配置等低风险小改动 | L1 | 轻量 planning 或 `company-implementation-runner` | 通常无；涉及行为时用 `superpowers:test-driven-development` | `小改动：轻量处理，给我验证结果。` |
 | 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
 | 需要梳理操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` 并判定是否创建 `business-rules.md` | `superpowers:brainstorming`，必要时 `company-expert-routing` | `帮我梳理这个功能的业务规则和计算口径：...` |
+| 已经进入实现，但发现遗漏架构层、数据加工层、表、接口边界、业务口径或文档需要同步 | L2/L3 | 触发范围变化熔断；回到 `company-feature-requirements` 或 `company-feature-design`，必要时再进 `company-feature-planning` | `superpowers:brainstorming`，并用 `company-expert-routing` 判断阶段许可 | `发现范围变化：先补文档和确认，不写代码。` |
 | 需求和验收标准已确认 | L2 | `company-feature-design` | L2/L3 方案对比触发时使用 `superpowers:brainstorming` | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
@@ -45,6 +46,21 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - L1：小改动，最小上下文、最小任务卡、最小验证。
 - L2：标准交付，按需求、设计、任务、实现推进。
 - L3：高风险变更，完整流程、专家路由、严格验证和用户确认。
+
+## 范围变化熔断判断
+
+用户不需要知道何时启用熔断；本 skill 必须自动识别。命中以下信号时，不推荐 `company-implementation-runner` 继续编码：
+
+- 用户说“遗漏”“补漏”“先分析”“为什么”“怎么放入”“补充完善文档”“业务口径”“需求方案/技术方案/任务文档需要同步更新”。
+- 当前工作新增架构层、数据加工层、表、接口边界、调度链路、外部系统、关键模块或跨团队责任。
+- 文档更新后产生新的契约、字段映射、任务清单、公共文档影响或待确认业务规则。
+- 原实现任务没有覆盖这次新增范围，或旧的实现授权来自范围变化之前。
+
+推荐动作：
+
+- `阶段许可：只允许补文档` 或 `阶段许可：需要用户确认`。
+- 输出 `实现授权状态：已失效，需要用户确认后再编码`。
+- 让用户确认新的需求、设计、任务或字段映射后，再用 `任务已确认，开始实现` 进入实现。
 
 ## 验证等级路由
 
@@ -91,6 +107,8 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 未验证项：
 - 剩余风险：
 - 原因：
+- 阶段许可：
+- 实现授权状态：
 - 推荐用户说法：
 - 还需要用户补充：
 - 需要检查的文件或产物：
@@ -104,3 +122,4 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 如果多个入口都可能适用，优先选择能补齐最早缺失产物的入口。
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
 - 不要在入口帮助阶段展开详细专家清单；只判断是否需要进入 `company-expert-routing`。
+- 命中范围变化熔断时，不得推荐继续实现；先推荐补文档、设计或任务确认。

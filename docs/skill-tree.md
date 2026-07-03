@@ -68,6 +68,7 @@
 | First Principles Check | 回到底层事实、约束和最小成立条件 | requirements, design, bugfix, spike |
 | Adversarial Review | 从极端、恶意、异常和边界场景验证稳健性 | planning, implementation, bugfix, hotfix, spike, skill governance |
 | Phase Consistency Preflight | 实现或修复前检查入口、索引、版本 README、任务文档是否一致 | implementation, bugfix, hotfix, workflow health check |
+| Scope Change Circuit Breaker | 发现新增架构层、数据加工层、接口边界或业务口径变化时，让旧实现授权失效并回到文档确认 | workflow help, expert routing, design, planning, implementation |
 | Validation Levels `V0/V1/V2/V3` | 按风险自动选择验证成本，避免验证不足或全量过度验证 | planning, implementation, bugfix, hotfix |
 | Documentation Drift Check | 检查代码变更是否需要同步需求、业务规则、设计、任务或公共文档 | implementation, bugfix, hotfix |
 | Chinese Code Logic Comments | 用中文解释跨语言代码里的业务规则、计算口径、数据映射和异常分支 | planning, implementation, bugfix, hotfix |
@@ -107,6 +108,7 @@
 - 文档漂移检查是执行出口：如果实现改变了需求承诺、业务规则、API 契约、设计、任务或公共入口，必须补文档或标记待确认漂移。
 - 中文代码逻辑备注是跨语言规则：Java、前端 TypeScript/Vue/React、Python、SQL 和脚本中，只要出现业务规则、公式阈值、字段映射、异常分支、兼容或性能策略等非显然逻辑，就必须补中文说明。
 - 阶段一致性预检是执行入口：如果 `说明文档.md`、`INDEX.md`、当前 version/feature README 和任务文档互相矛盾，普通实现/bugfix 先暂停并修正文档路由；生产 hotfix 可先止血但必须记录补偿任务。
+- 范围变化熔断是实现授权保护：如果实现中发现遗漏架构层、数据加工层、目标表、接口边界、业务口径或文档需要同步，旧的实现授权失效；workflow 只能先补文档和确认点，不能顺手继续编码。
 
 ## Typical Flow
 

@@ -20,8 +20,9 @@ Provide a Codex-ready design workflow.
 7. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
 8. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
 9. For frontend/backend or service boundaries, create an API contract before task planning.
-10. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
-11. Stop after design unless the user gives the task-planning handoff signal.
+10. If this design comes from a scope change discovered during implementation, mark `Implementation authorization: expired; user confirmation required before coding`, and state that the old task authorization does not cover the new scope.
+11. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
+12. Stop after design unless the user gives the task-planning handoff signal.
 
 ## Superpowers Layer
 
@@ -55,6 +56,8 @@ If requirements link `business-rules.md`, the design artifact must list it under
 
 Design work must not edit implementation code.
 
+Design work after a scope change must not flow directly back into implementation. It must go through task planning and wait for user confirmation of the new scope.
+
 ## Output
 
 - Workflow layer: `company-feature-design`
@@ -70,6 +73,7 @@ Design work must not edit implementation code.
 - Unverified items:
 - Remaining risk:
 - Recommended design:
+- Implementation authorization:
 - Solution comparison decision:
 - Alternatives and trade-offs:
 - User confirmation point:

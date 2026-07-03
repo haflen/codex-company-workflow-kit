@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.18 - 2026-07-03
+
+- Added Scope Change Circuit Breaker / 范围变化熔断 so old implementation authorization expires when new architecture layers, data-preparation layers, tables, API boundaries, field mappings, or business semantics appear mid-implementation.
+- Required `company-workflow-help` and `company-expert-routing` to output phase permission and implementation authorization status before continuing into coding.
+- Updated `company-implementation-runner` to stop before TDD/code edits when changed scope needs requirements, design, task planning, field mapping, or user confirmation first.
+- Updated design, planning, templates, README, quickstart, usage guide, and skill tree docs to explain that documentation updates after a scope change must not automatically flow back into implementation.
+
 ## 0.2.17 - 2026-07-03
 
 - Added cross-language Chinese code logic comment rules for Java, frontend TypeScript/Vue/React, Python, SQL, scripts, and generated configuration logic.

@@ -52,6 +52,13 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - `/spike <question>` enters time-boxed technical exploration.
 - `/hotfix <incident>` enters emergency repair.
 
+## Scope Change Circuit Breaker
+
+- Implementation authorization applies only to the confirmed requirements, design, and task scope.
+- If implementation reveals a missing architecture layer, data-preparation layer, table, API boundary, business rule, field semantics, or required document update, the old authorization expires.
+- After the circuit breaker trips, only update requirements, design, tasks, field mappings, or public-doc impact patches, and output `Implementation authorization: expired; user confirmation required before coding`.
+- Do not continue coding immediately after updating docs; wait for the user to reconfirm the implementation scope.
+
 ## Verification Rules
 
 - Feature work must include executable tests when the project has a test harness.

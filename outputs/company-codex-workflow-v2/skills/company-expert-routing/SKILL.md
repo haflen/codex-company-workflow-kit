@@ -18,14 +18,30 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 
 ## Routing Method
 
-1. Check whether the task is non-trivial enough to need a bundle or expert.
-2. Read `BUNDLES.md` and select the smallest matching bundle from request, spec, file paths, and stack.
-3. Check `EXPERTS.lock.md` and `.codex-workflow/EXPERT-READINESS.md`; required experts should be bundled with the company plugin.
-4. Within the selected bundle, use only the experts needed for the current phase.
-5. If the expert is exposed as a Codex skill in the current session, use it when its trigger matches.
-6. If multi-agent support is available and the issue is complex, dispatch a focused expert review.
-7. If an expert is bundled but not visible in the current session, record it under `Not called, lens only`, say that a new Codex thread is needed to refresh the skill list, and do not ask users to install experts one by one.
-8. For fast-moving APIs, prefer current official docs or local package docs.
+1. First decide phase permission: implementation allowed, documentation only, design first, planning needed, user confirmation required, or route back to `company-workflow-help`.
+2. Check whether the task is non-trivial enough to need a bundle or expert.
+3. Read `BUNDLES.md` and select the smallest matching bundle from request, spec, file paths, and stack.
+4. Check `EXPERTS.lock.md` and `.codex-workflow/EXPERT-READINESS.md`; required experts should be bundled with the company plugin.
+5. Within the selected bundle, use only the experts needed for the current phase.
+6. If the expert is exposed as a Codex skill in the current session, use it when its trigger matches.
+7. If multi-agent support is available and the issue is complex, dispatch a focused expert review.
+8. If an expert is bundled but not visible in the current session, record it under `Not called, lens only`, say that a new Codex thread is needed to refresh the skill list, and do not ask users to install experts one by one.
+9. For fast-moving APIs, prefer current official docs or local package docs.
+
+## Phase Permission
+
+Expert routing is not implementation authorization. Every routing response must output `Phase permission`:
+
+- `implementation allowed`: requirements, design, task plan, and current scope are confirmed, with no new scope change.
+- `documentation only`: the user asks to update requirements, design, tasks, field mappings, business semantics, or public-doc impact, or the changed scope must be documented first.
+- `design first`: a new architecture layer, data-preparation layer, API boundary, table, external system, performance/permission/data strategy, or technical tradeoff appears.
+- `planning needed`: the design is confirmed but the new scope lacks tasks, verification anchors, and documentation-drift checks.
+- `user confirmation required`: documentation creates a new contract, field mapping, task list, or changed scope; old implementation authorization cannot be reused.
+- `route back to workflow help`: the user is only asking what to do next and no workflow is clear.
+
+If phase permission is not `implementation allowed`, output `Implementation authorization: expired; user confirmation required before coding` or explain why no implementation authorization exists.
+
+When the scope-change circuit breaker triggers, do not treat expert selection as coding permission. Experts may only help complete requirements, design, tasks, or confirmation points.
 
 ## File Lookup Order
 
@@ -120,6 +136,8 @@ When routing matters, include:
 - Verification evidence:
 - Unverified items:
 - Remaining risk:
+- Phase permission:
+- Implementation authorization:
 - Bundle selected:
 - Expert used:
 - Why:

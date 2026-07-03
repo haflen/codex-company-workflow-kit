@@ -21,7 +21,8 @@ description: Use when company requirements and technical design are confirmed an
 8. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
 9. 如果任务合并后需要更新 `说明文档.md`、`specs/global/INDEX.md` 或阅读路线，增加“公共文档影响补丁”任务，而不是在业务分支直接改公共文档。
 10. 如果任务可能改变需求、业务规则、技术设计、API 契约或项目入口，增加“文档漂移检查”任务。
-11. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+11. 如果任务拆解来自实现阶段中的范围变化，必须写明旧实现授权已失效，新任务需要用户重新确认。
+12. 任务规划阶段结束后停止，除非用户给出实现交接口令。
 
 ## Superpowers 叠加
 
@@ -72,3 +73,4 @@ description: Use when company requirements and technical design are confirmed an
 - 文档漂移检查任务：
 - 公共文档影响任务：
 - 实现交接口令：
+- 实现授权状态：

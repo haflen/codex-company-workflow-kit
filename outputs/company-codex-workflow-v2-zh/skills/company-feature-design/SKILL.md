@@ -20,8 +20,9 @@ description: Use when company feature requirements are confirmed and a technical
 7. 设计不得重新发明业务公式；只能把 `business-rules.md` 中的操作逻辑、状态流转、字段口径和计算公式映射到模块、接口、数据结构和测试策略。
 8. 输出设计、契约、风险说明、反例场景和测试策略。
 9. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
-10. L2/L3 方案对比触发后，必须获得用户对推荐方案的确认，才能进入任务拆解。
-11. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
+10. 如果本轮设计来自实现阶段中发现的范围变化，必须标记 `实现授权状态：已失效，需要用户确认后再编码`，并说明旧任务授权不覆盖新范围。
+11. L2/L3 方案对比触发后，必须获得用户对推荐方案的确认，才能进入任务拆解。
+12. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
 
 ## Superpowers 叠加
 
@@ -55,6 +56,8 @@ description: Use when company feature requirements are confirmed and a technical
 
 设计工作不得编辑实现代码。
 
+范围变化后的设计工作不得直接接回实现；必须先进入任务拆解，并等待用户确认新任务范围。
+
 ## 输出格式
 
 - 工作流层：`company-feature-design`
@@ -70,6 +73,7 @@ description: Use when company feature requirements are confirmed and a technical
 - 未验证项：
 - 剩余风险：
 - 推荐设计：
+- 实现授权状态：
 - 方案对比判定：
 - 备选方案和取舍：
 - 用户确认点：

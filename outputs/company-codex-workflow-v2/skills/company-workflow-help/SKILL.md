@@ -31,6 +31,7 @@ Use the user's current goal, project state, and available artifacts:
 | Small copy, field, UI, or config change / 文案、字段、小 UI、小配置 | L1 | lightweight planning or `company-implementation-runner` | Usually none; behavior changes use `superpowers:test-driven-development` | `Small change: handle lightly and give verification evidence.` |
 | Idea or request is unclear / 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
 | Operation logic, metric formulas, calculation semantics, state transitions, or exception handling / 操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` and decide whether to create `business-rules.md` | `superpowers:brainstorming`; add `company-expert-routing` when needed | `帮我梳理这个功能的业务规则和计算口径：...` |
+| Implementation has started, but a missing architecture layer, data-preparation layer, table, API boundary, business semantics, or doc update appears / 已经进入实现但发现遗漏架构层、数据加工层、表、接口边界、业务口径或文档需要同步 | L2/L3 | Trigger scope-change circuit breaker; route back to `company-feature-requirements` or `company-feature-design`, then planning if needed | `superpowers:brainstorming`; use `company-expert-routing` for phase permission | `发现范围变化：先补文档和确认，不写代码。` |
 | Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when L2/L3 solution comparison is triggered | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | Design is confirmed / 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
@@ -49,6 +50,21 @@ Use the user's current goal, project state, and available artifacts:
 - L1: small change; minimal context and minimal verification.
 - L2: standard delivery through requirements, design, planning, and implementation.
 - L3: high-risk change with full workflow, expert routing, strict verification, and user confirmation.
+
+## Scope-Change Circuit Breaker / 范围变化熔断判断
+
+Users do not need to know when to trigger this. This skill must detect it automatically. When any of the following signals appears, do not recommend continuing `company-implementation-runner` coding:
+
+- User intent like "missing", "fill the gap", "analyze first", "why", "how to fit this in", "update docs", "business semantics", or "requirements/design/tasks need updates".
+- The work introduces an architecture layer, data-preparation layer, table, API boundary, scheduler chain, external system, key module, or cross-team responsibility.
+- Documentation updates create a new contract, field mapping, task list, public-doc impact, or business rule needing confirmation.
+- The original implementation task did not cover this new scope, or the old implementation authorization predates the scope change.
+
+Recommended response:
+
+- `Phase permission: documentation only` or `Phase permission: user confirmation required`.
+- Output `Implementation authorization: expired; user confirmation required before coding`.
+- Ask the user to confirm the new requirements, design, tasks, or field mapping before using the implementation handoff phrase again.
 
 ## Validation-Level Routing / 验证等级路由
 
@@ -95,6 +111,8 @@ If the recommended route triggers `full-audit`, state the trigger reason.
 - Unverified items:
 - Remaining risk:
 - Why / 原因:
+- Phase permission / 阶段许可:
+- Implementation authorization / 实现授权状态:
 - Suggested user phrase / 推荐用户说法:
 - Required input from user / 还需要用户补充:
 - Files or artifacts to check / 需要检查的文件或产物:
@@ -113,3 +131,4 @@ If the recommended route triggers `full-audit`, state the trigger reason.
 - Every routing answer must explicitly state whether a Superpowers layer is used; if not, state that the task is simple enough to skip it.
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
 - Do not expand a detailed expert list in the entry-help phase; only decide whether `company-expert-routing` is needed.
+- When the scope-change circuit breaker is triggered, do not recommend continuing implementation; route to docs, design, or task confirmation first.
