@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-thread-handoff"
+  short_description: "生成或接手公司任务对话交接摘要"
+  default_prompt: "Use $company-thread-handoff to export or safely resume the current company task handoff."
