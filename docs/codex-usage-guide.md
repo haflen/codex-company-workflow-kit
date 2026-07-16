@@ -35,7 +35,7 @@ macOS/Linux：
 bash scripts/install.sh install-plugin --lang zh
 ```
 
-安装脚本会把插件源码放到 `~/plugins/<plugin-name>`，并把 marketplace 索引写入 `~/.agents/plugins/marketplace.json`。如果插件菜单能看到卡片但点击添加失败，优先检查插件是否误放到了 `~/.agents/plugins/plugins/<plugin-name>`。
+安装脚本会把插件源码放到 `~/plugins/<plugin-name>`，把 marketplace 索引写入 `~/.agents/plugins/marketplace.json`，并自动调用 Codex CLI 的 `plugin add` 刷新已安装缓存。输出中的 `version` 和 `installedPath` 是实际激活版本证据。如果找不到 Codex CLI，脚本会给出手工刷新命令；如果插件菜单能看到卡片但点击添加失败，优先检查插件是否误放到了 `~/.agents/plugins/plugins/<plugin-name>`。
 
 Windows PowerShell：
 
@@ -53,7 +53,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 这里不额外承诺自定义 `/company-...` slash 命令注册；如果当前 Codex 客户端只把 `/` 菜单用于内置命令，请使用自然语言或 `$skill` 入口。
 
-安装公司插件也会安装强依赖专家 skills。用户不需要逐个安装 `frontend-design`、`frontend-developer`、`typescript-expert`、`testing-qa` 等专家；安装脚本会自动生成 `EXPERT-READINESS.md` 安全审查和就绪报告。安装完成后新开 Codex 线程，确保当前会话看到新 skills。
+安装公司插件也会安装强依赖专家 skills。用户不需要逐个安装 `frontend-design`、`frontend-developer`、`typescript-expert`、`testing-qa` 等专家；安装脚本会自动生成 `EXPERT-READINESS.md` 安全审查和就绪报告。安装器会刷新插件缓存，但已经打开的旧会话不会动态重载 skill 列表；安装完成后请新开 Codex 线程。
 
 每轮公司 workflow 还会默认输出能力调用透明度信息，包括 `透明度模式`、`实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。透明度级别由 workflow 自动选择：
 
@@ -61,6 +61,13 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 - `full-audit`：阶段交接、实现完成、bugfix 完成、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用、验证缺失，或涉及生产、数据、权限、架构、性能、安全风险。
 
 这用于区分“真实调用了 Superpowers/专家 skill/插件能力”和“只是按对应视角执行”，团队成员不需要每次额外提醒。
+
+从 `0.2.22` 起，workflow 还会像反馈 Superpowers 一样反馈 Codex 计划模式和 subagents：
+
+- `Codex 计划模式建议`：用于判断是否应先进入 Codex 计划模式做路线选择。计划模式只输出路线、风险、待确认问题和下一步口令，不改文件、不编码。
+- `Subagents 建议`：用于判断是否值得把独立任务、独立失败域或独立审查交给子 agent。小任务默认不用，避免增加 token 和协调成本。
+- `Subagent 能力状态`：用于说明当前是未检查、需要用户显式请求、需要本地 custom agents 配置，还是当前 App 主要展示活动。
+- `Subagents 实际调用`：用于说明本轮是未调用、已调用，还是仅采用拆分视角。子 agent 结果必须由主 agent 复核后才能作为结论。
 
 公司 workflow 还内置两类质量检查：
 
@@ -89,6 +96,115 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 - 旧的实现授权失效，Codex 应输出 `实现授权状态：已失效，需要用户确认后再编码`。
 - 本轮只允许补需求、设计、任务、字段映射或公共文档影响补丁。
 - 补完文档后必须等用户确认新范围，再重新使用 `任务已确认，开始实现` 进入编码。
+
+如果任务清单已经确认，并且你希望减少每个小任务后的确认，可以启用受控连续执行：
+
+```text
+任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。
+```
+
+Codex 会自动判断是否适合连续执行。`V0/V1` 可以连续处理相关任务，`V2` 只处理 1-3 个强相关任务，`V3` 默认完成一个任务就停下。只要出现范围变化、验证失败、未确认业务规则、高权限命令、工作区冲突或本机资源异常，就必须停止并给出下一步口令。
+
+每轮完成后，Codex 应输出：
+
+- `下一步建议`：继续实现、回到需求/设计/任务确认、补验证、暂停或等待确认。
+- `推荐用户下一句`：用户可以直接复制的下一句。
+
+### Codex 目标追踪怎么配合
+
+Codex 目标适合记录跨轮次最终成功标准，不适合替代公司 workflow 的阶段控制。
+
+建议建立目标的场景：
+
+- L2 标准功能，需要经过需求、设计、任务、实现和验证。
+- 任务预计跨会话，或者用户启用了连续执行。
+- 有多份文档、多模块、多验证点。
+
+强烈建议建立目标的场景：
+
+- L3 高风险任务。
+- 旧项目接入公司 workflow。
+- 技能升级、安全审查、专家依赖维护。
+- hotfix 先止血，后续还要补测试、补文档、补复盘。
+
+不建议建立目标的场景：
+
+- L0 轻量探讨。
+- L1 小文案、小 UI、小配置。
+- 单轮能完成的小 bugfix 或一次性查询。
+
+目标存在不等于可以直接写代码。需求没确认、设计没确认、任务没确认、触发范围变化熔断、命中 V3 停止条件或验证失败时，仍然必须停下。
+
+推荐目标描述：
+
+```text
+完成 <功能名> 从需求确认、技术设计、任务拆解、实现、验证到文档同步的完整交付。
+成功标准：需求/设计/任务已确认；代码实现完成；验证证据完整；文档漂移已处理；完成报告包含下一步建议。
+```
+
+### Codex 计划模式怎么配合
+
+计划模式适合放在正式 workflow 前，用来判断路线，而不是替代公司流程。
+
+适合使用：
+
+- 需求还不清楚，不确定先需求、设计、spike 还是 bugfix。
+- 较大功能需要先比较 2-3 个方案。
+- 旧项目刚接入，需要判断第一步从哪里开始。
+- 实现中触发范围变化，需要重新判断回到哪个阶段。
+- 连续执行前，需要确认任务顺序、停止条件和风险等级。
+
+不适合使用：
+
+- 小文案、小 UI、小配置。
+- 任务清单已经确认且路径清楚。
+- hotfix 正在止血，先处理最小恢复路径。
+
+推荐说法：
+
+```text
+请先用 Codex 计划模式判断这个任务应该进入哪条公司 workflow；不要改文件，不要写代码。请输出推荐流程、需要确认的问题、风险和下一步口令。
+```
+
+计划模式结束后，仍然要回到正式 workflow，例如 `company-feature-requirements`、`company-feature-design`、`company-feature-planning`、`company-implementation-runner`、`company-bugfix-runner` 或 `company-spike-research`。
+
+### Subagents 怎么配合
+
+Subagents 适合在路线和任务确认后使用，不适合拿来替代需求确认或实现授权。Codex 不会因为 workflow 建议就自动启动子代理；需要用户显式要求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
+
+适合使用：
+
+- L2 多任务交付，任务边界清楚，且不会编辑同一核心文件。
+- 多个测试失败、页面问题或模块问题彼此独立。
+- L3 高风险任务需要独立做规格一致性审查、代码质量审查、测试覆盖审查或安全风险审查。
+- 连续执行批次较大，需要降低主会话上下文负担。
+
+不适合使用：
+
+- 单文件小改。
+- 多个任务都要改同一状态模型、同一数据库迁移、同一 API 契约或同一公共文档段落。
+- 需求、设计或任务还没有确认。
+
+用户通常不需要手动判断是否适合 subagents。`company-feature-planning` 会在任务模板中写出 `Subagent 策略`，`company-implementation-runner` 会在完成报告中输出 `Subagents 建议`、`Subagent 能力状态`、`Subagents 实际调用` 和 `子 agent 结果复核`。
+
+Codex App 端没有单独的“子代理按钮”也正常；App 主要展示 subagent 活动。CLI 可以用 `/agent` 管理 agent thread。
+
+如果需要稳定的公司角色，可以先生成项目级 custom agents：
+
+```bash
+bash scripts/install.sh install-agents /path/to/project --lang zh
+```
+
+生成位置：
+
+```text
+.codex/agents/company-explorer.toml
+.codex/agents/company-reviewer.toml
+.codex/agents/company-security-reviewer.toml
+.codex/agents/company-test-reviewer.toml
+```
+
+默认不覆盖已有 `.codex/agents/`；需要覆盖时显式加 `--force`。
 
 ### 项目安装
 
@@ -456,6 +572,46 @@ Codex 应进入 `company-workflow-health-check`，只读检查 `AGENTS.md`、`BU
 任务已确认，开始实现
 ```
 
+所有任务完成后：
+
+```text
+所有任务已完成，开始交付收口并推送业务分支。
+```
+
+Codex 会进入 `company-delivery-closeout`：先检查业务分支和任务状态，再逐文件分类代码、测试、文档、配置、资产、临时产物和未知文件；随后规整权威文档、dry-run 清理、审查最终 diff、重新验证，并只精确暂存确认文件。正常通过后创建一次本地 commit，并使用普通 push 推送当前业务分支。
+
+三种模式：
+
+- `开始交付收口` -> `prepare`，不 commit、不 push。
+- `收口并提交` -> `commit`，只创建本地 commit。
+- `收口并推送业务分支` -> `deliver`，本地 commit 后普通 push。
+
+该流程不会自动 force、rebase、amend、合并、发布或部署。受保护分支、任务未完成、未知文件、验证/审查失败、文档冲突、敏感或异常大文件、staged 清单不一致、远端领先或普通 push 被拒绝时都会停止并给出恢复入口。
+
+### 长对话切换到新对话
+
+当前任务还没结束，但对话已经过长时，说：
+
+```text
+生成当前任务交接摘要，我准备开新对话。
+```
+
+`company-thread-handoff` 会以当前主任务为核心，区分已验证事实、旧对话判断、待确认事项和未授权旁支。默认只输出精简摘要，不创建文档。
+
+只有需要本地续接文件时才说：
+
+```text
+生成当前任务交接摘要，并覆盖 .codex/handoff/current.md。
+```
+
+新对话中说：
+
+```text
+读取 .codex/handoff/current.md，验证当前状态后继续任务。
+```
+
+新对话会先核对路径、分支、工作区、关键文件、未完成任务和实现授权。低风险差异说明后继续，中风险差异重新验证，高风险差异停止确认。交接不替代 `INDEX.md`、正式需求/设计/任务文档，也不自动授权编码。
+
 ## 7. 完整流程例子
 
 目标：客户列表支持按当前筛选条件导出 CSV。
@@ -494,11 +650,17 @@ Codex 应进入 `company-workflow-health-check`，只读检查 `AGENTS.md`、`BU
 
    如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；写代码前应先通过阶段一致性预检，完成前应给出验证等级、验证证据和文档漂移影响。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
 
-9. 用户要求收尾：
+9. 全部任务完成后，用户要求正式收口：
 
 ```text
-请给我本次变更总结、验证证据和剩余风险
+所有任务已完成，开始交付收口并推送业务分支。
 ```
+
+10. Codex 使用 `company-delivery-closeout` 盘点导出功能的代码、测试、需求/设计/任务文档和临时 CSV；未知文件会阻止删除和提交。
+
+11. Codex 对最终待提交 diff 使用 `superpowers:requesting-code-review`，用 `superpowers:verification-before-completion` 重跑验证，并用 `superpowers:finishing-a-development-branch` 检查分支状态。通过后只暂存确认文件，创建本地 commit 并普通 push 当前业务分支。
+
+12. 最终报告列出验证命令、删除和保留文件、commit SHA、分支、远端、push 结果、剩余风险和下一步建议。
 
 ## 8. 技能更新
 

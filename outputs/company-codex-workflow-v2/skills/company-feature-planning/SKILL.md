@@ -22,7 +22,9 @@ Provide executable Codex task planning.
 9. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
 10. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
 11. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
-12. Stop after task planning unless the user gives the implementation handoff signal.
+12. Mark continuous implementation eligibility: which tasks can be batched and which tasks must stop for user confirmation.
+13. Mark subagent split recommendations: which tasks should remain serial under the main agent, and which tasks are suitable for independent implementation, investigation, or review.
+14. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -31,6 +33,8 @@ Provide executable Codex task planning.
 - Every task must include a verification anchor for later TDD and completion verification.
 - Example cases from business-rules documents should become automated tests first; when automation is not practical, turn them into explicit manual checks.
 - Estimate each task's validation level as `V0/V1/V2/V3`; implementation or bugfix confirms the final level before completion.
+- Mark a task as continuous-eligible only when boundaries, verification anchors, and stop conditions are clear.
+- For L2/L3 multi-task plans, explicitly decide whether to recommend Codex subagents; if not, explain whether task coupling, file conflicts, or limited benefit makes subagents unnecessary. Actual invocation still requires an explicit user request.
 
 ## Artifact
 
@@ -50,6 +54,34 @@ Resolve the public-doc update patch template in this order:
 - Have a concrete verification command or manual check.
 - Avoid mixing unrelated refactors with feature delivery.
 
+## Continuous Implementation Eligibility
+
+Task planning must help implementation decide whether batching is safe:
+
+- `continuous`: `V0/V1` or tightly related `V2`; scope is clear, verification is explicit, and failure has limited blast radius.
+- `careful-continuous`: `V2` across multiple files/pages/APIs but still inside one confirmed task chain; re-check every 1-3 tasks.
+- `must-stop`: `V3`, production, permission, security, data migration, money/metric formulas, cross-system work, unconfirmed business rules, scope change, or user decision point.
+
+Continuous tasks still require per-task verification. Do not skip TDD, documentation-drift checks, or completion verification because a batch is authorized.
+
+## Subagent Split Strategy
+
+Task planning must help implementation decide whether subagents are worth using:
+
+- `not needed`: the task is small, has one boundary, touches concentrated shared files, and a main-agent serial pass is cheaper.
+- `implementation subagent allowed`: the task has clear boundaries, clear input/output, few allowed files, explicit verification, and no shared write conflict with other tasks.
+- `investigation subagent allowed`: multiple test failures, page issues, or module issues are independent enough to investigate by problem domain.
+- `review subagent allowed`: L2/L3 work or continuous batches need separate spec-compliance, code-quality, test-coverage, or security-risk review.
+- `parallel subagents forbidden`: tasks edit the same core file, shared state model, database migration, API contract, or public-doc section.
+- `custom agents needed`: the plan recommends company reviewer/test/security/explorer roles, but the project has not generated `.codex/agents/`; recommend `bash scripts/install.sh install-agents <project-path> --lang en`.
+
+For every task that recommends a subagent, write:
+
+- Subagent role: implementation / investigation / spec review / code-quality review / test-strategy review.
+- Input context: requirements, design, task ID, allowed files, prohibited actions.
+- Expected output: change summary, verification evidence, risks, and blockers.
+- Merge strategy: the main agent reviews diffs and verification instead of accepting the subagent's completion claim directly.
+
 ## Output
 
 - Workflow layer: `company-feature-planning`
@@ -68,6 +100,13 @@ Resolve the public-doc update patch template in this order:
 - Solution confirmation status:
 - Minimal failing case or verification anchor per task:
 - Estimated validation level per task:
+- Continuous implementation eligibility per task:
+- Must-stop tasks:
+- Subagents recommendation: not needed / recommended / strongly recommended
+- Subagent capability status: not checked / explicit user request needed / local custom agents needed / App activity display only
+- Subagent strategy per task:
+- Tasks forbidden from parallel or requiring main-agent serial execution:
+- Subagent task packet draft:
 - Adversarial scenario per task:
 - Business rules verification coverage:
 - Documentation-drift check task:

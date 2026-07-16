@@ -1,7 +1,7 @@
 {
   "name": "company-codex-workflow-v2",
-  "version": "0.2.18",
-  "description": "Company Codex workflow starter kit with bundled expert dependencies, expert routing, workflow health checks, phase consistency preflight, scope-change circuit breaker, validation levels, Chinese code logic comments, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
+  "version": "0.2.24",
+  "description": "Company Codex workflow starter kit with conversation handoff and risk-based resume verification, bundled expert dependencies, expert routing, workflow health checks, phase consistency preflight, scope-change circuit breaker, controlled continuous implementation, milestone delivery closeout, Codex Plan Mode recommendations, conditional subagents recommendations, optional custom agents, Codex goal tracking recommendations, next-step guidance, validation levels, Chinese code logic comments, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
   "author": {
     "name": "haflen",
     "url": "https://github.com/haflen"
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "Company Codex Workflow V2",
     "shortDescription": "Governed company workflow skills.",
-    "longDescription": "Company Codex Workflow V2 provides lightweight SDLC skills, bundled expert dependencies, expert routing, workflow health checks, phase consistency preflight, scope-change circuit breaker, validation levels, Chinese code logic comments, documentation-drift checks, public document boundary rules, business-rules and calculation-semantics templates, trigger-based technical solution comparison, expert dependency maintenance, security review, user-confirmed skill upgrades, controlled skill evolution, and capability trace output for actual calls, lens-only usage, verification evidence, and remaining risk.",
+    "longDescription": "Company Codex Workflow V2 provides lightweight SDLC skills, long-conversation handoff with risk-based resume verification, bundled expert dependencies, expert routing, workflow health checks, phase consistency preflight, scope-change circuit breaker, controlled continuous implementation, milestone delivery closeout, Codex Plan Mode recommendations, conditional subagents recommendations, optional project-scoped custom agents, Codex goal tracking recommendations, next-step guidance, validation levels, Chinese code logic comments, documentation-drift checks, public document boundary rules, business-rules and calculation-semantics templates, trigger-based technical solution comparison, expert dependency maintenance, security review, user-confirmed skill upgrades, controlled skill evolution, and capability trace output for actual calls, lens-only usage, Plan Mode recommendations, subagent capability status, subagents actual calls, verification evidence, and remaining risk. Delivery closeout inventories artifacts, re-verifies the final candidate, cleans provenance-confirmed temporary files, and performs an authorized local commit or ordinary business-branch push.",
     "developerName": "haflen",
     "category": "Productivity",
     "capabilities": [

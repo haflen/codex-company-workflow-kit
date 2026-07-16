@@ -1,6 +1,6 @@
 # Codex Company Workflow Kit
 
-公司项目使用的 Codex 工作流 starter kit，目标是让团队在 Codex 里稳定完成需求澄清、技术设计、任务拆解、实现验证、bugfix、hotfix、spike 和专家技能治理。
+公司项目使用的 Codex 工作流 starter kit，目标是让团队在 Codex 里稳定完成需求澄清、技术设计、任务拆解、实现验证、里程碑交付收口、bugfix、hotfix、spike 和专家技能治理。
 
 这不是为了把流程做重，而是为公司项目提供轻量护栏：
 
@@ -10,7 +10,9 @@
 - 专家 skills 通过 bundle 自动路由；安装和项目初始化会自动生成专家就绪和安全审查报告。
 - 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
-- 每轮执行会显式区分实际调用的 Superpowers/专家/插件能力，以及未调用但采用的专家视角。
+- 长对话可以用 `company-thread-handoff` 生成精简任务交接摘要；新对话会先做风险分级核对，不盲目继承旧状态或实现授权。
+- 所有任务完成后可用 `company-delivery-closeout` 规整代码、文档和临时产物，重新验证最终候选，并按授权本地提交或普通推送当前业务分支。
+- 每轮执行会显式区分实际调用的 Superpowers/专家/插件/subagents 能力，以及未调用但采用的专家或拆分视角；subagents 会额外说明能力状态和是否需要用户显式请求。
 
 ## 当前主包
 
@@ -123,12 +125,50 @@ outputs/company-codex-workflow-template/
 - workflow 会先输出 `阶段许可` 和 `实现授权状态`；非 `允许实现` 时，只能补需求、设计、任务、字段映射或 public-doc patch。
 - 补完文档后必须等用户确认新范围，再重新进入实现；专家路由只能辅助判断，不能替代用户确认。
 
+受控连续执行用于减少重复确认，但只在已确认任务清单内生效：
+
+- 用户明确说“连续完成后续所有任务”“批量推进”或等价表达时，`company-implementation-runner` 才会启用。
+- `V0/V1` 可连续处理相关任务；`V2` 每批只处理 1-3 个强相关任务；`V3` 默认单任务后停下确认。
+- 每个任务完成后都会重新检查范围变化、验证失败、V3 风险、用户确认点、工作区冲突、高权限命令和本机资源异常。
+- 推荐口令：`任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。`
+
+Codex 目标追踪用于跨轮次任务，不替代公司 workflow：
+
+- L0/L1 小任务默认不建议建立目标。
+- L2 标准功能、跨阶段、跨会话、多文档、多验证点或连续执行任务，workflow 会建议建立目标。
+- L3 高风险任务、旧项目接入、技能升级/安全审查、专家依赖维护、hotfix 后补偿链路，workflow 会强烈建议建立目标。
+- 目标描述只写最终成功标准；目标存在不代表实现授权有效，阶段预检、范围熔断、V3 停止条件和用户确认仍然优先。
+
+Codex 计划模式用于正式 workflow 前的路线判断，不替代公司 workflow：
+
+- L0/L1 小任务、路径清楚的单点实现或单点 bugfix 默认不建议使用计划模式。
+- L2 需求有歧义、需要方案对比、旧项目接入、范围变化后重新判断路线、连续执行前确认任务顺序时，workflow 会建议使用计划模式。
+- L3 高风险、跨系统、数据、权限、安全、性能、金额/指标公式、大迁移或多人协作交付时，workflow 会强烈建议使用计划模式。
+- 计划模式只做路线、风险、待确认问题和下一步口令判断；不能改文件、不能编码、不能替代用户确认。
+
+Subagents 用于独立任务、独立排查和独立审查，不是默认执行方式，也不是 App 端的独立按钮入口：
+
+- L0/L1 小任务默认不用，避免增加 token 和协调成本。
+- L2 多任务且边界清楚，或多个独立失败域，workflow 会建议使用 subagents。
+- L3 高风险、跨模块/跨系统、数据/权限/安全/性能或较大连续执行批次，workflow 会强烈建议至少使用独立审查子 agent。
+- Codex 只在用户显式要求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达时启动子代理；workflow 建议本身不等于真实调用。
+- Codex CLI 可用 `/agent` 管理 agent thread；Codex App 侧主要展示 subagent 活动，不要求用户寻找单独的子代理按钮。
+- 如需稳定公司角色，可以在项目中执行 `bash scripts/install.sh install-agents /path/to/company-project --lang zh` 生成 `.codex/agents/`。
+- 主 agent 始终负责阶段许可、实现授权、任务分派、diff 复核、验证证据和最终结论；子 agent 输出不能直接等于完成。
+
+每次完成报告都必须给出下一步引导：
+
+- `下一步建议`：继续实现、回到需求/设计/任务确认、补验证、暂停或等待确认。
+- `推荐用户下一句`：给出可以直接复制的下一句。
+
 每轮输出会明确区分：
 
 - `透明度模式`：本轮自动选择的 `light` 或 `full-audit`。
 - `实际调用`：本轮真实触发或读取的 workflow、Superpowers、专家 skill、MCP、浏览器或 Codex 插件能力。
 - `专家/插件能力`：本轮选择或依赖的专家、Superpowers、Codex 插件能力。
 - `未调用但采用视角`：当前会话不可见、阶段不适合或风险不值得真实调用的能力。
+- `Codex 计划模式建议`：是否建议使用计划模式、原因、提示词和计划完成后的正式 workflow。
+- `Subagents 建议`、`Subagent 能力状态` 和 `Subagents 实际调用`：是否建议使用子 agent，当前是否需要显式请求或 custom agents，是否真实调用，还是仅采用拆分视角。
 - `第一性原理检查` 和 `对抗式审查`：本轮执行的底层事实检查、反例场景或跳过原因。
 - `验证证据`：命令、检查结果、文件变更、截图、日志或人工检查证据。
 - `未验证项` 和 `剩余风险`。
@@ -143,7 +183,7 @@ outputs/company-codex-workflow-template/
 bash scripts/install.sh install-plugin --lang zh
 ```
 
-全局安装会把插件源码复制到 `~/plugins/<plugin-name>`，并把索引写入 `~/.agents/plugins/marketplace.json`。这是 Codex personal marketplace 的路径约定；不要手工改成 `~/.agents/plugins/plugins/<plugin-name>`。
+全局安装会把插件源码复制到 `~/plugins/<plugin-name>`，把索引写入 `~/.agents/plugins/marketplace.json`，并自动执行 `codex plugin add <plugin-name>@personal` 刷新 Codex 安装缓存。安装器会依次查找 `CODEX_CLI`、PATH、`~/.local/bin/codex` 和 macOS 的 ChatGPT/Codex App 内置 CLI；找不到时会明确给出手工刷新命令。这是 Codex personal marketplace 的路径约定；不要手工改成 `~/.agents/plugins/plugins/<plugin-name>`。
 
 初始化真实公司项目：
 
@@ -201,6 +241,23 @@ bash scripts/install.sh generate-index /path/to/company-project --lang zh
 ```bash
 bash scripts/install.sh expert-preflight /path/to/company-project --lang zh
 ```
+
+可选安装项目级 custom agents：
+
+```bash
+bash scripts/install.sh install-agents /path/to/company-project --lang zh
+```
+
+这会生成：
+
+```text
+.codex/agents/company-explorer.toml
+.codex/agents/company-reviewer.toml
+.codex/agents/company-security-reviewer.toml
+.codex/agents/company-test-reviewer.toml
+```
+
+默认不覆盖已有 `.codex/agents/`；需要覆盖时加 `--force`。
 
 在旧项目或试点项目中检查工作流接入健康度，可以在 Codex 里说：
 
@@ -264,12 +321,27 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 
 ## 常用说法
 
+长对话准备切换到新对话：
+
+```text
+生成当前任务交接摘要，我准备开新对话。
+```
+
+默认只在回复中输出。需要本地文件时明确说“并覆盖 `.codex/handoff/current.md`”。新对话可说：
+
+```text
+读取 .codex/handoff/current.md，验证当前状态后继续任务。
+```
+
+`company-thread-handoff` 只传递当前主任务的临时状态；`company-context-index` 仍负责项目长期导航。旁支事项默认未授权，项目当前事实优先于旧交接摘要。
+
 ```text
 我现在该走哪个流程？背景是：<当前情况>
 帮我梳理这个功能需求：<功能描述>
 需求已确认，进入技术设计
 方案已确认，进入任务拆解
 任务已确认，开始实现
+所有任务已完成，开始交付收口并推送业务分支。
 开始 bugfix：<问题描述>
 /hotfix <线上事故>
 /spike <技术问题>

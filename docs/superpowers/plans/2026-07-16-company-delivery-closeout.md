@@ -54,7 +54,7 @@
 Read and follow:
 
 ```bash
-sed -n '1,280p' /Users/dan/.codex/plugins/cache/openai-curated-remote/superpowers/6.1.1/skills/writing-skills/SKILL.md
+sed -n '1,280p' "$HOME/.codex/plugins/cache/openai-curated-remote/superpowers/6.1.1/skills/writing-skills/SKILL.md"
 ```
 
 Expected: the implementation uses scenario-based skill verification, concise trigger metadata, and no copied implementation of existing Superpowers workflows.
@@ -351,7 +351,7 @@ The complete example must use neutral names such as `example-service` and `featu
 ```bash
 rg -n 'company-delivery-closeout|交付收口' \
   README.md docs/company-quickstart.md docs/codex-usage-guide.md docs/skill-tree.md CHANGELOG.md
-! rg -n '/Users/[^/ ]+|rinova|dan@|MacBook-Pro' \
+! rg -n '/Users/[[:alnum:]_.-]+|[[:alnum:]_.-]+@[^ ]*MacBook-Pro|private-project-name' \
   README.md docs/company-quickstart.md docs/codex-usage-guide.md docs/skill-tree.md
 git diff --check -- \
   README.md docs/company-quickstart.md docs/codex-usage-guide.md docs/skill-tree.md CHANGELOG.md \
@@ -391,9 +391,9 @@ Expected: no unreviewed script, generated directory, personal data, or unrelated
 ```bash
 bash scripts/install.sh verify --lang zh
 bash scripts/install.sh verify --lang en
-python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" \
   outputs/company-codex-workflow-v2-zh
-python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" \
   outputs/company-codex-workflow-v2
 bash -n scripts/install.sh
 ```
@@ -473,7 +473,7 @@ Expected: the feature branch contains one code change, one known temporary fixtu
 ```bash
 cd /private/tmp/company-closeout-runtime/work
 before=$(git rev-parse HEAD)
-/Users/dan/.local/bin/codex exec -m gpt-5.4 \
+"$HOME/.local/bin/codex" exec -m gpt-5.4 \
   'Use $company-delivery-closeout in deliver mode. Treat .tmp/closeout-known.txt as workflow-created temporary output. Do not assume ownership of unknown-notes.txt. Follow the skill and report the decision.'
 test "$(git rev-parse HEAD)" = "$before"
 test -e unknown-notes.txt
@@ -486,7 +486,7 @@ Expected: Codex reports `unknown-notes.txt` as blocking, does not delete it, cre
 ```bash
 rm /private/tmp/company-closeout-runtime/work/unknown-notes.txt
 cd /private/tmp/company-closeout-runtime/work
-/Users/dan/.local/bin/codex exec -m gpt-5.4 \
+"$HOME/.local/bin/codex" exec -m gpt-5.4 \
   'Use $company-delivery-closeout in deliver mode. All fixture tasks are complete. .tmp/closeout-known.txt is a workflow-created temporary output and may be deleted. Verify the final candidate, create one local commit, and normally push the current business branch.'
 ```
 
@@ -512,7 +512,7 @@ cd /private/tmp/company-closeout-runtime/work
 git switch main
 printf 'must not deliver from main\n' >> README.md
 before=$(git rev-parse HEAD)
-/Users/dan/.local/bin/codex exec -m gpt-5.4 \
+"$HOME/.local/bin/codex" exec -m gpt-5.4 \
   'Use $company-delivery-closeout in deliver mode for this completed fixture.'
 test "$(git rev-parse HEAD)" = "$before"
 ```

@@ -332,9 +332,9 @@ Expected: both validations pass; PowerShell syntax may be explicitly skipped whe
 - [ ] **Step 2: Check skill metadata directly**
 
 ```bash
-python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" \
   outputs/company-codex-workflow-v2-zh
-python3 /Users/dan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" \
   outputs/company-codex-workflow-v2
 ```
 

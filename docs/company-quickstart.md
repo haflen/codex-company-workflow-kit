@@ -29,9 +29,16 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 公司 workflow skills 已补齐 `agents/openai.yaml`，和常见开源 Codex skills 一样提供 UI 技能列表/chips 所需的名称、简介和默认提示。安装插件后，如果 Codex 客户端展示 skill picker 或 skill chips，应该能看到这些公司 workflow 入口；如果客户端只把 `/` 菜单用于内置命令，则请使用自然语言或 `$company-workflow-help` 触发。
 
-强依赖专家 skills 也随公司插件一起安装，例如 `frontend-developer`、`typescript-expert`、`frontend-design`、`testing-qa`。安装或更新插件后，请新开 Codex 线程让当前会话刷新 skill 列表。
+强依赖专家 skills 也随公司插件一起安装，例如 `frontend-developer`、`typescript-expert`、`frontend-design`、`testing-qa`。安装器会自动刷新 Codex 插件缓存，并输出实际激活版本；已打开的旧会话不会动态重载 skill 列表，所以安装或更新后仍需新开 Codex 线程。
 
 公司 workflow 每轮默认输出能力调用透明度信息。试点验收时，除了看需求、设计、任务和代码产物，还要检查回复是否包含 `透明度模式`、`实际调用`、`专家/插件能力`、`未调用但采用视角`、`验证证据`、`未验证项` 和 `剩余风险`。`透明度模式` 由 workflow 自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。如果缺少这些字段，说明 workflow 没有完整执行透明度协议。
+
+从 `0.2.22` 起，入口和执行报告还会像反馈 Superpowers 一样反馈 Codex 计划模式和 subagents：
+
+- `Codex 计划模式建议`：说明不需要、建议使用或强烈建议使用，以及原因和可复制提示词。计划模式只用于路线判断，不改文件、不编码。
+- `Subagents 建议`：说明是否值得使用子 agent。小任务通常不需要；多任务、独立失败域或高风险审查才建议使用。
+- `Subagent 能力状态`：说明当前是未检查、需要用户显式请求、需要本地 custom agents 配置，还是当前 App 主要展示活动。
+- `Subagents 实际调用`：说明本轮是未调用、已调用，还是仅采用拆分视角。即使子 agent 返回完成，主 agent 仍要复核 diff、验证证据和剩余风险。
 
 复杂需求、技术设计、bugfix、hotfix、spike、实现完成和技能升级场景，还要检查回复是否包含 `第一性原理检查` 和 `对抗式审查`。普通小改动可以跳过，但 Codex 必须说明跳过原因。
 
@@ -157,6 +164,74 @@ Codex 应进入 `company-workflow-health-check`，只读诊断根目录文件、
 
 新版 workflow 会自动做这件事；这句话只是显式提醒。
 
+如果任务文档已经确认，并且你希望 Codex 一次推进多个可执行任务，可以说：
+
+```text
+任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。
+```
+
+连续执行不是无条件自动驾驶。Codex 会按任务验证等级控制批量大小：`V0/V1` 可连续，`V2` 小批量，`V3` 单任务后停下确认。每轮完成后还会输出 `下一步建议` 和 `推荐用户下一句`。
+
+如果这是跨阶段、跨会话或连续执行任务，Codex 还会给出 `目标追踪建议`：
+
+- `不需要`：小任务、单轮任务、一次性查询。
+- `建议建立`：标准功能、多文档、多验证点、需要跨会话继续。
+- `强烈建议建立`：高风险任务、旧项目接入、技能升级、安全审查、hotfix 补偿链路。
+
+目标只负责记录最终成功标准，不会跳过需求、设计、任务确认或范围变化熔断。
+
+如果需求还不清楚、旧项目边界复杂、需要先比较方案或准备连续执行，可以先让 Codex 使用计划模式判断路线：
+
+```text
+请先用 Codex 计划模式判断这个任务应该进入哪条公司 workflow；不要改文件，不要写代码。请输出推荐流程、需要确认的问题、风险和下一步口令。
+```
+
+如果任务已经拆解完，Codex 会自动判断是否建议 subagents。但 Codex 只会在你显式要求时启动子代理；App 端没有独立子代理按钮也正常，CLI 才有 `/agent` 管理入口。
+
+如果只是想让 Codex 判断，可以说：
+
+```text
+任务已确认，开始实现。请按公司 workflow 判断是否需要 subagents；如果不需要，请说明原因。
+```
+
+如果你确认要启用并行审查，可以说：
+
+```text
+请使用 subagents 并行审查：一个检查测试缺口，一个检查代码质量，一个检查安全风险。等待全部完成后汇总。
+```
+
+如果需要稳定公司角色，先在项目里执行：
+
+```bash
+bash scripts/install.sh install-agents /path/to/project --lang zh
+```
+
+这会生成项目级 `.codex/agents/company-*.toml`。默认不覆盖已有 agents；确认后可加 `--force`。
+
+## 长对话续接
+
+准备换新对话时，说：
+
+```text
+生成当前任务交接摘要，我准备开新对话。
+```
+
+默认只输出摘要，不新增项目文档。确实需要文件时，明确要求覆盖 `.codex/handoff/current.md`；新对话读取后会先风险分级验证，不能直接继承旧对话的实现授权。`company-thread-handoff` 管临时任务状态，`company-context-index` 管项目长期上下文，两者职责不同。
+
+## 里程碑交付收口
+
+实现 workflow 负责逐任务编码和验证；所有任务做完后，使用独立的 `company-delivery-closeout` 规整本次成果。用户不需要判断何时切换：当任务均已完成、明确延期或明确不做，且没有下一项可执行任务时，workflow 会主动推荐收口。
+
+默认的一次性交付口令：
+
+```text
+所有任务已完成，开始交付收口并推送业务分支。
+```
+
+该口令授权盘点代码、测试、文档、配置和资产，按来源清理临时文件，复验最终候选，创建一次本地 commit，并普通 push 当前业务分支。它不授权强制推送、rebase、amend、合并、发布、部署或删除未知文件。
+
+只想先检查、不提交时说 `开始交付收口`；只需本地提交时说 `收口并提交`。受保护分支、未知文件、未完成任务、验证失败、文档冲突或 staged 清单不一致会自动停止。
+
 ## 常用说法
 
 ```text
@@ -203,6 +278,10 @@ Codex 应进入 `company-workflow-health-check`，只读诊断根目录文件、
 /spike <需要验证的技术问题>
 ```
 
+```text
+所有任务已完成，开始交付收口并推送业务分支。
+```
+
 ## 连接 Superpowers
 
 公司 workflow 不要求用户手动输入 `Superpowers` skill 名称。更自然的方式是直接说业务目标，让工作流在节点里自动结合对应能力。
@@ -230,6 +309,20 @@ $superpowers:brainstorming
 $superpowers:systematic-debugging
 $superpowers:test-driven-development
 ```
+
+## 连接 Codex 计划模式和 Subagents
+
+计划模式、subagents、Superpowers 和公司 workflow 的分工不同：
+
+```text
+Codex 计划模式 -> 正式 workflow 前判断路线，不改文件
+company-workflow-help -> 判断进入哪条公司流程
+company-feature-planning -> 拆任务，并标注连续执行和 subagent 策略
+company-implementation-runner -> 执行、验证、反馈 subagent 能力状态和是否真实调用
+Superpowers -> 提供 brainstorming、TDD、debugging、verification 等工程纪律
+```
+
+正常使用时，你不需要记这些内部机制。看输出里有没有 `Codex 计划模式建议`、`Subagents 建议`、`Subagent 能力状态`、`Subagents 实际调用`、`Superpowers 叠加` 和 `实际调用`，就能判断 workflow 是否把链路打通。
 
 ## 更新、停用和卸载
 

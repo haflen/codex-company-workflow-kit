@@ -1,5 +1,52 @@
 # Changelog
 
+## 0.2.24 - 2026-07-16
+
+- Added bilingual `company-delivery-closeout` skills with `prepare`, `commit`, and `deliver` modes for completed task batches, features, milestones, and version phases.
+- Added per-file artifact classification, provenance-based cleanup dry-runs, protected-branch and unknown-file stops, exact staging, final-candidate verification, and ordinary business-branch push boundaries.
+- Connected workflow help and implementation completion reports so users are automatically guided from the final task into delivery closeout.
+- Added explicit Superpowers composition for final diff review, verification before completion, and branch-finalization checks without changing the selected closeout mode.
+- Updated manifests, AGENTS guardrails, quickstart, usage guide, skill tree, and examples for the `0.2.24` company packages.
+
+## 0.2.23 - 2026-07-13
+
+- Added bilingual `company-thread-handoff` skills for compact long-conversation export and risk-based resume verification.
+- Added `quick` and `full` handoff levels, verified-fact separation, unauthorized side-topic handling, and implementation-authorization checks.
+- Added mixed routing: users can invoke handoff directly, while workflow help only recommends it at phase, context-drift, dirty-worktree, running-service, or incomplete-verification boundaries.
+- Kept chat-only output as the default; optional file output only overwrites `.codex/handoff/current.md` and never creates routine project documentation.
+
+## 0.2.22 - 2026-07-08
+
+- Corrected subagents from an assumed default workflow capability to a conditional Codex capability requiring explicit user spawn/delegate instructions.
+- Added `Subagent capability status` fields to workflow help, planning, implementation, AGENTS, templates, and user docs.
+- Added optional project-scoped custom agent templates under `.codex/agents/` for company explorer, reviewer, security reviewer, and test reviewer roles.
+- Added `install-agents <project-path>` to macOS/Linux and PowerShell installers so teams can opt into custom agents without forcing them into every project.
+- Clarified that Codex App surfaces subagent activity but users do not need to find a separate subagent button; CLI users can manage agent threads with `/agent`.
+
+## 0.2.21 - 2026-07-08
+
+- Added Codex Plan Mode Recommendation for unclear routing, L2/L3 solution comparison, legacy onboarding, scope-change route reset, continuous implementation preflight, and high-risk work.
+- Added Subagents Recommendation for independent tasks, independent failure domains, independent review, and high-risk continuous batches.
+- Required workflow help, planning, implementation, AGENTS, templates, and docs to report Plan Mode and subagents status alongside Superpowers capability tracing.
+- Added task-template fields for subagent strategy, subagent split plan, prohibited parallel work, and main-agent review.
+- Clarified that Plan Mode never edits files or authorizes implementation, and subagent results must be reviewed by the main agent before completion claims.
+
+## 0.2.20 - 2026-07-07
+
+- Added Codex Goal Tracking Recommendation for L2/L3, cross-session, continuous implementation, legacy onboarding, hotfix follow-up, and skill governance workflows.
+- Required workflow help to output whether goal tracking is not needed, recommended, or strongly recommended.
+- Required implementation completion reports for complex work to include goal status guidance: create, keep, or close a Codex goal.
+- Clarified that Codex goals are cross-turn objective containers and never replace phase permission, implementation authorization, scope-change circuit breaker, validation levels, or user confirmation.
+- Updated zh/en plugin packages, AGENTS, workflow help, implementation runner, README, quickstart, usage guide, pilot playbook, and skill tree docs.
+
+## 0.2.19 - 2026-07-06
+
+- Added controlled continuous implementation mode for confirmed task plans when users explicitly ask to batch remaining tasks.
+- Added per-task continuous eligibility in planning and task templates: `continuous`, `careful-continuous`, and `must-stop`.
+- Required implementation completion reports to output next-step guidance and a copyable recommended user phrase.
+- Added stop conditions after every continuous task: scope change, phase conflict, verification failure, V3 risk, approval needs, unconfirmed business semantics, worktree conflict, and local resource anomalies.
+- Updated zh/en plugin packages, AGENTS, implementation runner, workflow help, feature planning, templates, README, quickstart, usage guide, and skill tree docs.
+
 ## 0.2.18 - 2026-07-03
 
 - Added Scope Change Circuit Breaker / 范围变化熔断 so old implementation authorization expires when new architecture layers, data-preparation layers, tables, API boundaries, field mappings, or business semantics appear mid-implementation.

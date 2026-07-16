@@ -50,6 +50,78 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Ambiguous "continue" means continue the current phase, not advance to the next phase.
 
+## Delivery Closeout Boundary
+
+- Task implementation and milestone delivery closeout are separate phases; a task completion report does not replace closeout.
+- Use `company-delivery-closeout` only after every task is complete, explicitly deferred, or explicitly rejected.
+- `prepare` never commits or pushes; `commit` creates only a local commit; only `deliver` permits an ordinary push of the current business branch.
+- Stop for unknown ownership, unfinished tasks, failed validation, documentation conflict, sensitive/production/database/unexpected-large files, protected branches, staged-list mismatch, or a rejected normal push.
+- Ordinary push authorization excludes rebase, force push, amend, merge, release, and deployment.
+- Stage only classified files by exact path; delete temporary files only when provenance is proven.
+
+## Conversation Handoff
+
+- Use `company-thread-handoff` when a long conversation is about to switch, pause, continue later, or transfer ownership.
+- Output in chat by default; overwrite `.codex/handoff/current.md` only on explicit request.
+- Keep one active task and mark side topics out of scope and unauthorized.
+- A new conversation performs risk-based checks of path, branch, working tree, key files, unfinished work, and authorization.
+- Project facts override the handoff. It does not replace `company-context-index` or formal documents and grants no implementation authorization.
+- Workflows may recommend a handoff after a phase, on scope confusion, with dirty changes, running services, or incomplete verification, but never generate or write it automatically.
+
+## Continuous Implementation Mode
+
+Continuous implementation mode is only for confirmed implementation task plans. It reduces repeated approval loops; it does not remove workflow boundaries.
+
+- Enable it only when the user explicitly asks to "continue all remaining tasks", "run continuously", "batch progress", or equivalent wording.
+- Phase Consistency Preflight and Scope Change Circuit Breaker must pass before enabling it.
+- Task plans should mark `continuous / careful-continuous / must-stop`.
+- `V0/V1` tasks may be batched when related; `V2` tasks may batch only 1-3 tightly related items; `V3` tasks stop after one task by default.
+- After every task, re-check scope change, verification failure, V3 risk, user confirmation points, worktree conflicts, high-permission commands, and local resource anomalies.
+- If a stop condition is hit, do not continue to the next task; report the stop reason, evidence, and recommended next phrase.
+
+Every implementation, bugfix, hotfix, spike, or document handoff completion must include next-step guidance:
+
+- `Next-step guidance:` continue implementation / return to requirements / return to design / confirm tasks / add verification / pause.
+- `Recommended next user phrase:` give a copyable sentence.
+
+## Codex Goal Tracking
+
+Codex goals are for cross-turn objective management. They do not replace company workflow phase boundaries.
+
+- L0/L1 small tasks do not need goal tracking by default.
+- L2 standard features, cross-phase work, cross-session work, multi-document work, or continuous implementation should recommend goal tracking.
+- L3 high-risk work, legacy onboarding, skill upgrade/security review, expert maintenance, and hotfix follow-up chains should strongly recommend goal tracking.
+- Goal descriptions must state final success criteria, not every workflow step.
+- An active goal does not make implementation authorization valid; Phase Consistency Preflight, Scope Change Circuit Breaker, V3 stop conditions, verification failures, and user confirmation still take priority.
+- Completion reports for complex tasks should output `Goal status guidance`: whether to create, keep, or close a Codex goal.
+
+## Codex Plan Mode
+
+Codex Plan Mode is for route selection before the formal workflow. It is not a new delivery phase.
+
+- L0/L1 small tasks, clear single-point implementation, or single-point bugfixes usually do not need Plan Mode.
+- L2 standard features with ambiguous requirements, solution comparison, legacy onboarding, route reset after scope change, or task-order/stop-condition confirmation before continuous implementation should recommend Plan Mode.
+- L3 high-risk work, cross-system changes, data, permissions, security, performance, money/metric formulas, production incident follow-up, large migrations, or multi-person delivery should strongly recommend Plan Mode.
+- Plan Mode may output route, risks, confirmation questions, and the next handoff phrase only; it must not edit files, code, or replace requirements/design/task confirmation.
+- After Plan Mode, return to the formal company workflow: requirements, design, planning, implementation, bugfix, hotfix, spike, or skill governance.
+- Workflow outputs must include `Codex Plan Mode recommendation`, with the recommendation, reason, prompt, and formal workflow after Plan Mode.
+
+## Subagents
+
+Subagents are for context isolation, independent investigation, independent execution, or independent review. They are not the default execution mode and are not a separate App button users should hunt for.
+
+- L0/L1 small tasks, single-file small changes, docs/comments only, copy/UI labels/config, or one-path bugfixes usually do not use subagents.
+- L2 multi-task delivery with clear task boundaries, or multiple independent failure domains, should recommend subagents.
+- L3 high-risk, cross-module/cross-system, data/permission/security/performance, complex legacy onboarding, skill-upgrade security review, or larger continuous batches should strongly recommend subagents, at least for independent review.
+- Codex spawns subagents only when the user explicitly asks to `spawn agents`, `delegate in parallel`, `use subagents for parallel review`, or equivalent wording. A workflow recommendation is not an actual invocation.
+- Codex CLI can manage agent threads with `/agent`; the Codex App primarily surfaces subagent activity and does not require a separate subagent button.
+- For stable company roles, first run `bash scripts/install.sh install-agents <project-path> --lang en` to generate project-scoped `.codex/agents/`.
+- The main agent always owns phase permission, implementation authorization, dispatch, diff review, verification evidence, and final conclusion.
+- Subagents receive only narrow task packets: goal, boundary, allowed files, prohibited actions, verification method, and expected output.
+- Do not dispatch parallel tasks that edit the same file, same state model, same database migration, same public-doc section, or other shared state.
+- A subagent output is not a completion claim; the main agent must review and verify it.
+- Workflow outputs must include `Subagents recommendation`, `Subagent capability status`, and `Subagents actual calls`, distinguishing actual calls, no calls, explicit-user-request needed, custom-agents needed, and split-lens-only usage just like Superpowers.
+
 ## Scope Change Circuit Breaker
 
 Implementation authorization applies only to the requirements, design, and task scope that was confirmed at the time. After implementation starts, if the user or Codex discovers a material scope change, the old "start implementation" authorization immediately expires; pause coding and reconfirm the phase.
@@ -229,6 +301,10 @@ Opening:
 - `Actual calls:` list workflow, Superpowers, expert skill, MCP, browser, or plugin capabilities actually triggered or read.
 - `Expert/plugin capabilities:` list the experts, Superpowers, or Codex plugin capabilities selected for this turn.
 - `Not called, lens only:` list capabilities that were unavailable, unsuitable for the phase, or not worth invoking.
+- `Codex Plan Mode recommendation:` state not needed, recommended, or strongly recommended with the reason.
+- `Subagents recommendation:` state not needed, recommended, or strongly recommended.
+- `Subagent capability status:` state not checked, available in current session, explicit user request needed, local custom agents needed, or App activity display only.
+- `Subagents actual calls:` state not called, called, split lens only, or not called with the reason.
 - `First Principles Check:`
 - `Adversarial Review:`
 - `Execution strategy:`

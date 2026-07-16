@@ -35,6 +35,8 @@ Use the user's current goal, project state, and available artifacts:
 | Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when L2/L3 solution comparison is triggered | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | Design is confirmed / 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
+| Tasks are confirmed and the user wants fewer approval loops / 任务清单已确认且希望连续推进 | L1/L2 | `company-implementation-runner` continuous mode | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| A task batch, feature, or milestone is complete and needs consolidation, cleanup, commit, or push / 任务批次、功能或里程碑已完成，需要收口 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `All tasks are complete. Start delivery closeout and push the business branch.` |
 | Existing behavior is wrong / 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
 | Urgent production issue / 紧急线上问题 | L3 | `company-bugfix-runner` with hotfix path | `superpowers:systematic-debugging` + `superpowers:verification-before-completion` | `start hotfix: ...` |
 | Need feasibility research / 需要技术可行性验证 | L1/L2 | `company-spike-research` | `superpowers:brainstorming`; optionally `superpowers:verification-before-completion` | `start spike: ...` |
@@ -43,6 +45,7 @@ Use the user's current goal, project state, and available artifacts:
 | Need expert routing explanation / 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | Depends on task: brainstorming / systematic-debugging / test-driven-development | `这个任务需要哪些专家组合？` |
 | Existing project needs adoption or context draft / 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` | `请帮我把这个旧项目接入公司 Codex 工作流` |
 | Existing project is already onboarded but needs health, freshness, or "why does this not work" diagnosis / 旧项目已接入但要检查健康度、模板新旧或插件是否生效 | L1/L2 | `company-workflow-health-check` | Usually none; add `superpowers:brainstorming` when designing a repair plan | `请检查这个项目的公司工作流健康度` |
+| Opening a new conversation, pausing unfinished work, continuing later, or transferring ownership / 准备开新对话、暂停或转交任务 | L1/L2 | `company-thread-handoff` | None; this transfers temporary task state | `Generate the current task handoff; I am opening a new conversation.` |
 
 ## Complexity Levels / 复杂度分级
 
@@ -50,6 +53,16 @@ Use the user's current goal, project state, and available artifacts:
 - L1: small change; minimal context and minimal verification.
 - L2: standard delivery through requirements, design, planning, and implementation.
 - L3: high-risk change with full workflow, expert routing, strict verification, and user confirmation.
+
+## Conversation Handoff Routing / 对话交接路由
+
+Use a mixed model: users may invoke `company-thread-handoff` directly, and the workflow may recommend it at risk points.
+
+Recommend a handoff, but never generate or write one automatically, when a phase ended with work remaining, work is changing phases, the conversation shows forgotten state or scope confusion, or uncommitted changes, running services, or incomplete verification remain.
+
+Default phrase: `Generate the current task handoff; I am opening a new conversation.`
+
+On explicit file-output requests, only overwrite `.codex/handoff/current.md`. A handoff does not replace `company-context-index`, formal requirements/design/tasks, or phase confirmation, and grants no implementation authorization.
 
 ## Scope-Change Circuit Breaker / 范围变化熔断判断
 
@@ -76,6 +89,104 @@ Users do not choose the validation level. Once implementation, bugfix, or hotfix
 - `V3`: production, permissions, security, data, performance, money/metric formulas, cross-system work, or hotfixes.
 
 Entry help may state the expected level, but the execution workflow confirms the final level before completion.
+
+## Continuous Implementation Routing / 连续执行路由
+
+Users do not need to decide whether continuous mode applies. This skill must judge it.
+
+Recommend continuous implementation when:
+
+- The user explicitly asks to "continue all remaining tasks", "run continuously", or "batch progress".
+- Requirements, design, task plan, and required business rules are confirmed.
+- The task list has order, task IDs, verification anchors, and estimated validation levels.
+- Tasks are mainly `V1/V2` and belong to one feature chain or one acceptance target.
+
+Do not recommend continuous implementation when:
+
+- Requirements, design, business rules, field mapping, or task planning are still being drafted.
+- A scope-change circuit breaker was just triggered, or new documents are not user-confirmed.
+- Work contains `V3` risk, production/permission/security/data migration/money formula/cross-system impact.
+- Project phase, entry document, task document, or public-doc patch is inconsistent.
+
+Recommended phrases:
+
+- Normal implementation: `任务已确认，开始实现`
+- Continuous implementation: `任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。`
+
+## Delivery Closeout Routing / 交付收口路由
+
+Users do not select this transition manually. Route to `company-delivery-closeout` only when every task is complete, explicitly deferred, or explicitly rejected and no executable implementation task remains.
+
+- “Consolidate the results”, “clean temporary files and commit”, “commit after everything is done”, and “close out and push the business branch” trigger the closeout decision.
+- If executable tasks remain, continue `company-implementation-runner`; closeout must not silently close them.
+- `prepare` inventories, reconciles, and verifies; `commit` adds a local commit; `deliver` adds an ordinary business-branch push.
+- Stop for a protected branch, unknown file ownership, failed validation, documentation conflict, or staged-list mismatch.
+
+Default phrase: `All tasks are complete. Start delivery closeout and push the business branch.`
+
+## Codex Plan Mode Recommendation / Codex 计划模式建议
+
+Codex Plan Mode is useful for route selection before the formal workflow. It does not replace requirements, design, task confirmation, or implementation authorization. This skill recommends Plan Mode; it does not enter it automatically.
+
+Recommendation levels:
+
+- `not needed`: L0/L1 small tasks, clear implementation paths, single-point bugfixes, hotfix stop-the-bleeding work, entry-routing questions, or one-off lookups.
+- `recommended`: L2 standard features with unclear requirements, 2-3 solution comparison, legacy onboarding, route reset after scope change, or task order/stop-condition confirmation before continuous implementation.
+- `strongly recommended`: L3 high-risk work, cross-system changes, data, permissions, security, performance, money/metric formulas, production incident follow-up, large migrations, or multi-person delivery.
+
+Recommended Plan Mode prompts must say "do not edit files and do not code". Example:
+
+```text
+Use Codex Plan Mode first to decide which company workflow this task should enter. Do not edit files or write code. Output the recommended route, questions to confirm, risks, and next handoff phrase.
+```
+
+Boundaries:
+
+- Plan Mode output is only a route proposal. Formal artifacts still go through `company-feature-requirements`, `company-feature-design`, `company-feature-planning`, or the relevant workflow.
+- Plan Mode does not replace user confirmation for requirements, solution choices, task plans, or implementation scope.
+- Plan Mode cannot override scope-change circuit breakers, phase preflight, V3 stop conditions, or verification requirements.
+
+## Subagents Recommendation / Subagents 使用建议
+
+Subagents are useful for context isolation, independent review, or independent problem domains. They are not the default execution mode. This skill only recommends them. Actual use requires Codex support in the current environment and an explicit user request such as `spawn agents`, `delegate in parallel`, `use subagents for parallel review`, or equivalent wording.
+
+Recommendation levels:
+
+- `not needed`: L0/L1 small tasks, single-file small changes, docs/comments only, copy/UI labels/config, or one-path bugfixes.
+- `recommended`: L2 multi-task delivery with clear task boundaries; multiple independent failure domains; separate spec-compliance, code-quality, or test-strategy review.
+- `strongly recommended`: L3 high-risk work, cross-module/cross-system work, data/permission/security/performance, complex legacy onboarding, skill-upgrade security review, multi-team boundaries, or larger continuous batches.
+
+Use principles:
+
+- The main agent owns phase decisions, authorization, dispatch, synthesis, and final verification.
+- A subagent receives only a narrow task packet: goal, boundary, allowed files, prohibited actions, verification method, and expected output.
+- Do not let multiple subagents edit the same file or shared state in parallel.
+- A subagent result is not completion. The main agent must review diffs, verification evidence, and remaining risk.
+- The Codex App primarily surfaces subagent activity; users do not need to find a separate subagent button. The CLI can manage agent threads with `/agent`.
+- For stable company roles, recommend running `bash scripts/install.sh install-agents <project-path> --lang en` first to generate `.codex/agents/company-*.toml`.
+
+## Codex Goal Tracking Recommendation / Codex 目标追踪建议
+
+Codex goals are cross-turn objective containers. They do not replace company workflow phase routing or implementation authorization. This skill recommends goal tracking; it does not create goals automatically.
+
+Recommendation levels:
+
+- `not needed`: L0 exploration, L1 copy/UI/config tweaks, one-turn bugfixes, entry-routing questions, or one-off lookup work.
+- `recommended`: L2 standard features, multi-phase work across requirements/design/planning/implementation, likely cross-session work, continuous implementation, multiple documents, or multiple verification points.
+- `strongly recommended`: L3 high-risk work, legacy onboarding, skill upgrade/security review/expert maintenance, hotfix follow-up work, multi-person collaboration, or cross-system delivery.
+
+Recommended goal descriptions must state final success criteria, not the current operation steps. Example:
+
+```text
+Complete <feature> from requirements confirmation, technical design, task planning, implementation, verification, and documentation sync.
+Success criteria: requirements/design/tasks confirmed; code implemented; verification evidence complete; documentation drift handled; completion report includes next-step guidance.
+```
+
+Boundaries:
+
+- A goal does not authorize coding. Phase preflight, scope-change circuit breaker, V3 stop conditions, and user confirmation still take priority.
+- A goal records what final outcome must be true; do not stuff every workflow step into the goal.
+- Do not recommend goals for small tasks.
 
 ## Trace-Level Decision / 透明度分级判定
 
@@ -114,6 +225,24 @@ If the recommended route triggers `full-audit`, state the trigger reason.
 - Phase permission / 阶段许可:
 - Implementation authorization / 实现授权状态:
 - Suggested user phrase / 推荐用户说法:
+- Conversation handoff recommendation / 对话交接建议: not needed / recommended
+- Handoff recommendation reason / 交接建议原因:
+- Suggested handoff phrase / 推荐交接口令:
+- Continuous implementation recommended / 是否建议连续执行:
+- Continuous implementation phrase / 连续执行推荐口令:
+- Codex Plan Mode recommendation / Codex 计划模式建议: not needed / recommended / strongly recommended
+- Plan Mode reason / 计划模式建议原因:
+- Plan Mode prompt / 计划模式提示词:
+- Formal workflow after Plan Mode / 计划完成后的正式 workflow:
+- Subagents recommendation / Subagents 建议: not needed / recommended / strongly recommended
+- Subagents reason / Subagents 建议原因:
+- Subagent capability status / Subagent 能力状态: not checked / available in current session / explicit user request needed / local custom agents needed / App activity display only
+- Recommended subagent usage / 推荐 subagent 用法:
+- Subagents actual calls / Subagents 实际调用: not called / called / split lens only
+- Reason subagents were not called / Subagents 未调用原因:
+- Goal tracking recommendation / 目标追踪建议: not needed / recommended / strongly recommended
+- Recommendation reason / 建议原因:
+- Recommended goal description / 推荐目标描述:
 - Required input from user / 还需要用户补充:
 - Files or artifacts to check / 需要检查的文件或产物:
 - Workflow Audit (only in full-audit mode):

@@ -24,6 +24,7 @@ Usage:
   bash scripts/install.sh bootstrap-project <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh deactivate-project <project-path> [--force]
   bash scripts/install.sh update-templates <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh install-agents <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh generate-index <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh expert-preflight <project-path> [--lang zh|en]
   bash scripts/install.sh all <project-path> [--lang zh|en] [--force]
@@ -78,6 +79,40 @@ plugin_name_for_lang() {
   esac
 }
 
+find_codex_cli() {
+  local candidate=""
+  if [[ -n "${CODEX_CLI:-}" && -x "${CODEX_CLI:-}" ]]; then
+    printf '%s\n' "${CODEX_CLI:-}"
+    return 0
+  fi
+  candidate="$(command -v codex 2>/dev/null || true)"
+  if [[ -n "$candidate" && -x "$candidate" ]]; then
+    printf '%s\n' "$candidate"
+    return 0
+  fi
+  for candidate in \
+    "$HOME/.local/bin/codex" \
+    "/Applications/ChatGPT.app/Contents/Resources/codex" \
+    "/Applications/Codex.app/Contents/Resources/codex"; do
+    if [[ -x "$candidate" ]]; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
+refresh_codex_plugin_registration() {
+  local codex_cli=""
+  if ! codex_cli="$(find_codex_cli)"; then
+    echo "Codex CLI not found; plugin source is installed but the Codex cache was not refreshed." >&2
+    echo "After Codex CLI is available, run: codex plugin add ${PLUGIN_NAME}@personal" >&2
+    return 0
+  fi
+  "$codex_cli" plugin add "${PLUGIN_NAME}@personal" --json
+  echo "Codex plugin registration refreshed: ${PLUGIN_NAME}@personal"
+}
+
 copy_dir_safe() {
   local src="$1"
   local dst="$2"
@@ -128,13 +163,26 @@ ensure_root_plugin_json() {
 
 review_bundled_experts() {
   local plugin_root="$1"
-  local report_path="$plugin_root/EXPERT-READINESS.md"
-  local json_path="$plugin_root/EXPERT-READINESS.json"
+  local persist="${2:-1}"
+  local temp_dir=""
+  local report_path=""
+  local json_path=""
+  if [[ "$persist" == "1" ]]; then
+    report_path="$plugin_root/EXPERT-READINESS.md"
+    json_path="$plugin_root/EXPERT-READINESS.json"
+  else
+    temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/company-expert-review.XXXXXX")"
+    report_path="$temp_dir/EXPERT-READINESS.md"
+    json_path="$temp_dir/EXPERT-READINESS.json"
+  fi
   python3 "$ROOT_DIR/scripts/expert_dependencies.py" review \
     --plugin-root "$plugin_root" \
     --lang "$LANG_CODE" \
     --output "$report_path" \
     --json-output "$json_path"
+  if [[ -n "$temp_dir" ]]; then
+    rm -r "$temp_dir"
+  fi
 }
 
 write_project_expert_readiness() {
@@ -153,7 +201,7 @@ install_plugin() {
     exit 1
   fi
   ensure_root_plugin_json "$PLUGIN_SRC"
-  review_bundled_experts "$PLUGIN_SRC"
+  review_bundled_experts "$PLUGIN_SRC" 0
   if [[ -e "$PLUGIN_DST" && "$FORCE" != "1" ]]; then
     echo "Plugin already installed: $PLUGIN_DST"
     echo "Use --force to replace it."
@@ -163,7 +211,7 @@ install_plugin() {
   fi
   if [[ -d "$PLUGIN_DST" ]]; then
     ensure_root_plugin_json "$PLUGIN_DST"
-    review_bundled_experts "$PLUGIN_DST"
+    review_bundled_experts "$PLUGIN_DST" 1
   fi
   mkdir -p "$MARKETPLACE_ROOT" "$PLUGIN_INSTALL_ROOT"
   MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$PLUGIN_NAME" python3 - <<'PY'
@@ -195,6 +243,7 @@ else:
 path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
 PY
   echo "Marketplace updated: $MARKETPLACE_FILE"
+  refresh_codex_plugin_registration
   echo "Language: $LANG_CODE"
 }
 
@@ -279,6 +328,7 @@ manifest = {
         "AGENTS.md marker block",
         "BUNDLES.md",
         "EXPERTS.lock.md",
+        ".codex/agents/ (optional via install-agents)",
         "specs/global/assets/",
         "specs/global/assets.generated/",
         ".codex-workflow/install.json"
@@ -317,6 +367,31 @@ ensure_project_templates() {
     cp -R "$src" "$dst"
     find "$dst" -name ".DS_Store" -delete
     echo "Project templates ready: $dst"
+  fi
+}
+
+install_project_agents() {
+  local project_path="$1"
+  local src="$PLUGIN_SRC/.codex/agents"
+  local dst="$project_path/.codex/agents"
+  local review_dst="$project_path/.codex/agents.generated"
+  if [[ ! -d "$src" ]]; then
+    echo "Custom agent source not found: $src" >&2
+    exit 1
+  fi
+  mkdir -p "$project_path/.codex"
+  if [[ -d "$dst" && "$FORCE" != "1" ]]; then
+    rm -rf "$review_dst"
+    cp -R "$src" "$review_dst"
+    find "$review_dst" -name ".DS_Store" -delete
+    echo "Existing custom agents preserved: $dst"
+    echo "Generated updated custom agents for review: $review_dst"
+    echo "Next: compare agents and agents.generated, then rerun with --force if you approve replacement."
+  else
+    rm -rf "$dst"
+    cp -R "$src" "$dst"
+    find "$dst" -name ".DS_Store" -delete
+    echo "Project custom agents ready: $dst"
   fi
 }
 
@@ -489,7 +564,7 @@ PY
     exit 1
   fi
   bash -n "$ROOT_DIR/scripts/install.sh"
-  review_bundled_experts "$PLUGIN_SRC" >/dev/null
+  review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"
   else
@@ -533,6 +608,14 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     update_templates "$project_path"
+    ;;
+  install-agents)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    install_project_agents "$project_path"
     ;;
   generate-index)
     shift || true

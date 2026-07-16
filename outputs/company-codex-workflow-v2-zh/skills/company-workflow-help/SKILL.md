@@ -31,6 +31,8 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 需求和验收标准已确认 | L2 | `company-feature-design` | L2/L3 方案对比触发时使用 `superpowers:brainstorming` | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
+| 任务清单已确认，且用户希望少确认几次连续推进 | L1/L2 | `company-implementation-runner` 连续执行模式 | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| 任务批次、功能或里程碑已全部完成，需要规整成果、清理临时文件、提交或推送 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `所有任务已完成，开始交付收口并推送业务分支。` |
 | 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
 | 紧急线上问题 | L3 | `company-bugfix-runner` hotfix 路径 | `superpowers:systematic-debugging` + `superpowers:verification-before-completion` | `热修复：...` 或 `开始 hotfix：...` |
 | 需要技术可行性验证 | L1/L2 | `company-spike-research` | `superpowers:brainstorming` 用于实验方案，必要时 `superpowers:verification-before-completion` 检查证据 | `快速验证：...` 或 `开始 spike：...` |
@@ -39,6 +41,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | 按任务补充 `superpowers:brainstorming` / `superpowers:systematic-debugging` / `superpowers:test-driven-development` | `这个任务需要哪些专家组合？` |
 | 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` 用于试点选择和迁移策略 | `请帮我把这个旧项目接入公司 Codex 工作流` |
 | 旧项目已接入但想检查健康度、模板新旧、插件是否生效或为什么用起来不对 | L1/L2 | `company-workflow-health-check` | 通常无；需要设计修复方案时叠加 `superpowers:brainstorming` | `请检查这个项目的公司工作流健康度` |
+| 准备开新对话、暂停未完成任务、下次继续或转交他人 | L1/L2 | `company-thread-handoff` | 无；这里只做临时任务状态传递 | `生成当前任务交接摘要，我准备开新对话。` |
 
 ## 复杂度分级
 
@@ -46,6 +49,21 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - L1：小改动，最小上下文、最小任务卡、最小验证。
 - L2：标准交付，按需求、设计、任务、实现推进。
 - L3：高风险变更，完整流程、专家路由、严格验证和用户确认。
+
+## 对话交接路由
+
+采用“主动唤起 + 风险时提醒”的混合模式。用户准备开新对话、暂停、下次继续或转交任务时，路由到 `company-thread-handoff`。
+
+命中以下任一情况时，提醒用户生成交接摘要，但不自动生成、不自动写文件：
+
+- 一个阶段已结束，但当前主任务仍有后续工作。
+- 即将切换需求、设计、任务、实现或 bugfix 阶段。
+- 对话出现状态遗忘、重复读取、范围混淆或授权漂移。
+- 存在未提交改动、运行中服务或未完成验证。
+
+默认推荐：`生成当前任务交接摘要，我准备开新对话。`
+
+用户明确要求落盘时，只允许覆盖 `.codex/handoff/current.md`。交接不替代 `company-context-index`、正式需求/设计/任务文档或阶段确认，也不产生新的实现授权。
 
 ## 范围变化熔断判断
 
@@ -72,6 +90,104 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix。
 
 入口帮助只负责说明预计等级；最终等级由执行 workflow 在完成前确认。
+
+## 连续执行路由
+
+用户不需要知道是否该开启连续执行；本 skill 必须自动判断。
+
+推荐连续执行的条件：
+
+- 用户明确要求“继续完成后续所有任务”“连续执行”“批量推进”。
+- 需求、设计、任务拆解和必要业务规则已经确认。
+- 当前任务清单有顺序、任务 ID、验证点和预估验证等级。
+- 任务主要是 `V1/V2`，且属于同一功能链路或同一批验收目标。
+
+不推荐连续执行的条件：
+
+- 正在补需求、设计、业务规则、字段映射或任务拆解。
+- 刚触发范围变化熔断，或新文档尚未由用户确认。
+- 任务包含 `V3` 风险、生产/权限/安全/数据迁移/金额公式/跨系统影响。
+- 当前项目阶段、入口文档、任务文档或公共文档影响补丁不一致。
+
+推荐口令：
+
+- 普通实现：`任务已确认，开始实现`
+- 连续执行：`任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。`
+
+## 交付收口路由
+
+用户不需要判断何时进入收口。只有当前任务清单中的事项全部完成、明确延期或明确不做，并且不再有可执行实现任务时，才路由到 `company-delivery-closeout`。
+
+- “整理本次成果”“清理临时文件并提交”“全部做完后提交”“收口并推送业务分支”等意图直接进入收口判断。
+- 仍有可执行任务时，继续 `company-implementation-runner`；不得用收口静默关闭任务。
+- `prepare` 只盘点、规整和验证；`commit` 增加本地提交；`deliver` 增加普通业务分支 push。
+- 受保护分支、未知归属文件、验证失败、文档冲突或 staged 清单不一致时必须停止。
+
+默认口令：`所有任务已完成，开始交付收口并推送业务分支。`
+
+## Codex 计划模式建议
+
+Codex 计划模式适合在正式 workflow 前做路线判断，不替代需求、设计、任务确认，也不授权实现。本 skill 只做建议，不自动进入计划模式。
+
+计划模式建议分三档：
+
+- `不需要`：L0/L1 小任务、路径已经清楚的实现、单点 bugfix、hotfix 止血、只问入口或只做一次性查询。
+- `建议使用`：L2 标准功能但需求仍有歧义、需要比较 2-3 个方案、旧项目接入、范围变化后需要重新判断路线、连续执行前需要确认任务顺序和停止条件。
+- `强烈建议使用`：L3 高风险任务、跨系统、数据、权限、安全、性能、金额/指标公式、生产事故复盘、大迁移或多人协作交付。
+
+推荐计划模式提示词必须强调“不改文件、不编码、只判断路线”。例如：
+
+```text
+请先用 Codex 计划模式判断这个任务应该进入哪条公司 workflow；不要改文件，不要写代码。请输出推荐流程、需要确认的问题、风险和下一步口令。
+```
+
+边界：
+
+- 计划模式输出只是路线建议；正式产物仍要进入 `company-feature-requirements`、`company-feature-design`、`company-feature-planning` 或对应 workflow。
+- 计划模式不能替代用户对需求、方案、任务或实现范围的确认。
+- 计划模式不能覆盖范围变化熔断、阶段一致性预检、V3 停止条件和验证要求。
+
+## Subagents 使用建议
+
+Subagents 适合隔离上下文、独立审查或处理互不影响的问题域，不是默认执行方式。本 skill 只做建议，真正执行需要当前 Codex 环境支持，并且用户显式请求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
+
+Subagents 建议分三档：
+
+- `不需要`：L0/L1 小任务、单文件小改、纯文档/注释、小 UI 文案、小配置、单一路径 bugfix。
+- `建议使用`：L2 多任务交付，任务之间边界清楚；多个独立失败域；需要单独做规格一致性审查、代码质量审查或测试策略审查。
+- `强烈建议使用`：L3 高风险任务、跨模块/跨系统、数据/权限/安全/性能、复杂旧项目接入、技能升级安全审查、多个团队边界或连续执行批次较大。
+
+使用原则：
+
+- 主 agent 负责阶段判断、授权、任务分派、汇总和最终验证。
+- 子 agent 只拿到窄任务包：目标、边界、允许文件、禁止事项、验证方式和预期输出。
+- 不要让多个子 agent 同时编辑同一文件或同一共享状态。
+- 子 agent 输出不能直接等于完成；主 agent 必须复核 diff、验证证据和剩余风险。
+- Codex App 端主要展示 subagent 活动，不要求用户寻找独立子代理入口；CLI 可用 `/agent` 管理 agent thread。
+- 如需稳定公司角色，建议先执行 `bash scripts/install.sh install-agents <project-path> --lang zh`，生成 `.codex/agents/company-*.toml`。
+
+## Codex 目标追踪建议
+
+Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段判断和实现授权。本 skill 只做建议，不自动创建目标。
+
+目标追踪建议分三档：
+
+- `不需要`：L0 轻量探讨、L1 小文案/小 UI/小配置、单轮能完成的小 bugfix、只问入口或只做一次性查询。
+- `建议建立`：L2 标准功能、跨需求/设计/任务/实现多阶段、预计跨会话、需要连续执行、涉及多份文档或多个验证点。
+- `强烈建议建立`：L3 高风险任务、旧项目接入、技能升级/安全审查/专家依赖维护、hotfix 止血后还有补测试/补文档/复盘、多人协作或跨系统交付。
+
+推荐目标描述必须写最终成功标准，不写当前操作步骤。例如：
+
+```text
+完成 <功能名> 从需求确认、技术设计、任务拆解、实现、验证到文档同步的完整交付。
+成功标准：需求/设计/任务已确认；代码实现完成；验证证据完整；文档漂移已处理；完成报告包含下一步建议。
+```
+
+边界：
+
+- 目标存在不代表可以直接编码；阶段一致性预检、范围变化熔断、V3 停止条件和用户确认仍然优先。
+- 目标只记录“最终要完成什么”，不要把每个 workflow 步骤都塞进目标。
+- 不要为了小任务建议建立目标。
 
 ## 透明度分级判定
 
@@ -110,6 +226,24 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 阶段许可：
 - 实现授权状态：
 - 推荐用户说法：
+- 对话交接建议：不需要 / 建议生成
+- 交接建议原因：
+- 推荐交接口令：
+- 是否建议连续执行：
+- 连续执行推荐口令：
+- Codex 计划模式建议：不需要 / 建议使用 / 强烈建议使用
+- 计划模式建议原因：
+- 计划模式提示词：
+- 计划完成后的正式 workflow：
+- Subagents 建议：不需要 / 建议使用 / 强烈建议使用
+- Subagents 建议原因：
+- Subagent 能力状态：未检查 / 当前会话可用 / 需要用户显式请求 / 需要本地 custom agents 配置 / 当前 App 仅展示活动
+- 推荐 subagent 用法：
+- Subagents 实际调用：未调用 / 已调用 / 仅采用拆分视角
+- Subagents 未调用原因：
+- 目标追踪建议：不需要 / 建议建立 / 强烈建议建立
+- 建议原因：
+- 推荐目标描述：
 - 还需要用户补充：
 - 需要检查的文件或产物：
 - Workflow Audit（仅 full-audit 时输出）：

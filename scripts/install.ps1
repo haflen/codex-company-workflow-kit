@@ -33,6 +33,7 @@ function Show-Usage {
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 bootstrap-project <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project <project-path> [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-agents <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 expert-preflight <project-path> [-Lang zh|en]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all <project-path> [-Lang zh|en] [-Force]"
@@ -47,6 +48,41 @@ function Get-PluginNameForLang($Code) {
     return "company-codex-workflow-v2"
   }
   throw "Unsupported language: $Code. Use zh or en."
+}
+
+function Get-CodexCli {
+  if (-not [string]::IsNullOrWhiteSpace($env:CODEX_CLI) -and (Test-Path $env:CODEX_CLI)) {
+    return $env:CODEX_CLI
+  }
+  $command = Get-Command codex -ErrorAction SilentlyContinue
+  if ($command) {
+    return $command.Source
+  }
+  $candidates = @(
+    (Join-Path $HOME ".local/bin/codex"),
+    "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "/Applications/Codex.app/Contents/Resources/codex"
+  )
+  foreach ($candidate in $candidates) {
+    if (Test-Path $candidate) {
+      return $candidate
+    }
+  }
+  return $null
+}
+
+function Refresh-CodexPluginRegistration {
+  $codexCli = Get-CodexCli
+  if ([string]::IsNullOrWhiteSpace($codexCli)) {
+    Write-Warning "Codex CLI not found; plugin source is installed but the Codex cache was not refreshed."
+    Write-Warning "After Codex CLI is available, run: codex plugin add $PluginName@personal"
+    return
+  }
+  & $codexCli plugin add "$PluginName@personal" --json
+  if ($LASTEXITCODE -ne 0) {
+    throw "Codex plugin registration refresh failed for $PluginName@personal"
+  }
+  Write-Host "Codex plugin registration refreshed: $PluginName@personal"
 }
 
 function Copy-DirSafe($Source, $Destination) {
@@ -91,14 +127,31 @@ function Ensure-RootPluginJson($PluginRoot) {
   Copy-Item -Force $manifest $rootManifest
 }
 
-function Review-BundledExperts($PluginRoot) {
-  $report = Join-Path $PluginRoot "EXPERT-READINESS.md"
-  $json = Join-Path $PluginRoot "EXPERT-READINESS.json"
-  python3 (Join-Path $RootDir "scripts/expert_dependencies.py") review `
-    --plugin-root $PluginRoot `
-    --lang $Lang `
-    --output $report `
-    --json-output $json
+function Review-BundledExperts($PluginRoot, [bool]$Persist = $true) {
+  $temporaryRoot = $null
+  if ($Persist) {
+    $report = Join-Path $PluginRoot "EXPERT-READINESS.md"
+    $json = Join-Path $PluginRoot "EXPERT-READINESS.json"
+  } else {
+    $temporaryRoot = Join-Path ([IO.Path]::GetTempPath()) ("company-expert-review-" + [guid]::NewGuid().ToString("N"))
+    New-Item -ItemType Directory -Force -Path $temporaryRoot | Out-Null
+    $report = Join-Path $temporaryRoot "EXPERT-READINESS.md"
+    $json = Join-Path $temporaryRoot "EXPERT-READINESS.json"
+  }
+  try {
+    python3 (Join-Path $RootDir "scripts/expert_dependencies.py") review `
+      --plugin-root $PluginRoot `
+      --lang $Lang `
+      --output $report `
+      --json-output $json
+    if ($LASTEXITCODE -ne 0) {
+      throw "Expert dependency review failed for $PluginRoot"
+    }
+  } finally {
+    if ($temporaryRoot -and (Test-Path $temporaryRoot)) {
+      Remove-Item -Recurse -Force $temporaryRoot
+    }
+  }
 }
 
 function Write-ProjectExpertReadiness($Path) {
@@ -117,7 +170,7 @@ function Install-Plugin {
     throw "Plugin source not found: $PluginSrc"
   }
   Ensure-RootPluginJson $PluginSrc
-  Review-BundledExperts $PluginSrc
+  Review-BundledExperts $PluginSrc $false
   if ((Test-Path $PluginDst) -and (-not $Force)) {
     Write-Host "Plugin already installed: $PluginDst"
     Write-Host "Use -Force to replace it."
@@ -127,7 +180,7 @@ function Install-Plugin {
   }
   if (Test-Path $PluginDst) {
     Ensure-RootPluginJson $PluginDst
-    Review-BundledExperts $PluginDst
+    Review-BundledExperts $PluginDst $true
   }
   New-Item -ItemType Directory -Force -Path $MarketplaceRoot | Out-Null
   New-Item -ItemType Directory -Force -Path $PluginInstallRoot | Out-Null
@@ -156,6 +209,7 @@ function Install-Plugin {
   $data.plugins = @($plugins + $entry)
   $data | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $MarketplaceFile
   Write-Host "Marketplace updated: $MarketplaceFile"
+  Refresh-CodexPluginRegistration
   Write-Host "Language: $Lang"
 }
 
@@ -218,6 +272,7 @@ function Write-InstallManifest($Path) {
       "AGENTS.md marker block",
       "BUNDLES.md",
       "EXPERTS.lock.md",
+      ".codex/agents/ (optional via install-agents)",
       "specs/global/assets/",
       "specs/global/assets.generated/",
       ".codex-workflow/install.json"
@@ -253,6 +308,37 @@ function Ensure-ProjectTemplates($Path) {
     Copy-Item -Recurse -Force $source $destination
     Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
     Write-Host "Project templates ready: $destination"
+  }
+}
+
+function Install-ProjectAgents($Path) {
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    Show-Usage
+    exit 1
+  }
+  $source = Join-Path $PluginSrc ".codex/agents"
+  $destination = Join-Path $Path ".codex/agents"
+  $reviewDestination = Join-Path $Path ".codex/agents.generated"
+  if (-not (Test-Path $source)) {
+    throw "Custom agent source not found: $source"
+  }
+  New-Item -ItemType Directory -Force -Path (Join-Path $Path ".codex") | Out-Null
+  if ((Test-Path $destination) -and (-not $Force)) {
+    if (Test-Path $reviewDestination) {
+      Remove-Item -Recurse -Force $reviewDestination
+    }
+    Copy-Item -Recurse -Force $source $reviewDestination
+    Get-ChildItem -Path $reviewDestination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
+    Write-Host "Existing custom agents preserved: $destination"
+    Write-Host "Generated updated custom agents for review: $reviewDestination"
+    Write-Host "Next: compare agents and agents.generated, then rerun with -Force if you approve replacement."
+  } else {
+    if (Test-Path $destination) {
+      Remove-Item -Recurse -Force $destination
+    }
+    Copy-Item -Recurse -Force $source $destination
+    Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
+    Write-Host "Project custom agents ready: $destination"
   }
 }
 
@@ -431,7 +517,7 @@ function Verify-Kit {
     Write-Error "Unexpected disallowed wording found.`n$risk"
   }
   $null = [scriptblock]::Create((Get-Content -Raw (Join-Path $RootDir "scripts/install.ps1")))
-  Review-BundledExperts $PluginSrc | Out-Null
+  Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }
 
@@ -441,6 +527,7 @@ switch ($Command) {
   "bootstrap-project" { Bootstrap-Project $ProjectPath }
   "deactivate-project" { Deactivate-Project $ProjectPath }
   "update-templates" { Update-Templates $ProjectPath }
+  "install-agents" { Install-ProjectAgents $ProjectPath }
   "generate-index" { Generate-Index $ProjectPath (Join-Path $ProjectPath "specs/global/INDEX.md") $Force }
   "expert-preflight" { Write-ProjectExpertReadiness $ProjectPath }
   "all" {

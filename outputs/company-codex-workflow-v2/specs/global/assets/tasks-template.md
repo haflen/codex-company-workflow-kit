@@ -18,16 +18,21 @@
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Estimated validation level | Minimal failing case or verification anchor | Adversarial scenario | Chinese comment coverage | Documentation drift check | Depends on |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 |  |  | V0/V1/V2/V3 |  |  | business rules / calculation semantics / data mapping / exceptional branch / none |  |  |
+| ID | Task | Files / modules | Estimated validation level | Continuous eligibility | Subagent strategy | Minimal failing case or verification anchor | Adversarial scenario | Chinese comment coverage | Documentation drift check | Depends on |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T1 |  |  | V0/V1/V2/V3 | continuous / careful-continuous / must-stop | not needed / implementation / investigation / spec review / code-quality review / parallel forbidden |  |  | business rules / calculation semantics / data mapping / exceptional branch / none |  |  |
 
 ## AI Execution Notes
 
 - Keep edits scoped to the task ID being executed.
 - Do not advance to the next task when verification for the current task fails.
+- Batch only tasks marked `continuous` or `careful-continuous` after explicit user authorization.
+- Stop on `must-stop`, scope change, verification failure, V3 risk, user confirmation point, or local resource anomaly.
 - Record any assumption changes as a requirement or design update.
 - Formal tasks do not inherit spike-internal work-log IDs; create a new formal task namespace when converting spike output into production work.
+- Use subagents only for independent implementation, independent investigation, or independent review. Forbid parallel subagents when tasks edit the same file, state model, database migration, API contract, or public-doc section.
+- The main agent must review subagent diffs, verification evidence, documentation drift, and remaining risk.
+- Actual subagent invocation requires an explicit user request. For stable company roles, first run `bash scripts/install.sh install-agents <project-path> --lang en` to generate `.codex/agents/`.
 
 ## Verification Plan
 
@@ -43,6 +48,20 @@
 - V3: production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix.
 
 The final validation level is confirmed by implementation or bugfix before completion.
+
+## Continuous Implementation Plan
+
+| Task range | Continuous allowed | Stop conditions | Recommended phrase |
+| --- | --- | --- | --- |
+|  |  | scope change / verification failure / V3 risk / user confirmation / local resource anomaly | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+
+## Subagent Split Plan
+
+Subagent capability status:
+
+| Task range | Subagent recommended | Subagent role | Allowed files | Prohibited actions | Main-agent review method |
+| --- | --- | --- | --- | --- | --- |
+|  | not needed / recommended / strongly recommended | implementation / investigation / spec review / code-quality review / test-strategy review |  |  | diff / verification evidence / documentation drift / remaining risk |
 
 ## Documentation Drift Check
 
