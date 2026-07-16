@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-delivery-closeout"
+  short_description: "Consolidate, verify, commit, or push completed work"
+  default_prompt: "Use $company-delivery-closeout to consolidate completed company work, verify the final candidate, and safely commit or push the current business branch."

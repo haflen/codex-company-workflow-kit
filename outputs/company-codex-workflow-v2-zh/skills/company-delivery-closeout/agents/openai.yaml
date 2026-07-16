@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-delivery-closeout"
+  short_description: "规整成果、验证并安全提交或推送业务分支"
+  default_prompt: "Use $company-delivery-closeout to consolidate completed company work, verify the final candidate, and safely commit or push the current business branch."
