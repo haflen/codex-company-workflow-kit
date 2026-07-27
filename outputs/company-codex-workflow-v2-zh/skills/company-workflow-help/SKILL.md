@@ -61,7 +61,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 原型反馈改变目标、范围、验收标准或业务规则：先回 `company-feature-requirements` 更新权威文档，再继续原型。
 - 用户只确认需求和原型：转为需求基线后停止，不进入技术设计或任务拆分。
 - 用户确认需求和原型并明确说“进入技术设计”：转为基线后进入 `company-feature-design`，仍不创建任务。
-- 真实 API、数据库、认证、生产组件、性能或技术可行性：停止需求原型，改判 `company-spike-research` 或已授权的 `company-feature-design`。
+- 真实 API、数据库、认证、生产数据/组件、后端、数据库结构、基础设施、性能或技术可行性：停止需求原型，改判 `company-spike-research` 或已授权的 `company-feature-design`。
 
 模糊的“确认”“继续”“下一步”只延续当前需求/原型阶段。不得输出“页面设计已确认，进入任务拆解”等自动跨阶段结论。
 

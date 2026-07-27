@@ -40,7 +40,7 @@ description: Use when 公司项目的任务批次、功能、里程碑或版本�
 - `cleanup-candidate`：有来源证据的临时产物。
 - `blocking-unknown`：归属、用途或安全性不明。
 
-需求原型按来源分类：`prototype.json` 登记且尚未转基线的草稿为 `cleanup-candidate`；已确认并位于权威需求同级 `prototype/` 的基线为 `include`；没有清单或需求链接证明归属的原型为 `blocking-unknown`。
+需求原型按来源和状态分类：`prototype.json` 登记且仍处于活动/待确认状态的草稿为 `retain-but-exclude`，并记录延期或后续确认入口；已撤回、被替换，或已完成基线校验的来源草稿才是 `cleanup-candidate`；已确认并位于权威需求同级 `prototype/` 的基线为 `include`；没有清单或需求链接证明归属的原型为 `blocking-unknown`。
 
 出现 `blocking-unknown` 时停止删除、commit 和 push。不得整仓暂存。
 
@@ -58,7 +58,7 @@ description: Use when 公司项目的任务批次、功能、里程碑或版本�
 删除前先输出候选清单、来源、创建者/命令、是否被跟踪、保留价值和计划动作。
 
 - 仅自动删除当前 workflow 明确创建、有路径记录且不是正式成果的临时文件。
-- 原型草稿只能删除 `prototype.json.owned_files` 能证明归属且已完成基线校验的路径。
+- 原型草稿只能在状态为已撤回/被替换，或基线校验已完成时删除，并且 `prototype.json.owned_files` 必须能证明路径归属。
 - 重复产生但应长期忽略的文件，只提出项目级 `.gitignore` 建议。
 - 日志证据、数据库、附件、设计资产、嵌套仓库和来源不明文件必须保留并停止确认。
 

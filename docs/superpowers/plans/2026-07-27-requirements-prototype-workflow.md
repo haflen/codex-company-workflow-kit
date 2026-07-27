@@ -140,7 +140,7 @@ Expected: 所有断言通过。
 
 - [ ] **Step 4: 在 delivery-closeout 中识别原型产物**
 
-清单登记草稿归为 `cleanup-candidate`，已确认基线归为 `include`，没有清单来源的原型归为 `blocking-unknown`。删除仍受现有 dry-run 和来源证明约束。
+清单登记且活动/待确认的草稿归为 `retain-but-exclude`；已撤回、被替换或完成基线校验的来源草稿归为 `cleanup-candidate`；已确认基线归为 `include`；没有清单来源的原型归为 `blocking-unknown`。删除仍受现有 dry-run 和来源证明约束。
 
 - [ ] **Step 5: 验证路由与禁令**
 

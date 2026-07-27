@@ -65,7 +65,7 @@ Users do not classify prototype stages themselves. Route by purpose and dependen
 - Feedback changes goals, scope, acceptance criteria, or business rules: update authority through `company-feature-requirements`, then continue the prototype.
 - The user confirms only requirements and prototype: promote the requirements baseline and stop; do not enter design or planning.
 - The user confirms both and explicitly authorizes technical design: promote, then enter `company-feature-design`; do not create tasks.
-- Real APIs, databases, authentication, production components, performance, or feasibility: stop and choose `company-spike-research` or explicitly authorized design.
+- Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility: stop and choose `company-spike-research` or explicitly authorized design.
 
 Ambiguous “confirm”, “continue”, or “next” continues the current requirements/prototype stage. Never infer “page design confirmed; start task planning.”
 
