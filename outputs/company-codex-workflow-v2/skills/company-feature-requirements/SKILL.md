@@ -18,7 +18,8 @@ Provide a Codex-ready requirements workflow.
 5. Decide whether an independent business-rules document is needed. Create or update `business-rules.md` only when trigger conditions are met; do not force it on small requests.
 6. For L2/L3 or complex business rules, add a first-principles check: core assumptions, non-negotiable constraints, and minimum conditions.
 7. Write Given-When-Then acceptance criteria and include key counterexamples or abnormal scenarios.
-8. Stop after requirements unless the user explicitly gives the design handoff signal.
+8. When the user wants to validate pages, interactions, copy, or mock states during requirements, route to `company-requirements-prototype`. If prototype feedback changes requirements, update the authoritative requirements or `business-rules.md` before continuing the prototype.
+9. Stop after requirements. Prototype confirmation authorizes only promotion to a requirements baseline; do not enter design or create tasks without an explicit design handoff.
 
 ## Superpowers Layer
 
@@ -54,7 +55,7 @@ If none apply, output: `Business rules document: not needed, reason: ...`.
 
 ## Boundary
 
-Requirements work must not modify implementation code or prescribe low-level architecture.
+Requirements work must not modify production implementation code or prescribe low-level architecture. Only `company-requirements-prototype` may edit an isolated, mock-only prototype under `.codex-workflow/prototypes/<feature>/draft/`; production source remains forbidden.
 
 ## Output
 

@@ -18,7 +18,8 @@ description: Use when a company project needs feature requirements, acceptance c
 5. 判断是否需要独立业务规则文档。只有命中触发条件时才创建或更新 `business-rules.md`，小需求不要强制增加文档。
 6. L2/L3 或业务规则复杂时，补充第一性原理检查：核心假设、不可破坏约束、最小成立条件。
 7. 编写 Given-When-Then 验收标准，并至少列出关键反例或异常场景。
-8. 需求阶段结束后停止，除非用户明确给出设计交接口令。
+8. 用户希望在需求阶段验证页面、交互、文案或模拟状态时，路由到 `company-requirements-prototype`；原型反馈改变需求时，先更新权威需求或 `business-rules.md`，再继续原型。
+9. 需求阶段结束后停止。原型确认只允许转为需求基线；除非用户明确给出设计交接口令，否则不得进入技术设计，更不得创建任务。
 
 ## Superpowers 叠加
 
@@ -54,7 +55,7 @@ description: Use when a company project needs feature requirements, acceptance c
 
 ## 边界
 
-需求工作不得修改实现代码，也不要规定过细的底层架构。
+需求工作不得修改生产实现代码，也不要规定过细的底层架构。只有 `company-requirements-prototype` 可以在 `.codex-workflow/prototypes/<feature>/draft/` 修改隔离、模拟数据的需求原型；生产源码仍禁止修改。
 
 ## 输出格式
 

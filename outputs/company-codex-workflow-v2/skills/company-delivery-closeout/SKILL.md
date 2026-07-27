@@ -40,6 +40,8 @@ Use read-only status and diffs to inventory code, tests, configuration, migratio
 - `cleanup-candidate`: temporary and provenance-confirmed.
 - `blocking-unknown`: ownership, purpose, or safety is unclear.
 
+Classify requirements prototypes by provenance: a manifest-owned unpromoted draft is a `cleanup-candidate`; a confirmed baseline under `prototype/` beside authoritative requirements is `include`; a prototype with no manifest or requirements link is `blocking-unknown`.
+
 Any `blocking-unknown` stops deletion, commit, and push. Never stage the whole repository.
 
 ## Phase 3: Reconcile Documents and Results
@@ -56,6 +58,7 @@ If code and documents conflict and cannot be reconciled unambiguously, stop Git 
 Before deletion, report each candidate's path, origin, creator/command, tracked state, retention value, and proposed action.
 
 - Auto-delete only workflow-created temporary files with recorded paths that are not formal artifacts.
+- Delete prototype drafts only when `prototype.json.owned_files` proves ownership and baseline verification is complete.
 - For recurring generated files that should stay untracked, only propose a project `.gitignore` change.
 - Preserve and stop for logs used as evidence, databases, attachments, design assets, nested repositories, and unknown files.
 

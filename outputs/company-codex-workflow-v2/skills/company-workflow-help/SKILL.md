@@ -30,6 +30,7 @@ Use the user's current goal, project state, and available artifacts:
 | Explore only; no code or formal docs / 只想探讨，不写代码，不落正式文档 | L0 | `company-feature-requirements` lightweight mode | `superpowers:brainstorming` | `Lightweight exploration: discuss options only; no code or formal document.` |
 | Small copy, field, UI, or config change / 文案、字段、小 UI、小配置 | L1 | lightweight planning or `company-implementation-runner` | Usually none; behavior changes use `superpowers:test-driven-development` | `Small change: handle lightly and give verification evidence.` |
 | Idea or request is unclear / 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
+| Requirements need an HTML/page/interaction prototype before design / 需求阶段先做原型 | L1/L2 | `company-requirements-prototype` | `superpowers:brainstorming` for first/material UX changes; add `company-expert-routing` for non-trivial UI | `Validate these requirements with an isolated HTML prototype; do not enter technical design.` |
 | Operation logic, metric formulas, calculation semantics, state transitions, or exception handling / 操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` and decide whether to create `business-rules.md` | `superpowers:brainstorming`; add `company-expert-routing` when needed | `帮我梳理这个功能的业务规则和计算口径：...` |
 | Implementation has started, but a missing architecture layer, data-preparation layer, table, API boundary, business semantics, or doc update appears / 已经进入实现但发现遗漏架构层、数据加工层、表、接口边界、业务口径或文档需要同步 | L2/L3 | Trigger scope-change circuit breaker; route back to `company-feature-requirements` or `company-feature-design`, then planning if needed | `superpowers:brainstorming`; use `company-expert-routing` for phase permission | `发现范围变化：先补文档和确认，不写代码。` |
 | Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when L2/L3 solution comparison is triggered | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
@@ -55,6 +56,18 @@ Use the user's current goal, project state, and available artifacts:
 - L1: small change; minimal context and minimal verification.
 - L2: standard delivery through requirements, design, planning, and implementation.
 - L3: high-risk change with full workflow, expert routing, strict verification, and user confirmation.
+
+## Requirements Prototype Routing
+
+Users do not classify prototype stages themselves. Route by purpose and dependency boundary:
+
+- Page, interaction, copy, and mock-state validation: use `company-requirements-prototype` and remain in requirements.
+- Feedback changes goals, scope, acceptance criteria, or business rules: update authority through `company-feature-requirements`, then continue the prototype.
+- The user confirms only requirements and prototype: promote the requirements baseline and stop; do not enter design or planning.
+- The user confirms both and explicitly authorizes technical design: promote, then enter `company-feature-design`; do not create tasks.
+- Real APIs, databases, authentication, production components, performance, or feasibility: stop and choose `company-spike-research` or explicitly authorized design.
+
+Ambiguous “confirm”, “continue”, or “next” continues the current requirements/prototype stage. Never infer “page design confirmed; start task planning.”
 
 ## Conversation Handoff Routing / 对话交接路由
 

@@ -1,6 +1,6 @@
 ---
 name: company-spike-research
-description: Use when company work needs a time-boxed technical feasibility experiment, unfamiliar library evaluation, prototype, or architecture uncertainty reduction before design.
+description: Use when company work needs a time-boxed technical feasibility experiment, unfamiliar library evaluation, technical prototype, performance evidence, or architecture uncertainty reduction before design.
 ---
 
 # Company Spike Research
@@ -11,7 +11,7 @@ Provide a controlled Codex spike workflow.
 
 ## Workflow
 
-1. State the spike question and time box.
+1. Classify the validation purpose first: only technology, architecture, performance, or library feasibility is a spike. Route page, interaction, copy, or mock business-state validation to `company-requirements-prototype`. Then state the spike question and time box.
 2. Explicitly use `superpowers:brainstorming` when multiple experiment paths are possible.
 3. State the first-principles hypothesis: what must be proven, the minimum conditions, and what evidence would disprove it.
 4. Confirm the spike numbering namespace, for example `SPK02`; spike-internal tasks use `SPK02-T001`, never bare `Task 001`.
@@ -38,6 +38,7 @@ When a spike template is needed, resolve it in this order:
 ## Boundary
 
 Spike code is not production code unless explicitly reviewed and converted through the normal design and implementation flow.
+Requirements-stage page prototypes do not belong here; never use a spike to bypass requirements-prototype confirmation and baseline rules.
 The spike work log is not the project entry page; do not write spike-internal task IDs into `说明文档.md` as project-mainline task IDs.
 Before a spike branch is merged, do not write temporary spike conclusions as the public document's mainline current state.
 

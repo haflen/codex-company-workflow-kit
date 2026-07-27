@@ -11,7 +11,7 @@ Provide a Codex-ready design workflow.
 
 ## Workflow
 
-1. Confirm requirements exist and include acceptance criteria.
+1. Confirm requirements exist, include acceptance criteria, and the user explicitly authorized technical design. A requirements prototype or its confirmed status is not design authorization.
 2. Read routed project context, existing patterns, and relevant source files; if requirements say `business-rules.md` is needed, read business rules and calculation semantics first.
 3. Run a solution-comparison level decision: L1 small changes may skip comparison with a reason; L2/L3 work that hits trigger conditions must compare 2-3 options.
 4. When solution comparison is required, explicitly use `superpowers:brainstorming` and output the recommended option, alternatives, tradeoffs, and user-confirmation point.
@@ -55,6 +55,8 @@ If requirements link `business-rules.md`, the design artifact must list it under
 ## Boundary
 
 Design work must not edit implementation code.
+
+If the user confirmed only a requirements prototype, stop and route to `company-requirements-prototype` to complete its baseline; do not infer design or task-planning authorization.
 
 Design work after a scope change must not flow directly back into implementation. It must go through task planning and wait for user confirmation of the new scope.
 

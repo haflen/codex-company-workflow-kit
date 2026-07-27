@@ -1,6 +1,6 @@
 ---
 name: company-spike-research
-description: Use when company work needs a time-boxed technical feasibility experiment, unfamiliar library evaluation, prototype, or architecture uncertainty reduction before design.
+description: Use when company work needs a time-boxed technical feasibility experiment, unfamiliar library evaluation, technical prototype, performance evidence, or architecture uncertainty reduction before design.
 ---
 
 # 公司 Spike 预研
@@ -11,7 +11,7 @@ description: Use when company work needs a time-boxed technical feasibility expe
 
 ## 工作流
 
-1. 明确 spike 问题和时间盒。
+1. 先区分验证目的：技术、架构、性能或库可行性才是 spike；页面、交互、文案或模拟业务状态验证改用 `company-requirements-prototype`。然后明确 spike 问题和时间盒。
 2. 实验方案不唯一时，显式叠加 `superpowers:brainstorming`，比较 2-3 个最小实验路径。
 3. 写出第一性原理假设：要证明什么、最小成立条件是什么、什么证据会推翻它。
 4. 确认 spike 编号命名空间，例如 `SPK02`；spike 内部任务使用 `SPK02-T001`，不使用裸 `任务 001`。
@@ -38,6 +38,7 @@ description: Use when company work needs a time-boxed technical feasibility expe
 ## 边界
 
 Spike 代码默认不是生产代码，除非经过正常设计和实现流程转正。
+需求阶段页面原型不属于本 skill，不得用 spike 绕过需求原型的确认和基线规则。
 Spike 工作日志不是项目入口页；不要把 spike 内部任务号写入 `说明文档.md` 作为项目主线任务号。
 Spike 分支未合并前，不要把 spike 临时结论写成公共文档的主线当前状态。
 

@@ -11,7 +11,7 @@ description: Use when company feature requirements are confirmed and a technical
 
 ## 工作流
 
-1. 确认需求已存在，并包含验收标准。
+1. 确认需求已存在、包含验收标准，并且用户已明确授权进入技术设计。需求原型或其确认状态本身不构成设计授权。
 2. 阅读项目上下文、现有模式和相关源文件；如果需求判定需要 `business-rules.md`，必须先读取业务规则与计算口径。
 3. 执行方案对比分级判定：L1 小改动可跳过但必须说明原因；L2/L3 命中触发条件时必须比较 2-3 个方案。
 4. 需要方案对比时，显式叠加 `superpowers:brainstorming`，输出推荐方案、备选方案、取舍和用户确认点。
@@ -55,6 +55,8 @@ description: Use when company feature requirements are confirmed and a technical
 ## 边界
 
 设计工作不得编辑实现代码。
+
+如果用户只确认了需求原型，停止并回到 `company-requirements-prototype` 完成需求基线；不得据此进入设计或任务拆分。
 
 范围变化后的设计工作不得直接接回实现；必须先进入任务拆解，并等待用户确认新任务范围。
 

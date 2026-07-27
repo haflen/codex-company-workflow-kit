@@ -26,6 +26,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 只想探讨想法，不写代码，不落正式文档 | L0 | `company-feature-requirements` 轻量模式 | `superpowers:brainstorming` | `轻量探讨：只聊方案，不写代码，不落正式文档。` |
 | 文案、字段、小 UI、小配置等低风险小改动 | L1 | 轻量 planning 或 `company-implementation-runner` | 通常无；涉及行为时用 `superpowers:test-driven-development` | `小改动：轻量处理，给我验证结果。` |
 | 想法或需求还不清楚 | L2 | `company-feature-requirements` | `superpowers:brainstorming` | `帮我梳理这个功能需求：...` |
+| 需求阶段需要先画、预览、修改或确认 HTML/页面/交互原型 | L1/L2 | `company-requirements-prototype` | 首次或实质性体验变化用 `superpowers:brainstorming`；非简单 UI 再用 `company-expert-routing` | `需求还没冻结，先做隔离 HTML 原型验证，不进入技术设计。` |
 | 需要梳理操作逻辑、指标公式、计算口径、状态流转或异常处理 | L2/L3 | `company-feature-requirements` 并判定是否创建 `business-rules.md` | `superpowers:brainstorming`，必要时 `company-expert-routing` | `帮我梳理这个功能的业务规则和计算口径：...` |
 | 已经进入实现，但发现遗漏架构层、数据加工层、表、接口边界、业务口径或文档需要同步 | L2/L3 | 触发范围变化熔断；回到 `company-feature-requirements` 或 `company-feature-design`，必要时再进 `company-feature-planning` | `superpowers:brainstorming`，并用 `company-expert-routing` 判断阶段许可 | `发现范围变化：先补文档和确认，不写代码。` |
 | 需求和验收标准已确认 | L2 | `company-feature-design` | L2/L3 方案对比触发时使用 `superpowers:brainstorming` | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
@@ -51,6 +52,18 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - L1：小改动，最小上下文、最小任务卡、最小验证。
 - L2：标准交付，按需求、设计、任务、实现推进。
 - L3：高风险变更，完整流程、专家路由、严格验证和用户确认。
+
+## 需求原型路由
+
+用户不需要自己判断原型属于哪个阶段。按目的和依赖边界自动处理：
+
+- 页面、交互、文案和模拟业务状态验证：进入 `company-requirements-prototype`，保持需求阶段。
+- 原型反馈改变目标、范围、验收标准或业务规则：先回 `company-feature-requirements` 更新权威文档，再继续原型。
+- 用户只确认需求和原型：转为需求基线后停止，不进入技术设计或任务拆分。
+- 用户确认需求和原型并明确说“进入技术设计”：转为基线后进入 `company-feature-design`，仍不创建任务。
+- 真实 API、数据库、认证、生产组件、性能或技术可行性：停止需求原型，改判 `company-spike-research` 或已授权的 `company-feature-design`。
+
+模糊的“确认”“继续”“下一步”只延续当前需求/原型阶段。不得输出“页面设计已确认，进入任务拆解”等自动跨阶段结论。
 
 ## 对话交接路由
 
