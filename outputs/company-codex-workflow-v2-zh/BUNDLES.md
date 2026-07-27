@@ -21,6 +21,7 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 | `company-python-service` | Python 服务、自动化、API、异步任务 | `business-analyst`, `python-pro`, `testing-qa` | `python-patterns`, `systematic-debugging` |
 | `company-django-service` | Django、DRF、Celery、Channels、ORM 密集工作 | `business-analyst`, `django-pro`, `testing-qa` | `python-pro`, `webapp-testing` |
 | `company-frontend-delivery` | 前端行为、React/Next/Vue、UI 状态、可访问性、浏览器验证 | `product-manager`, `frontend-developer`, `typescript-expert`, `testing-qa` | `frontend-design`, `webapp-testing` |
+| `company-requirements-prototyping` | 需求阶段的隔离 HTML、页面或交互原型验证，不进入技术设计 | `company-feature-requirements`, `company-requirements-prototype`, `frontend-design`, `webapp-testing` | 复杂交互增加 `frontend-developer`；复杂业务规则增加 `business-analyst` |
 | `company-ai-feature` | LLM、RAG、prompt、agent workflow、AI 安全、Provider API 设计 | `product-manager`, `ai-product`, `testing-qa` | `python-pro`, `frontend-developer` |
 | `company-hotfix` | 紧急生产缺陷或回滚敏感变更 | `systematic-debugging`, `testing-qa` | 匹配故障区域的技术栈专家 |
 | `company-spike` | 限时可行性验证、不熟悉库、架构不确定性 | 匹配问题的技术栈专家 | `ai-product`, `webapp-testing`, `testing-qa` |
@@ -32,7 +33,7 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 
 | 阶段 | Bundle 使用 |
 | --- | --- |
-| 需求 | 通常使用 `company-core-delivery`；AI 行为是产品本身时使用 `company-ai-feature`。 |
+| 需求 | 通常使用 `company-core-delivery`；AI 行为是产品本身时使用 `company-ai-feature`；需要页面/交互原型验证时使用 `company-requirements-prototyping`。 |
 | 设计 | 选择承担主要架构风险的技术栈 bundle。 |
 | 规划 | 延续设计阶段 bundle；验证策略不清楚时加入 `testing-qa`。 |
 | 实现 | 只有实现选择依赖专家知识时才使用设计阶段 bundle。 |

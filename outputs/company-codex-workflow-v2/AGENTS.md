@@ -44,11 +44,13 @@ When multiple branches run in parallel, public entry documents represent mainlin
 
 ## Phase Boundaries
 
-- Requirements work produces goals, scope, acceptance criteria, and edge cases. Do not edit implementation code.
+- Requirements work produces goals, scope, acceptance criteria, and edge cases. Do not edit production implementation code. Page/interaction validation may edit only isolated mock prototypes under `.codex-workflow/prototypes/<feature>/draft/` through `company-requirements-prototype`.
 - Design work produces architecture, contracts, data flow, risks, and test strategy. Do not edit implementation code.
 - Planning work produces executable tasks and verification points. Do not edit implementation code.
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
-- Ambiguous "continue" means continue the current phase, not advance to the next phase.
+- Prototype confirmation authorizes only a requirements baseline under `prototype/` beside the authoritative requirements. Do not enter design or planning unless the user explicitly authorizes technical design.
+- Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility requests stop requirements-prototype work and reroute to a spike or authorized design.
+- Ambiguous "confirm", "continue", or "next" means continue the current phase, not advance to the next phase.
 
 ## Delivery Closeout Boundary
 

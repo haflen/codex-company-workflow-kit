@@ -21,6 +21,7 @@ The workflow should pick the smallest matching bundle automatically. Users may s
 | `company-python-service` | Python services, automation, FastAPI-style APIs, async jobs | `business-analyst`, `python-pro`, `testing-qa` | `python-patterns`, `systematic-debugging` |
 | `company-django-service` | Django, DRF, Celery, Channels, ORM-heavy work | `business-analyst`, `django-pro`, `testing-qa` | `python-pro`, `webapp-testing` |
 | `company-frontend-delivery` | Frontend behavior, React/Next/Vue, UI states, accessibility, browser validation | `product-manager`, `frontend-developer`, `typescript-expert`, `testing-qa` | `frontend-design`, `webapp-testing` |
+| `company-requirements-prototyping` | Isolated HTML, page, or interaction validation during requirements without entering technical design | `company-feature-requirements`, `company-requirements-prototype`, `frontend-design`, `webapp-testing` | add `frontend-developer` for complex interaction; add `business-analyst` for complex business rules |
 | `company-ai-feature` | LLM, RAG, prompt, agent workflow, AI safety, provider API design | `product-manager`, `ai-product`, `testing-qa` | `python-pro`, `frontend-developer` |
 | `company-hotfix` | Urgent production defect or rollback-sensitive change | `systematic-debugging`, `testing-qa` | stack expert matching the failing area |
 | `company-spike` | Time-boxed feasibility, unfamiliar library, architecture uncertainty | stack expert matching the question | `ai-product`, `webapp-testing`, `testing-qa` |
@@ -32,7 +33,7 @@ The workflow should pick the smallest matching bundle automatically. Users may s
 
 | Phase | Bundle Use |
 | --- | --- |
-| Requirements | Usually `company-core-delivery`; use `company-ai-feature` when AI behavior is the product. |
+| Requirements | Usually `company-core-delivery`; use `company-ai-feature` when AI behavior is the product; use `company-requirements-prototyping` for page/interaction prototype validation. |
 | Design | Pick the stack bundle that owns the architecture risk. |
 | Planning | Keep the design bundle; add `testing-qa` if verification is unclear. |
 | Implementation | Use the selected design bundle only when implementation choices depend on expert knowledge. |

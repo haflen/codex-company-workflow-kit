@@ -26,10 +26,12 @@ These instructions define the team workflow for Codex in this project. Keep chan
 
 ## Phase Boundaries
 
-- Requirements clarification produces acceptance criteria and edge cases. Do not edit implementation code in this phase.
+- Requirements clarification produces acceptance criteria and edge cases. Do not edit production implementation code. Page/interaction validation may edit only isolated mock prototypes under `.codex-workflow/prototypes/<feature>/draft/`.
 - Technical design produces architecture, API/data contracts, risk notes, and test strategy. Do not edit implementation code in this phase.
 - Implementation begins only after requirements and design are confirmed, unless the user explicitly invokes `/spike` or `/hotfix`.
-- Ambiguous "continue" means continue the current phase, not advance to coding.
+- Prototype confirmation authorizes only a requirements baseline under `prototype/` beside authoritative requirements; do not enter design or planning without explicit authorization.
+- Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility requests stop and reroute requirements-prototype work.
+- Ambiguous "confirm", "continue", or "next" means continue the current phase, not advance to design or coding.
 
 ## Phase Consistency Preflight
 

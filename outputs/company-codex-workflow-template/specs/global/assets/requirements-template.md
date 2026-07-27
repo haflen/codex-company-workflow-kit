@@ -54,6 +54,19 @@ Use observable criteria. Prefer:
 | --- | --- | --- | --- |
 |  |  |  |  |
 
+## Requirements Prototype Validation (Optional)
+
+Keep this section only when `company-requirements-prototype` is used; otherwise remove it to keep small requirements lightweight.
+
+- Status: draft iteration / awaiting confirmation / confirmed / withdrawn
+- Validation target:
+- Draft path:
+- Baseline version and path:
+- Validated pages, interactions, states, and copy:
+- Details not promised by the prototype:
+- User feedback and requirements changes:
+- Confirmation date and SHA-256:
+
 ## Traceability
 
 - Follow-up design:
