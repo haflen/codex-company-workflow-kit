@@ -68,5 +68,5 @@
 - [x] Validate both language plugins.
 - [x] Run structural searches for all routes, levels, receipt fields, and knowledge boundaries.
 - [x] Re-run pressure scenarios and confirm corrected behavior.
-- [ ] Install only the Chinese company plugin locally.
-- [ ] Commit and push tracked company changes without staging unrelated files.
+- [x] Install only the Chinese company plugin locally.
+- [x] Commit and push tracked company changes without staging unrelated files.
