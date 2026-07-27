@@ -61,12 +61,15 @@ When multiple branches run in parallel, public entry documents represent mainlin
 
 ## Conversation Handoff
 
-- Use `company-thread-handoff` when a long conversation is about to switch, pause, continue later, or transfer ownership.
+- Use `company-thread-handoff` when a long conversation must switch, pause, continue later, or transfer ownership; select `resume / compact / fork / handoff` first.
+- Prefer resume for the same task, compact for context length only, fork when complete history matters, and a capsule only for a clean context.
 - Output in chat by default; overwrite `.codex/handoff/current.md` only on explicit request.
 - Keep one active task and mark side topics out of scope and unauthorized.
-- A new conversation performs risk-based checks of path, branch, working tree, key files, unfinished work, and authorization.
+- Use `quick / standard / decision-rich` capsules; select `decision-rich` for product, architecture, business-rule, calculation, data, security, or rejected-option history.
+- The target verifies path, branch, working tree, key files, unfinished work, and authorization, then restates goal, decisions, constraints, state, pending work, and permission.
+- Fork or cross-task sending requires explicit user intent and a known target; report sent, read, and semantic receipt state.
 - Project facts override the handoff. It does not replace `company-context-index` or formal documents and grants no implementation authorization.
-- Workflows may recommend a handoff after a phase, on scope confusion, with dirty changes, running services, or incomplete verification, but never generate or write it automatically.
+- Workflows may recommend a continuity route after a phase, on scope confusion, with dirty changes, running services, or incomplete verification, but never silently write a file or create a task.
 
 ## Continuous Implementation Mode
 

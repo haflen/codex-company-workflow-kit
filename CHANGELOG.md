@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.25 - 2026-07-27
+
+- Replaced summary-only conversation handoff with outcome-first `resume`, `compact`, `fork`, and clean `handoff` routing.
+- Added `quick`, `standard`, and `decision-rich` capsules, including rejected decisions and reopening conditions for complex company work.
+- Added explicit transfer lifecycle and semantic receipt checks so target tasks restate goals, decisions, constraints, state, pending work, and authorization.
+- Added accurate historical-knowledge boundaries and fallback behavior when native Codex task controls are unavailable.
+- Updated bilingual skills, project guardrails, user guidance, manifests, and local installation metadata.
+
 ## 0.2.24 - 2026-07-16
 
 - Added bilingual `company-delivery-closeout` skills with `prepare`, `commit`, and `deliver` modes for completed task batches, features, milestones, and version phases.

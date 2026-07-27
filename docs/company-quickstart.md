@@ -210,13 +210,18 @@ bash scripts/install.sh install-agents /path/to/project --lang zh
 
 ## 长对话续接
 
-准备换新对话时，说：
+先按实际需求选择一句：
 
 ```text
-生成当前任务交接摘要，我准备开新对话。
+继续原任务。
+压缩当前任务后继续。
+完整继承历史并创建新任务。
+生成标准交接并发送到新任务。
 ```
 
-默认只输出摘要，不新增项目文档。确实需要文件时，明确要求覆盖 `.codex/handoff/current.md`；新对话读取后会先风险分级验证，不能直接继承旧对话的实现授权。`company-thread-handoff` 管临时任务状态，`company-context-index` 管项目长期上下文，两者职责不同。
+目标不变只担心长度时用 compact；完整历史都重要时用 fork；需要干净上下文和较低 token 时用 handoff。交接分为 `quick / standard / decision-rich`，用户不需要手动判级。
+
+默认不新增项目文档。确实需要文件时，明确要求覆盖 `.codex/handoff/current.md`。目标对话会核对项目事实并复述目标、决策、约束、状态、未完成事项和授权；语义校验通过后才继续高风险动作。`company-thread-handoff` 管临时任务状态，`company-context-index` 管项目长期上下文。
 
 ## 里程碑交付收口
 

@@ -10,7 +10,7 @@
 - 专家 skills 通过 bundle 自动路由；安装和项目初始化会自动生成专家就绪和安全审查报告。
 - 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
-- 长对话可以用 `company-thread-handoff` 生成精简任务交接摘要；新对话会先做风险分级核对，不盲目继承旧状态或实现授权。
+- 长对话由 `company-thread-handoff` 自动建议继续、压缩、完整 fork 或分级交接；目标对话必须完成接收校验，不盲目继承旧状态或实现授权。
 - 所有任务完成后可用 `company-delivery-closeout` 规整代码、文档和临时产物，重新验证最终候选，并按授权本地提交或普通推送当前业务分支。
 - 每轮执行会显式区分实际调用的 Superpowers/专家/插件/subagents 能力，以及未调用但采用的专家或拆分视角；subagents 会额外说明能力状态和是否需要用户显式请求。
 
@@ -321,19 +321,24 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 
 ## 常用说法
 
-长对话准备切换到新对话：
+长对话切换先按实际需要选择：
 
 ```text
-生成当前任务交接摘要，我准备开新对话。
+继续原任务。
+压缩当前任务后继续。
+完整继承历史并创建新任务。
+生成标准交接并发送到新任务。
 ```
 
-默认只在回复中输出。需要本地文件时明确说“并覆盖 `.codex/handoff/current.md`”。新对话可说：
+只担心上下文太长时优先压缩；全部历史不能丢时使用 fork；进入新里程碑或希望降低 token 时使用标准交接。涉及产品边界、架构、业务规则、计算、数据、安全或多个被否方案时，自动升级为 `decision-rich`。
+
+交接默认只在回复中输出。需要本地文件时明确说“并覆盖 `.codex/handoff/current.md`”。新对话可说：
 
 ```text
 读取 .codex/handoff/current.md，验证当前状态后继续任务。
 ```
 
-`company-thread-handoff` 只传递当前主任务的临时状态；`company-context-index` 仍负责项目长期导航。旁支事项默认未授权，项目当前事实优先于旧交接摘要。
+`company-thread-handoff` 只传递当前主任务的临时状态；`company-context-index` 仍负责项目长期导航。目标对话会复述目标、关键决策、约束、状态、未完成事项和授权，确认语义一致后再继续。
 
 ```text
 我现在该走哪个流程？背景是：<当前情况>

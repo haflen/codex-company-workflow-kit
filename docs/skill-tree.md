@@ -92,7 +92,7 @@
 | --- | --- | --- |
 | `company-workflow-help` | 帮用户判断应该进入哪条工作流 | User is unsure where to start, asks what to do next, or needs a prompt phrase. |
 | `company-context-index` | 建立或更新项目上下文索引 | Starting or resuming company work and needing project context routing. |
-| `company-thread-handoff` | 生成或接手长对话的临时任务交接摘要 | Opening a new conversation, pausing unfinished work, or verifying and resuming a handoff. |
+| `company-thread-handoff` | 选择继续、压缩、完整 fork 或分级交接，并校验目标对话理解 | Continuing, compacting, forking, or transferring a long conversation with verified receipt. |
 | `company-workflow-health-check` | 检查项目工作流健康度、模板新旧、插件暴露和旧规则残留 | Project workflow adoption, templates, plugin exposure, or old rules need diagnosis. |
 | `company-legacy-project-onboarding` | 旧项目接入、索引草稿确认、首个试点选择 | Introducing the workflow into an existing project or reviewing generated project context. |
 | `company-feature-requirements` | 澄清需求、范围、验收标准 | Feature requirements, acceptance criteria, scope, or change-request requirements are needed. |
@@ -116,7 +116,7 @@
 - 用户不需要主动判断 `light/full-audit`。入口和执行 workflow 会自动判定：普通推进用 `light`，阶段交接、完成报告、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用或验证缺失时用 `full-audit`。
 - 用户也不需要手动输入“从第一性原理出发”或“做对抗式审查”。复杂设计、bugfix、spike 和完成前验证会自动触发；普通小改动可跳过但需要说明原因。
 - `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
-- `company-thread-handoff` 只负责旧对话到新对话的临时状态传递：默认不落文件，明确要求时只覆盖 `.codex/handoff/current.md`；它不替代 `company-context-index`，也不产生实现授权。
+- `company-thread-handoff` 先选择 `resume / compact / fork / handoff`；只有 handoff 才生成 `quick / standard / decision-rich` 胶囊。默认不落文件，目标对话必须完成语义校验；它不替代 `company-context-index`，也不产生实现授权。
 - `business-rules.md` 不是每个需求都要写。只有指标公式、操作逻辑、状态流转、字段口径、异常数据、角色差异或复杂权限等场景触发；触发后由需求阶段创建，设计阶段映射，任务阶段转成验证点。
 - 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
 - 验证等级不是用户手动选择。实现、bugfix 和 hotfix 自动判定 `V0/V1/V2/V3`，并在完成报告里输出验证证据、未验证项和剩余风险。

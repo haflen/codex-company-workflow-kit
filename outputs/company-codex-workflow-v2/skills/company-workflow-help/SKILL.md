@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -45,7 +45,9 @@ Use the user's current goal, project state, and available artifacts:
 | Need expert routing explanation / 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | Depends on task: brainstorming / systematic-debugging / test-driven-development | `这个任务需要哪些专家组合？` |
 | Existing project needs adoption or context draft / 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` | `请帮我把这个旧项目接入公司 Codex 工作流` |
 | Existing project is already onboarded but needs health, freshness, or "why does this not work" diagnosis / 旧项目已接入但要检查健康度、模板新旧或插件是否生效 | L1/L2 | `company-workflow-health-check` | Usually none; add `superpowers:brainstorming` when designing a repair plan | `请检查这个项目的公司工作流健康度` |
-| Opening a new conversation, pausing unfinished work, continuing later, or transferring ownership / 准备开新对话、暂停或转交任务 | L1/L2 | `company-thread-handoff` | None; this transfers temporary task state | `Generate the current task handoff; I am opening a new conversation.` |
+| Continue later, or the current conversation is long but the goal is unchanged | L1/L2 | `company-thread-handoff` `resume/compact` | None; prefer native Codex continuity | `Continue the original task` or `Compact and continue` |
+| Open a new task without losing the complete discussion | L1/L2 | `company-thread-handoff` `fork` | None; use native Codex fork | `Create a new task with complete history` |
+| Open a clean task with decisions, state, and next action | L1/L2/L3 | `company-thread-handoff` `handoff` | None; temporary task-state transfer | `Create a standard handoff and send it to the new task` |
 
 ## Complexity Levels / 复杂度分级
 
@@ -56,11 +58,13 @@ Use the user's current goal, project state, and available artifacts:
 
 ## Conversation Handoff Routing / 对话交接路由
 
-Use a mixed model: users may invoke `company-thread-handoff` directly, and the workflow may recommend it at risk points.
+Use a mixed model: users may invoke `company-thread-handoff` directly, and the workflow may recommend it at risk points. First distinguish resume, compact, full-history fork, and clean handoff; do not turn all four outcomes into summaries.
 
-Recommend a handoff, but never generate or write one automatically, when a phase ended with work remaining, work is changing phases, the conversation shows forgotten state or scope confusion, or uncommitted changes, running services, or incomplete verification remain.
+Recommend a continuity route, but never write a file or silently create a task, when a phase ended with work remaining, work is changing phases, the conversation shows forgotten state or scope confusion, or uncommitted changes, running services, or incomplete verification remain.
 
-Default phrase: `Generate the current task handoff; I am opening a new conversation.`
+Default to compact when only length is the problem, fork when all history matters, and standard handoff for a new milestone or lower token use. Upgrade to `decision-rich` for product boundaries, architecture, business rules, calculations, data, security, rejected options, or an explicit request not to repeat prior discussion.
+
+An existing target cannot receive history retroactively. Send one indivisible capsule and require it to restate goal, decisions, constraints, state, unfinished work, and authorization. Show `generated -> sent/manual paste -> read -> semantically verified/not verified`.
 
 On explicit file-output requests, only overwrite `.codex/handoff/current.md`. A handoff does not replace `company-context-index`, formal requirements/design/tasks, or phase confirmation, and grants no implementation authorization.
 

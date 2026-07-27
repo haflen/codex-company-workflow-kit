@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, wants a command phrase, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # 公司工作流入口帮助
@@ -41,7 +41,9 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 想知道需要哪些专家组合 | L2/L3 | `company-expert-routing` | 按任务补充 `superpowers:brainstorming` / `superpowers:systematic-debugging` / `superpowers:test-driven-development` | `这个任务需要哪些专家组合？` |
 | 旧项目需要接入或生成上下文草稿 | L2 | `company-legacy-project-onboarding` | `superpowers:brainstorming` 用于试点选择和迁移策略 | `请帮我把这个旧项目接入公司 Codex 工作流` |
 | 旧项目已接入但想检查健康度、模板新旧、插件是否生效或为什么用起来不对 | L1/L2 | `company-workflow-health-check` | 通常无；需要设计修复方案时叠加 `superpowers:brainstorming` | `请检查这个项目的公司工作流健康度` |
-| 准备开新对话、暂停未完成任务、下次继续或转交他人 | L1/L2 | `company-thread-handoff` | 无；这里只做临时任务状态传递 | `生成当前任务交接摘要，我准备开新对话。` |
+| 只是稍后继续原任务，或当前对话太长但目标不变 | L1/L2 | `company-thread-handoff` 的 `resume/compact` 路由 | 无；优先使用 Codex 原生连续性 | `继续原任务` 或 `压缩当前任务后继续` |
+| 开新任务且完整历史讨论不能丢 | L1/L2 | `company-thread-handoff` 的 `fork` 路由 | 无；使用 Codex 原生 fork | `完整继承历史并创建新任务` |
+| 开干净的新任务，只保留决策、状态和下一步 | L1/L2/L3 | `company-thread-handoff` 的 `handoff` 路由 | 无；这里只做临时任务状态传递 | `生成标准交接并发送到新任务` |
 
 ## 复杂度分级
 
@@ -52,16 +54,18 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 对话交接路由
 
-采用“主动唤起 + 风险时提醒”的混合模式。用户准备开新对话、暂停、下次继续或转交任务时，路由到 `company-thread-handoff`。
+采用“主动唤起 + 风险时提醒”的混合模式。先判断用户要继续原任务、压缩当前上下文、完整继承历史，还是创建干净交接；不要把四种需求都转换成摘要。
 
-命中以下任一情况时，提醒用户生成交接摘要，但不自动生成、不自动写文件：
+命中以下任一情况时，提醒用户选择连续性方式，但不自动写文件或静默创建任务：
 
 - 一个阶段已结束，但当前主任务仍有后续工作。
 - 即将切换需求、设计、任务、实现或 bugfix 阶段。
 - 对话出现状态遗忘、重复读取、范围混淆或授权漂移。
 - 存在未提交改动、运行中服务或未完成验证。
 
-默认推荐：`生成当前任务交接摘要，我准备开新对话。`
+默认推荐规则：目标不变只担心长度时用 `compact`；全部历史都重要时用 `fork`；新里程碑或希望减少 token 时用 `standard handoff`。产品边界、架构、业务规则、计算、数据、安全、多个被否方案或“不要重新讨论”时，自动升级为 `decision-rich`。
+
+目标任务已存在时，不能事后注入完整历史；使用一个不可拆分的交接胶囊，并要求目标复述目标、决策、约束、状态、未完成事项和授权。传输状态显示为：`已生成 -> 已发送/待粘贴 -> 已读取 -> 语义校验通过/未通过`。
 
 用户明确要求落盘时，只允许覆盖 `.codex/handoff/current.md`。交接不替代 `company-context-index`、正式需求/设计/任务文档或阶段确认，也不产生新的实现授权。
 
