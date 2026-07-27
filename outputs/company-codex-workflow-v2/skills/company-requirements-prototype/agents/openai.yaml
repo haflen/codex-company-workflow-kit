@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-requirements-prototype"
+  short_description: "Validate requirements with an isolated prototype"
+  default_prompt: "Use $company-requirements-prototype to validate the current requirements with an isolated prototype while remaining in the requirements stage."

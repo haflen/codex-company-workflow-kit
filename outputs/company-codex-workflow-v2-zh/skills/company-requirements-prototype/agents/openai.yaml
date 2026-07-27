@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-requirements-prototype"
+  short_description: "在需求阶段创建和确认隔离原型"
+  default_prompt: "Use $company-requirements-prototype to validate the current requirements with an isolated prototype while remaining in the requirements stage."
