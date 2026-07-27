@@ -1,114 +1,117 @@
-# Requirements Prototype Workflow Design
+# 需求阶段原型工作流设计
 
-## Goal
+## 目标
 
-Add a company requirements-stage HTML prototype workflow that validates pages, interactions, wording, and business presentation before technical design, without treating prototype edits as production implementation or forcing design and task planning.
+新增公司需求阶段 HTML 原型工作流，用于在技术设计前验证页面、交互、文案和业务呈现，同时避免把原型修改误判为生产实现，也不因原型完成而强制进入技术设计和任务拆分。
 
-## Problem
+## 当前问题
 
-The current workflow has no explicit route between requirements clarification and technical design. `company-feature-requirements` aims to produce requirements ready for design, while `AGENTS.md` says requirements work must not edit implementation code. When a user asks to create or revise an HTML prototype during requirements, Codex can therefore misclassify the prototype as production code or as evidence that the project has entered `company-feature-design`, then request a design document and task breakdown prematurely.
+现有工作流在“需求澄清”和“技术设计”之间缺少明确的原型验证路径。`company-feature-requirements` 以产出可进入技术设计的需求为目标，`AGENTS.md` 又规定需求阶段不得修改实现代码。因此，当用户在需求阶段要求创建或修改 HTML 原型时，Codex 容易出现两种误判：
 
-The existing `company-spike-research` also mentions prototypes, but it means technical feasibility prototypes. A page and interaction prototype validates product requirements, not architecture feasibility.
+- 把需求原型当成生产代码；
+- 把原型完成当成已经进入 `company-feature-design` 的证据，过早要求技术方案和任务拆分。
 
-## First-Principles Boundary
+`company-spike-research` 虽然也包含“原型”字样，但它验证的是技术可行性。页面和交互原型验证的是产品需求，二者不能共用同一路由。
 
-An artifact's stage is determined by its purpose and dependency boundary, not its file extension.
+## 第一性原理边界
 
-- Requirements prototype: validates what users see and do; mock-only; isolated from production source.
-- Technical spike: validates whether a technology or architecture can work.
-- Production implementation: changes the deployable system and must follow confirmed design, planning, implementation, and verification boundaries.
+一个文件属于哪个阶段，应由它的验证目的和依赖边界决定，而不是由扩展名决定。
 
-HTML is therefore allowed during requirements only when it is an isolated requirements-validation artifact. HTML inside the production frontend remains production code.
+- 需求原型：验证用户看到什么、如何操作；只使用模拟数据，并与生产源码隔离。
+- 技术 Spike：验证某种技术或架构是否可行。
+- 生产实现：修改可部署系统，必须遵守需求确认、技术设计、任务规划、实现和验证边界。
 
-## Selected Approach
+因此，HTML 只有在与生产源码隔离、用于验证需求时，才允许在需求阶段修改。位于生产前端中的 HTML、Vue、React 等文件仍属于生产实现。
 
-Create a dedicated bilingual `company-requirements-prototype` skill. It is a requirements-stage validation branch, not a new SDLC phase.
+## 采用方案
 
-Alternatives rejected:
+新增中英文双版本 `company-requirements-prototype` skill。它是需求阶段的一条验证分支，不是新的软件交付阶段。
 
-- A sub-mode inside `company-feature-requirements` would add fewer skills, but would make a high-frequency skill larger and easier to shortcut from its description.
-- Reusing `company-spike-research` would mix product evidence with technical evidence and create incorrect routes, numbering, and completion criteria.
+不采用以下方案：
 
-## Entry Conditions
+- 把它作为 `company-feature-requirements` 的子模式：虽然少一个 skill，但会继续放大高频入口的职责，且容易只读取 description 后跳过关键边界。
+- 复用 `company-spike-research`：会混淆产品证据和技术证据，并引入错误的文档定位、编号与完成标准。
 
-Route to `company-requirements-prototype` when the current stage is requirements and the user asks to:
+## 触发条件
 
-- create, draw, preview, revise, or confirm an HTML/page/interaction prototype;
-- visualize confirmed or emerging requirements before technical design;
-- inspect a page flow, navigation, wording, states, dashboards, forms, or mock business results;
-- continue prototype feedback without entering design or implementation.
+当当前阶段仍是需求阶段，且用户表达以下意图时，路由到 `company-requirements-prototype`：
 
-Do not require all requirements to be frozen. Require enough clarity to identify the target user, primary scenario, in-scope pages, key states, and unresolved questions that the prototype is intended to test.
+- 创建、绘制、预览、修改或确认 HTML、页面或交互原型；
+- 在技术设计前把已确认或仍在收敛的需求可视化；
+- 检查页面流、导航、文案、状态、仪表盘、表单或模拟业务结果；
+- 继续处理原型反馈，但明确不进入设计或实现。
 
-## Workflow
+不要求所有需求已经冻结，但至少需要明确：目标用户、主要场景、原型覆盖的页面、关键状态，以及本次原型要回答的未决问题。
 
-1. Read the authoritative requirements and linked business rules.
-2. State that the stage remains `requirements` and production implementation authorization is absent.
-3. Define the prototype validation scope: questions to answer, screens, interactions, data states, and explicit non-goals.
-4. Use `superpowers:brainstorming` for the first prototype or a material UX/interaction change. Mechanical revisions after a confirmed direction do not restart brainstorming.
-5. Use `company-expert-routing` for non-trivial UI work. Prefer the existing `company-frontend-delivery` bundle, with `frontend-design` for visual/interaction quality and `webapp-testing` for browser evidence. Use `frontend-developer` only when the prototype itself needs non-trivial client behavior.
-6. Create or revise isolated mock-only HTML/CSS/JavaScript. Do not connect production APIs, databases, credentials, or real customer data.
-7. Verify the prototype in a browser at relevant desktop/mobile sizes, exercise key interactions and states, inspect console errors, and stop browser/server processes created by the workflow.
-8. Present the prototype and collect feedback. New or changed requirements return to `company-feature-requirements`, then re-enter prototype iteration without design or task planning.
-9. On explicit prototype confirmation, promote the approved files to a requirements baseline, update the requirements prototype section, verify checksums/links, and stop.
-10. Only an explicit user instruction to enter technical design may route to `company-feature-design`. Prototype confirmation alone never enters design or planning.
+## 执行流程
 
-## Artifact Lifecycle
+1. 读取权威需求文档及其引用的业务规则。
+2. 明示当前仍处于需求阶段，尚未获得生产实现授权。
+3. 定义原型验证范围：待验证问题、页面、交互、数据状态和明确不做的内容。
+4. 首次原型或实质性 UX/交互变更必须叠加 `superpowers:brainstorming`；方向已确认后的机械调整不重复启动头脑风暴。
+5. 非简单 UI 工作使用 `company-expert-routing`。优先选择现有 `company-frontend-delivery` bundle，并按需使用 `frontend-design` 和 `webapp-testing`；只有原型包含较复杂的客户端行为时才使用 `frontend-developer`。
+6. 创建或修改与生产源码隔离、只使用模拟数据的 HTML/CSS/JavaScript，不接入真实 API、数据库、凭证或客户数据。
+7. 在浏览器中验证桌面端和移动端关键视口，检查主要交互、数据状态和控制台错误，并关闭本工作流启动的浏览器及服务进程。
+8. 展示原型并收集反馈。反馈导致需求变化时，返回 `company-feature-requirements` 更新需求，再继续原型迭代；不得因此进入技术设计或任务拆分。
+9. 用户明确确认需求和原型后，把已批准文件转为需求基线，更新需求文档中的原型章节，验证校验和及链接，然后停止。
+10. 只有用户明确要求进入技术设计时，才路由到 `company-feature-design`。仅确认原型不得自动进入设计或规划。
 
-### Draft
+## 产物生命周期
 
-Default draft location:
+### 草稿阶段
+
+默认草稿路径：
 
 ```text
 .codex-workflow/prototypes/<feature>/draft/
 ```
 
-The workflow creates a small `prototype.json` manifest containing:
+工作流创建轻量 `prototype.json` 清单，至少包含：
 
-- feature identifier;
-- source requirements path;
-- status: `draft`;
-- created and last-updated times;
-- files created by the workflow;
-- validation questions;
-- latest browser verification summary.
+- 功能标识；
+- 来源需求文档路径；
+- 状态：`draft`；
+- 创建和最近更新时间；
+- 本工作流创建的文件；
+- 待验证问题；
+- 最近一次浏览器验证摘要。
 
-Draft files remain untracked by default. The workflow does not silently modify `.gitignore`. Files listed in the manifest are workflow-owned temporary prototype artifacts and must not be described as unknown parallel business-code changes.
+草稿默认不纳入 Git。工作流不得擅自修改 `.gitignore`。清单中已登记的文件属于工作流已知临时产物，不得被描述成来源不明的并行业务代码改动。
 
-### Promotion
+### 转为需求基线
 
-Trigger phrase or equivalent intent:
+触发语义为：
 
 ```text
 需求和原型均确认，转为需求基线。
 ```
 
-The approved prototype is copied next to the authoritative requirements document under:
+已确认原型复制到权威需求文档同级目录：
 
 ```text
 <requirements-directory>/prototype/
 ```
 
-The requirements document records:
+需求文档记录：
 
-- prototype status: confirmed;
-- baseline version and path;
-- confirmation date;
-- validated pages, interactions, wording, and states;
-- known limitations and items not promised by the prototype;
-- SHA-256 for the baseline entry HTML or approved archive.
+- 原型状态：已确认；
+- 基线版本和路径；
+- 确认日期；
+- 已验证的页面、交互、文案和状态；
+- 原型的已知限制及未承诺内容；
+- 基线入口 HTML 或批准归档包的 SHA-256。
 
-After source and baseline checksums match and links are valid, the workflow may remove only draft files proven by `prototype.json`. It must not delete unrelated files. Promotion does not commit or push unless separately authorized.
+来源与基线校验和一致、文档链接有效后，只能删除 `prototype.json` 能证明归属的草稿文件，不得删除其他文件。转为基线不等于授权提交或推送代码。
 
-### Replacement and Withdrawal
+### 替换与撤回
 
-- A later confirmed baseline replaces the requirements reference but does not silently delete an older committed baseline.
-- A rejected draft is marked `withdrawn` and may be removed using manifest provenance.
-- Delivery closeout classifies unpromoted manifest-owned drafts as temporary artifacts and asks for cleanup or deferral before commit.
+- 后续确认的新基线只替换需求文档中的当前引用，不静默删除已经提交的旧基线。
+- 被否决的草稿标记为 `withdrawn`，可依据清单来源关系清理。
+- 交付收口时，将尚未转为基线的清单内草稿识别为临时产物，并在提交前要求用户选择清理或延期保留。
 
-## Requirements Template
+## 需求模板
 
-Add an optional `需求原型验证` / `Requirements Prototype Validation` section:
+只有在使用原型时，才增加可选的“需求原型验证”章节：
 
 - 是否触发：否 / 草稿迭代 / 待确认 / 已确认 / 已撤回
 - 验证目标：
@@ -119,40 +122,40 @@ Add an optional `需求原型验证` / `Requirements Prototype Validation` secti
 - 用户反馈与需求变更：
 - 确认日期与 SHA-256：
 
-The section appears only when a prototype is requested. Small non-visual requirements do not gain prototype paperwork.
+不涉及可视化验证的小需求不得增加原型文档负担。
 
-## Production Boundary and Circuit Breakers
+## 生产边界与熔断条件
 
-Allowed in the requirements prototype:
+需求原型允许：
 
-- self-contained HTML and CSS;
-- mock JavaScript interactions;
-- generated/mock data and non-sensitive static assets;
-- responsive, accessibility, interaction, and browser verification.
+- 自包含 HTML 和 CSS；
+- 模拟 JavaScript 交互；
+- 生成或模拟数据、非敏感静态资源；
+- 响应式、可访问性、交互和浏览器验证。
 
-Stop and reroute when the user asks for:
+用户要求以下内容时必须停止原型实现并重新路由：
 
-- real API, database, authentication, production data, or production components;
-- framework migration, deployable integration, backend behavior, schema, or infrastructure;
-- performance or technology feasibility evidence.
+- 真实 API、数据库、身份认证、生产数据或生产组件；
+- 框架迁移、可部署集成、后端行为、数据库结构或基础设施；
+- 性能或技术可行性证据。
 
-Use `company-spike-research` for technical feasibility. Use `company-feature-design` only after the user authorizes technical design. Use `company-implementation-runner` only after requirements, design, and tasks are confirmed.
+技术可行性使用 `company-spike-research`。用户明确授权技术设计后才使用 `company-feature-design`。需求、设计和任务均已确认后才使用 `company-implementation-runner`。
 
-## Workflow Integration
+## 工作流联动
 
-Update:
+需要同步更新：
 
-- `company-workflow-help`: add a requirements-prototype route and prevent automatic design/planning.
-- `company-feature-requirements`: allow the prototype validation loop and return prototype feedback to requirements.
-- `company-feature-design`: state that an HTML prototype does not prove design authorization.
-- `company-spike-research`: distinguish technical prototypes from requirements prototypes.
-- Company `AGENTS.md` and bootstrap templates: allow isolated requirements prototypes while continuing to forbid production code changes.
-- `company-delivery-closeout`: recognize manifest-owned draft prototypes and promoted baselines.
-- Requirements templates, quickstart, usage guide, common prompts, skill tree, README, changelog, and bilingual manifests.
+- `company-workflow-help`：增加需求原型入口，阻止自动进入设计和规划。
+- `company-feature-requirements`：允许原型验证循环，并把反馈带回需求。
+- `company-feature-design`：明确 HTML 原型不能证明已经获得设计授权。
+- `company-spike-research`：区分技术原型和需求原型。
+- 公司版 `AGENTS.md` 及项目初始化模板：允许隔离的需求原型，同时继续禁止修改生产代码。
+- `company-delivery-closeout`：识别清单内的草稿和已转基线原型。
+- 需求模板、快速开始、使用指南、常用提示语、技能树、README、CHANGELOG 和中英文插件清单。
 
-## Output Contract
+## 输出协议
 
-Every prototype turn reports:
+每轮原型工作必须报告：
 
 - 工作流层：`company-requirements-prototype`
 - 当前阶段：需求阶段
@@ -166,32 +169,32 @@ Every prototype turn reports:
 - 浏览器验证证据：
 - 需求反馈与文档漂移：
 - 未验证项与剩余风险：
-- 下一步：继续需求/原型迭代；转需求基线；或等待用户明确进入技术设计
+- 下一步：继续需求/原型迭代；转为需求基线；或等待用户明确进入技术设计
 
-The completion message must not recommend task planning while prototype or requirement confirmation is pending.
+需求或原型尚未确认时，完成反馈不得建议任务拆分。
 
-## Adversarial Review
+## 对抗性审查
 
-| Failure | Control |
+| 潜在失败 | 控制措施 |
 | --- | --- |
-| Prototype silently becomes production architecture | Mock-only and isolated-path rules; record unpromised technical details |
-| Prototype completion triggers design/tasks | Explicit authorization gate and requirements-stage output |
-| Draft files create recurring dirty-worktree alarms | Manifest-based known temporary classification |
-| Cleanup deletes unrelated files | Delete only paths proven by `prototype.json` |
-| Prototype contradicts business rules | Read linked `business-rules.md`; return conflicts to requirements |
-| Real integration sneaks into requirements | API/database/auth/production-component circuit breakers |
-| Visual approval is mistaken for complete requirements | Record validated scope, limitations, unresolved requirements, and explicit confirmation state |
+| 原型静默演变成生产架构 | 限定模拟数据和隔离路径，并记录原型未承诺内容 |
+| 原型完成自动触发设计或任务拆分 | 设置显式授权门和需求阶段输出协议 |
+| 草稿反复触发脏工作区告警 | 通过清单识别已知临时产物 |
+| 清理时删除无关文件 | 只删除 `prototype.json` 能证明归属的路径 |
+| 原型与业务规则冲突 | 先读取引用的 `business-rules.md`，冲突返回需求阶段 |
+| 真实集成混入需求阶段 | 设置 API、数据库、认证和生产组件熔断条件 |
+| 视觉确认被误认为需求全部完成 | 记录已验证范围、限制、未决需求和明确确认状态 |
 
-## Verification Scenarios
+## 验证场景
 
-1. After requirements clarification, “先画 HTML 原型” routes to `company-requirements-prototype`, not design or planning.
-2. “修改这个原型的页面和交互” edits only the isolated draft and remains in requirements.
-3. Prototype feedback changes a business rule; the workflow updates requirements/business rules and continues the prototype loop.
-4. “接真实接口看看” stops prototype work and asks whether the goal is technical spike or authorized design.
-5. “需求和原型均确认，转为需求基线” promotes verified files, updates requirements metadata, and stops without creating design/tasks.
-6. “需求和原型均确认，进入技术设计” promotes the baseline and then routes to `company-feature-design`; it still does not create tasks.
-7. A non-visual small requirement does not create prototype files or template sections.
+1. 需求澄清后说“先画 HTML 原型”，必须进入 `company-requirements-prototype`，不得进入设计或规划。
+2. 说“修改这个原型的页面和交互”，只能修改隔离草稿，并保持需求阶段。
+3. 原型反馈改变业务规则时，更新需求或业务规则后继续原型循环。
+4. 说“接真实接口看看”时，停止原型工作，并判断应进入技术 Spike 还是已授权的技术设计。
+5. 说“需求和原型均确认，转为需求基线”时，转存已验证文件、更新需求元数据并停止，不创建技术设计或任务。
+6. 说“需求和原型均确认，进入技术设计”时，先转为基线，再进入 `company-feature-design`，仍不创建任务。
+7. 非可视化的小需求不得生成原型文件或模板章节。
 
-## Release
+## 发布要求
 
-Release bilingual company packages as `0.2.26`. Install only the Chinese package locally. Validate source and installed caches, run RED/GREEN skill scenarios, and push the company repository without staging unrelated files.
+以 `0.2.26` 发布公司版中英文插件。本机只安装中文版。发布前验证源码和已安装缓存，运行 RED/GREEN skill 场景，并在不暂存无关文件的前提下推送公司仓库。
