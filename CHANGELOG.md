@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.26 - 2026-07-27
+
+- Added bilingual `company-requirements-prototype` skills for isolated HTML, page, interaction, copy, and mock-state validation during requirements.
+- Added a manifest-backed draft lifecycle under `.codex-workflow/prototypes/<feature>/draft/` and explicit promotion to a versioned requirements baseline beside authoritative requirements.
+- Prevented prototype confirmation from automatically entering technical design or task planning; ambiguous confirmation and continuation now remain in the requirements stage.
+- Added circuit breakers for real APIs, databases, authentication, production components, backend/schema/infrastructure, performance, and technical feasibility requests.
+- Connected workflow help, requirements, design, spike, delivery closeout, project guardrails, expert bundles, templates, user guidance, and plugin manifests.
+
 ## 0.2.25 - 2026-07-27
 
 - Replaced summary-only conversation handoff with outcome-first `resume`, `compact`, `fork`, and clean `handoff` routing.

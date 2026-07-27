@@ -96,6 +96,7 @@
 | `company-workflow-health-check` | 检查项目工作流健康度、模板新旧、插件暴露和旧规则残留 | Project workflow adoption, templates, plugin exposure, or old rules need diagnosis. |
 | `company-legacy-project-onboarding` | 旧项目接入、索引草稿确认、首个试点选择 | Introducing the workflow into an existing project or reviewing generated project context. |
 | `company-feature-requirements` | 澄清需求、范围、验收标准 | Feature requirements, acceptance criteria, scope, or change-request requirements are needed. |
+| `company-requirements-prototype` | 在需求阶段创建、迭代和确认隔离 HTML/页面/交互原型 | Requirements need visual or interaction validation without entering technical design. |
 | `company-feature-design` | 产出技术设计、架构、API、数据流、测试策略 | Requirements are confirmed and design is needed before planning. |
 | `company-feature-planning` | 把设计拆成可执行任务和验证点 | Requirements and design are confirmed and implementation tasks are needed. |
 | `company-implementation-runner` | 按已确认任务执行实现和验证 | Requirements, design, and task plan are confirmed. |
@@ -118,6 +119,7 @@
 - `company-context-index` 和 `company-legacy-project-onboarding` 负责文档职责地图：入口页、spike 工作日志、正式 specs、生命周期总结不能共享裸任务编号。
 - `company-thread-handoff` 先选择 `resume / compact / fork / handoff`；只有 handoff 才生成 `quick / standard / decision-rich` 胶囊。默认不落文件，目标对话必须完成语义校验；它不替代 `company-context-index`，也不产生实现授权。
 - `business-rules.md` 不是每个需求都要写。只有指标公式、操作逻辑、状态流转、字段口径、异常数据、角色差异或复杂权限等场景触发；触发后由需求阶段创建，设计阶段映射，任务阶段转成验证点。
+- `company-requirements-prototype` 是需求阶段的可选验证分支。它只修改隔离、模拟数据原型；确认后转为需求基线并停止，除非用户另行明确授权技术设计。
 - 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
 - 验证等级不是用户手动选择。实现、bugfix 和 hotfix 自动判定 `V0/V1/V2/V3`，并在完成报告里输出验证证据、未验证项和剩余风险。
 - 文档漂移检查是执行出口：如果实现改变了需求承诺、业务规则、API 契约、设计、任务或公共入口，必须补文档或标记待确认漂移。
@@ -141,6 +143,9 @@ company-workflow-help
 -> company-feature-requirements
    -> optional superpowers:brainstorming
    -> optional business-rules.md when rules/calculation semantics are non-trivial
+   -> optional company-requirements-prototype for HTML/page/interaction validation
+      -> prototype feedback returns to requirements
+      -> confirmed prototype becomes requirements baseline and stops
 -> company-feature-design
    -> solution comparison for L2/L3 design triggers
 -> company-feature-planning
@@ -205,6 +210,7 @@ company-workflow-help
 | `company-python-service` | Python 服务或自动化 |
 | `company-django-service` | Django/DRF/Celery |
 | `company-frontend-delivery` | 前端交互、UI、浏览器验证 |
+| `company-requirements-prototyping` | 需求阶段隔离原型、UI/交互和浏览器验证 |
 | `company-ai-feature` | LLM/RAG/prompt/agent |
 | `company-hotfix` | 紧急生产缺陷 |
 | `company-spike` | 技术预研 |
