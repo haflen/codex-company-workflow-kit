@@ -13,16 +13,18 @@ description: Use when company feature requirements are confirmed and a technical
 
 1. 确认需求已存在、包含验收标准，并且用户已明确授权进入技术设计。需求原型或其确认状态本身不构成设计授权。
 2. 阅读项目上下文、现有模式和相关源文件；如果需求判定需要 `business-rules.md`，必须先读取业务规则与计算口径。
-3. 执行方案对比分级判定：L1 小改动可跳过但必须说明原因；L2/L3 命中触发条件时必须比较 2-3 个方案。
-4. 需要方案对比时，显式叠加 `superpowers:brainstorming`，输出推荐方案、备选方案、取舍和用户确认点。
-5. 对非平凡架构、框架、数据、UI 或测试决策使用 `company-expert-routing`，由它自动选择技术栈 bundle。
-6. 对非平凡架构、数据、权限、性能、安全、外部 API、前端渲染或跨服务边界执行第一性原理检查。
-7. 设计不得重新发明业务公式；只能把 `business-rules.md` 中的操作逻辑、状态流转、字段口径和计算公式映射到模块、接口、数据结构和测试策略。
-8. 输出设计、契约、风险说明、反例场景和测试策略。
-9. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
-10. 如果本轮设计来自实现阶段中发现的范围变化，必须标记 `实现授权状态：已失效，需要用户确认后再编码`，并说明旧任务授权不覆盖新范围。
-11. L2/L3 方案对比触发后，必须获得用户对推荐方案的确认，才能进入任务拆解。
-12. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
+3. 新增目录、包、Schema、Fixture、测试、脚本、迁移或跨模块共享资产时，读取 `.codex-workflow/asset-boundaries.json`，检查真实 manifest、构建和测试入口，并输出资产类型、所属工程、仓库相对完整路径、执行/验证者和落点依据。
+4. 无法证明资产归属或计划路径命中门禁时，不得确认设计；先修正归属或声明有所有者和验证方式的显式例外。
+5. 执行方案对比分级判定：L1 小改动可跳过但必须说明原因；L2/L3 命中触发条件时必须比较 2-3 个方案。
+6. 需要方案对比时，显式叠加 `superpowers:brainstorming`，输出推荐方案、备选方案、取舍和用户确认点。
+7. 对非平凡架构、框架、数据、UI 或测试决策使用 `company-expert-routing`，由它自动选择技术栈 bundle。
+8. 对非平凡架构、数据、权限、性能、安全、外部 API、前端渲染或跨服务边界执行第一性原理检查。
+9. 设计不得重新发明业务公式；只能把 `business-rules.md` 中的操作逻辑、状态流转、字段口径和计算公式映射到模块、接口、数据结构和测试策略。
+10. 输出设计、契约、风险说明、反例场景和测试策略。
+11. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
+12. 如果本轮设计来自实现阶段中发现的范围变化，必须标记 `实现授权状态：已失效，需要用户确认后再编码`，并说明旧任务授权不覆盖新范围。
+13. L2/L3 方案对比触发后，必须获得用户对推荐方案的确认，才能进入任务拆解。
+14. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
 
 ## Superpowers 叠加
 
@@ -51,6 +53,8 @@ description: Use when company feature requirements are confirmed and a technical
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/design-template.md` 或 `../../specs/global/assets/api-contract-template.md`。
 
 如需求阶段链接了 `business-rules.md`，设计产物必须在“使用的上下文”中列出它，并说明每条关键规则映射到哪里实现或验证。
+
+`specs/` 和 `docs/` 默认只承载文档。被构建、执行、测试或发布的文件必须进入其所属工程；机器契约例外必须在 `asset-boundaries.json` 中显式声明所有者和验证方式。
 
 ## 边界
 
@@ -84,4 +88,5 @@ description: Use when company feature requirements are confirmed and a technical
 - 关键反例场景：
 - 风险：
 - 测试策略：
+- 资产归属表与落点门禁：
 - 下一步：L2/L3 已确认推荐方案后才能进入 `company-feature-planning`。

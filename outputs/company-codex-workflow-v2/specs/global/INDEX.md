@@ -23,6 +23,14 @@ Start here before using any company workflow.
 - Test locations:
 - Main source entrypoints:
 
+## Asset Placement Gate
+
+- Configuration: `.codex-workflow/asset-boundaries.json`
+- Confirmation status: needs confirmation
+- Engineering asset roots: needs confirmation
+- Requirements, design, and task plans name complete repository-relative output paths; implementation checks planned paths before editing; closeout checks changed files.
+- After automatic generation, the project owner confirms engineering roots and exceptions. Do not treat inferred boundaries as formal project constraints before confirmation.
+
 ## Document Ownership Map
 
 | Document | Role | Update trigger | Numbering namespace |
@@ -68,4 +76,4 @@ Start here before using any company workflow.
 
 ## Active Risks
 
-- 
+- Asset placement configuration has not been confirmed.

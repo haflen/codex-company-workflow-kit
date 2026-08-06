@@ -18,6 +18,11 @@ function printUsage() {
   codex-company-workflow update-templates <project-path> [--lang zh|en] [--force]
   codex-company-workflow generate-index <project-path> [--lang zh|en] [--force]
   codex-company-workflow expert-preflight <project-path> [--lang zh|en]
+  codex-company-workflow generate-asset-boundaries <project-path> [--lang zh|en] [--force]
+  codex-company-workflow accept-asset-boundaries <project-path> [--lang zh|en]
+  codex-company-workflow confirm-asset-boundaries <project-path> [--lang zh|en]
+  codex-company-workflow check-assets <project-path> [--lang zh|en]
+  codex-company-workflow audit-assets <project-path> [--lang zh|en]
   codex-company-workflow all <project-path> [--lang zh|en] [--force]
   codex-company-workflow verify [--lang zh|en]
 `);

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.27 - 2026-08-06
+
+- Added a bilingual asset placement gate that separates documentation roots from build, runtime, test, dependency, migration, and machine-contract assets.
+- Added automatic `.codex-workflow/asset-boundaries.json` generation from project manifests, safe review candidates for existing configs, and explicit user confirmation.
+- Added changed-file and full-audit commands with deterministic blocking for package manifests, dependency trees, executable tests, and undeclared machine contracts under documentation roots.
+- Added safe generated-config acceptance with validation, backup, atomic replacement, and preservation of local exceptions.
+- Scoped machine-contract exceptions to `AB004`, expanded OpenAPI/Swagger/AsyncAPI and common project-marker detection, and made non-Git diagnostics actionable.
+- Synchronized npm packaging with plugin `0.2.27` and included the regression suite used by packaged `verify`/`all` commands.
+- Connected context indexing, legacy onboarding, design, planning, implementation, bugfix, workflow health checks, delivery closeout, AGENTS rules, and templates to the same boundary configuration.
+- Kept pre-commit and CI enforcement deferred while exposing a reusable validator for a later warning-to-blocking rollout.
+
 ## 0.2.26 - 2026-07-27
 
 - Added bilingual `company-requirements-prototype` skills for isolated HTML, page, interaction, copy, and mock-state validation during requirements.

@@ -246,6 +246,49 @@ npx codex-company-workflow all /path/to/project --lang zh
 
 默认不会覆盖已有文件。需要覆盖时显式加 `--force`。英文版本使用 `--lang en` 或 `-Lang en`。
 
+### 确认项目资产边界
+
+项目初始化会自动安装本地校验器，并生成：
+
+```text
+.codex-workflow/bin/asset_boundaries.py
+.codex-workflow/asset-boundaries.json
+```
+
+配置根据 manifest、构建和测试入口识别文档根、工程根、工具目录和原型目录。自动生成状态是 `generated-review-required`：明显违规立即阻断，尚未确认的工程根归属异常只警告。
+
+空项目还没有 manifest 时，`engineeringRoots` 为空并不表示安装失败。不要确认空边界：先完成需求和技术设计，按确认方案创建第一批脚手架后执行 `generate-asset-boundaries --force`，再审阅并确认识别出的工程根。草案期间 `specs/`、`docs/` 下的明显错误落点仍会被阻断。
+
+审阅配置无误后执行：
+
+```bash
+bash scripts/install.sh confirm-asset-boundaries /path/to/project --lang zh
+```
+
+上面的 `confirm` 只用于首次生成的正式草案。已有配置再次生成时会得到 `.codex-workflow/asset-boundaries.generated.json`；对比无误后使用：
+
+```bash
+bash scripts/install.sh accept-asset-boundaries /path/to/project --lang zh
+```
+
+该命令先校验候选，备份旧配置为 `asset-boundaries.backup.json`，再原子采纳并确认候选。
+
+日常只检查本次新增和移动文件：
+
+```bash
+bash scripts/install.sh check-assets /path/to/project --lang zh
+```
+
+旧项目首次治理或用户明确要求全面审计时才运行：
+
+```bash
+bash scripts/install.sh audit-assets /path/to/project --lang zh
+```
+
+合法机器契约例外应编辑 `exceptions`，至少填写 `path`、`type: machine-contract`、`reason`、`owner` 和 `validation`。该例外只豁免机器契约规则，不会放行同目录的包管理文件、依赖树或可执行测试；不要通过扩大整个文档根权限来绕过单个例外。
+
+当前版本尚未启用 pre-commit/CI 强制检查；团队试点稳定后，两者应复用同一校验器，先 warning、后 blocking。
+
 ### 只生成或刷新项目上下文索引
 
 当项目已经安装过模板，只想重新生成 `INDEX.md` 草稿：

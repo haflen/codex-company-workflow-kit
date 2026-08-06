@@ -19,6 +19,8 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 6. Explicitly use `superpowers:systematic-debugging`; reproduce or collect evidence before fixing.
 7. Before claiming root cause, run a first-principles check: fact chain, minimum reproduction conditions, and the difference between surface symptoms and underlying cause.
 8. Use `company-expert-routing` for non-trivial failures, unclear root cause, or stack-specific failure modes; let it select `company-hotfix` or the affected stack bundle automatically.
+   - When a bugfix adds or moves files, read `.codex-workflow/asset-boundaries.json` and check planned paths before editing. Existing-file-only fixes that preserve ownership may report “not triggered.”
+   - A blocked placement means the fix design or task boundary is wrong. Ordinary bugfix work stops; a production hotfix may perform only a minimal recovery that does not add another invalid placement and must record follow-up work.
 9. Make the minimal fix.
 10. Add or identify regression verification, and run adversarial review for scenarios related to the defect.
 11. Check Chinese code logic comments: root-cause fixes, exceptional branches, compatibility strategy, business rules, and regression guards need useful comments.
@@ -89,6 +91,7 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - Adversarial Review:
 - Execution strategy:
 - Phase Consistency Preflight:
+- Asset placement gate: passed / blocked / not triggered
 - Authoritative document for this turn:
 - Validation level:
 - Verification evidence:

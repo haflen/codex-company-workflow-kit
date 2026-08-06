@@ -7,10 +7,11 @@
 1. 将 `AGENTS.md` 合并到公司项目根目录的 `AGENTS.md`。
 2. 将 `specs/global/assets/` 模板复制到公司项目的 `specs/global/assets/`。
 3. 使用安装脚本生成 `specs/global/INDEX.md` 草稿，并由项目负责人确认技术栈、命令、当前版本和活跃里程碑。
-4. 将 `BUNDLES.md` 和 `EXPERTS.lock.md` 放到公司项目根目录，用于专家组合和专家依赖锁定。
-5. 按公司实际技术栈调整 `BUNDLES.md`。
-6. 按可信专家技能来源调整 `EXPERTS.lock.md`。
-7. 先用一个功能和一个 bugfix 试点，再设为团队强制流程。
+4. 审阅自动生成的 `.codex-workflow/asset-boundaries.json`，确认文档根、工程根和显式例外后运行 `confirm-asset-boundaries`。
+5. 将 `BUNDLES.md` 和 `EXPERTS.lock.md` 放到公司项目根目录，用于专家组合和专家依赖锁定。
+6. 按公司实际技术栈调整 `BUNDLES.md`。
+7. 按可信专家技能来源调整 `EXPERTS.lock.md`。
+8. 先用一个功能和一个 bugfix 试点，再设为团队强制流程。
 
 推荐命令：
 
@@ -25,6 +26,21 @@ bash scripts/install.sh generate-index /path/to/project --lang zh
 ```
 
 旧项目已有 `INDEX.md` 时默认不覆盖，会生成 `specs/global/INDEX.generated.md` 供对比确认。
+
+确认资产边界并检查本次变更：
+
+```bash
+bash scripts/install.sh confirm-asset-boundaries /path/to/project --lang zh
+bash scripts/install.sh check-assets /path/to/project --lang zh
+```
+
+`confirm` 用于首次草案。已有配置刷新后会生成 `asset-boundaries.generated.json`，审阅后使用以下命令安全采纳并备份旧配置：
+
+```bash
+bash scripts/install.sh accept-asset-boundaries /path/to/project --lang zh
+```
+
+只有旧项目首次全面治理时才运行 `audit-assets`。pre-commit/CI 强制检查当前暂缓。
 
 如果项目提示找不到模板、`BUNDLES.md` 或 `EXPERTS.lock.md`，执行：
 

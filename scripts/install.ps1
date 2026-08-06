@@ -36,6 +36,11 @@ function Show-Usage {
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-agents <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-index <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 expert-preflight <project-path> [-Lang zh|en]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 generate-asset-boundaries <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 accept-asset-boundaries <project-path> [-Lang zh|en]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 confirm-asset-boundaries <project-path> [-Lang zh|en]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 check-assets <project-path> [-Lang zh|en]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 audit-assets <project-path> [-Lang zh|en]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 verify [-Lang zh|en]"
 }
@@ -165,6 +170,56 @@ function Write-ProjectExpertReadiness($Path) {
     --json-output (Join-Path $workflowDir "EXPERT-READINESS.json")
 }
 
+function Install-AssetBoundaryTool($Path) {
+  $destination = Join-Path $Path ".codex-workflow/bin/asset_boundaries.py"
+  New-Item -ItemType Directory -Force -Path (Split-Path $destination) | Out-Null
+  Copy-Item -Force (Join-Path $RootDir "scripts/asset_boundaries.py") $destination
+  Write-Host "Asset boundary checker ready: $destination"
+}
+
+function Generate-AssetBoundaries($Path) {
+  Install-AssetBoundaryTool $Path
+  $scriptArgs = @(
+    (Join-Path $RootDir "scripts/asset_boundaries.py"),
+    "generate",
+    $Path,
+    "--lang",
+    $Lang
+  )
+  if ($Force) {
+    $scriptArgs += "--force"
+  }
+  python3 @scriptArgs
+  if ($LASTEXITCODE -ne 0) {
+    throw "Asset boundary generation failed for $Path"
+  }
+}
+
+function Confirm-AssetBoundaries($Path) {
+  Install-AssetBoundaryTool $Path
+  python3 (Join-Path $Path ".codex-workflow/bin/asset_boundaries.py") confirm $Path --lang $Lang
+  if ($LASTEXITCODE -ne 0) {
+    throw "Asset boundary confirmation failed for $Path"
+  }
+}
+
+function Accept-AssetBoundaries($Path) {
+  Install-AssetBoundaryTool $Path
+  python3 (Join-Path $Path ".codex-workflow/bin/asset_boundaries.py") accept-generated $Path --lang $Lang
+  if ($LASTEXITCODE -ne 0) {
+    throw "Asset boundary candidate acceptance failed for $Path"
+  }
+}
+
+function Check-Assets($Path, [bool]$AuditAll = $false) {
+  Install-AssetBoundaryTool $Path
+  $scope = if ($AuditAll) { "--all" } else { "--changed" }
+  python3 (Join-Path $Path ".codex-workflow/bin/asset_boundaries.py") check $Path --lang $Lang $scope
+  if ($LASTEXITCODE -ne 0) {
+    throw "Asset placement check failed for $Path"
+  }
+}
+
 function Install-Plugin {
   if (-not (Test-Path (Join-Path $PluginSrc ".codex-plugin"))) {
     throw "Plugin source not found: $PluginSrc"
@@ -275,6 +330,10 @@ function Write-InstallManifest($Path) {
       ".codex/agents/ (optional via install-agents)",
       "specs/global/assets/",
       "specs/global/assets.generated/",
+      ".codex-workflow/asset-boundaries.json",
+      ".codex-workflow/asset-boundaries.generated.json",
+      ".codex-workflow/asset-boundaries.backup.json",
+      ".codex-workflow/bin/asset_boundaries.py",
       ".codex-workflow/install.json"
     )
     preservedProjectAssets = @(
@@ -380,6 +439,7 @@ function Bootstrap-Project($Path) {
   }
   Ensure-ProjectTemplates $Path
   Ensure-ProjectGovernanceFiles $Path
+  Generate-AssetBoundaries $Path
   Write-Host "Project workflow assets ready: $(Join-Path $Path "specs")"
   if ((-not $indexExisted) -or $Force) {
     Generate-Index $Path $indexPath $true
@@ -424,6 +484,17 @@ function Deactivate-Project($Path) {
       $target = Join-Path $Path $relative
       if (Test-Path $target) {
         Remove-Item -Recurse -Force $target
+      }
+    }
+    foreach ($relative in @(
+      ".codex-workflow/asset-boundaries.json",
+      ".codex-workflow/asset-boundaries.generated.json",
+      ".codex-workflow/asset-boundaries.backup.json",
+      ".codex-workflow/bin/asset_boundaries.py"
+    )) {
+      $target = Join-Path $Path $relative
+      if (Test-Path $target) {
+        Remove-Item -Force $target
       }
     }
     Write-Host "Removed managed template directories."
@@ -482,6 +553,7 @@ function Update-Templates($Path) {
     Write-Host "Updated project templates: $destination"
   }
   Ensure-ProjectGovernanceFiles $Path
+  Generate-AssetBoundaries $Path
   Write-ProjectExpertReadiness $Path
 }
 
@@ -517,6 +589,10 @@ function Verify-Kit {
     Write-Error "Unexpected disallowed wording found.`n$risk"
   }
   $null = [scriptblock]::Create((Get-Content -Raw (Join-Path $RootDir "scripts/install.ps1")))
+  python3 (Join-Path $RootDir "tests/test_asset_boundaries.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Asset boundary regression tests failed"
+  }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }
@@ -530,6 +606,11 @@ switch ($Command) {
   "install-agents" { Install-ProjectAgents $ProjectPath }
   "generate-index" { Generate-Index $ProjectPath (Join-Path $ProjectPath "specs/global/INDEX.md") $Force }
   "expert-preflight" { Write-ProjectExpertReadiness $ProjectPath }
+  "generate-asset-boundaries" { Generate-AssetBoundaries $ProjectPath }
+  "accept-asset-boundaries" { Accept-AssetBoundaries $ProjectPath }
+  "confirm-asset-boundaries" { Confirm-AssetBoundaries $ProjectPath }
+  "check-assets" { Check-Assets $ProjectPath $false }
+  "audit-assets" { Check-Assets $ProjectPath $true }
   "all" {
     Install-Plugin
     Bootstrap-Project $ProjectPath

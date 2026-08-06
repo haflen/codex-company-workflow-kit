@@ -16,6 +16,8 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 3. If public entry docs, indexes, version README, or task docs conflict, pause implementation; output the conflict, provisional authoritative document, and repair recommendation before coding.
 4. Run the scope-change circuit breaker check: confirm this turn did not add an architecture layer, data-preparation layer, table, API boundary, business semantics, field mapping, scheduler chain, or unconfirmed documentation artifact.
 5. If the circuit breaker triggers, stop coding; update only requirements, design, tasks, field mappings, or public-doc impact, and output `Implementation authorization: expired; user confirmation required before coding`.
+   - When this turn adds or moves files, read `.codex-workflow/asset-boundaries.json` and run `.codex-workflow/bin/asset_boundaries.py check <project> --path <path>` on complete planned paths before the first edit.
+   - Stop and return to design/planning when the gate blocks, the task lacks allowed roots, or engineering assets target `specs/`/`docs/`. The label “executable specification” is not an exception.
 6. Identify the next task, its verification, and whether controlled continuous implementation applies.
 7. Explicitly use `superpowers:test-driven-development`; define the minimal failing case or verification anchor before implementation.
 8. Use `company-expert-routing` when implementation depends on framework internals, typing, performance, concurrency, data modeling, or UI craft, and read its `Phase permission`; if permission is not `implementation allowed`, do not code.
@@ -194,6 +196,7 @@ After the circuit breaker trips:
 - Adversarial Review:
 - Execution strategy:
 - Phase Consistency Preflight:
+- Asset placement gate: passed / blocked / not triggered
 - Scope-change circuit breaker:
 - Phase permission:
 - Implementation authorization:

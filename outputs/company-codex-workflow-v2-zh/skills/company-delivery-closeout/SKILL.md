@@ -71,7 +71,8 @@ description: Use when 公司项目的任务批次、功能、里程碑或版本�
 3. 非平凡代码或 L2/L3 交付必须使用 `superpowers:requesting-code-review` 审查最终 diff。
 4. 所有正式交付必须使用 `superpowers:verification-before-completion`，只接受本轮新鲜证据。
 5. 检查疑似密钥、生产配置、数据库、异常大文件、意外依赖和未验证生成物。
-6. 复杂领域风险存在时才调用 `company-expert-routing`；普通收口不重复路由。
+6. 读取 `.codex-workflow/asset-boundaries.json`，运行本次变更资产检查；新增/移动文件出现阻断项时停止 commit/push。全量历史审计只在用户要求或健康检查判定需要时运行。
+7. 复杂领域风险存在时才调用 `company-expert-routing`；普通收口不重复路由。
 
 任何失败、未验证关键项或高严重度审查问题都会停止 commit/push。
 
@@ -104,6 +105,7 @@ git diff --cached --stat
 - 已删除临时文件：
 - 已保留但排除文件：
 - 阻塞未知文件：
+- 资产落点门禁与检查范围：
 - Superpowers 叠加：
 - 实际调用：
 - 专家能力：实际调用 / 未调用但采用视角

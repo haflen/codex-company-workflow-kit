@@ -15,11 +15,12 @@ Build enough project context without loading everything.
 2. Confirm whether `INDEX.md` contains a document ownership map: entry page, work log, formal specs, business rules and calculation semantics, lifecycle docs, public-doc update patches, numbering namespaces, and update triggers.
 3. If present, read `说明文档.md` or the configured progress document.
 4. Identify current version, milestone, feature, relevant docs, and commands.
-5. Read only the routed docs and source files needed for the task.
-6. Determine whether the current branch is an integration branch; non-integration branches do not directly update mainline facts in `说明文档.md` or `specs/global/INDEX.md` by default.
-7. If routing is stale, propose a concise index update; if bare task numbers are reused across document levels, flag a document ownership risk first.
-8. If the branch affects the public entry, reading route, current phase, or document ownership, recommend `docs/public-doc-updates/<branch-or-feature>.md`.
-9. Output the context summary, document to update, and next step.
+5. Read `.codex-workflow/asset-boundaries.json`; record documentation, engineering, tooling/migration roots, confirmation status, and explicit exceptions, and check for `asset-boundaries.generated.json`. If config is missing, recommend `generate-asset-boundaries`; if a candidate exists, review and `accept-asset-boundaries` or explicitly discard it before inventing a new engineering root.
+6. Read only the routed docs and source files needed for the task.
+7. Determine whether the current branch is an integration branch; non-integration branches do not directly update mainline facts in `说明文档.md` or `specs/global/INDEX.md` by default.
+8. If routing is stale, propose a concise index update; if bare task numbers are reused across document levels, flag a document ownership risk first.
+9. If the branch affects the public entry, reading route, current phase, or document ownership, recommend `docs/public-doc-updates/<branch-or-feature>.md`.
+10. Output the context summary, document to update, and next step.
 
 ## Output
 
@@ -45,6 +46,8 @@ Build enough project context without loading everything.
 - Relevant docs:
 - Relevant code paths:
 - Verification commands:
+- Asset boundary status: missing / generated review required / confirmed
+- Documentation roots, engineering roots, and explicit exceptions:
 - Missing context:
 - Recommended document to update:
 

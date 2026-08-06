@@ -13,12 +13,14 @@ description: Use when introducing the company workflow into an existing project,
 
 1. 检查项目已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令。
 2. 使用安装脚本或 `generate-index` 生成 `specs/global/INDEX.md` 草稿。
-3. 生成或补全文档职责地图：入口页、现场日志、正式 specs、生命周期文档、编号命名空间和更新触发条件。
-4. 标出自动推断字段和需要用户确认的字段。
-5. 保留旧项目已有规范，只追加公司工作流段落。
-6. 显式叠加 `superpowers:brainstorming`，选择一个小 feature、一个 bugfix 或一个 spike 做试点。
-7. 试点后复盘流程负担、验证证据、专家路由和文档职责是否合适。
-8. 试点稳定后，再将工作流设为团队默认。
+3. 运行 `generate-asset-boundaries`，根据 manifest、构建和测试入口生成 `.codex-workflow/asset-boundaries.json`；首次草案交给用户 `confirm`，已有配置生成候选后交给用户 `accept-asset-boundaries`。旧项目已有例外不自动删除，采纳前自动备份旧配置。
+4. 确认前只阻断 `specs`/`docs` 下新增包管理、依赖树和可执行测试等明显违规；确认后再强制工程根目录归属。
+5. 生成或补全文档职责地图：入口页、现场日志、正式 specs、生命周期文档、编号命名空间和更新触发条件。
+6. 标出自动推断字段和需要用户确认的字段。
+7. 保留旧项目已有规范，只追加公司工作流段落。
+8. 显式叠加 `superpowers:brainstorming`，选择一个小 feature、一个 bugfix 或一个 spike 做试点。
+9. 试点后复盘流程负担、验证证据、专家路由和文档职责是否合适。
+10. 试点稳定后，再将工作流设为团队默认。
 
 ## 推荐用户说法
 
@@ -42,6 +44,7 @@ description: Use when introducing the company workflow into an existing project,
 - 剩余风险：
 - 当前项目状态：
 - 自动推断的上下文：
+- 资产边界状态与待确认项：
 - 文档职责地图：
 - 编号命名空间：
 - 需要用户确认：

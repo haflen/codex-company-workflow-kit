@@ -231,12 +231,40 @@ npx codex-company-workflow all /path/to/company-project --lang zh
 - 补齐 `specs/global/assets/` 模板。
 - 补齐项目根目录的 `BUNDLES.md` 和 `EXPERTS.lock.md`，用于专家技能组合和版本锁定。
 - 生成 `.codex-workflow/EXPERT-READINESS.md` 和 `.codex-workflow/EXPERT-READINESS.json`。
+- 安装 `.codex-workflow/bin/asset_boundaries.py`，并生成 `.codex-workflow/asset-boundaries.json` 资产边界草案。
 - 自动扫描 README、manifest、测试目录、启动/构建/测试命令和常见源码入口。
 - 生成 `specs/global/INDEX.md` 草稿，包含文档职责地图和编号命名空间。
 
 如果旧项目已有 `INDEX.md`，默认保留原文件，并生成 `specs/global/INDEX.generated.md` 供确认。
 
 如果项目中已有 `BUNDLES.md` 或 `EXPERTS.lock.md`，默认不会覆盖，而是生成 `BUNDLES.generated.md` 或 `EXPERTS.lock.generated.md` 供对比。确认后再使用 `--force` 覆盖。
+
+### 资产落点门禁
+
+安装器会根据项目 manifest、构建和测试入口推断文档根、工程根、工具目录和原型目录。新项目直接生成草案；旧项目已有配置时保留原文件，并生成 `.codex-workflow/asset-boundaries.generated.json` 供比较。
+
+空项目尚无 manifest 时，工程根为空是正常草案状态：先完成需求和技术设计，首次脚手架落地后再用 `generate-asset-boundaries --force` 刷新、审阅并确认。草案期间明显误入 `specs/` 或 `docs/` 的工程资产仍会被阻断。
+
+```bash
+# 重新生成边界草案
+bash scripts/install.sh generate-asset-boundaries /path/to/company-project --lang zh
+
+# 首次生成的正式草案，用户审阅无误后确认
+bash scripts/install.sh confirm-asset-boundaries /path/to/company-project --lang zh
+
+# 已有配置刷新后，审阅 generated 候选并安全采纳
+bash scripts/install.sh accept-asset-boundaries /path/to/company-project --lang zh
+
+# 只检查本次新增和移动文件
+bash scripts/install.sh check-assets /path/to/company-project --lang zh
+
+# 旧项目全量审计，按需运行
+bash scripts/install.sh audit-assets /path/to/company-project --lang zh
+```
+
+设计、任务规划、实现、bugfix、健康检查和交付收口会自动读取同一配置。`specs/` 和 `docs/` 默认只承载文档；包管理文件、依赖树、可执行测试和机器契约不得借“可执行规格”名义落入文档目录。合法 OpenAPI/Schema 例外必须使用 `type: machine-contract`，并声明路径、所有者、原因和验证方式；它只豁免机器契约规则，不能放行包、依赖或可执行测试。
+
+本版本不自动安装 Git hook，也不启用 CI 阻断。后续团队推广时，pre-commit 和 CI 直接复用 `asset_boundaries.py check --changed`，先 warning、后 blocking，并对存量问题建立基线。
 
 只刷新项目上下文索引：
 

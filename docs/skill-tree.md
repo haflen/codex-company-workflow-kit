@@ -76,6 +76,7 @@
 | Adversarial Review | 从极端、恶意、异常和边界场景验证稳健性 | planning, implementation, bugfix, hotfix, spike, skill governance |
 | Phase Consistency Preflight | 实现或修复前检查入口、索引、版本 README、任务文档是否一致 | implementation, bugfix, hotfix, workflow health check |
 | Scope Change Circuit Breaker | 发现新增架构层、数据加工层、接口边界或业务口径变化时，让旧实现授权失效并回到文档确认 | workflow help, expert routing, design, planning, implementation |
+| Asset Placement Gate | 自动识别文档根和工程根，在设计证明归属、规划锁定完整路径、实现前检查计划路径、交付前检查新增/移动文件 | context, onboarding, design, planning, implementation, bugfix, health check, closeout |
 | Validation Levels `V0/V1/V2/V3` | 按风险自动选择验证成本，避免验证不足或全量过度验证 | planning, implementation, bugfix, hotfix |
 | Controlled Continuous Implementation | 在已确认任务清单内批量推进，并在范围变化、验证失败或高风险点自动停下 | planning, implementation, workflow help |
 | Codex Goal Tracking Recommendation | 对跨阶段、跨会话、高风险或连续执行任务建议建立目标，并提示目标不等于实现授权 | workflow help, implementation |

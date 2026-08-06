@@ -32,7 +32,17 @@
 - Formal tasks do not inherit spike-internal work-log IDs; create a new formal task namespace when converting spike output into production work.
 - Use subagents only for independent implementation, independent investigation, or independent review. Forbid parallel subagents when tasks edit the same file, state model, database migration, API contract, or public-doc section.
 - The main agent must review subagent diffs, verification evidence, documentation drift, and remaining risk.
+- Tasks that add or move engineering assets must use complete repository-relative paths and list allowed plus forbidden roots; never use only short paths such as `contracts/` or `scripts/`.
+- Run the asset placement gate against all planned paths before implementation. Blocking issues return to design/planning instead of entering code.
 - Actual subagent invocation requires an explicit user request. For stable company roles, first run `bash scripts/install.sh install-agents <project-path> --lang en` to generate `.codex/agents/`.
+
+## Asset Placement Plan
+
+- Boundary config: `.codex-workflow/asset-boundaries.json`
+
+| Task ID | Planned path | Allowed roots | Forbidden roots | Config status | Gate result |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  | `specs/`, `docs/`, or project-declared roots | draft / confirmed | passed / blocked / not triggered |
 
 ## Verification Plan
 

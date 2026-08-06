@@ -68,6 +68,16 @@
 - Recommended authoritative document:
 - Routing or entry docs to repair first:
 
+## Asset Boundaries
+
+- Config: `.codex-workflow/asset-boundaries.json`
+- Status: missing / generated review required / confirmed
+- Local validator: missing / available
+- Check scope: current changes / full audit
+- Blocking findings:
+- Warnings and explicit exceptions:
+- Recommended command:
+
 ## Findings
 
 - 

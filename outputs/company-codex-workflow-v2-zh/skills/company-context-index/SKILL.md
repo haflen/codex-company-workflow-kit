@@ -14,11 +14,12 @@ description: Use when starting work in a company project, resuming an existing f
 1. 阅读 `specs/global/INDEX.md`。
 2. 确认 `INDEX.md` 是否包含文档职责地图：入口页、工作日志、正式 specs、业务规则与计算口径、生命周期文档、公共文档影响补丁、编号命名空间和更新触发条件。
 3. 确认当前产品、版本、里程碑、技术栈、命令和入口文件。
-4. 只读取与当前任务相关的 spec、源文件和测试文件。
-5. 判断当前分支是否为集成分支；非集成分支默认不直接更新 `说明文档.md` 或 `specs/global/INDEX.md` 的主线事实。
-6. 如果索引过期，记录需要更新的字段；如果发现裸任务编号跨文档复用，先标记为文档职责风险。
-7. 如果当前分支会影响公共入口、阅读路线、当前阶段或文档职责，建议写入 `docs/public-doc-updates/<branch-or-feature>.md`。
-8. 输出本次任务的上下文摘要、应更新的文档和下一步建议。
+4. 读取 `.codex-workflow/asset-boundaries.json`，记录文档根、工程根、工具/迁移根、配置确认状态和显式例外；同时检查 `asset-boundaries.generated.json`。配置缺失时建议运行 `generate-asset-boundaries`；候选存在时先审阅并 `accept-asset-boundaries` 或明确丢弃，不自行猜测新工程目录。
+5. 只读取与当前任务相关的 spec、源文件和测试文件。
+6. 判断当前分支是否为集成分支；非集成分支默认不直接更新 `说明文档.md` 或 `specs/global/INDEX.md` 的主线事实。
+7. 如果索引过期，记录需要更新的字段；如果发现裸任务编号跨文档复用，先标记为文档职责风险。
+8. 如果当前分支会影响公共入口、阅读路线、当前阶段或文档职责，建议写入 `docs/public-doc-updates/<branch-or-feature>.md`。
+9. 输出本次任务的上下文摘要、应更新的文档和下一步建议。
 
 ## 输出
 
@@ -44,6 +45,8 @@ description: Use when starting work in a company project, resuming an existing f
 - 相关 spec：
 - 相关源码：
 - 常用命令：
+- 资产边界状态：缺失 / 草案待确认 / 已确认
+- 文档根、工程根和显式例外：
 - 当前不确定性：
 - 建议更新的文档：
 - 下一步：

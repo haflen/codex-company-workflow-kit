@@ -21,11 +21,13 @@ description: Use when a company project needs to diagnose workflow installation 
 2. 检查根目录文件：`AGENTS.md`、`BUNDLES.md`、`EXPERTS.lock.md`。
 3. 检查索引和模板：`specs/global/INDEX.md`、`specs/global/assets/`。
 4. 检查关键模板是否存在：requirements、business-rules、design、api-contract、tasks、spike、hotfix、change-request、public-doc-update、skill-upgrade、workflow-health-report。
-5. 检查项目是否包含最新规则标记：Superpowers 可见叠加、第一性原理、对抗式审查、业务规则与计算口径、方案对比、多分支公共文档协议、阶段一致性预检、验证等级、文档漂移。
-6. 检查是否存在旧规则或旧来源残留；如存在，标记为迁移风险，不自动删除。
-7. 检查当前分支、公共文档边界和阶段一致性：入口页、`INDEX.md`、当前 version/feature README、任务文档是否指向同一阶段。
-8. 发现入口页仍指向 spike/待办、但当前任务文档已进入正式实现时，标记为 `yellow` 或 `red`，并建议先修 public-doc patch 或入口路由。
-9. 如发现模板缺失或旧版本，给出安全修复命令；默认推荐 `update-templates`，不要直接覆盖用户文档。
+5. 检查 `.codex-workflow/asset-boundaries.json`、`asset-boundaries.generated.json`、本地校验器和确认状态；运行 changed 检查，用户要求全量审计时再运行 `audit-assets`。待审候选存在时标记为 `yellow`，新增/移动工程资产前必须采纳或明确丢弃。
+6. 配置缺失为 `yellow`；已确认配置下出现阻断项为 `red`。草案状态本身不阻断试点，但复杂设计/实现前应确认工程根和例外。
+7. 检查项目是否包含最新规则标记：Superpowers 可见叠加、第一性原理、对抗式审查、业务规则与计算口径、方案对比、多分支公共文档协议、阶段一致性预检、验证等级、文档漂移。
+8. 检查是否存在旧规则或旧来源残留；如存在，标记为迁移风险，不自动删除。
+9. 检查当前分支、公共文档边界和阶段一致性：入口页、`INDEX.md`、当前 version/feature README、任务文档是否指向同一阶段。
+10. 发现入口页仍指向 spike/待办、但当前任务文档已进入正式实现时，标记为 `yellow` 或 `red`，并建议先修 public-doc patch 或入口路由。
+11. 如发现模板缺失或旧版本，给出安全修复命令；默认推荐 `update-templates`，不要直接覆盖用户文档。
 
 ## 健康等级
 
@@ -58,6 +60,7 @@ description: Use when a company project needs to diagnose workflow installation 
 - 阶段一致性预检：
 - 本轮建议权威文档：
 - 外部专家状态：
+- 资产边界状态、检查范围和违规项：
 - 建议修复命令：
 - 不建议自动处理：
 - 验证证据：

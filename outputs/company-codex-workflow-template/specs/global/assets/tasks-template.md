@@ -14,16 +14,18 @@
 - Design confirmed:
 - API contract confirmed, if applicable:
 - Test strategy confirmed:
+- `.codex-workflow/asset-boundaries.json` read and confirmed:
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Verification | Depends on |
-| --- | --- | --- | --- | --- |
-| T1 |  |  |  |  |
+| ID | Task | Complete repository-relative path | Allowed root | Forbidden root | Verification | Depends on |
+| --- | --- | --- | --- | --- | --- | --- |
+| T1 |  |  |  |  |  |  |
 
 ## AI Execution Notes
 
 - Keep edits scoped to the task ID being executed.
+- Check every planned path against the asset-boundary config before editing; return to design or planning when placement is unclear.
 - Do not advance to the next task when verification for the current task fails.
 - Record any assumption changes as a requirement or design update.
 

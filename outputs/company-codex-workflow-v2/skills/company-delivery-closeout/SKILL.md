@@ -71,7 +71,8 @@ Inventory again after cleanup. Never run unscoped cleanup or destructive reset o
 3. For non-trivial code or L2/L3 delivery, use `superpowers:requesting-code-review` on the final diff.
 4. For every formal delivery, use `superpowers:verification-before-completion` and accept only fresh evidence.
 5. Check for suspected secrets, production configuration, databases, unexpected large files, dependency changes, and unverified generated artifacts.
-6. Use `company-expert-routing` only when domain risk warrants it.
+6. Read `.codex-workflow/asset-boundaries.json` and run the changed-asset check. Any blocking new or moved file stops commit/push. Run a full historical audit only when requested or when workflow health requires it.
+7. Use `company-expert-routing` only when domain risk warrants it.
 
 Any failed check, unverified critical item, or high-severity review finding blocks commit and push.
 
@@ -104,6 +105,7 @@ Report:
 - Deleted temporary files:
 - Retained-but-excluded files:
 - Blocking unknown files:
+- Asset placement gate and check scope:
 - Superpowers overlay:
 - Actual calls:
 - Expert capability: called / lens only

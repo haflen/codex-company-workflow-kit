@@ -66,7 +66,19 @@ If comparison is not needed, state why. Suggested format: `Solution comparison: 
 
 ## Implementation Approach
 
-1. 
+1.
+
+## Asset Ownership And Placement Gate
+
+Complete this section only when adding or moving directories, packages, schemas, fixtures, tests, scripts, migrations, or cross-module assets.
+
+| Artifact | Type | Owning project | Complete repository-relative path | Executor/validator | Placement evidence | Gate result |
+| --- | --- | --- | --- | --- | --- | --- |
+|  | docs / runtime / test / build / migration / generated |  |  |  | manifest / build config / test config / project convention | passed / blocked / exception |
+
+- Boundary config: `.codex-workflow/asset-boundaries.json`
+- Explicit exception with owner and validation method:
+- Reason not triggered, when applicable:
 
 ## Alternatives Considered
 

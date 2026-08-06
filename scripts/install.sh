@@ -27,6 +27,11 @@ Usage:
   bash scripts/install.sh install-agents <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh generate-index <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh expert-preflight <project-path> [--lang zh|en]
+  bash scripts/install.sh generate-asset-boundaries <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh accept-asset-boundaries <project-path> [--lang zh|en]
+  bash scripts/install.sh confirm-asset-boundaries <project-path> [--lang zh|en]
+  bash scripts/install.sh check-assets <project-path> [--lang zh|en]
+  bash scripts/install.sh audit-assets <project-path> [--lang zh|en]
   bash scripts/install.sh all <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh verify [--lang zh|en]
 USAGE
@@ -195,6 +200,48 @@ write_project_expert_readiness() {
     --json-output "$project_path/.codex-workflow/EXPERT-READINESS.json"
 }
 
+install_asset_boundary_tool() {
+  local project_path="$1"
+  local destination="$project_path/.codex-workflow/bin/asset_boundaries.py"
+  mkdir -p "$(dirname "$destination")"
+  cp "$ROOT_DIR/scripts/asset_boundaries.py" "$destination"
+  chmod +x "$destination"
+  echo "Asset boundary checker ready: $destination"
+}
+
+generate_asset_boundaries() {
+  local project_path="$1"
+  local args=("$ROOT_DIR/scripts/asset_boundaries.py" generate "$project_path" --lang "$LANG_CODE")
+  if [[ "$FORCE" == "1" ]]; then
+    args+=(--force)
+  fi
+  install_asset_boundary_tool "$project_path"
+  python3 "${args[@]}"
+}
+
+confirm_asset_boundaries() {
+  local project_path="$1"
+  install_asset_boundary_tool "$project_path"
+  python3 "$project_path/.codex-workflow/bin/asset_boundaries.py" confirm "$project_path" --lang "$LANG_CODE"
+}
+
+accept_asset_boundaries() {
+  local project_path="$1"
+  install_asset_boundary_tool "$project_path"
+  python3 "$project_path/.codex-workflow/bin/asset_boundaries.py" accept-generated "$project_path" --lang "$LANG_CODE"
+}
+
+check_assets() {
+  local project_path="$1"
+  local scope="${2:-changed}"
+  install_asset_boundary_tool "$project_path"
+  if [[ "$scope" == "all" ]]; then
+    python3 "$project_path/.codex-workflow/bin/asset_boundaries.py" check "$project_path" --lang "$LANG_CODE" --all
+  else
+    python3 "$project_path/.codex-workflow/bin/asset_boundaries.py" check "$project_path" --lang "$LANG_CODE" --changed
+  fi
+}
+
 install_plugin() {
   if [[ ! -d "$PLUGIN_SRC/.codex-plugin" ]]; then
     echo "Plugin source not found: $PLUGIN_SRC" >&2
@@ -331,6 +378,10 @@ manifest = {
         ".codex/agents/ (optional via install-agents)",
         "specs/global/assets/",
         "specs/global/assets.generated/",
+        ".codex-workflow/asset-boundaries.json",
+        ".codex-workflow/asset-boundaries.generated.json",
+        ".codex-workflow/asset-boundaries.backup.json",
+        ".codex-workflow/bin/asset_boundaries.py",
         ".codex-workflow/install.json"
     ],
     "preservedProjectAssets": [
@@ -425,6 +476,7 @@ bootstrap_project() {
   fi
   ensure_project_templates "$project_path"
   ensure_project_governance_files "$project_path"
+  generate_asset_boundaries "$project_path"
   echo "Project workflow assets ready: $project_path/specs"
   if [[ "$index_existed" == "0" || "$FORCE" == "1" ]]; then
     generate_index "$project_path" "$index_path" 1
@@ -465,6 +517,11 @@ PY
   fi
   if [[ "$FORCE" == "1" ]]; then
     rm -rf "$project_path/specs/global/assets" "$project_path/specs/global/assets.generated"
+    rm -f \
+      "$project_path/.codex-workflow/asset-boundaries.json" \
+      "$project_path/.codex-workflow/asset-boundaries.generated.json" \
+      "$project_path/.codex-workflow/asset-boundaries.backup.json" \
+      "$project_path/.codex-workflow/bin/asset_boundaries.py"
     echo "Removed managed template directories."
   else
     echo "Project specs preserved. Use --force to remove managed template directories only."
@@ -520,6 +577,7 @@ update_templates() {
     echo "Updated project templates: $dst"
   fi
   ensure_project_governance_files "$project_path"
+  generate_asset_boundaries "$project_path"
   write_project_expert_readiness "$project_path"
 }
 
@@ -564,6 +622,7 @@ PY
     exit 1
   fi
   bash -n "$ROOT_DIR/scripts/install.sh"
+  python3 "$ROOT_DIR/tests/test_asset_boundaries.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"
@@ -632,6 +691,46 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     write_project_expert_readiness "$project_path"
+    ;;
+  generate-asset-boundaries)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    generate_asset_boundaries "$project_path"
+    ;;
+  accept-asset-boundaries)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    accept_asset_boundaries "$project_path"
+    ;;
+  confirm-asset-boundaries)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    confirm_asset_boundaries "$project_path"
+    ;;
+  check-assets)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    check_assets "$project_path" changed
+    ;;
+  audit-assets)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    check_assets "$project_path" all
     ;;
   all)
     shift || true

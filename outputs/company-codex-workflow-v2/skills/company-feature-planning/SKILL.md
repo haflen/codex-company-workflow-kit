@@ -15,16 +15,18 @@ Provide executable Codex task planning.
 2. If L2/L3 solution-comparison conditions were hit in design, confirm the user approved the recommended option; if not, stop and route back to `company-feature-design`.
 3. Confirm API contracts exist when boundaries require them.
 4. Split work into small tasks with verification and an estimated validation level for each task.
-5. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
-6. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
-7. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
-8. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
-9. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
-10. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
-11. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
-12. Mark continuous implementation eligibility: which tasks can be batched and which tasks must stop for user confirmation.
-13. Mark subagent split recommendations: which tasks should remain serial under the main agent, and which tasks are suitable for independent implementation, investigation, or review.
-14. Stop after task planning unless the user gives the implementation handoff signal.
+5. When a task adds or moves engineering assets, read `.codex-workflow/asset-boundaries.json`; record complete repository-relative paths plus allowed and forbidden roots, never ambiguous short paths such as `contracts/` or `scripts/`.
+6. Run `.codex-workflow/bin/asset_boundaries.py check <project> --path <path>` on planned paths. Blocking issues must return to design, not become implementation-stage notes.
+7. Explicitly use `superpowers:writing-plans` when the plan is complex enough to need a separate executable implementation plan.
+8. Every non-trivial task must include a minimum failing case or verification anchor and at least one adversarial scenario.
+9. If `business-rules.md` exists, convert its example cases, formulas, state transitions, and exception handling into task verification points; do not write only "implement per requirements".
+10. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
+11. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
+12. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
+13. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
+14. Mark continuous implementation eligibility: which tasks can be batched and which tasks must stop for user confirmation.
+15. Mark subagent split recommendations: which tasks should remain serial under the main agent, and which tasks are suitable for independent implementation, investigation, or review.
+16. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -111,5 +113,6 @@ For every task that recommends a subagent, write:
 - Business rules verification coverage:
 - Documentation-drift check task:
 - Public-doc impact task:
+- Asset placement gate: passed / blocked / not triggered
 - Implementation handoff phrase:
 - Implementation authorization:

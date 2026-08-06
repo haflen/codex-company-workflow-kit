@@ -13,12 +13,14 @@ Introduce the company Codex workflow into an existing project without disrupting
 
 1. Inspect existing `AGENTS.md`, README, manifests, docs, test folders, and run commands.
 2. Use the installer or `generate-index` command to create a draft `specs/global/INDEX.md`.
-3. Generate or complete the document ownership map: entry page, field logs, formal specs, lifecycle docs, numbering namespaces, and update triggers.
-4. Mark inferred fields and fields that need user or project-owner confirmation.
-5. Preserve existing project rules and append the company workflow block only.
-6. Explicitly use `superpowers:brainstorming` to choose one small feature, one bugfix, or one spike as the pilot.
-7. After the pilot, review process cost, verification evidence, expert routing accuracy, and document ownership fit.
-8. Promote the workflow to the team default only after the pilot is stable.
+3. Run `generate-asset-boundaries` to infer `.codex-workflow/asset-boundaries.json` from manifests plus build/test entry points. Use `confirm` for a first draft and `accept-asset-boundaries` for a generated update candidate; preserve existing exceptions and back up the old config before acceptance.
+4. Before confirmation, block only obvious violations such as new package managers, dependency trees, or executable tests under `specs`/`docs`; after confirmation, enforce engineering-root ownership too.
+5. Generate or complete the document ownership map: entry page, field logs, formal specs, lifecycle docs, numbering namespaces, and update triggers.
+6. Mark inferred fields and fields that need user or project-owner confirmation.
+7. Preserve existing project rules and append the company workflow block only.
+8. Explicitly use `superpowers:brainstorming` to choose one small feature, one bugfix, or one spike as the pilot.
+9. After the pilot, review process cost, verification evidence, expert routing accuracy, and document ownership fit.
+10. Promote the workflow to the team default only after the pilot is stable.
 
 ## Recommended Prompts
 
@@ -42,6 +44,7 @@ Introduce the company Codex workflow into an existing project without disrupting
 - Remaining risk:
 - Current project state:
 - Auto-inferred context:
+- Asset boundary status and confirmation items:
 - Document ownership map:
 - Numbering namespaces:
 - Needs user confirmation:

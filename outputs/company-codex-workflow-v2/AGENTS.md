@@ -42,6 +42,15 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - If multiple branches affect the same public section, do not fight over the public document in feature branches; keep patches and rewrite the public section once on the integration branch.
 - If a business branch must edit a public document directly, state why and mark `direct public-doc write risk` in the completion report.
 
+## Asset Placement Gate
+
+- Before adding or moving directories, packages, schemas, fixtures, tests, scripts, migrations, or cross-module assets, read `.codex-workflow/asset-boundaries.json`.
+- `specs/` and `docs/` are documentation-only by default. Files that are built, executed, tested, or released belong to their owning engineering project. Machine-contract exceptions must declare an owner and validator.
+- Design records an asset ownership table; planning uses complete repository-relative paths plus allowed and forbidden roots, never ambiguous short paths.
+- Implementation or bugfix checks planned paths before the first edit; closeout checks only new and moved files in the current change. Blocking issues return to design or planning.
+- Run `generate-asset-boundaries` when config is missing and ask the user to confirm the generated draft. Pre-commit/CI blocking remains deferred.
+- If `asset-boundaries.generated.json` exists, review and accept it with `accept-asset-boundaries`, or explicitly discard it, before adding or moving engineering assets. Do not continue against a known stale formal config.
+
 ## Phase Boundaries
 
 - Requirements work produces goals, scope, acceptance criteria, and edge cases. Do not edit production implementation code. Page/interaction validation may edit only isolated mock prototypes under `.codex-workflow/prototypes/<feature>/draft/` through `company-requirements-prototype`.

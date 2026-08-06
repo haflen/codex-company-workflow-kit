@@ -204,6 +204,19 @@ def format_list(values, fallback):
     return ", ".join(values) if values else fallback
 
 
+def detect_asset_boundaries(root, fallback):
+    path = root / ".codex-workflow" / "asset-boundaries.json"
+    data = read_json(path) if path.exists() else {}
+    status = data.get("status") if isinstance(data.get("status"), str) else fallback
+    entries = data.get("engineeringRoots") if isinstance(data.get("engineeringRoots"), list) else []
+    engineering = [
+        entry.get("path")
+        for entry in entries
+        if isinstance(entry, dict) and isinstance(entry.get("path"), str)
+    ]
+    return status, engineering
+
+
 def render_zh(root):
     pkg, scripts = detect_package_json(root)
     fallback = "待用户确认"
@@ -216,6 +229,7 @@ def render_zh(root):
     api_contracts = list_matching(root, ["**/*contract*.md", "**/*api*.md", "**/openapi*.yaml", "**/swagger*.json"])
     tests = detect_dirs(root, ["test", "tests", "__tests__", "e2e", "cypress", "playwright"])
     entries = detect_entrypoints(root)
+    boundary_status, engineering_roots = detect_asset_boundaries(root, fallback)
     today = date.today().isoformat()
     return f"""# 项目上下文索引
 
@@ -244,6 +258,14 @@ def render_zh(root):
 - API 契约：{format_list(api_contracts, fallback)}
 - 测试位置：{format_list(tests, fallback)}
 - 主要源码入口：{format_list(entries, fallback)}
+
+## 资产落点门禁
+
+- 配置文件：`.codex-workflow/asset-boundaries.json`
+- 确认状态：{boundary_status}
+- 工程资产根目录：{format_list(engineering_roots, fallback)}
+- 规则：需求、设计和计划必须写明预期产物的完整仓库相对路径；实现前检查落点；交付前检查实际变更文件。
+- 配置为 `generated-review-required` 时，先核对自动推断，再运行 `bash <workflow-kit>/scripts/install.sh confirm-asset-boundaries <project-path> --lang zh`。
 
 ## 文档职责地图
 
@@ -294,6 +316,7 @@ def render_zh(root):
 - 当前版本、里程碑、进度文档是否准确。
 - 测试、构建、本地启动命令是否可以直接运行。
 - 主要源码入口和测试位置是否完整。
+- 资产落点配置中的工程根目录和例外是否准确。
 
 ## 当前风险
 
@@ -313,6 +336,7 @@ def render_en(root):
     api_contracts = list_matching(root, ["**/*contract*.md", "**/*api*.md", "**/openapi*.yaml", "**/swagger*.json"])
     tests = detect_dirs(root, ["test", "tests", "__tests__", "e2e", "cypress", "playwright"])
     entries = detect_entrypoints(root)
+    boundary_status, engineering_roots = detect_asset_boundaries(root, fallback)
     today = date.today().isoformat()
     return f"""# Project Context Index
 
@@ -341,6 +365,14 @@ Start here before using any company workflow.
 - API contracts: {format_list(api_contracts, fallback)}
 - Test locations: {format_list(tests, fallback)}
 - Main source entrypoints: {format_list(entries, fallback)}
+
+## Asset Placement Gate
+
+- Configuration: `.codex-workflow/asset-boundaries.json`
+- Confirmation status: {boundary_status}
+- Engineering asset roots: {format_list(engineering_roots, fallback)}
+- Rule: requirements, design, and planning name complete repository-relative output paths; implementation checks planned paths before editing; closeout checks changed files.
+- When status is `generated-review-required`, review the inferred roots and run `bash <workflow-kit>/scripts/install.sh confirm-asset-boundaries <project-path> --lang en`.
 
 ## Document Ownership Map
 
@@ -391,6 +423,7 @@ Start here before using any company workflow.
 - Current version, milestone, and progress document.
 - Test, build, and local run commands.
 - Source entrypoints and test locations.
+- Engineering roots and exceptions in the asset placement configuration.
 
 ## Active Risks
 

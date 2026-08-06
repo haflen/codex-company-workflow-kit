@@ -24,6 +24,15 @@
 - Spike 日志使用 spike 内部编号，例如 `SPK02-T001`；正式任务使用 feature、版本或正式任务编号；不要跨文档复用裸 `任务 001`。
 - `specs/global/INDEX.md` 应维护文档职责地图。
 
+## 资产落点门禁
+
+- 新增或移动目录、包、Schema、Fixture、测试、脚本、迁移或跨模块共享资产时，先读取 `.codex-workflow/asset-boundaries.json`。
+- `specs/` 和 `docs/` 默认只承载文档；被构建、执行、测试或发布的文件进入所属工程。机器契约例外必须在配置中声明所有者和验证方式。
+- 设计阶段输出资产归属表；任务阶段写仓库相对完整路径、允许根目录和禁止根目录，不使用含糊短路径。
+- 实现或 bugfix 第一次编辑前运行计划路径检查；交付收口只检查本次新增和移动文件。阻断项必须回到设计或规划处理。
+- 配置缺失时运行 `generate-asset-boundaries`；自动生成草案由用户确认。pre-commit/CI 强制检查当前暂缓。
+- 存在 `asset-boundaries.generated.json` 时，新增或移动工程资产前必须审阅并使用 `accept-asset-boundaries` 采纳，或明确丢弃候选；不得继续依赖已知过期的正式配置。
+
 ## 阶段边界
 
 - 需求澄清阶段产出验收标准和边界条件，不编辑生产实现代码。页面/交互验证只能修改 `.codex-workflow/prototypes/<feature>/draft/` 下的隔离、模拟数据原型。

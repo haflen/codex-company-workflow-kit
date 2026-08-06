@@ -16,6 +16,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 3. 如果预检发现公共入口、索引、版本 README 或任务文档冲突，暂停实现；输出冲突、暂定权威文档和修复建议，等待用户确认或先修文档路由。
 4. 执行范围变化熔断检查：确认本轮请求没有新增架构层、数据加工层、表、接口边界、业务口径、字段映射、调度链路或未确认文档产物。
 5. 如果触发熔断，停止编码；只允许补需求、设计、任务、字段映射或公共文档影响，并输出 `实现授权状态：已失效，需要用户确认后再编码`。
+   - 本轮新增或移动文件时，读取 `.codex-workflow/asset-boundaries.json`，并在第一次编辑前对任务中的完整路径运行 `.codex-workflow/bin/asset_boundaries.py check <project> --path <path>`。
+   - 出现阻断项、目标路径未写入任务允许根目录、或工程资产指向 `specs/`/`docs/` 时，停止编码并回到设计/规划；不得以“可执行规格”绕过。
 6. 识别下一个任务、验证方式和是否进入连续执行模式。
 7. 默认显式叠加 `superpowers:test-driven-development`；先定义最小失败案例或最小验证锚点，再写实现。
 8. 实现依赖框架内部、类型、性能、并发、数据建模或 UI 质量时，使用 `company-expert-routing`，并读取它的 `阶段许可`；许可不是 `允许实现` 时不得编码。
@@ -194,6 +196,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 对抗式审查：
 - 执行策略：
 - 阶段一致性预检：
+- 资产落点门禁：通过 / 阻断 / 不触发
 - 范围变化熔断：
 - 阶段许可：
 - 实现授权状态：

@@ -13,16 +13,18 @@ Provide a Codex-ready design workflow.
 
 1. Confirm requirements exist, include acceptance criteria, and the user explicitly authorized technical design. A requirements prototype or its confirmed status is not design authorization.
 2. Read routed project context, existing patterns, and relevant source files; if requirements say `business-rules.md` is needed, read business rules and calculation semantics first.
-3. Run a solution-comparison level decision: L1 small changes may skip comparison with a reason; L2/L3 work that hits trigger conditions must compare 2-3 options.
-4. When solution comparison is required, explicitly use `superpowers:brainstorming` and output the recommended option, alternatives, tradeoffs, and user-confirmation point.
-5. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
-6. For non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundaries, run a first-principles check.
-7. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
-8. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
-9. For frontend/backend or service boundaries, create an API contract before task planning.
-10. If this design comes from a scope change discovered during implementation, mark `Implementation authorization: expired; user confirmation required before coding`, and state that the old task authorization does not cover the new scope.
-11. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
-12. Stop after design unless the user gives the task-planning handoff signal.
+3. When adding directories, packages, schemas, fixtures, tests, scripts, migrations, or cross-module assets, read `.codex-workflow/asset-boundaries.json`, inspect real manifests plus build/test entry points, and report artifact type, owning project, complete repository-relative path, executor/validator, and placement evidence.
+4. Do not confirm design while ownership is unproven or a planned path fails the gate; fix ownership or declare an explicit exception with an owner and validator.
+5. Run a solution-comparison level decision: L1 small changes may skip comparison with a reason; L2/L3 work that hits trigger conditions must compare 2-3 options.
+6. When solution comparison is required, explicitly use `superpowers:brainstorming` and output the recommended option, alternatives, tradeoffs, and user-confirmation point.
+7. Use `company-expert-routing` for non-trivial architecture, framework, data, UI, or testing decisions; let it choose the stack bundle automatically.
+8. For non-trivial architecture, data, permission, performance, security, external API, frontend rendering, or cross-service boundaries, run a first-principles check.
+9. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
+10. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
+11. For frontend/backend or service boundaries, create an API contract before task planning.
+12. If this design comes from a scope change discovered during implementation, mark `Implementation authorization: expired; user confirmation required before coding`, and state that the old task authorization does not cover the new scope.
+13. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
+14. Stop after design unless the user gives the task-planning handoff signal.
 
 ## Superpowers Layer
 
@@ -51,6 +53,8 @@ When templates are needed, resolve them in this order:
 2. Plugin fallback: read `../../specs/global/assets/design-template.md` or `../../specs/global/assets/api-contract-template.md` relative to this skill directory.
 
 If requirements link `business-rules.md`, the design artifact must list it under used context and state where each critical rule is implemented or verified.
+
+`specs/` and `docs/` are documentation-only by default. Anything built, executed, tested, or released belongs to its owning engineering project; a machine-contract exception must explicitly declare its owner and validator in `asset-boundaries.json`.
 
 ## Boundary
 
@@ -84,4 +88,5 @@ Design work after a scope change must not flow directly back into implementation
 - Key counterexample scenarios:
 - Risks:
 - Test strategy:
+- Asset ownership table and placement gate:
 - Next step: L2/L3 work can enter `company-feature-planning` only after the recommended option is confirmed.

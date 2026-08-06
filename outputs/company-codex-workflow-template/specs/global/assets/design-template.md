@@ -41,6 +41,14 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 
 1. 
 
+## Asset Ownership
+
+Use `.codex-workflow/asset-boundaries.json` as the authority. Name complete repository-relative paths, not bare filenames.
+
+| Artifact | Complete repository-relative path | Type | Allowed root | Forbidden root | Evidence |
+| --- | --- | --- | --- | --- | --- |
+|  |  | code / test / script / contract / document / prototype |  |  |  |
+
 ## Alternatives Considered
 
 | Option | Pros | Cons | Decision |
@@ -69,4 +77,4 @@ Use `api-contract-template.md` for service, frontend/backend, or module boundari
 
 ## Human Confirmation
 
-Design is ready for task planning when contracts, risks, rollout, and verification strategy are explicit.
+Design is ready for task planning when contracts, asset ownership, risks, rollout, and verification strategy are explicit.

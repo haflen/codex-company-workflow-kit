@@ -12,6 +12,14 @@ Use this file as the first stop for project context. Keep summaries short and li
 - Build commands:
 - Local run commands:
 
+## Asset Placement Gate
+
+- Configuration: `.codex-workflow/asset-boundaries.json`
+- Confirmation status: needs confirmation
+- Engineering asset roots: needs confirmation
+- Declare complete repository-relative paths in requirements, design, or planning before implementation; check changed files before closeout.
+- Confirm automatic inferences after project bootstrap. Unconfirmed roots are not formal constraints.
+
 ## Global Documents
 
 | Document | Purpose | Read When |
@@ -32,5 +40,4 @@ Use this file as the first stop for project context. Keep summaries short and li
 
 ## Current Risks
 
-- None recorded yet.
-
+- Asset placement configuration has not been confirmed.

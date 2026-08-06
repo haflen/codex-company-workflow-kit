@@ -5,9 +5,10 @@ Start with the company quickstart in `docs/company-quickstart.md` if you are try
 1. For project-only use, copy or merge `AGENTS.md` into the company project root, copy `specs/global/assets/` into the project, and place `BUNDLES.md` plus `EXPERTS.lock.md` at the project root.
 2. For plugin use, install this directory as a local Codex plugin; `.codex-plugin/plugin.json` points at `./skills/`.
 3. Use the installer to generate a draft `specs/global/INDEX.md`, then have the project owner confirm stack, commands, current version, and active milestone.
-4. Fill `EXPERTS.lock.md` with the real source, license, and pin for every external expert skill the team will trust.
-5. Run `company-skill-security-review` before adding external or self-improved skills to the trusted set.
-6. Pilot with one feature and one bugfix before making the workflow mandatory.
+4. Review `.codex-workflow/asset-boundaries.json`, confirm documentation/engineering roots plus explicit exceptions, then run `confirm-asset-boundaries`.
+5. Fill `EXPERTS.lock.md` with the real source, license, and pin for every external expert skill the team will trust.
+6. Run `company-skill-security-review` before adding external or self-improved skills to the trusted set.
+7. Pilot with one feature and one bugfix before making the workflow mandatory.
 
 Recommended command:
 
@@ -22,6 +23,21 @@ bash scripts/install.sh generate-index /path/to/project --lang en
 ```
 
 If an existing project already has `INDEX.md`, the installer preserves it by default and writes `specs/global/INDEX.generated.md` for review.
+
+Confirm boundaries and check current changes:
+
+```bash
+bash scripts/install.sh confirm-asset-boundaries /path/to/project --lang en
+bash scripts/install.sh check-assets /path/to/project --lang en
+```
+
+Use `confirm` for the first formal draft. Refreshes of an existing config create `asset-boundaries.generated.json`; review it, then safely accept it while backing up the previous config:
+
+```bash
+bash scripts/install.sh accept-asset-boundaries /path/to/project --lang en
+```
+
+Run `audit-assets` only for an explicit legacy-project full audit. Pre-commit/CI blocking remains deferred.
 
 If a project reports missing templates, `BUNDLES.md`, or `EXPERTS.lock.md`, run:
 

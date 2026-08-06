@@ -124,6 +124,24 @@ bash scripts/install.sh update-templates /path/to/project --lang zh
 
 如果项目还是空目录，或者还在需求梳理阶段，`bootstrap-project` 仍然适合先执行。它会先放入 `AGENTS.md` 和 `specs/`，让 Codex 有统一的需求沉淀位置。
 
+初始化还会生成 `.codex-workflow/asset-boundaries.json`。它用于区分文档目录和真实工程目录，避免把包、测试、Fixture、Schema 或脚本写进 `specs/`。先让 Codex解释自动识别结果，确认无误后执行：
+
+```bash
+bash scripts/install.sh confirm-asset-boundaries /path/to/project --lang zh
+```
+
+空项目尚未确定技术栈且没有 manifest 时，`engineeringRoots` 为空是正常现象。此时保留 `generated-review-required`，先完成需求和技术设计；首次脚手架按已确认设计落地后，运行 `generate-asset-boundaries --force` 重新识别工程根，再审阅并确认。草案期间仍会阻断工程资产误入 `specs/` 或 `docs/`。
+
+已有正式配置时，不使用 `confirm` 处理刷新结果。安装器会保留正式配置并生成 `asset-boundaries.generated.json`；审阅候选后执行：
+
+```bash
+bash scripts/install.sh accept-asset-boundaries /path/to/project --lang zh
+```
+
+该命令会备份旧配置、原子替换正式配置并标记为已确认。
+
+日常无需全仓扫描；设计和实现会检查计划路径，交付前使用 `check-assets` 只检查本次新增和移动文件。
+
 这种阶段不要急着进入技术设计或实现。建议先说：
 
 ```text

@@ -19,6 +19,8 @@ description: Use when company code behavior differs from requirements, design, a
 6. 默认显式叠加 `superpowers:systematic-debugging`；先复现或收集证据，再定位根因。
 7. 根因结论前执行第一性原理检查：事实链、最小复现条件、表层症状和底层原因的区别。
 8. 非平凡故障、技术栈相关失败或 hotfix 场景使用 `company-expert-routing`。
+   - Bugfix 新增或移动文件时，读取 `.codex-workflow/asset-boundaries.json` 并在编辑前运行计划路径检查；只修改既有文件且不改变归属时可标记“不触发”。
+   - 资产落点阻断表示修复方案或任务边界错误，普通 bugfix 必须停止；生产 hotfix 只能先做不新增错误落点的最小恢复，并登记补偿任务。
 9. 做最小修复。
 10. 增加或识别回归验证，并执行与本缺陷相关的对抗式审查。
 11. 检查中文代码逻辑备注：根因修复、异常分支、兼容策略、业务规则和回归防线必须有必要备注。
@@ -89,6 +91,7 @@ Bugfix 前检查最小上下文：
 - 对抗式审查：
 - 执行策略：
 - 阶段一致性预检：
+- 资产落点门禁：通过 / 阻断 / 不触发
 - 本轮权威文档：
 - 验证等级：
 - 验证证据：
