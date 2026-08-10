@@ -14,6 +14,7 @@ FORMAL_TEMPLATES = {
     "hotfix-report-template.md",
     "requirements-prototype-record-template.md",
     "delivery-closeout-template.md",
+    "quality-validation-report-template.md",
 }
 LANGUAGES = {
     "zh": {
@@ -128,6 +129,18 @@ SKILL_GATES = {
         "DOC-G11",
         "DOC-G12",
     },
+    "company-quality-validation": {
+        "DOC-G01",
+        "DOC-G04",
+        "DOC-G05",
+        "DOC-G06",
+        "DOC-G07",
+        "DOC-G08",
+        "DOC-G09",
+        "DOC-G10",
+        "DOC-G11",
+        "DOC-G12",
+    },
     "company-implementation-runner": {
         "DOC-G06",
         "DOC-G07",
@@ -146,6 +159,7 @@ INDEX_ASSETS = {
     "data-model-template.md",
     "requirements-prototype-record-template.md",
     "delivery-closeout-template.md",
+    "quality-validation-report-template.md",
 }
 
 
