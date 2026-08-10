@@ -281,6 +281,8 @@ bash scripts/install.sh install-agents /path/to/project --lang zh
 
 验收只输出 `pass / conditional-pass / blocked`，不修改生产代码。`blocked` 转 bugfix 并按原范围复验；通过或用户明确接受允许的条件通过后，再使用 `company-delivery-closeout` 规整本次成果。
 
+判定为 `需要/强制` 时，Codex 会把 `quality-validation-report.md` 放在权威任务文档同级，并记录当前分支、HEAD、被验收路径、diff SHA-256 与未跟踪文件哈希。判定为不需要时不新增报告。交付收口核对候选指纹，未漂移则复用证据；行为相关路径变化才重新验收。
+
 默认的一次性交付口令：
 
 ```text

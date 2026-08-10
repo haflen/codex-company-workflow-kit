@@ -23,11 +23,21 @@ description: Use when 公司项目的任务批次、功能、里程碑或版本�
 
 授权仅覆盖当前收口范围内的普通本地 commit 和普通 push。不得扩展为强制推送、rebase、amend、合并、删除分支、发布、部署、删除未知文件或修改范围外工作。
 
+## 质量验收状态交接
+
+1. 重新核对独立质量验收触发矩阵，不能只相信上一轮对话中的判断。
+2. 判定为不需要时，不要求新增报告；读取实现或 bugfix 的判定依据和完成前验证证据。
+3. 判定为 `需要/强制` 时，从权威任务文档同级目录查找 `quality-validation-report.md`，或读取权威任务文档/当前 feature/version README 登记的实际路径。
+4. 核对报告结论、用户条件接受记录和候选指纹。候选指纹包括当前分支、HEAD commit、被验收路径、diff SHA-256 与未跟踪文件哈希。
+5. 候选指纹一致时复用新鲜验收证据，只补充收口引入的 cleanup、staging、secret、branch 和最终 diff 检查；不得无差别重跑完整测试集。
+6. 被验收路径发生漂移时返回 `company-quality-validation`，按原 AC 和范围重新验收。纯文档规整或验收范围外的来源化清理只做增量检查。
+7. 状态流只允许 `quality-validation -> delivery-closeout` 或 `delivery-closeout -> quality-validation` 的重新验收路由；不得形成递归调用，quality-validation 不执行 Git 收口，closeout 不冒充独立验收。
+
 ## 阶段一：范围与分支门禁
 
 1. 确认项目根目录、当前分支、上游、远端和权威任务文档。
 2. 核对任务均为已完成、明确延期或明确不做；未完成任务不得静默关闭。
-3. 读取实现或 bugfix 的独立质量验收判定。判定为 `需要/强制` 时，必须找到当前交付候选对应的新鲜验收报告和证据。
+3. 按“质量验收状态交接”读取实现或 bugfix 的判定。判定为 `需要/强制` 时，必须找到当前交付候选对应的新鲜验收报告和证据。
 4. 验收缺失、已过期或为 `blocked` 时停止；`conditional-pass` 仅在风险允许且用户明确接受时继续，高风险 `V3` 不得条件放行。
 5. 列出允许纳入的目录、文件和已有用户改动。
 6. `main`、`master`、`develop`、`integration`、`release` 及项目声明的受保护分支禁止 `commit`/`deliver`。
@@ -104,6 +114,7 @@ git diff --cached --stat
 - 收口范围与权威任务文档：
 - 任务完成状态：
 - 独立质量验收判定与结论：不需要 / pass / conditional-pass / blocked
+- 质量验收报告路径与候选指纹：
 - 质量验收报告与证据新鲜度：
 - 条件通过的用户接受记录：
 - 成果分类：代码 / 测试 / 文档 / 配置 / 资产
@@ -132,6 +143,7 @@ git diff --cached --stat
 
 - 非平凡代码或 L2/L3：**REQUIRED SUB-SKILL:** Use `superpowers:requesting-code-review`。
 - 所有正式交付：**REQUIRED SUB-SKILL:** Use `superpowers:verification-before-completion`。
+- 此处的完成前验证证明收口后的候选、清理和暂存边界正确；质量验收中的同名能力证明 AC 与验收结论成立。两者复用新鲜证据，不默认重复整套测试。
 - 进入 Git 收尾：**REQUIRED SUB-SKILL:** Use `superpowers:finishing-a-development-branch`，但服从本 skill 的模式与授权边界。
 
 ## 文档质量门禁

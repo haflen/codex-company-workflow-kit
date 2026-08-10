@@ -123,6 +123,18 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 
 验收节点根据需求 AC 建立“场景 -> 证据 -> 结果”矩阵，只做验证，不修改生产代码。`blocked` 进入 `company-bugfix-runner`，修复后回到相同验收范围；`pass` 或用户明确接受且风险允许的 `conditional-pass` 才能进入交付收口。
 
+### 质量验收状态如何交给收口
+
+- `不需要`：不创建额外文档，implementation/bugfix 完成报告保留判定依据，closeout 会重新核对触发矩阵。
+- `需要/强制`：在权威任务文档同级创建 `quality-validation-report.md`；已有编号规范时可加前缀，但必须登记实际路径。
+- 报告记录当前分支、HEAD、被验收路径、基于这些路径计算的 diff SHA-256，以及范围内未跟踪文件的逐文件哈希。
+- closeout 核对候选指纹；一致时复用新鲜验收证据，只补 cleanup、staging、secret、branch 和最终 diff 检查。
+- 被验收路径发生变化时返回 `company-quality-validation`；纯文档规整和验收范围外的来源化清理只做增量检查。
+
+有条件通过不适用于安全、权限、数据完整性、金额或指标公式、迁移、回滚或恢复风险。允许的剩余风险也必须记录接受人、时间、范围、到期条件和补偿任务。
+
+quality-validation 和 delivery-closeout 都会使用 `superpowers:verification-before-completion`，但对象不同：前者证明 AC 和验收结论，后者证明收口后的候选、清理和暂存边界。closeout 不默认重复完整测试集。
+
 在实现、bugfix 或 hotfix 前，workflow 还会执行阶段一致性预检：
 
 - 读取入口页、`specs/global/INDEX.md`、当前 feature/version README、任务文档和相关 public-doc patch。
@@ -681,7 +693,7 @@ Codex 会使用 `company-requirements-prototype` 管理隔离草稿、浏览器�
 所有任务已完成，开始交付收口并推送业务分支。
 ```
 
-Codex 会进入 `company-delivery-closeout`：先检查独立验收门禁、业务分支和任务状态，再逐文件分类代码、测试、文档、配置、资产、临时产物和未知文件；随后规整权威文档、dry-run 清理、审查最终 diff、重新验证，并只精确暂存确认文件。正常通过后创建一次本地 commit，并使用普通 push 推送当前业务分支。
+Codex 会进入 `company-delivery-closeout`：先重新核对独立验收触发矩阵、报告路径和候选指纹，再检查业务分支和任务状态。指纹一致时复用新鲜验收证据；被验收路径漂移时返回质量验收。随后逐文件分类代码、测试、文档、配置、资产、临时产物和未知文件，规整权威文档、dry-run 清理、审查最终 diff，并只精确暂存确认文件。正常通过后创建一次本地 commit，并使用普通 push 推送当前业务分支。
 
 三种模式：
 

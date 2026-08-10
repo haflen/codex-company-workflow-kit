@@ -23,11 +23,21 @@ Default to `prepare` when intent is unclear. “All tasks are complete. Start de
 
 Authorization covers only an ordinary local commit and ordinary push for the confirmed closeout scope. It never expands to force push, rebase, amend, merge, branch deletion, release, deployment, unknown-file deletion, or out-of-scope work.
 
+## Quality Validation State Handoff
+
+1. At closeout, recompute the independent quality-validation trigger matrix instead of trusting only a decision from a previous conversation.
+2. When validation is not required, require no new report; read the implementation or bugfix decision evidence and completion-verification evidence.
+3. When validation is `required/mandatory`, locate `quality-validation-report.md` in the same directory as the authoritative task document, or read its registered path from the authoritative task document/current feature or version README.
+4. Verify the result, conditional-acceptance record, and candidate fingerprint. The candidate fingerprint includes current branch, HEAD commit, validated paths, diff SHA-256, and untracked-file hashes.
+5. When the fingerprint matches, reuse fresh validation evidence and add only closeout-specific cleanup, staging, secret, branch, and final-diff checks; closeout must not indiscriminately rerun the complete test suite.
+6. When validated paths drift, return to `company-quality-validation` and rerun the original ACs and scope. Documentation-only reconciliation or provenance-backed cleanup outside the validated scope receives incremental checks only.
+7. State flow permits `quality-validation -> delivery-closeout` and a revalidation route from `delivery-closeout -> quality-validation`; it must not create recursive invocation. Quality validation does not perform Git closeout, and closeout does not impersonate independent acceptance.
+
 ## Phase 1: Scope and Branch Gate
 
 1. Confirm project root, current branch, upstream, remote, and authoritative task document.
 2. Require every task to be complete, explicitly deferred, or explicitly rejected; never silently close unfinished work.
-3. Read the independent quality validation decision from implementation or bugfix. When it is `required/mandatory`, require a fresh report and evidence for the current delivery candidate.
+3. Read the implementation or bugfix decision through the Quality Validation State Handoff. When it is `required/mandatory`, require a fresh report and evidence for the current delivery candidate.
 4. Stop when validation is missing, stale, or `blocked`. Continue from `conditional-pass` only when the risk is eligible and the user explicitly accepted it; high-risk `V3` cannot be conditionally released.
 5. List allowed directories, files, and existing user changes.
 6. Block `commit`/`deliver` on `main`, `master`, `develop`, `integration`, `release`, and project-defined protected branches.
@@ -104,6 +114,7 @@ Report:
 - Closeout scope and authoritative task document:
 - Task completion state:
 - Independent quality validation decision and result: not required / pass / conditional-pass / blocked
+- Quality validation report path and candidate fingerprint:
 - Quality validation report and evidence freshness:
 - User acceptance record for conditional pass:
 - Artifacts: code / tests / documents / configuration / assets
@@ -132,6 +143,7 @@ The stop report names blockers, completed safe steps, Git actions not executed, 
 
 - Non-trivial code or L2/L3: **REQUIRED SUB-SKILL:** Use `superpowers:requesting-code-review`.
 - Every formal delivery: **REQUIRED SUB-SKILL:** Use `superpowers:verification-before-completion`.
+- Here completion verification proves the post-closeout candidate, cleanup, and staging boundary. The same capability in quality validation proves AC coverage and the acceptance result. Reuse fresh evidence instead of repeating the whole suite by default.
 - Git finalization: **REQUIRED SUB-SKILL:** Use `superpowers:finishing-a-development-branch`, subject to this skill's selected mode and authorization boundary.
 
 ## Document Quality Gates

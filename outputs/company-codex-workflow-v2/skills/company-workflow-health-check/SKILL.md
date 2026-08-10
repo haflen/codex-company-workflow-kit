@@ -28,7 +28,8 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 9. Check current branch, public-document boundaries, and phase consistency: entry page, `INDEX.md`, current version/feature README, and task documents should point to the same phase.
 10. If the entry page still points to spike/backlog while current task docs have entered formal implementation, mark this `yellow` or `red` and recommend repairing the public-doc patch or entry route first.
 11. Check whether `company-quality-validation` is exposed, AGENTS/BUNDLES contain its trigger rules, and the project has the validation report template. If validation is required but its result or evidence is missing, mark the project `red` for closeout.
-12. If templates or rules are missing, provide safe repair commands. Prefer `update-templates` by default; do not overwrite user documents directly.
+12. For an existing validation report, check whether it is beside the authoritative task document or at a registered path and whether it records current branch, HEAD, validated paths, diff SHA-256, and untracked-file hashes. Mark stale candidate fingerprints or conditional passes without acceptance records as `red`.
+13. If templates or rules are missing, provide safe repair commands. Prefer `update-templates` by default; do not overwrite user documents directly.
 
 ## Health Levels
 
@@ -60,6 +61,7 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 - Public-document boundary:
 - Phase Consistency Preflight:
 - Independent quality validation integration and evidence state:
+- Quality validation report path, candidate fingerprint, and conditional-acceptance record:
 - Recommended authoritative document:
 - External expert status:
 - Asset boundary status, check scope, and findings:

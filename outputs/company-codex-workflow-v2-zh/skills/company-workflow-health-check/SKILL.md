@@ -28,7 +28,8 @@ description: Use when a company project needs to diagnose workflow installation 
 9. 检查当前分支、公共文档边界和阶段一致性：入口页、`INDEX.md`、当前 version/feature README、任务文档是否指向同一阶段。
 10. 发现入口页仍指向 spike/待办、但当前任务文档已进入正式实现时，标记为 `yellow` 或 `red`，并建议先修 public-doc patch 或入口路由。
 11. 检查 `company-quality-validation` 是否暴露，AGENTS/BUNDLES 是否包含触发规则，项目是否有验收报告模板；需要验收但缺少结论或证据时标记为 `red`。
-12. 如发现模板缺失或旧版本，给出安全修复命令；默认推荐 `update-templates`，不要直接覆盖用户文档。
+12. 对已存在的质量验收报告检查：是否位于权威任务文档同级或已登记路径，是否包含当前分支、HEAD、被验收路径、diff SHA-256、未跟踪文件哈希；候选指纹过期或条件通过缺少接受记录时标记为 `red`。
+13. 如发现模板缺失或旧版本，给出安全修复命令；默认推荐 `update-templates`，不要直接覆盖用户文档。
 
 ## 健康等级
 
@@ -60,6 +61,7 @@ description: Use when a company project needs to diagnose workflow installation 
 - 公共文档边界：
 - 阶段一致性预检：
 - 独立质量验收接入与证据状态：
+- 质量验收报告路径、候选指纹与条件接受记录：
 - 本轮建议权威文档：
 - 外部专家状态：
 - 资产边界状态、检查范围和违规项：

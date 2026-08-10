@@ -85,6 +85,8 @@ outputs/company-codex-workflow-template/
 
 `V0/V1` 默认跳过独立验收；单任务低风险 `V2` 默认跳过。多任务/跨模块/前后端或 API/数据库集成的 `V2` 需要验收；里程碑、发布候选、`V3` 和 hotfix 补偿强制验收。结果只有 `pass / conditional-pass / blocked`：阻断项进入 bugfix 后复验，通过后才进入交付收口。
 
+需要或强制验收时，报告写在权威任务文档同级的 `quality-validation-report.md`，并记录当前分支、HEAD、被验收路径、diff SHA-256 和未跟踪文件哈希。交付收口会重新核对触发条件和候选指纹：指纹一致时复用验收证据，只补收口增量检查；被验收路径变化时回到质量验收。判定为不需要时不会额外创建报告。
+
 ## 文档职责和编号命名空间
 
 公司 workflow 还内置文档职责协议，避免把项目入口、spike 现场日志、正式 specs 和生命周期总结混成一条任务链：
