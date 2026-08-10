@@ -104,7 +104,9 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - Validation level:
 - Independent quality validation decision: not required / required / mandatory
 - Validation loop: first acceptance / post-fix revalidation / hotfix compensation
-- Recommended next workflow: `company-quality-validation` / `company-delivery-closeout` / requirements or design
+- Quality validation report path: not applicable / `quality-validation-report.md` beside the authoritative task document / reuse the original blocked report
+- Post-fix candidate awaiting validation: current branch, HEAD commit, validated paths
+- Recommended next workflow: `company-quality-validation` / `company-delivery-closeout` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning`
 - Verification evidence:
 - Code comment check:
 - Comment coverage:

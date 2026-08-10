@@ -4,11 +4,31 @@
 
 - work-item-id：
 - 验收范围：任务批次 / 功能 / 里程碑 / 版本 / hotfix 补偿
-- 最终候选分支与 commit：
+- 正式报告路径：权威任务文档同级目录下的 `quality-validation-report.md` 或带项目编号前缀的等价路径
 - 独立质量验收：不需要 / 需要 / 强制
 - 验收负责人：
 - 验收时间：
 - 对比基线：初版，无对比基线 / 上一确认文档路径 + Git commit
+
+## 能力与执行透明度
+
+- 工作流层：`company-quality-validation`
+- 透明度模式：`full-audit`
+- Superpowers 叠加：
+- 实际调用：
+- 专家/插件能力：
+- 未调用但采用视角：
+
+## 最终候选身份
+
+- 当前分支：
+- HEAD commit：
+- diff SHA-256：基于 `git diff --binary HEAD -- <被验收路径>`
+- 未跟踪文件路径与 SHA-256：
+
+| 被验收路径 | 类型 | 是否包含未跟踪文件 | 说明 |
+| --- | --- | --- | --- |
+|  | 代码 / 测试 / 配置 / 迁移 / 资产 | 否 / 是 |  |
 
 ## 先看结论
 
@@ -75,13 +95,23 @@ flowchart LR
 
 | 缺陷 ID | 严重度 | 证据 | 路由 | 修复后重验范围 | 状态 |
 | --- | --- | --- | --- | --- | --- |
-|  |  |  | `company-bugfix-runner` / 需求 / 设计 |  |  |
+|  |  |  | `company-bugfix-runner` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning` |  |  |
 
 ## 未验证项与剩余风险
 
 | 项目 | 原因 | 影响 | 是否允许有条件通过 | 用户接受记录或后续条件 |
 | --- | --- | --- | --- | --- |
 |  |  |  | 是 / 否 |  |
+
+有条件通过硬约束：安全、权限、数据完整性、金额或指标公式、迁移、回滚或恢复风险不得有条件通过。
+
+仅对允许的剩余风险填写：
+
+- 接受人：
+- 接受时间：
+- 接受范围：
+- 到期条件：
+- 补偿任务：
 
 ## 图表豁免
 
@@ -99,4 +129,4 @@ flowchart LR
 - 验收结论已确认：否 / 是
 - 有条件通过风险已由用户接受：不适用 / 否 / 是
 - 交付收口就绪：未就绪 / 就绪
-- 推荐下一 workflow：`company-bugfix-runner` / 需求或设计 / `company-delivery-closeout`
+- 推荐下一 workflow：`company-bugfix-runner` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning` / `company-delivery-closeout`

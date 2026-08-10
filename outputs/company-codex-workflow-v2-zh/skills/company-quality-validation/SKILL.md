@@ -24,6 +24,13 @@ description: Use when company implementation is complete and integrated acceptan
 
 跳过不等于不测试。跳过独立阶段时仍保留实现或 bugfix workflow 的 TDD、回归和完成前验证证据。
 
+## 持久化报告契约
+
+- 仅在 `需要/强制` 独立质量验收时创建正式报告；判定为不需要时不新增文档，由实现或 bugfix 完成报告保留判定依据。
+- 报告默认命名为 `quality-validation-report.md`，放在权威任务文档同级目录。项目已有编号规范时可添加编号前缀，但必须保留 `quality-validation-report`，并由权威任务文档或当前 feature/version README 登记实际路径。
+- 报告必须绑定当前候选：记录当前分支、`HEAD commit`、被验收路径、`diff SHA-256`，以及被验收范围内未跟踪文件的路径和逐文件 SHA-256。
+- `diff SHA-256` 基于 `git diff --binary HEAD -- <被验收路径>`。指纹只覆盖行为相关代码、测试、配置、迁移和资产，避免后续纯文档规整使验收无效。
+
 ## 最小上下文
 
 只读取当前验收范围，不全量扫描文档：
@@ -48,9 +55,11 @@ description: Use when company implementation is complete and integrated acceptan
 ## 结果路由
 
 - `通过`：进入 `company-delivery-closeout`。
-- `有条件通过`：列出未验证项、影响和到期条件；必须由用户显式接受。V3 的安全、权限、数据完整性、金额/公式、迁移或恢复风险不得有条件放行。
+- `有条件通过`：列出未验证项、影响和到期条件；必须记录接受人、接受时间、接受范围、到期条件和补偿任务，并由用户显式接受。安全、权限、数据完整性、金额或指标公式、迁移、回滚或恢复风险不得有条件通过。
 - `阻断`：实现缺陷进入 `company-bugfix-runner`；修复完成后重新执行原验收范围。
-- 需求、业务规则或设计不明确：回到对应文档 workflow，不得伪装成代码 bug。
+- 需求、业务规则或验收标准不明确：进入 `company-feature-requirements`。
+- 架构、接口、数据或技术方案不明确：进入 `company-feature-design`。
+- 缺少测试资产或修复任务授权：进入 `company-feature-planning`。
 
 ## 生产代码边界
 
@@ -70,6 +79,9 @@ description: Use when company implementation is complete and integrated acceptan
 - 独立质量验收：不需要 / 需要 / 强制
 - 判定依据：
 - 验收范围与最终候选：
+- 正式报告路径：不适用 / 权威任务文档同级目录下的实际路径
+- 当前分支与 HEAD commit：
+- 被验收路径、diff SHA-256 和未跟踪文件哈希：
 - Superpowers 叠加：
 - 实际调用：
 - 专家/插件能力：

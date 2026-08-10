@@ -24,6 +24,13 @@ The user does not choose the level. The workflow reports the decision and eviden
 
 Skipping this independent stage never means skipping tests. The implementation or bugfix workflow still retains TDD, regression, and completion verification evidence.
 
+## Persisted Report Contract
+
+- Create a formal report only when validation is `required/mandatory`. When validation is not required, create no new document; the implementation or bugfix completion report retains the decision evidence.
+- Name the report `quality-validation-report.md` and place it in the same directory as the authoritative task document. A project numbering prefix is allowed, but the filename must retain `quality-validation-report`, and the authoritative task document or current feature/version README records the actual path.
+- Bind the report to the current candidate: record the current branch, `HEAD commit`, validated paths, `diff SHA-256`, and the path plus per-file SHA-256 for untracked files inside the validated scope.
+- Compute `diff SHA-256` from `git diff --binary HEAD -- <validated paths>`. Fingerprint only behavior-relevant code, tests, configuration, migrations, and assets so later documentation-only reconciliation does not invalidate acceptance.
+
 ## Minimum Context
 
 Read only the current acceptance scope:
@@ -48,9 +55,11 @@ Stop on conflicting entry, task, or acceptance sources. Return to requirements, 
 ## Result Routing
 
 - `pass`: continue to `company-delivery-closeout`.
-- `conditional-pass`: list gaps, impact, and expiry condition; require explicit user acceptance. V3 security, permission, data-integrity, money/formula, migration, or recovery risk cannot receive conditional acceptance.
+- `conditional-pass`: list gaps, impact, and expiry condition; record Accepted by, Accepted at, Accepted scope, Expiry condition, and compensating task, and require explicit user acceptance. Security, permission, data-integrity, money or metric-formula, migration, rollback, or recovery risks cannot receive conditional pass.
 - `blocked`: route implementation defects to `company-bugfix-runner`, then rerun the same acceptance scope.
-- Unclear requirements, business rules, or design return to their document workflow and are not disguised as code defects.
+- Unclear requirements, business rules, or acceptance criteria enter `company-feature-requirements`.
+- Unclear architecture, API, data, or technical design enters `company-feature-design`.
+- Missing test assets or repair-task authorization enters `company-feature-planning`.
 
 ## Production-Code Boundary
 
@@ -70,6 +79,9 @@ Completion output includes:
 - Independent quality validation: not-required / required / mandatory
 - Decision evidence:
 - Acceptance scope and final candidate:
+- Formal report path: not applicable / actual path in the same directory as the authoritative task document
+- Current branch and HEAD commit:
+- Validated paths, diff SHA-256, and untracked file hashes:
 - Superpowers overlay:
 - Actual calls:
 - Expert/plugin capabilities:

@@ -104,7 +104,9 @@ Bugfix 前检查最小上下文：
 - 验证等级：
 - 独立质量验收判定：不需要 / 需要 / 强制
 - 验收回路：首次验收 / 修复后复验 / hotfix 补偿
-- 推荐下一 workflow：`company-quality-validation` / `company-delivery-closeout` / 回需求或设计
+- 质量验收报告路径：不适用 / 权威任务文档同级 `quality-validation-report.md` / 沿用原阻断报告
+- 修复后待验收候选：当前分支、HEAD commit、被验收路径
+- 推荐下一 workflow：`company-quality-validation` / `company-delivery-closeout` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning`
 - 验证证据：
 - 代码备注检查：
 - 备注覆盖点：

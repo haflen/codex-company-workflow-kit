@@ -115,6 +115,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 收口阻塞项：
 - 独立质量验收判定：不需要 / 需要 / 强制
 - 独立质量验收判定依据：
+- 预期质量验收报告路径：不适用 / 权威任务文档同级 `quality-validation-report.md`
+- 待验收候选：当前分支、HEAD commit、被验收路径
 - 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-quality-validation` / 进入 `company-delivery-closeout`
 
 当下一批候选任务为空，且全部任务均已完成、明确延期或明确不做时，先做独立质量验收判定。判定为 `不需要` 时推荐收口；判定为 `需要/强制` 时推荐：`实现已完成，请执行独立质量验收。` 实现 runner 不得自行执行里程碑级 commit 或 push。
@@ -218,6 +220,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 验证等级：
 - 独立质量验收判定：不需要 / 需要 / 强制
 - 独立质量验收判定依据：
+- 预期质量验收报告路径：不适用 / 权威任务文档同级 `quality-validation-report.md`
+- 待验收候选：当前分支、HEAD commit、被验收路径
 - 验证证据：
 - 代码备注检查：
 - 备注覆盖点：

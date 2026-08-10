@@ -115,6 +115,8 @@ Continuous mode completion reports must include:
 - Closeout blockers:
 - Independent quality validation decision: not required / required / mandatory
 - Independent quality validation evidence:
+- Expected quality validation report path: not applicable / `quality-validation-report.md` beside the authoritative task document
+- Candidate awaiting validation: current branch, HEAD commit, validated paths
 - Recommended next workflow: continue `company-implementation-runner` / enter `company-quality-validation` / enter `company-delivery-closeout`
 
 When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, first decide independent quality validation. If it is `not required`, recommend closeout. If it is `required/mandatory`, recommend: `Implementation is complete. Run independent quality validation.` The implementation runner must not perform milestone-level commit or push.
@@ -218,6 +220,8 @@ After the circuit breaker trips:
 - Validation level:
 - Independent quality validation decision: not required / required / mandatory
 - Independent quality validation evidence:
+- Expected quality validation report path: not applicable / `quality-validation-report.md` beside the authoritative task document
+- Candidate awaiting validation: current branch, HEAD commit, validated paths
 - Verification evidence:
 - Code comment check:
 - Comment coverage:
