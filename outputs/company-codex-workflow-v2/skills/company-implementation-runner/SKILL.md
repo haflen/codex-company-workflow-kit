@@ -260,3 +260,7 @@ If executable tasks remain, continue the current task or next batch. If none rem
 Milestone artifact inventory, temporary-file cleanup, final-candidate revalidation, exact staging, commit, and push belong only to `company-delivery-closeout`.
 
 Goal tracking is only for cross-turn objective management. It must not replace phase permission, implementation authorization, TDD, validation levels, or user confirmation.
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`. Check only formal documents synchronized in this implementation; do not rewrite all legacy documents.

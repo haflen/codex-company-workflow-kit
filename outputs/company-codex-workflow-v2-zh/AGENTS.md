@@ -385,3 +385,11 @@ AI 编写或修改代码时，默认使用中文补充必要的代码逻辑备�
 - 版本化 specs 可使用 `specs/versions/<version>/<milestone>/`。
 - 小变更可使用 `specs/features/<feature>/` 下的紧凑 spec。
 - 公共 API 和复杂逻辑需要注释；常规函数不需要样板注释。
+
+## 人类可读正式文档
+
+- 新建或重写正式需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档前，先读取项目内 `specs/global/assets/document-standard.md`；项目内不存在时读取插件同路径 fallback。
+- 默认阅读顺序是：先看结论 -> 再看图 -> 再看关键表格 -> 最后看细节与证据。关键结论不得只藏在表格或 Mermaid 图中。
+- 正式文档必须使用 `work-item-id`，并按文档类型带齐对应 Mermaid 图。只有用户明确说明不需要图表时，才能记录 `图表豁免`，不得由 Codex 自行豁免。
+- 新文档完整执行 `DOC-G01` 至 `DOC-G12`；历史文档只在本次修改范围内渐进修复，除非用户要求全面重写。
+- 工作流 skill 负责检查本阶段门禁，`company-workflow-health-check` 负责诊断整体缺失；不得用章节数或行数代替内容质量检查。

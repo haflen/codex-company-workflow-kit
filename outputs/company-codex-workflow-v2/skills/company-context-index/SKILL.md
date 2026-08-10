@@ -58,3 +58,7 @@ Build enough project context without loading everything.
 - Do not block trivial tasks on missing company process documents; state the gap and continue if safe.
 - Do not treat `说明文档.md`, spike work logs, and formal specs as one continuous task chain.
 - Non-integration branches must not write branch-local status as mainline current state in public documents; use a public-doc update patch instead.
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`.

@@ -128,3 +128,7 @@ The stop report names blockers, completed safe steps, Git actions not executed, 
 - Non-trivial code or L2/L3: **REQUIRED SUB-SKILL:** Use `superpowers:requesting-code-review`.
 - Every formal delivery: **REQUIRED SUB-SKILL:** Use `superpowers:verification-before-completion`.
 - Git finalization: **REQUIRED SUB-SKILL:** Use `superpowers:finishing-a-development-branch`, subject to this skill's selected mode and authorization boundary.
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`.

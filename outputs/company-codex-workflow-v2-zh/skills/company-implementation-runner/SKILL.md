@@ -260,3 +260,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 里程碑级成果盘点、临时文件清理、最终候选复验、精确暂存、commit 和 push 只由 `company-delivery-closeout` 负责。
 
 目标追踪只用于跨轮次总目标管理，不得替代阶段许可、实现授权、TDD、验证等级或用户确认。
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。只检查本轮同步修改的正式文档，不借实现阶段重写全部历史文档。

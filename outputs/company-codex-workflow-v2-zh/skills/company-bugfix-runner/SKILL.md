@@ -100,6 +100,10 @@ Bugfix 前检查最小上下文：
 - 文档漂移影响：
 - 未验证项：
 - 剩余风险：
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。仅在创建或实质修改 hotfix/bugfix 正式记录时触发。
 - 复现或证据：
 - 事实链和最小复现条件：
 - 根因：

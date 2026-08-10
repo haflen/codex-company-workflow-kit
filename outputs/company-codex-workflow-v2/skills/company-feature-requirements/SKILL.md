@@ -78,3 +78,7 @@ Requirements work must not modify production implementation code or prescribe lo
 - Business rules document decision:
 - Business rules document:
 - Next step:
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G02`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`. Also apply `DOC-G04` when complex business rules are triggered.

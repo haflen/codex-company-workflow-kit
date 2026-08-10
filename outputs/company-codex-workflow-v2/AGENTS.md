@@ -387,3 +387,11 @@ Self-improvement is proposal-only by default. Use `company-skill-evolution-lab` 
 - Versioned specs may use `specs/versions/<version>/<milestone>/`.
 - Small changes may use one compact feature spec under `specs/features/<feature>/`.
 - Public APIs and complex logic need comments; routine functions do not need boilerplate comments.
+
+## Human-Readable Formal Documents
+
+- Before creating or substantially rewriting formal requirements, design, data-model, business-rule, API-contract, task, prototype-approval, spike, hotfix, or delivery-closeout documents, read the project copy of `specs/global/assets/document-standard.md`; use the plugin copy at the same path as fallback.
+- Default reading order is: decision first, diagrams second, key tables third, details and evidence last. Never hide a key conclusion only inside a table or Mermaid diagram.
+- Formal documents require a `work-item-id` and their type-specific Mermaid diagrams. Only an explicit user request may create a `Diagram Waiver`; Codex must not self-waive diagrams.
+- Apply `DOC-G01` through `DOC-G12` to new documents. Improve legacy documents only within the touched scope unless the user requests a full rewrite.
+- Workflow skills enforce their phase gates and `company-workflow-health-check` diagnoses the complete set. Do not substitute section counts or line counts for content checks.

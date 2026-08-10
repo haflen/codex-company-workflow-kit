@@ -72,3 +72,7 @@ description: Use when a company project needs to diagnose workflow installation 
 不要在健康检查中直接修复项目，除非用户明确要求“按建议修复”。
 
 不要因为项目能运行就判定 workflow 健康；本技能判断的是 Codex 工作流接入状态，不是业务系统运行状态。
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责逐项检查 `DOC-G01`、`DOC-G02`、`DOC-G03`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。逐项诊断模板、正式文档和豁免记录，不使用行数或章节数作为替代标准。

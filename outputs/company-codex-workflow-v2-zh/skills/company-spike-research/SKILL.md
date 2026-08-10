@@ -66,3 +66,7 @@ Spike 分支未合并前，不要把 spike 临时结论写成公共文档的主�
 - 转正式开发时的新编号建议：
 - 公共文档影响：
 - 下一步：
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。

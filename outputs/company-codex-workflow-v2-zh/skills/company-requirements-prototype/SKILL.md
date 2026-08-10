@@ -70,3 +70,7 @@ description: Use when 公司项目仍处于需求阶段，需要创建、预览�
 - 下一步：继续需求/原型迭代 / 转为需求基线 / 等待用户明确进入技术设计
 
 需求或原型尚未确认时，不得建议任务拆分。
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。

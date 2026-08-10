@@ -95,3 +95,10 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - `/spike` may skip full SDLC documents, but must produce a short spike report.
 - `/hotfix` may prioritize recovery over design completeness, but must produce a hotfix report and follow-up test debt.
 - Exception work should be minimal, isolated, and followed by normal cleanup planning.
+
+## Human-Readable Formal Documents
+
+- Read `specs/global/assets/document-standard.md` before creating or substantially rewriting a formal document.
+- Use the reading order: decision first, diagrams second, key tables third, details and evidence last.
+- Formal documents require a `work-item-id` and type-specific Mermaid diagrams. Only an explicit user request may create a `Diagram Waiver`.
+- Apply `DOC-G01` through `DOC-G12` to new documents; improve legacy documents only within the touched scope.

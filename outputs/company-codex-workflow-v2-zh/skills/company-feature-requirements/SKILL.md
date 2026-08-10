@@ -78,3 +78,7 @@ description: Use when a company project needs feature requirements, acceptance c
 - 业务规则文档判定：
 - 业务规则文档：
 - 下一步建议：
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G02`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。命中复杂业务规则时同时执行 `DOC-G04`。

@@ -90,3 +90,7 @@ description: Use when company feature requirements are confirmed and a technical
 - 测试策略：
 - 资产归属表与落点门禁：
 - 下一步：L2/L3 已确认推荐方案后才能进入 `company-feature-planning`。
+
+## 文档质量门禁
+
+创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G03`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。涉及数据模型、API 或复杂规则时同时执行 `DOC-G04`。

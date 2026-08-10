@@ -90,3 +90,7 @@ Design work after a scope change must not flow directly back into implementation
 - Test strategy:
 - Asset ownership table and placement gate:
 - Next step: L2/L3 work can enter `company-feature-planning` only after the recommended option is confirmed.
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G03`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`. Also apply `DOC-G04` for data models, APIs, or complex rules.

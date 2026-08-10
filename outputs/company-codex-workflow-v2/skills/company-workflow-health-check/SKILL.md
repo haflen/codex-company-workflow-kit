@@ -72,3 +72,7 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 Do not repair a project during a health check unless the user explicitly asks to apply the recommended fixes.
 
 Do not mark workflow health as green merely because the application can run; this skill diagnoses Codex workflow adoption, not runtime product health.
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill checks `DOC-G01`, `DOC-G02`, `DOC-G03`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12` individually. Diagnose templates, formal documents, and waiver records gate by gate; do not use line or section counts as proxies.

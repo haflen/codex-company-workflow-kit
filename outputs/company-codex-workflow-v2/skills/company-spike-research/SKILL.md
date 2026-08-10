@@ -66,3 +66,7 @@ Before a spike branch is merged, do not write temporary spike conclusions as the
 - New numbering recommendation when converting to formal work:
 - Public-doc impact:
 - Next step:
+
+## Document Quality Gates
+
+Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`.
