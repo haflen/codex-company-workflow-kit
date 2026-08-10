@@ -1,6 +1,6 @@
 {
   "name": "codex-company-workflow",
-  "version": "0.2.29",
+  "version": "0.2.30",
   "description": "Codex company workflow kit with a thin npm CLI wrapper.",
   "license": "UNLICENSED",
   "bin": {

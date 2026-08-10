@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.30 - 2026-08-11
+
+- Bound every persisted independent quality-validation report to one concrete delivery candidate using branch, HEAD commit, validated paths, diff SHA-256, and untracked-file hashes.
+- Standardized the report location beside the authoritative task document, with explicit registration when a project-specific filename or path is used.
+- Added capability-transparency fields, canonical workflow routes, and enforceable conditional-pass acceptance metadata to the bilingual report templates.
+- Prohibited conditional pass for security, permission, data-integrity, money or metric-formula, migration, rollback, and recovery risks.
+- Connected delivery closeout and workflow health checks to the persisted validation state, reusing fresh evidence while returning behavior-relevant drift to independent validation.
+- Added bilingual regression coverage for report persistence, candidate identity, guardrails, route names, and quality-validation-to-closeout state handoff.
+
 ## 0.2.29 - 2026-08-11
 
 - Added bilingual `company-quality-validation` skills and `/company-quality-validation` UI entries for risk-triggered independent delivery acceptance.
