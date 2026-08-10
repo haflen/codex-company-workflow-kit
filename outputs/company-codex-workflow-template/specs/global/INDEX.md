@@ -43,6 +43,7 @@ flowchart LR
 | `specs/global/assets/spike-report-template.md` | Spike report template | `/spike` work |
 | `specs/global/assets/hotfix-report-template.md` | Hotfix report template | `/hotfix` work |
 | `specs/global/assets/requirements-prototype-record-template.md` | Requirements prototype approval record | Promoting an approved prototype into the requirements baseline |
+| `specs/global/assets/quality-validation-report-template.md` | Independent quality validation report | Delivery acceptance triggered after implementation |
 | `specs/global/assets/delivery-closeout-template.md` | Delivery closeout report | Closing a feature, milestone, or release |
 
 ## Feature Specs

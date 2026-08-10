@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -37,6 +37,7 @@ Use the user's current goal, project state, and available artifacts:
 | Design is confirmed / 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
 | Tasks are confirmed and the user wants fewer approval loops / 任务清单已确认且希望连续推进 | L1/L2 | `company-implementation-runner` continuous mode | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| Implementation tasks are complete and delivery acceptance must be decided or executed / 实现完成，需要独立验收判断 | L1/L2/L3 | decide automatically; route to `company-quality-validation` when triggered | `superpowers:verification-before-completion`; use `testing-qa` for test strategy | `Implementation is complete. Decide and run independent quality validation.` |
 | A task batch, feature, or milestone is complete and needs consolidation, cleanup, commit, or push / 任务批次、功能或里程碑已完成，需要收口 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `All tasks are complete. Start delivery closeout and push the business branch.` |
 | Existing behavior is wrong / 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
 | Urgent production issue / 紧急线上问题 | L3 | `company-bugfix-runner` with hotfix path | `superpowers:systematic-debugging` + `superpowers:verification-before-completion` | `start hotfix: ...` |
@@ -132,7 +133,7 @@ Recommended phrases:
 
 ## Delivery Closeout Routing / 交付收口路由
 
-Users do not select this transition manually. Route to `company-delivery-closeout` only when every task is complete, explicitly deferred, or explicitly rejected and no executable implementation task remains.
+Users do not select this transition manually. When every task is complete, explicitly deferred, or explicitly rejected and no executable implementation task remains, first decide independent quality validation. Route to `company-delivery-closeout` only when validation is not required, returns `pass`, or returns an eligible `conditional-pass` explicitly accepted by the user.
 
 - “Consolidate the results”, “clean temporary files and commit”, “commit after everything is done”, and “close out and push the business branch” trigger the closeout decision.
 - If executable tasks remain, continue `company-implementation-runner`; closeout must not silently close them.
@@ -140,6 +141,17 @@ Users do not select this transition manually. Route to `company-delivery-closeou
 - Stop for a protected branch, unknown file ownership, failed validation, documentation conflict, or staged-list mismatch.
 
 Default phrase: `All tasks are complete. Start delivery closeout and push the business branch.`
+
+## Quality Validation Routing / 质量验收路由
+
+Users do not decide whether a separate test node is required. After implementation or bugfix completion, decide automatically from delivery scope and risk:
+
+- `V0/V1` skips independent validation by default while retaining focused implementation verification.
+- A single-task `V2` skips it by default unless a critical user journey, browser behavior, API/database integration, or material regression surface exists.
+- Multi-task, cross-module, frontend-backend, or API/database `V2` work requires `company-quality-validation`.
+- Milestone, release-candidate, `V3`, and post-hotfix compensation validation always require `company-quality-validation`.
+- A `blocked` result routes to `company-bugfix-runner`, then repeats the same validation scope. The validation workflow never edits production code.
+- `conditional-pass` can reach closeout only when the condition is eligible and the user explicitly accepts it. High-risk `V3` findings cannot use conditional acceptance to bypass a block.
 
 ## Codex Plan Mode Recommendation / Codex 计划模式建议
 

@@ -25,6 +25,7 @@ The workflow should pick the smallest matching bundle automatically. Users may s
 | `company-ai-feature` | LLM, RAG, prompt, agent workflow, AI safety, provider API design | `product-manager`, `ai-product`, `testing-qa` | `python-pro`, `frontend-developer` |
 | `company-hotfix` | Urgent production defect or rollback-sensitive change | `systematic-debugging`, `testing-qa` | stack expert matching the failing area |
 | `company-spike` | Time-boxed feasibility, unfamiliar library, architecture uncertainty | stack expert matching the question | `ai-product`, `webapp-testing`, `testing-qa` |
+| `company-quality-assurance` | Post-implementation acceptance, AC traceability, integration/E2E/regression, and delivery gating | `company-quality-validation`, `testing-qa` | `e2e-testing-patterns`, `webapp-testing`, stack expert matching domain risk |
 | `company-skill-governance` | Adding, updating, reviewing, upgrading, readiness-checking, or evolving workflow/expert skills | `company-skill-upgrade-runner`, `company-skill-maintenance`, `company-skill-security-review`, `company-expert-readiness` | `company-skill-evolution-lab` |
 | `company-workflow-entry` | User is unsure which workflow to start, asks what to do next, or needs expert readiness confirmation | `company-workflow-help` | `company-expert-routing`, `company-expert-readiness` |
 | `company-legacy-onboarding` | Existing project adoption, project context draft generation, or first workflow pilot | `company-legacy-project-onboarding`, `company-context-index` | `company-workflow-help`, stack expert matching the project |
@@ -37,6 +38,7 @@ The workflow should pick the smallest matching bundle automatically. Users may s
 | Design | Pick the stack bundle that owns the architecture risk. |
 | Planning | Keep the design bundle; add `testing-qa` if verification is unclear. |
 | Implementation | Use the selected design bundle only when implementation choices depend on expert knowledge. |
+| Quality validation | Use `company-quality-assurance`; add one stack expert only for complex domain risk. |
 | Bugfix | Start with `company-hotfix` for urgent incidents or the affected stack bundle for normal bugs. |
 | Spike | Start with `company-spike`; keep output short and decision-focused. |
 | Legacy project onboarding | Start with `company-legacy-onboarding`; do not expand to full SDLC until one pilot task is reviewed. |

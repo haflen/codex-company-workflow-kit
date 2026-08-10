@@ -27,9 +27,11 @@ Authorization covers only an ordinary local commit and ordinary push for the con
 
 1. Confirm project root, current branch, upstream, remote, and authoritative task document.
 2. Require every task to be complete, explicitly deferred, or explicitly rejected; never silently close unfinished work.
-3. List allowed directories, files, and existing user changes.
-4. Block `commit`/`deliver` on `main`, `master`, `develop`, `integration`, `release`, and project-defined protected branches.
-5. Distinguish accumulated milestone work from true concurrent file conflicts; only the latter is a blocker.
+3. Read the independent quality validation decision from implementation or bugfix. When it is `required/mandatory`, require a fresh report and evidence for the current delivery candidate.
+4. Stop when validation is missing, stale, or `blocked`. Continue from `conditional-pass` only when the risk is eligible and the user explicitly accepted it; high-risk `V3` cannot be conditionally released.
+5. List allowed directories, files, and existing user changes.
+6. Block `commit`/`deliver` on `main`, `master`, `develop`, `integration`, `release`, and project-defined protected branches.
+7. Distinguish accumulated milestone work from true concurrent file conflicts; only the latter is a blocker.
 
 ## Phase 2: Inventory and Classify Every File
 
@@ -66,7 +68,7 @@ Inventory again after cleanup. Never run unscoped cleanup or destructive reset o
 
 ## Phase 5: Final Validation, Review, and Security Checks
 
-1. Select `V0/V1/V2/V3` from the highest-risk task and re-validate after cleanup and reconciliation.
+1. Select `V0/V1/V2/V3` from the highest-risk task and confirm that the independent validation result still covers the final candidate after cleanup and reconciliation. If behavior-relevant drift exists, return to `company-quality-validation` instead of indiscriminately rerunning every test.
 2. Run relevant tests, type checks, lint, build, necessary browser/E2E checks, and `git diff --check`.
 3. For non-trivial code or L2/L3 delivery, use `superpowers:requesting-code-review` on the final diff.
 4. For every formal delivery, use `superpowers:verification-before-completion` and accept only fresh evidence.
@@ -101,6 +103,9 @@ Report:
 - Execution mode: `prepare` / `commit` / `deliver`
 - Closeout scope and authoritative task document:
 - Task completion state:
+- Independent quality validation decision and result: not required / pass / conditional-pass / blocked
+- Quality validation report and evidence freshness:
+- User acceptance record for conditional pass:
 - Artifacts: code / tests / documents / configuration / assets
 - Deleted temporary files:
 - Retained-but-excluded files:
@@ -119,7 +124,7 @@ Report:
 
 ## Stop Conditions
 
-Stop for a protected branch, unfinished task, real ownership conflict, unknown/out-of-scope file, unproven cleanup candidate, failed validation or review, documentation conflict, suspected secret/production/database/large file, staged mismatch, remote-ahead state, rejected normal push, or unclear network/permission state.
+Stop for a protected branch, unfinished task, required quality validation that is missing/stale/blocked, an unaccepted conditional pass, real ownership conflict, unknown/out-of-scope file, unproven cleanup candidate, failed validation or review, documentation conflict, suspected secret/production/database/large file, staged mismatch, remote-ahead state, rejected normal push, or unclear network/permission state.
 
 The stop report names blockers, completed safe steps, Git actions not executed, and the recovery entry. Never claim commit or push success without evidence.
 

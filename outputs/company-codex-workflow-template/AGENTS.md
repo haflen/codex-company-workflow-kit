@@ -96,6 +96,12 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - `/hotfix` may prioritize recovery over design completeness, but must produce a hotfix report and follow-up test debt.
 - Exception work should be minimal, isolated, and followed by normal cleanup planning.
 
+## Triggered Quality Validation
+
+- V0/V1 skips by default; multi-task or cross-boundary V2 enters `company-quality-validation`; milestone, release, V3, and post-hotfix compensation mandate it.
+- Results are pass, conditional-pass, or blocked. Blocked work returns to bugfix and reruns validation; conditional acceptance requires explicit user approval.
+- Independent validation never edits production code, and mandatory validation must pass before delivery closeout.
+
 ## Human-Readable Formal Documents
 
 - Read `specs/global/assets/document-standard.md` before creating or substantially rewriting a formal document.

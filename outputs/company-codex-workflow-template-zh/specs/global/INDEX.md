@@ -43,6 +43,7 @@ flowchart LR
 | `specs/global/assets/spike-report-template.md` | Spike 报告模板 | `/spike` 工作 |
 | `specs/global/assets/hotfix-report-template.md` | Hotfix 报告模板 | `/hotfix` 工作 |
 | `specs/global/assets/requirements-prototype-record-template.md` | 需求原型确认记录 | 原型确认并转为需求基线 |
+| `specs/global/assets/quality-validation-report-template.md` | 独立质量验收报告 | 实现完成后命中触发条件的交付验收 |
 | `specs/global/assets/delivery-closeout-template.md` | 交付收口报告 | 功能、里程碑或版本收口 |
 
 ## 功能 Specs

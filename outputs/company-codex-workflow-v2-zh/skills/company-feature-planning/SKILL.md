@@ -26,7 +26,8 @@ description: Use when company requirements and technical design are confirmed an
 13. 如果任务拆解来自实现阶段中的范围变化，必须写明旧实现授权已失效，新任务需要用户重新确认。
 14. 标注连续执行资格：哪些任务可批量连续推进，哪些任务必须单独完成后停下确认。
 15. 标注 subagent 拆分建议：哪些任务适合主 agent 串行执行，哪些适合子 agent 独立实现、独立排查或独立审查。
-16. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+16. 预估独立质量验收为 `不需要 / 需要 / 强制`，并记录触发依据、验收范围、关键 AC、环境/测试数据和预期验收类型；最终判定由实现或 bugfix 完成后做出，命中时进入 `company-quality-validation`。
+17. 任务规划阶段结束后停止，除非用户给出实现交接口令。
 
 ## Superpowers 叠加
 
@@ -35,6 +36,7 @@ description: Use when company requirements and technical design are confirmed an
 - 每个任务必须包含验证点，为后续 `superpowers:test-driven-development` 和 `superpowers:verification-before-completion` 留出执行锚点。
 - 业务规则文档中的样例用例优先转成自动测试；无法自动化时转成明确手工验证步骤。
 - 任务验证等级按 `V0/V1/V2/V3` 预估；最终等级由实现或 bugfix 完成前确认。
+- 独立质量验收只做规划预估：多任务/跨模块 `V2`、里程碑、发布候选、`V3` 和 hotfix 补偿默认需要；单任务低风险 `V2` 只有命中关键旅程、浏览器、API/数据库集成或明显回归面时才需要。
 - 只有任务边界、验证点和停止条件清楚时，才标记为可连续执行。
 - 对 L2/L3 多任务计划，必须显式判断是否建议使用 Codex subagents；不建议时说明是因为任务耦合、文件冲突或收益不足。真实调用仍需要用户显式请求。
 
@@ -102,6 +104,9 @@ description: Use when company requirements and technical design are confirmed an
 - 方案确认状态：
 - 每个任务的最小失败案例或验证锚点：
 - 每个任务的预估验证等级：
+- 独立质量验收预估：不需要 / 需要 / 强制
+- 验收触发依据、范围与关键 AC：
+- 验收环境、测试数据与预期类型：
 - 每个任务的连续执行资格：
 - 必须停下确认的任务：
 - Subagents 建议：不需要 / 建议使用 / 强烈建议使用

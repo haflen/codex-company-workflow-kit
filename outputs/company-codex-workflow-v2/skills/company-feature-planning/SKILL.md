@@ -26,7 +26,8 @@ Provide executable Codex task planning.
 13. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
 14. Mark continuous implementation eligibility: which tasks can be batched and which tasks must stop for user confirmation.
 15. Mark subagent split recommendations: which tasks should remain serial under the main agent, and which tasks are suitable for independent implementation, investigation, or review.
-16. Stop after task planning unless the user gives the implementation handoff signal.
+16. Estimate independent quality validation as `not required / required / mandatory`, recording trigger evidence, scope, critical ACs, environment/test data, and expected validation types. Implementation or bugfix makes the final decision after work completes and enters `company-quality-validation` when triggered.
+17. Stop after task planning unless the user gives the implementation handoff signal.
 
 ## Superpowers Layer
 
@@ -35,6 +36,7 @@ Provide executable Codex task planning.
 - Every task must include a verification anchor for later TDD and completion verification.
 - Example cases from business-rules documents should become automated tests first; when automation is not practical, turn them into explicit manual checks.
 - Estimate each task's validation level as `V0/V1/V2/V3`; implementation or bugfix confirms the final level before completion.
+- Quality validation is only a planning estimate: multi-task/cross-module `V2`, milestone, release-candidate, `V3`, and post-hotfix compensation work normally requires it. A low-risk single-task `V2` requires it only for critical journeys, browser behavior, API/database integration, or a material regression surface.
 - Mark a task as continuous-eligible only when boundaries, verification anchors, and stop conditions are clear.
 - For L2/L3 multi-task plans, explicitly decide whether to recommend Codex subagents; if not, explain whether task coupling, file conflicts, or limited benefit makes subagents unnecessary. Actual invocation still requires an explicit user request.
 
@@ -102,6 +104,9 @@ For every task that recommends a subagent, write:
 - Solution confirmation status:
 - Minimal failing case or verification anchor per task:
 - Estimated validation level per task:
+- Independent quality validation estimate: not required / required / mandatory
+- Validation trigger evidence, scope, and critical ACs:
+- Validation environment, test data, and expected types:
 - Continuous implementation eligibility per task:
 - Must-stop tasks:
 - Subagents recommendation: not needed / recommended / strongly recommended

@@ -25,6 +25,7 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 | `company-ai-feature` | LLM、RAG、prompt、agent workflow、AI 安全、Provider API 设计 | `product-manager`, `ai-product`, `testing-qa` | `python-pro`, `frontend-developer` |
 | `company-hotfix` | 紧急生产缺陷或回滚敏感变更 | `systematic-debugging`, `testing-qa` | 匹配故障区域的技术栈专家 |
 | `company-spike` | 限时可行性验证、不熟悉库、架构不确定性 | 匹配问题的技术栈专家 | `ai-product`, `webapp-testing`, `testing-qa` |
+| `company-quality-assurance` | 实现后独立质量验收、AC 追溯、集成/E2E/回归和交付门禁 | `company-quality-validation`, `testing-qa` | `e2e-testing-patterns`, `webapp-testing`, 匹配领域的技术栈专家 |
 | `company-skill-governance` | 新增、更新、审查、升级、就绪检查或演进 workflow/expert skills | `company-skill-upgrade-runner`, `company-skill-maintenance`, `company-skill-security-review`, `company-expert-readiness` | `company-skill-evolution-lab` |
 | `company-workflow-entry` | 用户不知道应该从哪个工作流开始，或需要确认专家依赖是否就绪 | `company-workflow-help` | `company-expert-routing`, `company-expert-readiness` |
 | `company-legacy-onboarding` | 旧项目接入、项目上下文草稿生成、首次流程试点 | `company-legacy-project-onboarding`, `company-context-index` | `company-workflow-help`, 匹配项目技术栈的专家 |
@@ -37,6 +38,7 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 | 设计 | 选择承担主要架构风险的技术栈 bundle。 |
 | 规划 | 延续设计阶段 bundle；验证策略不清楚时加入 `testing-qa`。 |
 | 实现 | 只有实现选择依赖专家知识时才使用设计阶段 bundle。 |
+| 质量验收 | 使用 `company-quality-assurance`；只有复杂领域风险才增加一个技术栈专家。 |
 | Bugfix | 紧急事故使用 `company-hotfix`，普通 bug 使用受影响技术栈 bundle。 |
 | Spike | 使用 `company-spike`，输出保持简短并聚焦决策。 |
 | 旧项目接入 | 使用 `company-legacy-onboarding`，先完成一个试点任务复盘，再扩大到完整 SDLC。 |

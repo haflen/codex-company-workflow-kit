@@ -61,6 +61,15 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility requests stop requirements-prototype work and reroute to a spike or authorized design.
 - Ambiguous "confirm", "continue", or "next" means continue the current phase, not advance to the next phase.
 
+## Triggered Quality Validation
+
+- TDD is development feedback. `company-quality-validation` is independent post-implementation delivery acceptance; neither replaces the other.
+- V0/V1 and evidence-sufficient single-task V2 work skip independent validation by default. Multi-task/cross-module/cross-boundary V2 requires it; milestone, release, V3, and post-hotfix compensation mandate it.
+- The user does not choose the stage. Planning predicts it; implementation or bugfix confirms the final decision and reason.
+- Results are `pass / conditional-pass / blocked`. Blocked work routes to `company-bugfix-runner` and reruns validation; conditional acceptance requires explicit user approval.
+- `company-quality-validation` never edits production code. Unclear requirements, rules, or design return to their document workflow.
+- `company-delivery-closeout` checks mandatory validation evidence and blocks commit/push when evidence is missing, stale, or blocked.
+
 ## Delivery Closeout Boundary
 
 - Task implementation and milestone delivery closeout are separate phases; a task completion report does not replace closeout.

@@ -30,8 +30,9 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 15. Choose validation level `V0/V1/V2/V3` automatically and gather sufficient but not excessive evidence.
 16. Check documentation drift: whether implementation changed requirements, business rules, technical design, API contracts, task plans, project entry docs, or indexes.
 17. Run verification; when the company project uses progress documents, update according to branch strategy: integration branches may update public entry documents, business branches write `docs/public-doc-updates/<branch-or-feature>.md`.
-18. Output next-step guidance: whether to continue, why to stop, and the recommended next user phrase.
-19. For L2/L3, continuous implementation, or cross-session tasks, output Codex goal status guidance.
+18. After all executable tasks complete, automatically classify independent quality validation as `not required / required / mandatory`. When triggered, route to `company-quality-validation` instead of jumping directly to delivery closeout.
+19. Output next-step guidance: whether to continue, why to stop, and the recommended next user phrase.
+20. For L2/L3, continuous implementation, or cross-session tasks, output Codex goal status guidance.
 
 ## Superpowers Layer
 
@@ -49,6 +50,17 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 - `V3`: production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix; run regression, adversarial cases, and rollback/recovery notes.
 
 Do not downgrade V2/V3 to save time, and do not force full verification for V0/V1 small changes.
+
+## Independent Quality Validation Decision
+
+Implementation TDD and completion verification provide fast feedback; they do not equal independent delivery acceptance. After all implementation tasks complete, decide automatically:
+
+- `V0/V1`: `not required` by default.
+- Single-task `V2`: `not required` by default; use `required` for critical user journeys, browser behavior, API/database integration, or a material regression surface.
+- Multi-task, cross-module, frontend-backend, or API/database `V2`: `required`.
+- Milestone, release candidate, `V3`, or post-hotfix compensation: `mandatory`.
+
+When `required/mandatory`, the next workflow is `company-quality-validation`. That node performs independent validation and never modifies production code. A `blocked` result enters `company-bugfix-runner`, then repeats the original validation scope.
 
 ## Continuous Implementation Mode
 
@@ -101,9 +113,11 @@ Continuous mode completion reports must include:
 - Auto-continue recommendation:
 - Delivery closeout readiness: ready / not ready
 - Closeout blockers:
-- Recommended next workflow: continue `company-implementation-runner` / enter `company-delivery-closeout`
+- Independent quality validation decision: not required / required / mandatory
+- Independent quality validation evidence:
+- Recommended next workflow: continue `company-implementation-runner` / enter `company-quality-validation` / enter `company-delivery-closeout`
 
-When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, recommend: `All tasks are complete. Start delivery closeout and push the business branch.` The implementation runner must not perform milestone-level commit or push.
+When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, first decide independent quality validation. If it is `not required`, recommend closeout. If it is `required/mandatory`, recommend: `Implementation is complete. Run independent quality validation.` The implementation runner must not perform milestone-level commit or push.
 
 ## Subagents Execution Strategy
 
@@ -202,6 +216,8 @@ After the circuit breaker trips:
 - Implementation authorization:
 - Authoritative document for this turn:
 - Validation level:
+- Independent quality validation decision: not required / required / mandatory
+- Independent quality validation evidence:
 - Verification evidence:
 - Code comment check:
 - Comment coverage:
@@ -225,7 +241,7 @@ After the circuit breaker trips:
 - Auto-continue recommendation:
 - Delivery closeout readiness: ready / not ready
 - Closeout blockers:
-- Recommended next workflow: continue `company-implementation-runner` / enter `company-delivery-closeout`
+- Recommended next workflow: continue `company-implementation-runner` / enter `company-quality-validation` / enter `company-delivery-closeout`
 - Subagents recommendation: not needed / recommended / strongly recommended
 - Subagents actual calls: not called / called / split lens only
 - Subagent capability status: not checked / available in current session / explicit user request needed / local custom agents needed / App activity display only
@@ -255,7 +271,7 @@ If implementation contains complex business logic without necessary Chinese comm
 
 Every completion report must include next-step guidance. Do not only say the work is complete; state whether continuing implementation, returning to requirements/design/planning, adding verification, pausing, or waiting for confirmation is the right next move.
 
-If executable tasks remain, continue the current task or next batch. If none remain and task states are complete, the next workflow must be `company-delivery-closeout`. Never present task-level verification as milestone delivery closeout.
+If executable tasks remain, continue the current task or next batch. If none remain and task states are complete, decide independent quality validation first. Enter `company-delivery-closeout` only when validation is `not required`, returns `pass`, or returns an eligible `conditional-pass` explicitly accepted by the user. Never present task-level verification as independent validation or milestone closeout.
 
 Milestone artifact inventory, temporary-file cleanup, final-candidate revalidation, exact staging, commit, and push belong only to `company-delivery-closeout`.
 

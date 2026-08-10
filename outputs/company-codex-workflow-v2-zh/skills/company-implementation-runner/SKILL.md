@@ -30,8 +30,9 @@ description: Use when company requirements, design, and task plan are confirmed 
 15. 自动判定验证等级 `V0/V1/V2/V3`，选择足够但不过度的验证证据。
 16. 检查文档漂移：实现是否改变需求、业务规则、技术设计、API 契约、任务计划、项目入口或索引。
 17. 运行验证；项目使用进度文档时，根据当前分支策略更新：集成分支可同步公共入口，业务分支写 `docs/public-doc-updates/<branch-or-feature>.md`。
-18. 输出下一步引导：说明是否可继续、为什么停下、推荐用户下一句口令。
-19. 对 L2/L3、连续执行或跨会话任务输出 Codex 目标状态建议。
+18. 所有可执行任务完成后，自动判定独立质量验收为 `不需要 / 需要 / 强制`；命中条件时进入 `company-quality-validation`，不得直接跳到交付收口。
+19. 输出下一步引导：说明是否可继续、为什么停下、推荐用户下一句口令。
+20. 对 L2/L3、连续执行或跨会话任务输出 Codex 目标状态建议。
 
 ## Superpowers 叠加
 
@@ -49,6 +50,17 @@ description: Use when company requirements, design, and task plan are confirmed 
 - `V3`：生产、权限、安全、数据、性能、金额/指标公式、跨系统或 hotfix；执行回归、对抗场景和回滚/恢复说明。
 
 不得为了省时间把 V2/V3 降级到 V1；也不要把 V0/V1 小改动强行全量验证。
+
+## 独立质量验收判定
+
+实现阶段的 TDD 和完成前验证用于快速反馈，不等于独立交付验收。所有实现任务完成后自动判定：
+
+- `V0/V1`：默认 `不需要`。
+- 单任务 `V2`：默认 `不需要`；关键用户旅程、浏览器交互、API/数据库集成或明显回归面存在时为 `需要`。
+- 多任务、跨模块、前后端联动或 API/数据库集成的 `V2`：`需要`。
+- 里程碑、发布候选、`V3` 或 hotfix 补偿：`强制`。
+
+命中 `需要/强制` 时，下一 workflow 为 `company-quality-validation`。该节点只执行独立验收，不修改生产代码；`blocked` 结果进入 `company-bugfix-runner`，修复后回到原验收范围。
 
 ## 连续执行模式
 
@@ -101,9 +113,11 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 是否建议自动继续：
 - 交付收口就绪：就绪 / 未就绪
 - 收口阻塞项：
-- 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-delivery-closeout`
+- 独立质量验收判定：不需要 / 需要 / 强制
+- 独立质量验收判定依据：
+- 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-quality-validation` / 进入 `company-delivery-closeout`
 
-当下一批候选任务为空，且全部任务均已完成、明确延期或明确不做时，必须推荐：`所有任务已完成，开始交付收口并推送业务分支。` 实现 runner 不得自行执行里程碑级 commit 或 push。
+当下一批候选任务为空，且全部任务均已完成、明确延期或明确不做时，先做独立质量验收判定。判定为 `不需要` 时推荐收口；判定为 `需要/强制` 时推荐：`实现已完成，请执行独立质量验收。` 实现 runner 不得自行执行里程碑级 commit 或 push。
 
 ## Subagents 执行策略
 
@@ -202,6 +216,8 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 实现授权状态：
 - 本轮权威文档：
 - 验证等级：
+- 独立质量验收判定：不需要 / 需要 / 强制
+- 独立质量验收判定依据：
 - 验证证据：
 - 代码备注检查：
 - 备注覆盖点：
@@ -225,7 +241,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 是否建议自动继续：
 - 交付收口就绪：就绪 / 未就绪
 - 收口阻塞项：
-- 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-delivery-closeout`
+- 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-quality-validation` / 进入 `company-delivery-closeout`
 - Subagents 建议：不需要 / 建议使用 / 强烈建议使用
 - Subagents 实际调用：未调用 / 已调用 / 仅采用拆分视角
 - Subagent 能力状态：未检查 / 当前会话可用 / 需要用户显式请求 / 需要本地 custom agents 配置 / 当前 App 仅展示活动
@@ -255,7 +271,7 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 每次完成报告都必须有下一步引导。不要只说“完成了”；必须说明继续实现、回到设计/任务确认、补验证、暂停或等待用户确认中的哪一种更合适。
 
-如果仍有可执行任务，下一步继续当前任务或下一批；如果没有可执行任务且任务状态完整，下一步必须进入 `company-delivery-closeout`。不得把任务级验证报告冒充里程碑交付收口。
+如果仍有可执行任务，下一步继续当前任务或下一批；如果没有可执行任务且任务状态完整，先做独立质量验收判定。只有 `不需要` 或验收已 `pass` / 用户已接受且允许的 `conditional-pass` 时，下一步才进入 `company-delivery-closeout`。不得把任务级验证报告冒充独立质量验收或里程碑交付收口。
 
 里程碑级成果盘点、临时文件清理、最终候选复验、精确暂存、commit 和 push 只由 `company-delivery-closeout` 负责。
 

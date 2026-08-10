@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, and skill updates.
 ---
 
 # 公司工作流入口帮助
@@ -33,6 +33,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
 | 任务清单已确认，且用户希望少确认几次连续推进 | L1/L2 | `company-implementation-runner` 连续执行模式 | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| 实现任务已经完成，需要判断是否独立验收或执行交付门禁 | L1/L2/L3 | 自动判定；命中条件时进入 `company-quality-validation` | `superpowers:verification-before-completion`；测试策略使用 `testing-qa` | `实现已完成，请判断并执行独立质量验收。` |
 | 任务批次、功能或里程碑已全部完成，需要规整成果、清理临时文件、提交或推送 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `所有任务已完成，开始交付收口并推送业务分支。` |
 | 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
 | 紧急线上问题 | L3 | `company-bugfix-runner` hotfix 路径 | `superpowers:systematic-debugging` + `superpowers:verification-before-completion` | `热修复：...` 或 `开始 hotfix：...` |
@@ -133,7 +134,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 交付收口路由
 
-用户不需要判断何时进入收口。只有当前任务清单中的事项全部完成、明确延期或明确不做，并且不再有可执行实现任务时，才路由到 `company-delivery-closeout`。
+用户不需要判断何时进入收口。只有当前任务清单中的事项全部完成、明确延期或明确不做，并且不再有可执行实现任务时，才进入质量验收判定；无需独立验收，或验收为 `pass` / 用户明确接受且允许的 `conditional-pass` 后，才路由到 `company-delivery-closeout`。
 
 - “整理本次成果”“清理临时文件并提交”“全部做完后提交”“收口并推送业务分支”等意图直接进入收口判断。
 - 仍有可执行任务时，继续 `company-implementation-runner`；不得用收口静默关闭任务。
@@ -141,6 +142,17 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 受保护分支、未知归属文件、验证失败、文档冲突或 staged 清单不一致时必须停止。
 
 默认口令：`所有任务已完成，开始交付收口并推送业务分支。`
+
+## 质量验收路由
+
+用户不需要判断是否需要单独测试节点。实现或 bugfix 完成后自动按风险和交付范围判定：
+
+- `V0/V1` 默认不单独验收；仍保留实现阶段的聚焦验证。
+- 单任务 `V2` 默认不单独验收；但关键用户旅程、浏览器交互、API/数据库集成或明显回归面存在时进入 `company-quality-validation`。
+- 多任务、跨模块、前后端联动、API/数据库集成的 `V2` 必须进入 `company-quality-validation`。
+- 里程碑、发布候选、`V3` 与 hotfix 补偿验收必须进入 `company-quality-validation`。
+- 验收 `blocked` 时进入 `company-bugfix-runner`，修复后回到同一验收范围；验收节点不得直接修改生产代码。
+- `conditional-pass` 只有在风险不属于禁止条件且用户明确接受时才可进入收口；高风险 `V3` 不能用条件通过规避阻断。
 
 ## Codex 计划模式建议
 

@@ -27,6 +27,7 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 12. Choose validation level `V1/V2/V3` automatically; use `V0` only for docs-only corrections.
 13. Check documentation drift: whether the bug exposes gaps in requirements, business rules, design, API contracts, or task plans.
 14. Explicitly use `superpowers:verification-before-completion` before claiming completion.
+15. After the fix, decide independent quality validation automatically: ordinary bugs depend on regression impact; post-hotfix compensation is mandatory; bugs found by quality validation return to the original validation scope.
 15. Record root cause, fix, and verification; if the fix affects public entry or current state, non-integration branches write a public-doc update patch.
 
 ## Superpowers Layer
@@ -43,6 +44,13 @@ Provide a Codex bugfix flow that distinguishes bugs from change requests.
 - `V3`: production, permissions, security, money/metric calculations, data corruption, concurrency, performance, external APIs, or hotfix.
 
 If the root cause is a missing rule or wrong documented promise, do not only fix code; output `Documentation drift impact` and route back to requirements or change request.
+
+## Independent Quality Validation Loop
+
+- `V1` ordinary bugfixes skip independent validation by default.
+- `V2` enters `company-quality-validation` for critical user paths, cross-module behavior, API/database integration, or a material regression surface.
+- `V3`, production hotfix compensation, data/permission/money/metric-formula/cross-system fixes require `company-quality-validation`.
+- If `company-quality-validation` found the bug with a `blocked` result, re-run the original ACs, scenarios, and environment after the fix. A new unit test alone cannot close the finding.
 
 ## Chinese Code Logic Comments
 
@@ -94,6 +102,9 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 - Asset placement gate: passed / blocked / not triggered
 - Authoritative document for this turn:
 - Validation level:
+- Independent quality validation decision: not required / required / mandatory
+- Validation loop: first acceptance / post-fix revalidation / hotfix compensation
+- Recommended next workflow: `company-quality-validation` / `company-delivery-closeout` / requirements or design
 - Verification evidence:
 - Code comment check:
 - Comment coverage:

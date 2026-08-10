@@ -27,6 +27,7 @@ description: Use when company code behavior differs from requirements, design, a
 12. 自动判定验证等级 `V1/V2/V3`；纯文档纠错才可用 `V0`。
 13. 检查文档漂移：bug 是否暴露需求、业务规则、设计、API 契约或任务计划缺口。
 14. 完成声明前显式叠加 `superpowers:verification-before-completion`。
+15. 修复完成后自动判定独立质量验收：普通 bugfix 按回归影响决定；hotfix 补偿验收强制；如果问题来自质量验收，修复后回到原验收范围。
 15. 记录根因、修复和验证；如果修复影响公共入口或当前状态，非集成分支写公共文档影响补丁。
 
 ## Superpowers 叠加
@@ -43,6 +44,13 @@ description: Use when company code behavior differs from requirements, design, a
 - `V3`：生产、权限、安全、金额/指标计算、数据损坏、并发、性能、外部 API 或 hotfix。
 
 如果根因是规则缺失或文档承诺错误，不要只修代码；必须输出 `文档漂移影响` 并路由回需求或变更请求。
+
+## 独立质量验收回路
+
+- `V1` 普通 bugfix 默认不单独验收。
+- `V2` 涉及关键用户路径、跨模块、API/数据库集成或明显回归面时进入 `company-quality-validation`。
+- `V3`、生产 hotfix 补偿、数据/权限/金额/指标公式/跨系统修复必须进入 `company-quality-validation`。
+- 如果 bug 由 `company-quality-validation` 的 `blocked` 结果发现，修复完成后必须按原 AC、场景和环境重新验收；不得仅以新增单元测试通过关闭问题。
 
 ## 中文代码逻辑备注
 
@@ -94,6 +102,9 @@ Bugfix 前检查最小上下文：
 - 资产落点门禁：通过 / 阻断 / 不触发
 - 本轮权威文档：
 - 验证等级：
+- 独立质量验收判定：不需要 / 需要 / 强制
+- 验收回路：首次验收 / 修复后复验 / hotfix 补偿
+- 推荐下一 workflow：`company-quality-validation` / `company-delivery-closeout` / 回需求或设计
 - 验证证据：
 - 代码备注检查：
 - 备注覆盖点：

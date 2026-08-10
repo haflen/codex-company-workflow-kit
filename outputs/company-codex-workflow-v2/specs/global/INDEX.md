@@ -80,6 +80,7 @@ flowchart LR
 | Spike report | `specs/global/assets/spike-report-template.md` |
 | Hotfix report | `specs/global/assets/hotfix-report-template.md` |
 | Requirements prototype approval record | `specs/global/assets/requirements-prototype-record-template.md` |
+| Independent quality validation report | `specs/global/assets/quality-validation-report-template.md` |
 | Delivery closeout report | `specs/global/assets/delivery-closeout-template.md` |
 | Change request | `specs/global/assets/change-request-template.md` |
 | Public doc update patch | `specs/global/assets/public-doc-update-template.md` |

@@ -80,6 +80,7 @@ flowchart LR
 | Spike 报告 | `specs/global/assets/spike-report-template.md` |
 | Hotfix 报告 | `specs/global/assets/hotfix-report-template.md` |
 | 需求原型确认记录 | `specs/global/assets/requirements-prototype-record-template.md` |
+| 独立质量验收报告 | `specs/global/assets/quality-validation-report-template.md` |
 | 交付收口报告 | `specs/global/assets/delivery-closeout-template.md` |
 | 变更请求 | `specs/global/assets/change-request-template.md` |
 | 公共文档影响补丁 | `specs/global/assets/public-doc-update-template.md` |
