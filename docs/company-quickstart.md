@@ -48,7 +48,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 all C:\path\to\proj
 
 复杂需求、技术设计、bugfix、hotfix、spike、实现完成和技能升级场景，还要检查回复是否包含 `第一性原理检查` 和 `对抗式审查`。普通小改动可以跳过，但 Codex 必须说明跳过原因。
 
-实现、bugfix 和 hotfix 完成时，还要检查是否包含 `验证等级` 和 `文档漂移影响`。验证等级由 workflow 自动判定：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。文档漂移用于判断是否需要同步需求、业务规则、设计、任务、`说明文档.md`、`INDEX.md` 或公共文档影响补丁。
+实现、bugfix 和 hotfix 完成时，还要检查是否包含 `验证等级`、`独立质量验收判定` 和 `文档漂移影响`。验证等级由 workflow 自动判定：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。文档漂移用于判断是否需要同步需求、业务规则、设计、任务、`说明文档.md`、`INDEX.md` 或公共文档影响补丁。
 
 如果本次涉及 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本里的非显然业务逻辑，还要检查是否包含 `代码备注检查` 和 `备注覆盖点`。AI 应补充中文逻辑备注，解释业务规则、计算口径、数据映射、异常分支、fallback/降级、兼容策略或性能/并发/缓存处理；不要写逐行翻译语法的废话备注。
 
@@ -271,7 +271,15 @@ bash scripts/install.sh install-agents /path/to/project --lang zh
 
 ## 里程碑交付收口
 
-实现 workflow 负责逐任务编码和验证；所有任务做完后，使用独立的 `company-delivery-closeout` 规整本次成果。用户不需要判断何时切换：当任务均已完成、明确延期或明确不做，且没有下一项可执行任务时，workflow 会主动推荐收口。
+实现 workflow 负责逐任务编码和验证；所有任务做完后先自动判定是否进入 `company-quality-validation`。`V0/V1` 和低风险单任务 `V2` 默认不增加节点；多任务/跨模块/前后端/API/数据库 `V2`、里程碑、发布候选、`V3` 和 hotfix 补偿进入独立验收。
+
+命中时可直接说：
+
+```text
+实现已完成，请判断并执行独立质量验收。
+```
+
+验收只输出 `pass / conditional-pass / blocked`，不修改生产代码。`blocked` 转 bugfix 并按原范围复验；通过或用户明确接受允许的条件通过后，再使用 `company-delivery-closeout` 规整本次成果。
 
 默认的一次性交付口令：
 

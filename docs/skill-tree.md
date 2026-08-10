@@ -38,6 +38,8 @@
 │   └── L2/L3 触发式方案对比，用户确认推荐方案后再进入任务拆解
 ├── company-feature-planning
 ├── company-implementation-runner
+├── company-quality-validation
+│   └── 实现后按风险触发独立验收，不修改生产代码
 └── company-delivery-closeout
 
 例外通道
@@ -78,6 +80,7 @@
 | Scope Change Circuit Breaker | 发现新增架构层、数据加工层、接口边界或业务口径变化时，让旧实现授权失效并回到文档确认 | workflow help, expert routing, design, planning, implementation |
 | Asset Placement Gate | 自动识别文档根和工程根，在设计证明归属、规划锁定完整路径、实现前检查计划路径、交付前检查新增/移动文件 | context, onboarding, design, planning, implementation, bugfix, health check, closeout |
 | Validation Levels `V0/V1/V2/V3` | 按风险自动选择验证成本，避免验证不足或全量过度验证 | planning, implementation, bugfix, hotfix |
+| Triggered Independent Quality Validation | 多任务/跨模块 V2、里程碑、V3 和 hotfix 补偿进入独立交付验收 | planning, implementation, bugfix, closeout |
 | Controlled Continuous Implementation | 在已确认任务清单内批量推进，并在范围变化、验证失败或高风险点自动停下 | planning, implementation, workflow help |
 | Codex Goal Tracking Recommendation | 对跨阶段、跨会话、高风险或连续执行任务建议建立目标，并提示目标不等于实现授权 | workflow help, implementation |
 | Codex Plan Mode Recommendation | 对不确定路线、方案对比、旧项目接入或高风险任务建议先用计划模式判断，不改文件不编码 | workflow help |
@@ -101,6 +104,7 @@
 | `company-feature-design` | 产出技术设计、架构、API、数据流、测试策略 | Requirements are confirmed and design is needed before planning. |
 | `company-feature-planning` | 把设计拆成可执行任务和验证点 | Requirements and design are confirmed and implementation tasks are needed. |
 | `company-implementation-runner` | 按已确认任务执行实现和验证 | Requirements, design, and task plan are confirmed. |
+| `company-quality-validation` | 按风险触发 AC、关键旅程、集成和回归验收，不修改生产代码 | Implementation or bugfix is complete and delivery acceptance is required. |
 | `company-delivery-closeout` | 规整里程碑成果、清理可证明临时产物、复验并按授权提交或推送 | A task batch, feature, milestone, or version phase is fully complete. |
 | `company-bugfix-runner` | 区分 bug/变更，复现、修复、回归验证 | Behavior differs from requirements, tests, or documented expectations. |
 | `company-spike-research` | 做限时技术预研和最小实验 | Feasibility, unfamiliar library, or architecture uncertainty needs reduction. |
@@ -123,6 +127,7 @@
 - `company-requirements-prototype` 是需求阶段的可选验证分支。它只修改隔离、模拟数据原型；确认后转为需求基线并停止，除非用户另行明确授权技术设计。
 - 技术方案对比也不是每个设计都要做。L1 小改动可跳过并说明原因；L2/L3 大功能、核心模块、跨边界、数据模型、权限、安全、性能或业务规则设计必须比较 2-3 个方案，并等用户确认推荐方案后进入 planning。
 - 验证等级不是用户手动选择。实现、bugfix 和 hotfix 自动判定 `V0/V1/V2/V3`，并在完成报告里输出验证证据、未验证项和剩余风险。
+- 独立质量验收也不是用户手动选择。`V0/V1` 与低风险单任务 `V2` 默认跳过；多任务/跨模块/集成 `V2` 需要，里程碑、发布候选、`V3` 和 hotfix 补偿强制进入 `company-quality-validation`。
 - 文档漂移检查是执行出口：如果实现改变了需求承诺、业务规则、API 契约、设计、任务或公共入口，必须补文档或标记待确认漂移。
 - 中文代码逻辑备注是跨语言规则：Java、前端 TypeScript/Vue/React、Python、SQL 和脚本中，只要出现业务规则、公式阈值、字段映射、异常分支、兼容或性能策略等非显然逻辑，就必须补中文说明。
 - 阶段一致性预检是执行入口：如果 `说明文档.md`、`INDEX.md`、当前 version/feature README 和任务文档互相矛盾，普通实现/bugfix 先暂停并修正文档路由；生产 hotfix 可先止血但必须记录补偿任务。
@@ -156,6 +161,10 @@ company-workflow-help
    -> superpowers:verification-before-completion before completion report
    -> optional controlled continuous mode after explicit user authorization
    -> optional subagents for independent implementation, investigation, or review
+-> company-quality-validation when risk triggers
+   -> testing-qa + superpowers:verification-before-completion
+   -> pass / conditional-pass / blocked
+   -> blocked returns to company-bugfix-runner and then revalidates
 -> company-delivery-closeout
    -> superpowers:requesting-code-review for non-trivial final diffs
    -> superpowers:verification-before-completion on the final candidate

@@ -597,6 +597,10 @@ function Verify-Kit {
   if ($LASTEXITCODE -ne 0) {
     throw "Document template regression tests failed"
   }
+  python3 (Join-Path $RootDir "tests/test_quality_validation_workflow.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Quality validation workflow regression tests failed"
+  }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }

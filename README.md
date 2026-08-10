@@ -1,6 +1,6 @@
 # Codex Company Workflow Kit
 
-公司项目使用的 Codex 工作流 starter kit，目标是让团队在 Codex 里稳定完成需求澄清、技术设计、任务拆解、实现验证、里程碑交付收口、bugfix、hotfix、spike 和专家技能治理。
+公司项目使用的 Codex 工作流 starter kit，目标是让团队在 Codex 里稳定完成需求澄清、技术设计、任务拆解、实现验证、触发式独立质量验收、里程碑交付收口、bugfix、hotfix、spike 和专家技能治理。
 
 这不是为了把流程做重，而是为公司项目提供轻量护栏：
 
@@ -13,6 +13,7 @@
 - 正式需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档统一采用“结论 -> 图 -> 关键表格 -> 细节”的人类可读结构，并使用 Mermaid 作为图表标准。
 - 需求阶段可用 `company-requirements-prototype` 创建隔离 HTML/页面/交互原型，确认后转为需求基线，不会自动进入技术设计或任务拆分。
 - 长对话由 `company-thread-handoff` 自动建议继续、压缩、完整 fork 或分级交接；目标对话必须完成接收校验，不盲目继承旧状态或实现授权。
+- 实现后由 workflow 自动判断是否进入 `company-quality-validation`；小改动不加流程，多任务/跨模块 V2、里程碑、V3 和 hotfix 补偿按风险进入独立验收。
 - 所有任务完成后可用 `company-delivery-closeout` 规整代码、文档和临时产物，重新验证最终候选，并按授权本地提交或普通推送当前业务分支。
 - 每轮执行会显式区分实际调用的 Superpowers/专家/插件/subagents 能力，以及未调用但采用的专家或拆分视角；subagents 会额外说明能力状态和是否需要用户显式请求。
 
@@ -75,6 +76,14 @@ outputs/company-codex-workflow-template/
 - `对抗式审查`：实现完成、bugfix 完成、hotfix、spike 结论、技能升级和安全审查前，从极端输入、异常状态、权限绕过、并发重试、未来时间、缓存假阳性和 UI 渲染压力等反例检查稳健性。
 
 这些检查已经写入 `AGENTS.md`、核心 workflow skills 和项目模板。普通小改动可以跳过，但必须说明原因。
+
+## 三层质量体系
+
+- 技术设计定义测试策略和可验证接口。
+- `company-implementation-runner` 叠加 `superpowers:test-driven-development`，在编码过程中用最小失败案例提供快速反馈。
+- 实现完成后自动判定是否进入 `company-quality-validation`，从 AC、关键旅程、集成、回归和交付风险角度做独立验收；该节点不修改生产代码。
+
+`V0/V1` 默认跳过独立验收；单任务低风险 `V2` 默认跳过。多任务/跨模块/前后端或 API/数据库集成的 `V2` 需要验收；里程碑、发布候选、`V3` 和 hotfix 补偿强制验收。结果只有 `pass / conditional-pass / blocked`：阻断项进入 bugfix 后复验，通过后才进入交付收口。
 
 ## 文档职责和编号命名空间
 
@@ -391,6 +400,7 @@ bash scripts/install.sh deactivate-project /path/to/company-project --force
 需求已确认，进入技术设计
 方案已确认，进入任务拆解
 任务已确认，开始实现
+实现已完成，请判断并执行独立质量验收。
 所有任务已完成，开始交付收口并推送业务分支。
 开始 bugfix：<问题描述>
 /hotfix <线上事故>

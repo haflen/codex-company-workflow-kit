@@ -106,8 +106,22 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 - `验证等级`：`V0` 纯文档、`V1` 小改动、`V2` 标准功能或普通 bugfix、`V3` 生产/权限/安全/数据/性能/公式/hotfix。
 - `文档漂移影响`：判断是否需要同步 requirements、business-rules、design、api-contract、tasks、`说明文档.md`、`specs/global/INDEX.md` 或公共文档影响补丁。
 - `代码备注检查`：判断 Java、前端 TypeScript/Vue/React、Python、SQL 或脚本中的业务规则、计算口径、数据映射、异常分支和非显然技术决策是否已有必要中文备注。
+- `独立质量验收判定`：`不需要 / 需要 / 强制`，并给出触发依据和下一 workflow。
 
-这两项用于控制验证成本：小任务不全量跑，大任务不低配验证。
+这些字段用于控制验证成本：小任务不全量跑，大任务不低配验证。
+
+### 实现验证与独立质量验收
+
+当前体系不是把 TDD 和测试流程重复执行，而是分成三层：技术设计定义测试策略，implementation 用 Superpowers TDD 做编码反馈，`company-quality-validation` 在命中风险条件时做独立交付验收。
+
+| 场景 | 独立验收 |
+| --- | --- |
+| V0/V1 | 默认不需要 |
+| 单任务低风险 V2 | 默认不需要；关键旅程、浏览器、API/数据库集成或明显回归面除外 |
+| 多任务、跨模块、前后端/API/数据库 V2 | 需要 |
+| 里程碑、发布候选、V3、hotfix 补偿 | 强制 |
+
+验收节点根据需求 AC 建立“场景 -> 证据 -> 结果”矩阵，只做验证，不修改生产代码。`blocked` 进入 `company-bugfix-runner`，修复后回到相同验收范围；`pass` 或用户明确接受且风险允许的 `conditional-pass` 才能进入交付收口。
 
 在实现、bugfix 或 hotfix 前，workflow 还会执行阶段一致性预检：
 
@@ -658,10 +672,16 @@ Codex 会使用 `company-requirements-prototype` 管理隔离草稿、浏览器�
 所有任务完成后：
 
 ```text
+实现已完成，请判断并执行独立质量验收。
+```
+
+不需要独立验收，或验收通过后：
+
+```text
 所有任务已完成，开始交付收口并推送业务分支。
 ```
 
-Codex 会进入 `company-delivery-closeout`：先检查业务分支和任务状态，再逐文件分类代码、测试、文档、配置、资产、临时产物和未知文件；随后规整权威文档、dry-run 清理、审查最终 diff、重新验证，并只精确暂存确认文件。正常通过后创建一次本地 commit，并使用普通 push 推送当前业务分支。
+Codex 会进入 `company-delivery-closeout`：先检查独立验收门禁、业务分支和任务状态，再逐文件分类代码、测试、文档、配置、资产、临时产物和未知文件；随后规整权威文档、dry-run 清理、审查最终 diff、重新验证，并只精确暂存确认文件。正常通过后创建一次本地 commit，并使用普通 push 推送当前业务分支。
 
 三种模式：
 
@@ -744,17 +764,19 @@ Codex 会进入 `company-delivery-closeout`：先检查业务分支和任务状�
 
    如果实现涉及非平凡行为，Codex 应在这个阶段使用 Superpowers TDD；写代码前应先通过阶段一致性预检，完成前应给出验证等级、验证证据和文档漂移影响。用户通常不需要手动输入 `/Superpowers /test-driven-development`。
 
-9. 全部任务完成后，用户要求正式收口：
+9. 全部任务完成后，Codex 自动判断是否需要独立质量验收；命中多任务/跨模块 V2、里程碑、V3 或 hotfix 补偿时进入 `company-quality-validation`。
+
+10. 验收通过或判定不需要后，用户要求正式收口：
 
 ```text
 所有任务已完成，开始交付收口并推送业务分支。
 ```
 
-10. Codex 使用 `company-delivery-closeout` 盘点导出功能的代码、测试、需求/设计/任务文档和临时 CSV；未知文件会阻止删除和提交。
+11. Codex 使用 `company-delivery-closeout` 盘点导出功能的代码、测试、需求/设计/任务文档和临时 CSV；未知文件会阻止删除和提交。
 
-11. Codex 对最终待提交 diff 使用 `superpowers:requesting-code-review`，用 `superpowers:verification-before-completion` 重跑验证，并用 `superpowers:finishing-a-development-branch` 检查分支状态。通过后只暂存确认文件，创建本地 commit 并普通 push 当前业务分支。
+12. Codex 对最终待提交 diff 使用 `superpowers:requesting-code-review`，用 `superpowers:verification-before-completion` 重跑验证，并用 `superpowers:finishing-a-development-branch` 检查分支状态。通过后只暂存确认文件，创建本地 commit 并普通 push 当前业务分支。
 
-12. 最终报告列出验证命令、删除和保留文件、commit SHA、分支、远端、push 结果、剩余风险和下一步建议。
+13. 最终报告列出质量验收结论、验证命令、删除和保留文件、commit SHA、分支、远端、push 结果、剩余风险和下一步建议。
 
 ## 8. 技能更新
 

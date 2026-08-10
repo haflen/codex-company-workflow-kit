@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.29 - 2026-08-11
+
+- Added bilingual `company-quality-validation` skills and `/company-quality-validation` UI entries for risk-triggered independent delivery acceptance.
+- Added bilingual quality-validation report templates with AC-to-scenario-to-evidence traceability and mirrored them into project starter kits.
+- Connected workflow help, planning, implementation, bugfix, health checks, AGENTS, expert bundles, indexes, and delivery closeout to one automatic trigger matrix.
+- Kept `V0/V1` and low-risk single-task `V2` lightweight while requiring validation for multi-task/cross-module/integration `V2`, milestones, release candidates, `V3`, and post-hotfix compensation.
+- Added explicit `pass / conditional-pass / blocked` outcomes; blocked work returns to bugfix and must re-run the original validation scope before closeout.
+- Added packaged regression coverage, install-time verification, and user guidance for the three-layer quality model: design strategy, implementation TDD, and independent acceptance.
+
 ## 0.2.28 - 2026-08-10
 
 - Added one bilingual human-readable document standard with explicit `DOC-G01` through `DOC-G12` gates, stable `work-item-id` traceability, and user-only diagram waivers.
