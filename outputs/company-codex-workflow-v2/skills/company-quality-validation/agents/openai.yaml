@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-quality-validation"
+  short_description: "Run risk-based independent delivery quality validation"
+  default_prompt: "Use $company-quality-validation to decide and run the required company quality acceptance before delivery closeout."

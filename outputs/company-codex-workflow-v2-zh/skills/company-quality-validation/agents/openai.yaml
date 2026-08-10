@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-quality-validation"
+  short_description: "按风险执行独立质量验收并判断是否可交付"
+  default_prompt: "Use $company-quality-validation to decide and run the required company quality acceptance before delivery closeout."
