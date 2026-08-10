@@ -60,15 +60,27 @@
 
 ## 工作流文档
 
+```mermaid
+flowchart LR
+    A["先读 document-standard"] --> B["选择文档类型模板"]
+    B --> C["先写结论和图"]
+    C --> D["补关键表格和细节"]
+    D --> E["按 DOC-G01~G12 自检"]
+```
+
 | 需求 | 模板 |
 | --- | --- |
+| 正式文档阅读与质量规范 | `specs/global/assets/document-standard.md` |
 | 功能需求 | `specs/global/assets/requirements-template.md` |
+| 数据模型与表结构 | `specs/global/assets/data-model-template.md` |
 | 业务规则与计算口径 | `specs/global/assets/business-rules-template.md` |
 | 技术设计 | `specs/global/assets/design-template.md` |
 | API 契约 | `specs/global/assets/api-contract-template.md` |
 | 任务计划 | `specs/global/assets/tasks-template.md` |
 | Spike 报告 | `specs/global/assets/spike-report-template.md` |
 | Hotfix 报告 | `specs/global/assets/hotfix-report-template.md` |
+| 需求原型确认记录 | `specs/global/assets/requirements-prototype-record-template.md` |
+| 交付收口报告 | `specs/global/assets/delivery-closeout-template.md` |
 | 变更请求 | `specs/global/assets/change-request-template.md` |
 | 公共文档影响补丁 | `specs/global/assets/public-doc-update-template.md` |
 | 技能升级报告 | `specs/global/assets/skill-upgrade-report-template.md` |

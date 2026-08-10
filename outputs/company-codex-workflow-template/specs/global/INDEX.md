@@ -22,15 +22,28 @@ Use this file as the first stop for project context. Keep summaries short and li
 
 ## Global Documents
 
+```mermaid
+flowchart LR
+    A["Read document-standard first"] --> B["Select the document-type template"]
+    B --> C["Write decisions and diagrams"]
+    C --> D["Add key tables and details"]
+    D --> E["Check DOC-G01 through G12"]
+```
+
 | Document | Purpose | Read When |
 | --- | --- | --- |
 | `specs/global/INDEX.md` | Context map and command index | Every task |
+| `specs/global/assets/document-standard.md` | Formal-document reading structure and quality gates | Creating or substantially changing a formal document |
 | `specs/global/assets/requirements-template.md` | Requirements template | Creating or refining feature requirements |
 | `specs/global/assets/design-template.md` | Technical design template | Designing feature implementation |
+| `specs/global/assets/data-model-template.md` | Data-model and table-design template | Designing relationships, tables, and fields |
+| `specs/global/assets/business-rules-template.md` | Business-rule and calculation-semantics template | Complex rules, formulas, or state transitions |
 | `specs/global/assets/api-contract-template.md` | API contract template | Frontend/backend or service boundary work |
 | `specs/global/assets/tasks-template.md` | Task planning template | Breaking approved work into implementation steps |
 | `specs/global/assets/spike-report-template.md` | Spike report template | `/spike` work |
 | `specs/global/assets/hotfix-report-template.md` | Hotfix report template | `/hotfix` work |
+| `specs/global/assets/requirements-prototype-record-template.md` | Requirements prototype approval record | Promoting an approved prototype into the requirements baseline |
+| `specs/global/assets/delivery-closeout-template.md` | Delivery closeout report | Closing a feature, milestone, or release |
 
 ## Feature Specs
 

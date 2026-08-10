@@ -60,15 +60,27 @@ Start here before using any company workflow.
 
 ## Workflow Documents
 
+```mermaid
+flowchart LR
+    A["Read document-standard first"] --> B["Select the document-type template"]
+    B --> C["Write decisions and diagrams"]
+    C --> D["Add key tables and details"]
+    D --> E["Check DOC-G01 through G12"]
+```
+
 | Need | Template |
 | --- | --- |
+| Formal document reading and quality standard | `specs/global/assets/document-standard.md` |
 | Feature requirements | `specs/global/assets/requirements-template.md` |
+| Data model and table design | `specs/global/assets/data-model-template.md` |
 | Business rules and calculation semantics | `specs/global/assets/business-rules-template.md` |
 | Technical design | `specs/global/assets/design-template.md` |
 | API contract | `specs/global/assets/api-contract-template.md` |
 | Task plan | `specs/global/assets/tasks-template.md` |
 | Spike report | `specs/global/assets/spike-report-template.md` |
 | Hotfix report | `specs/global/assets/hotfix-report-template.md` |
+| Requirements prototype approval record | `specs/global/assets/requirements-prototype-record-template.md` |
+| Delivery closeout report | `specs/global/assets/delivery-closeout-template.md` |
 | Change request | `specs/global/assets/change-request-template.md` |
 | Public doc update patch | `specs/global/assets/public-doc-update-template.md` |
 | Skill upgrade report | `specs/global/assets/skill-upgrade-report-template.md` |
