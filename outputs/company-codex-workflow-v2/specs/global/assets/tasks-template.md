@@ -2,109 +2,139 @@
 
 ## Metadata
 
+- work-item-id:
 - Feature:
 - Owner:
 - Status: draft / confirmed / in progress / complete
-- Formal task numbering namespace: for example `FEAT-xxx`
-- Requirements:
-- Design:
+- Last updated:
+- Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
+- Requirements, design, and API contract:
+
+## Decision Summary
+
+- User-visible result for this batch:
+- Task count and main modules:
+- Scope allowed for continuous execution:
+- Mandatory confirmation stops:
+- Confirmation needed now:
+
+## What Changed
+
+| Change | Previous | Current | Reason | Impact |
+| --- | --- | --- | --- | --- |
+| Initial edition | None | Task baseline | Design approved | Current work item |
+
+## Reading Guide
+
+- Business/product: read the delivery result, dependency graph, and confirmation stops.
+- Development: continue with tasks, asset paths, dependencies, and continuous-execution policy.
+- QA: focus on verification anchors, levels, regression, and completion evidence.
+
+## Task Dependencies and Execution Stops
+
+This diagram answers: which tasks are serial or parallel, and when must verification or user confirmation stop execution?
+
+```mermaid
+flowchart LR
+    T001["T-001<br/>Establish minimum failing case"] --> T002["T-002<br/>Implement core behavior"]
+    T002 --> T003["T-003<br/>Integration and contract verification"]
+    T002 --> T004["T-004<br/>UI or consumer adaptation"]
+    T003 --> GATE{"Verification and confirmation stop"}
+    T004 --> GATE
+    GATE -->|pass| T005["T-005<br/>Regression and document sync"]
+    GATE -->|failure/scope change| STOP["Stop and return to design or planning"]
+```
+
+Key conclusions:
+
+- Core behavior starts with a failing case or verification anchor.
+- `T-003` and `T-004` run in parallel only when file and state boundaries are independent.
+- Stop on verification failure, scope change, V3 risk, or a user confirmation point.
 
 ## Preconditions
 
 - Requirements confirmed:
 - Design confirmed:
-- API contract confirmed, if applicable:
+- API/data model confirmed when applicable:
 - Test strategy confirmed:
+- Asset boundary config confirmed:
 
 ## Implementation Tasks
 
-| ID | Task | Files / modules | Estimated validation level | Continuous eligibility | Subagent strategy | Minimal failing case or verification anchor | Adversarial scenario | Chinese comment coverage | Documentation drift check | Depends on |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 |  |  | V0/V1/V2/V3 | continuous / careful-continuous / must-stop | not needed / implementation / investigation / spec review / code-quality review / parallel forbidden |  |  | business rules / calculation semantics / data mapping / exceptional branch / none |  |  |
-
-## AI Execution Notes
-
-- Keep edits scoped to the task ID being executed.
-- Do not advance to the next task when verification for the current task fails.
-- Batch only tasks marked `continuous` or `careful-continuous` after explicit user authorization.
-- Stop on `must-stop`, scope change, verification failure, V3 risk, user confirmation point, or local resource anomaly.
-- Record any assumption changes as a requirement or design update.
-- Formal tasks do not inherit spike-internal work-log IDs; create a new formal task namespace when converting spike output into production work.
-- Use subagents only for independent implementation, independent investigation, or independent review. Forbid parallel subagents when tasks edit the same file, state model, database migration, API contract, or public-doc section.
-- The main agent must review subagent diffs, verification evidence, documentation drift, and remaining risk.
-- Tasks that add or move engineering assets must use complete repository-relative paths and list allowed plus forbidden roots; never use only short paths such as `contracts/` or `scripts/`.
-- Run the asset placement gate against all planned paths before implementation. Blocking issues return to design/planning instead of entering code.
-- Actual subagent invocation requires an explicit user request. For stable company roles, first run `bash scripts/install.sh install-agents <project-path> --lang en` to generate `.codex/agents/`.
+| ID | User/system result | File/module | Verification level | Continuous execution | Subagent | Minimum failing case/anchor | Chinese comment coverage | Document drift | Dependency |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `T-001` |  |  | V0/V1/V2/V3 | continuous / cautious / must stop | none / implementation / investigation / review |  |  |  |  |
 
 ## Asset Placement Plan
 
-- Boundary config: `.codex-workflow/asset-boundaries.json`
-
-| Task ID | Planned path | Allowed roots | Forbidden roots | Config status | Gate result |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  | `specs/`, `docs/`, or project-declared roots | draft / confirmed | passed / blocked / not triggered |
+| Task ID | Asset type | Full planned path | Allowed root | Forbidden root | Placement evidence | Gate result |
+| --- | --- | --- | --- | --- | --- | --- |
+| `T-001` | runtime / test / build / migration / document |  |  | `specs/`, `docs/`, or project-declared root | manifest / build or test config / project convention | pass / blocked |
 
 ## Verification Plan
 
-| Check | Command or manual step | Expected result |
-| --- | --- | --- |
-|  |  |  |
+| Test ID | Task/AC | Command or step | Expected result | Evidence path |
+| --- | --- | --- | --- | --- |
+| `TC-001` | `<work-item-id>/T-001` |  |  |  |
 
-## Validation Level Notes
+Levels: V0 document or no behavior change; V1 low-risk single point; V2 standard feature or ordinary bugfix; V3 production, permission, security, data, performance, money, cross-system, or hotfix work.
 
-- V0: docs, comments, formatting, or no-behavior changes.
-- V1: low-risk isolated changes.
-- V2: standard feature work or ordinary bugfix.
-- V3: production, permission, security, data, performance, money/metric formulas, cross-system work, or hotfix.
+## Continuous Execution and Stop Conditions
 
-The final validation level is confirmed by implementation or bugfix before completion.
-
-## Continuous Implementation Plan
-
-| Task range | Continuous allowed | Stop conditions | Recommended phrase |
+| Task scope | Continuous | Stop condition | User authorization |
 | --- | --- | --- | --- |
-|  |  | scope change / verification failure / V3 risk / user confirmation / local resource anomaly | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+|  |  | scope change / verification failure / V3 / user confirmation / local resource anomaly |  |
 
-## Subagent Split Plan
+## Subagent Boundaries
 
-Subagent capability status:
-
-| Task range | Subagent recommended | Subagent role | Allowed files | Prohibited actions | Main-agent review method |
+| Task scope | Recommendation | Role | Allowed files | Forbidden work | Main-agent review |
 | --- | --- | --- | --- | --- | --- |
-|  | not needed / recommended / strongly recommended | implementation / investigation / spec review / code-quality review / test-strategy review |  |  | diff / verification evidence / documentation drift / remaining risk |
+|  | none / recommended / strongly recommended | implementation / investigation / spec / quality / test |  | shared state, same migration, and same contract cannot run in parallel | diff / verification / drift / risk |
 
-## Documentation Drift Check
+## Document Drift and Chinese Code Comments
 
-| Change Type | Affected | Documents To Update |
+| Check | Affected | Update or comment location |
 | --- | --- | --- |
-| Requirements / AC |  |  |
-| Business rules / calculation semantics |  |  |
-| Technical design / API contract |  |  |
-| Project entry / INDEX / public-doc update patch |  |  |
-
-## Chinese Code Logic Comment Plan
-
-| Comment Trigger | In Scope | Location Or Notes |
-| --- | --- | --- |
-| Business rules / state branches / permission differences |  |  |
-| Formulas / thresholds / precision / sorting weights |  |  |
-| Data source / field mapping / enum mapping / DTO mapping |  |  |
-| Fallback / hiding / degradation / empty data / compatibility strategy |  |  |
-| Performance / concurrency / cache / retry / rendering strategy |  |  |
+| Requirements, ACs, rules, or calculations |  |  |
+| Design, API, or data model |  |  |
+| INDEX, entry, or public-document patch |  |  |
+| Chinese comments for rules, formulas, mappings, exceptions, or performance |  |  |
 
 ## Adversarial Review Plan
 
-| Risk type | Scenario | Check method |
-| --- | --- | --- |
-| Extreme input / abnormal state / permission / concurrency / performance / UI rendering |  |  |
+| Risk | Scenario | Check | Test |
+| --- | --- | --- | --- |
+| extreme input / permission / concurrency / performance / UI rendering |  |  |  |
 
 ## Completion Evidence
 
 - Commands run:
 - Manual checks:
 - Screenshots or logs:
-- Known residual risk:
+- Known remaining risks:
 
-## Human Confirmation
+## Traceability
 
-Implementation is complete only after the agreed verification evidence is recorded.
+| Object | Full reference | Document path or section |
+| --- | --- | --- |
+| Task | `<work-item-id>/T-001` | Implementation Tasks |
+| AC | `<work-item-id>/AC-001` |  |
+| Test | `<work-item-id>/TC-001` | Verification Plan |
+
+## Diagram Waiver
+
+No waiver by default. After an explicit user request, record the user, waived dependency graph, and reason.
+
+## Human Readability Check
+
+| Gate | Result | Evidence or explanation |
+| --- | --- | --- |
+| `DOC-G01`, `DOC-G04` | pass / waived / blocked |  |
+| `DOC-G05` through `DOC-G12` | pass / blocked |  |
+
+## Human Confirmation and Next Step
+
+- Tasks, dependencies, verification, and stop conditions confirmed: no / yes
+- Continuous-execution authorization: not granted / authorized scope
+- Recommended next step: continue planning / `company-implementation-runner`
+- Phase boundary: plan confirmation does not automatically authorize coding; record explicit user authorization.

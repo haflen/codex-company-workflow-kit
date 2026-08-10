@@ -2,74 +2,125 @@
 
 ## Metadata
 
+- work-item-id:
 - Feature:
 - Owner:
 - Status: draft / confirmed / changed
 - Last updated:
-- Related requirements:
-- Related design:
+- Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
+- Related requirements and design:
 
-## Trigger Reason
+## Decision Summary
 
-Explain why this feature needs a separate business-rules document. Use it only when the feature has metrics, formulas, state transitions, complex operations, role differences, data mapping, missing-data handling, or other non-trivial business rules.
+- Rules governed here:
+- Applicable users and scenarios:
+- Key state or calculated result:
+- Most easily misunderstood semantic:
+- Confirmation needed now:
 
-## Scope
+## What Changed
 
-- Applicable users/roles:
-- Applicable scenarios:
-- Out of scope:
+| Change | Previous | Current | Reason | Impact |
+| --- | --- | --- | --- | --- |
+| Initial edition | None | Rule baseline | First approval | Current work item |
 
-## Terms and Field Semantics
+## Reading Guide
 
-| Name | Meaning | Data source | Unit | Precision/format | Notes |
+- Business/product: decision, rule flow, formula explanation, and worked example.
+- Development: field sources, state changes, precision, exception handling, and authority boundaries.
+- QA: rule IDs, counterexamples, boundary values, and acceptance mapping.
+
+## Scope and Terms
+
+| Term/field | Meaning | Source | Unit | Precision/format | Notes |
 | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |
 
-## Operation Logic
+## Rule and Calculation Flow
 
-| Scenario | Preconditions | User action | System response | State change | Exception handling |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |
+This diagram answers: how do inputs pass through rule decisions, exceptions, and calculation to form a business result?
+
+```mermaid
+flowchart LR
+    INPUT["BR-001<br/>Read authoritative input"] --> VALID{"BR-002<br/>Input complete and valid?"}
+    VALID -->|yes| CALC["BR-003<br/>Apply approved formula"]
+    CALC --> ROUND["BR-004<br/>Round using defined unit and precision"]
+    ROUND --> RESULT["Produce traceable business result"]
+    VALID -->|no| MISSING["Return explicit missing/abnormal state<br/>Never invent zero"]
+```
+
+Key conclusions:
+
+- Validate source, time range, unit, and completeness before calculation.
+- Missing or abnormal data uses explicit status instead of defaulting to zero or success.
+- Rounding occurs only at the defined step; the frontend cannot redefine authoritative semantics.
+
+## Operational Rules
+
+| Rule ID | Scenario | Preconditions | Action/event | System response | State change | Exception handling |
+| --- | --- | --- | --- | --- | --- | --- |
+| `BR-001` |  |  |  |  |  |  |
 
 ## State Transitions
 
 - Initial state:
-- Allowed states:
-- Terminal states:
+- Allowed states and entry conditions:
+- Terminal state:
 - Forbidden transitions:
-- Conflict handling:
+- Conflict, duplicate, and concurrency handling:
 
 ## Calculation Logic
 
-| Metric/result | Formula or rule | Input fields | Missing/exception handling | Rounding/precision | Example |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |
+### Formula `BR-003`
 
-## Example Cases
+- Natural-language explanation:
+- Mathematical expression: `result = input_a + input_b`
+- Input sources:
+- Unit and currency:
+- Precision and rounding:
+- Missing, abnormal, and boundary values:
+- Calculation owner: backend / data-processing layer / other authoritative component
 
-| Input | Calculation or operation process | Expected output | Acceptance/test usage |
+## Complete Worked Example
+
+| Input | Calculation | Expected output | Acceptance/test |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| `input_a=10`, `input_b=5` | `10 + 5` | `15` | `<work-item-id>/TC-001` |
 
 ## Adversarial Scenarios
 
-| Scenario | Risk | Expected behavior | Include in tests |
+| Scenario | Risk | Expected behavior | Test |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Missing input | Fabricated result | Return missing status; do not fill zero |  |
+| Duplicate submission | Duplicate calculation or write | Idempotent result or explicit conflict |  |
 
-## Open Semantics
+## Unconfirmed Semantics and Decisions
 
-| Question | Owner | Blocking | Current handling |
-| --- | --- | --- | --- |
-|  |  |  |  |
+| Object | Current treatment | Owner | Blocking | Decision |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
 
 ## Traceability
 
-- Downstream design:
-- API contract:
-- Task plan:
-- Test or verification evidence:
+| Object | Full reference | Document path or section |
+| --- | --- | --- |
+| Rule | `<work-item-id>/BR-001` | Operational Rules |
+| Acceptance | `<work-item-id>/AC-001` |  |
+| Test | `<work-item-id>/TC-001` |  |
 
-## Human Confirmation
+## Diagram Waiver
 
-This document is ready for design or task planning when operation logic, state transitions, formulas, field semantics, exception handling, and example cases are clear enough to drive development and testing.
+No waiver by default. After an explicit user request, record the user, waived rule/calculation diagram, and reason.
+
+## Human Readability Check
+
+| Gate | Result | Evidence or explanation |
+| --- | --- | --- |
+| `DOC-G01`, `DOC-G04` | pass / waived / blocked |  |
+| `DOC-G05` through `DOC-G12` | pass / blocked |  |
+
+## Human Confirmation and Next Step
+
+- Operations, state, formulas, field semantics, exceptions, and examples confirmed: no / yes
+- Remaining blocking semantics:
+- Recommended next step: continue rule clarification / `company-feature-design`
