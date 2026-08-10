@@ -10,6 +10,7 @@
 - 专家 skills 通过 bundle 自动路由；安装和项目初始化会自动生成专家就绪和安全审查报告。
 - 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
+- 正式需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档统一采用“结论 -> 图 -> 关键表格 -> 细节”的人类可读结构，并使用 Mermaid 作为图表标准。
 - 需求阶段可用 `company-requirements-prototype` 创建隔离 HTML/页面/交互原型，确认后转为需求基线，不会自动进入技术设计或任务拆分。
 - 长对话由 `company-thread-handoff` 自动建议继续、压缩、完整 fork 或分级交接；目标对话必须完成接收校验，不盲目继承旧状态或实现授权。
 - 所有任务完成后可用 `company-delivery-closeout` 规整代码、文档和临时产物，重新验证最终候选，并按授权本地提交或普通推送当前业务分支。
@@ -50,6 +51,14 @@ outputs/company-codex-workflow-template/
 - `skills/`：公司工作流 skills。
 - `skills/*/agents/openai.yaml`：Codex UI 技能列表/chips 使用的名称、简介和默认提示。
 - `specs/global/assets/`：需求、业务规则、设计、任务、hotfix、spike、技能升级和工作流健康检查模板。
+
+## 人类可读文档规范
+
+- 入口：`specs/global/assets/document-standard.md`，定义 `DOC-G01` 到 `DOC-G12` 质量门禁。
+- 新建正式文档默认必须带对应 Mermaid 图；只有用户明确说明不需要图表时，才能记录 `图表豁免`。
+- 每份正式文档使用 `work-item-id`，先给跨角色评审者可理解的结论和影响，再下沉技术细节。
+- 新文档完整执行规范；旧文档只在本次修改范围内渐进修复，不强制一次性重写历史资料。
+- 旧项目升级模板时，先运行 `update-templates` 生成 `specs/global/assets.generated/`，对比确认后再使用 `--force` 覆盖模板目录；业务文档不会被自动改写。
 
 ## 能力调用透明度
 

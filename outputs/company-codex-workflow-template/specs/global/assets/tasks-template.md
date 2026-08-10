@@ -57,7 +57,7 @@ Key conclusions:
 - Design confirmed:
 - API/data model confirmed when applicable:
 - Test strategy confirmed:
-- Asset boundary config confirmed:
+- Asset boundary config `.codex-workflow/asset-boundaries.json` confirmed:
 
 ## Implementation Tasks
 

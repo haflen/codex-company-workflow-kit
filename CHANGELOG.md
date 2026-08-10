@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.28 - 2026-08-10
+
+- Added one bilingual human-readable document standard with explicit `DOC-G01` through `DOC-G12` gates, stable `work-item-id` traceability, and user-only diagram waivers.
+- Reworked formal requirements, design, data-model, business-rule, API-contract, task, prototype-approval, spike, hotfix, and delivery-closeout templates around decision-first reading and type-specific Mermaid diagrams.
+- Added a fixed data-table design structure covering conclusions, domain relationships, write/read sequence, table responsibilities, field dictionaries, constraints, versioning, migration, examples, and validation.
+- Connected AGENTS, ten workflow skill pairs, project indexes, generated indexes, starter kits, installers, and package verification to the same document contract.
+- Kept legacy-project adoption low-friction: template updates stage candidates under `specs/global/assets.generated/` and never rewrite completed project documents automatically.
+
 ## 0.2.27 - 2026-08-06
 
 - Added a bilingual asset placement gate that separates documentation roots from build, runtime, test, dependency, migration, and machine-contract assets.

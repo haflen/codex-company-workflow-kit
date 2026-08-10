@@ -623,6 +623,7 @@ PY
   fi
   bash -n "$ROOT_DIR/scripts/install.sh"
   python3 "$ROOT_DIR/tests/test_asset_boundaries.py"
+  python3 "$ROOT_DIR/tests/test_document_templates.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"

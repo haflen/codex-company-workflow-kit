@@ -1,5 +1,11 @@
 # Company Quickstart
 
+## 正式文档先读这里
+
+初始化项目后，先阅读 `specs/global/assets/document-standard.md`。需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档默认采用：结论 -> Mermaid 图 -> 关键表格 -> 细节与证据。
+
+除非用户明确说“不需要图表”，Codex 不得自行省略类型化图表。旧项目执行 `update-templates` 后先检查 `specs/global/assets.generated/`，确认差异再决定是否使用 `--force` 更新模板；该命令不会自动重写已完成的业务文档。
+
 这份文档面向公司项目用户，也是内部培训的主入口。用户不需要记住所有 skill 名称，只需要知道在什么场景说什么。
 
 如果你是第一次使用，建议先看：

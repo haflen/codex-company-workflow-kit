@@ -593,6 +593,10 @@ function Verify-Kit {
   if ($LASTEXITCODE -ne 0) {
     throw "Asset boundary regression tests failed"
   }
+  python3 (Join-Path $RootDir "tests/test_document_templates.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Document template regression tests failed"
+  }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }

@@ -1,5 +1,30 @@
 # Codex Usage Guide
 
+## 正式文档的阅读方式
+
+项目安装后，`specs/global/assets/document-standard.md` 是正式文档的统一规范。Codex 创建需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 或交付收口文档时，应按以下顺序组织：
+
+1. 先写结论、影响和用户需要确认的事项。
+2. 使用对应 Mermaid 流程图、架构图、时序图、关系图或状态图建立整体理解。
+3. 用关键表格承载规则、字段、接口、任务和验证点。
+4. 最后补充细节、证据、异常路径和剩余风险。
+
+正式文档默认必须有 `work-item-id` 和类型化图表。只有用户明确说明不需要图表时，才记录 `图表豁免`；Codex 不能因为任务简单而自行豁免。新文档执行 `DOC-G01` 到 `DOC-G12`，历史文档只修复本次涉及范围。
+
+旧项目更新模板：
+
+```bash
+bash scripts/install.sh update-templates /absolute/path/to/project --lang zh
+```
+
+默认会保留现有 `specs/global/assets/`，并把候选模板写入 `specs/global/assets.generated/`。团队完成 diff 和评审后，才执行：
+
+```bash
+bash scripts/install.sh update-templates /absolute/path/to/project --lang zh --force
+```
+
+模板更新不会自动重写项目已有的需求、设计或任务文档。
+
 这份文档说明公司用户如何在 Codex 里安装、初始化项目并完成一次完整功能交付。
 
 ## 1. 获取仓库

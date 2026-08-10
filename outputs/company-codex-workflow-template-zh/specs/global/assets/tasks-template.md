@@ -57,7 +57,7 @@ flowchart LR
 - 设计已确认：
 - API/数据模型已确认，如适用：
 - 测试策略已确认：
-- 资产边界配置已确认：
+- 资产边界配置 `.codex-workflow/asset-boundaries.json` 已确认：
 
 ## 实现任务
 
