@@ -11,7 +11,7 @@
 
 正式文档默认必须有 `work-item-id` 和类型化图表。只有用户明确说明不需要图表时，才记录 `图表豁免`；Codex 不能因为任务简单而自行豁免。新文档执行 `DOC-G01` 到 `DOC-G12`，历史文档只修复本次涉及范围。
 
-旧项目更新模板：
+已有 marker 的项目更新模板：
 
 ```bash
 bash scripts/install.sh update-templates /absolute/path/to/project --lang zh
@@ -24,6 +24,28 @@ bash scripts/install.sh update-templates /absolute/path/to/project --lang zh --f
 ```
 
 模板更新不会自动重写项目已有的需求、设计或任务文档。
+
+如果早期项目的 `AGENTS.md` 没有 marker，但内容是旧版公司工作流，使用：
+
+```bash
+bash scripts/install.sh migrate-project /absolute/path/to/project --lang zh
+```
+
+Windows：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 migrate-project C:\path\to\project -Lang zh
+```
+
+命令会先备份原 `AGENTS.md` 到 `.codex-workflow/backups/`，再写入当前受管规则。现有索引、业务文档、源码、模板和专家依赖文件不会直接覆盖，新版本以 `.generated` 候选形式提供。
+
+npm 入口等价命令：
+
+```bash
+npx codex-company-workflow migrate-project /absolute/path/to/project --lang zh
+```
+
+如果旧规则含有未识别的项目本地补充，命令会在完成备份并生成 `AGENTS.generated.md` 后停止，不修改原 `AGENTS.md`。`migrate-project` 明确拒绝 `--force`/`-Force`，避免模板、专家锁或资产边界被一并覆盖。
 
 这份文档说明公司用户如何在 Codex 里安装、初始化项目并完成一次完整功能交付。
 
@@ -397,7 +419,7 @@ specs/global/INDEX.generated.md
 specs/global/assets.generated/
 ```
 
-命令会直接刷新 `AGENTS.md` 中受 marker 管理的公司规则，但保留 marker 外的项目自定义内容；不会覆盖已确认的 `specs/global/INDEX.md`。
+命令会直接刷新 `AGENTS.md` 中受 marker 管理的公司规则，但保留 marker 外的项目自定义内容；不会覆盖已确认的 `specs/global/INDEX.md`。如果检测到无 marker 的早期公司规则，原文件保持不变，只生成 `AGENTS.generated.md` 并提示改用 `migrate-project`。
 
 这个命令也会检查项目根目录的专家依赖文件：
 
@@ -637,7 +659,7 @@ specs/features/project-kickoff/requirements.md
 请帮我把这个旧项目接入公司 Codex 工作流
 ```
 
-Codex 应进入 `company-legacy-project-onboarding`，先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。旧项目已有规则优先保留，公司 workflow 只追加约束段落。
+Codex 应进入 `company-legacy-project-onboarding`，先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。普通项目规则保留并追加受管段落；无 marker 的早期整份公司规则使用 `migrate-project` 备份后替换，避免规则重复或冲突。
 
 不建议旧项目一开始就要求所有历史需求补齐 specs。更稳的做法是：从接入后的第一个新功能或第一个 bugfix 开始沉淀需求、设计、任务和验证证据。
 

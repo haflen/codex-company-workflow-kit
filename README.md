@@ -61,7 +61,8 @@ outputs/company-codex-workflow-template/
 - 新建正式文档默认必须带对应 Mermaid 图；只有用户明确说明不需要图表时，才能记录 `图表豁免`。
 - 每份正式文档使用 `work-item-id`，先给跨角色评审者可理解的结论和影响，再下沉技术细节。
 - 新文档完整执行规范；旧文档只在本次修改范围内渐进修复，不强制一次性重写历史资料。
-- 旧项目升级时，先运行 `update-templates`。命令会自动刷新受 marker 管理的 `AGENTS.md` 规则，并生成 `specs/global/INDEX.generated.md` 和 `specs/global/assets.generated/` 供确认；不会覆盖已确认的项目索引或业务文档。对比模板后再使用 `--force` 覆盖模板目录。
+- 已有 marker 的项目升级时运行 `update-templates`，它会刷新受管规则并生成索引、模板候选，不覆盖已确认的项目索引或业务文档。
+- 没有 marker、仍使用旧版公司规则的项目运行 `migrate-project`。安装器会先备份 `AGENTS.md`，再切换为当前受管规则；直接运行 `update-templates` 只会生成 `AGENTS.generated.md`，不会把新旧规则叠加。
 
 ## 能力调用透明度
 
@@ -341,6 +342,22 @@ EXPERTS.lock.generated.md
 ```
 
 `AGENTS.md` 中带 `codex-workflow-kit:company` marker 的受管段落会直接更新，marker 外的项目规则保持不变；已确认的 `specs/global/INDEX.md` 始终保留，新增字段只写入 `INDEX.generated.md` 等待用户确认。
+
+如果项目的 `AGENTS.md` 是早期版本且没有 marker，使用安全迁移命令：
+
+```bash
+bash scripts/install.sh migrate-project /path/to/company-project --lang zh
+```
+
+该命令先把原文件保存到 `.codex-workflow/backups/`，再写入当前受管规则。现有 `INDEX.md`、业务文档、源码和模板目录都不会直接覆盖；新版本分别写入 `.generated` 文件或目录供确认。
+
+如果旧 `AGENTS.md` 含有无法确认来源的本地附加规则，迁移会在备份和生成 `AGENTS.generated.md` 后停止，不会删除这些规则。`migrate-project` 不接受 `--force`。
+
+npm 全局安装或 `npx` 用户也可执行：
+
+```bash
+npx codex-company-workflow migrate-project /path/to/company-project --lang zh
+```
 
 确认新旧模板差异后，再显式覆盖：
 

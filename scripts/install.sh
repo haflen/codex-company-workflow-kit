@@ -23,6 +23,7 @@ Usage:
   bash scripts/install.sh install-plugin [--lang zh|en] [--force]
   bash scripts/install.sh uninstall-plugin [--lang zh|en|--all]
   bash scripts/install.sh bootstrap-project <project-path> [--lang zh|en] [--force]
+  bash scripts/install.sh migrate-project <project-path> [--lang zh|en]
   bash scripts/install.sh deactivate-project <project-path> [--force]
   bash scripts/install.sh update-templates <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh install-agents <project-path> [--lang zh|en] [--force]
@@ -336,15 +337,25 @@ uninstall_plugin() {
 
 append_agents_block() {
   local target="$1"
+  local mode="${2:-safe}"
+  local legacy_source="$ROOT_DIR/outputs/company-codex-workflow-template/AGENTS.md"
+  if [[ "$LANG_CODE" == "zh" ]]; then
+    legacy_source="$ROOT_DIR/outputs/company-codex-workflow-template-zh/AGENTS.md"
+  fi
   touch "$target"
   AGENTS_PATH="$target" \
     AGENTS_SOURCE="$PLUGIN_SRC/AGENTS.md" \
+    LEGACY_AGENTS_SOURCE="$legacy_source" \
+    AGENTS_MODE="$mode" \
     MARKER_BEGIN="$MARKER_BEGIN" \
     MARKER_END="$MARKER_END" \
     LEGACY_MARKER_BEGIN="$LEGACY_MARKER_BEGIN" \
     LEGACY_MARKER_END="$LEGACY_MARKER_END" \
     python3 - <<'PY'
 import os
+import shutil
+import hashlib
+from datetime import datetime, timezone
 from pathlib import Path
 
 path = Path(os.environ["AGENTS_PATH"])
@@ -353,11 +364,79 @@ begin = os.environ["MARKER_BEGIN"]
 end = os.environ["MARKER_END"]
 block = f"{begin}\n{source}\n{end}"
 text = path.read_text(encoding="utf-8")
+mode = os.environ["AGENTS_MODE"]
 
-for old_begin, old_end in (
+
+def is_unmarked_legacy_workflow(content: str) -> bool:
+    if begin in content or os.environ["LEGACY_MARKER_BEGIN"] in content:
+        return False
+    normalized = content.lstrip("\ufeff \t\r\n")
+    signatures = (
+        (
+            "# 公司 Codex 工作流",
+            "## 上下文优先",
+            "## 阶段边界",
+            "## Superpowers",
+        ),
+        (
+            "# Company Codex Workflow",
+            "## Context First",
+            "## Phase Boundaries",
+            "## Superpowers",
+        ),
+        (
+            "# Codex 公司项目工作流",
+            "## 上下文加载",
+            "## 阶段边界",
+            "## 验证规则",
+        ),
+        (
+            "# Codex Company Workflow",
+            "## Context Loading",
+            "## Phase Boundaries",
+            "## Verification Rules",
+        ),
+    )
+    return any(
+        signature[0] in normalized
+        and sum(part in content for part in signature[1:]) >= 2
+        for signature in signatures
+    )
+
+
+def normalized_sha256(content: str) -> str:
+    normalized = content.lstrip("\ufeff").replace("\r\n", "\n").rstrip() + "\n"
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def known_legacy_hashes() -> set[str]:
+    hashes = {
+        # Bilingual full company rules distributed in 0.2.24 before managed markers.
+        "ac01db91a51c2bac541714e9f2c90353f344dd8b1bfb38d64a64388c2b9eb3de",
+        "2b1dbe6fec8b753788833de2be7917c07e8006e73efe46ae25b59382bf0050d0",
+    }
+    for known_source in (
+        Path(os.environ["LEGACY_AGENTS_SOURCE"]),
+        Path(os.environ["AGENTS_SOURCE"]),
+    ):
+        if known_source.is_file():
+            hashes.add(normalized_sha256(known_source.read_text(encoding="utf-8")))
+    return hashes
+
+
+marker_pairs = (
     (begin, end),
     (os.environ["LEGACY_MARKER_BEGIN"], os.environ["LEGACY_MARKER_END"]),
-):
+)
+begin_count = sum(text.count(pair[0]) for pair in marker_pairs)
+end_count = sum(text.count(pair[1]) for pair in marker_pairs)
+if begin_count > 1 or end_count > 1 or begin_count != end_count:
+    raise SystemExit(
+        "AGENTS.md contains duplicate or unbalanced company workflow markers; "
+        "resolve them manually before updating templates."
+    )
+
+for old_begin, old_end in marker_pairs:
     start = text.find(old_begin)
     if start == -1:
         continue
@@ -372,11 +451,51 @@ for old_begin, old_end in (
     print("Updated managed company workflow block in AGENTS.md.")
     break
 else:
+    if is_unmarked_legacy_workflow(text):
+        if mode == "migrate":
+            backup_dir = path.parent / ".codex-workflow" / "backups"
+            backup_dir.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+            backup = backup_dir / f"AGENTS.{stamp}.bak"
+            shutil.copy2(path, backup)
+            if normalized_sha256(text) not in known_legacy_hashes():
+                candidate = path.with_name("AGENTS.generated.md")
+                candidate.write_text(block.rstrip() + "\n", encoding="utf-8")
+                print(f"Backed up unrecognized legacy AGENTS.md: {backup}")
+                print(f"Generated current managed rules for manual merge: {candidate}")
+                raise SystemExit(
+                    "Migration stopped: legacy AGENTS.md contains unknown or project-local changes. "
+                    "Preserve those rules and merge the generated candidate manually."
+                )
+            path.write_text(block.rstrip() + "\n", encoding="utf-8")
+            candidate = path.with_name("AGENTS.generated.md")
+            candidate.unlink(missing_ok=True)
+            print(f"Backed up legacy AGENTS.md: {backup}")
+            print("Migrated unmarked legacy company workflow rules to the managed block.")
+        else:
+            candidate = path.with_name("AGENTS.generated.md")
+            candidate.write_text(block.rstrip() + "\n", encoding="utf-8")
+            print(f"Legacy unmarked AGENTS.md preserved: {path}")
+            print(f"Generated current managed rules for review: {candidate}")
+            print("Run migrate-project to back up and replace the legacy workflow rules safely.")
+        raise SystemExit(0)
     prefix = text.rstrip()
     updated = "\n\n".join(part for part in (prefix, block) if part)
     path.write_text(updated.rstrip() + "\n", encoding="utf-8")
     print("Added managed company workflow block to AGENTS.md.")
 PY
+}
+
+migrate_project() {
+  local project_path="$1"
+  if [[ ! -d "$project_path" ]]; then
+    echo "Project path not found: $project_path" >&2
+    exit 1
+  fi
+  append_agents_block "$project_path/AGENTS.md" migrate
+  update_templates "$project_path"
+  echo "Legacy project workflow migration completed: $project_path"
+  echo "Existing project documents and source code were preserved. Review generated candidates before accepting them."
 }
 
 write_install_manifest() {
@@ -410,6 +529,7 @@ manifest = {
         ".codex-workflow/asset-boundaries.generated.json",
         ".codex-workflow/asset-boundaries.backup.json",
         ".codex-workflow/bin/asset_boundaries.py",
+        ".codex-workflow/backups/",
         ".codex-workflow/install.json"
     ],
     "preservedProjectAssets": [
@@ -663,6 +783,7 @@ PY
   python3 "$ROOT_DIR/tests/test_document_templates.py"
   python3 "$ROOT_DIR/tests/test_quality_validation_workflow.py"
   python3 "$ROOT_DIR/tests/test_target_clients_and_human_summary.py"
+  python3 "$ROOT_DIR/tests/test_legacy_project_migration.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"
@@ -691,6 +812,18 @@ case "$cmd" in
     shift || true
     parse_options "$@"
     bootstrap_project "$project_path"
+    ;;
+  migrate-project)
+    shift || true
+    project_path="${1:-}"
+    if [[ -z "$project_path" ]]; then usage; exit 1; fi
+    shift || true
+    parse_options "$@"
+    if [[ "$FORCE" == "1" ]]; then
+      echo "migrate-project does not accept --force; protected project assets must remain review-only." >&2
+      exit 1
+    fi
+    migrate_project "$project_path"
     ;;
   deactivate-project)
     shift || true

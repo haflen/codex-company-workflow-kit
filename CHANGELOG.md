@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.32 - 2026-08-21
+
+- Added a bilingual `migrate-project` command for company projects that still use an unmarked legacy `AGENTS.md`.
+- Backed up legacy workflow rules before replacing them with the current managed marker block.
+- Prevented `update-templates` from silently appending current rules below an unmarked legacy workflow; it now stages `AGENTS.generated.md` and directs users to safe migration.
+- Preserved confirmed indexes, project documents, source code, templates, expert locks, and project-local rules during migration.
+- Added Bash and Node regression coverage, PowerShell parity checks, npm CLI exposure, installation verification, and migration guidance for macOS/Linux and Windows.
+- Refused automatic replacement when legacy rules contain unknown local additions, rejected force mode, handled UTF-8 BOM files, and blocked duplicate or unbalanced managed markers.
+
 ## 0.2.31 - 2026-08-21
 
 - Added a bilingual target-client contract across project context, requirements, prototypes, design, planning, implementation, and quality validation.

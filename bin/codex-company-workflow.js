@@ -14,6 +14,7 @@ function printUsage() {
   codex-company-workflow install-plugin [--lang zh|en] [--force]
   codex-company-workflow uninstall-plugin [--lang zh|en|--all]
   codex-company-workflow bootstrap-project <project-path> [--lang zh|en] [--force]
+  codex-company-workflow migrate-project <project-path> [--lang zh|en]
   codex-company-workflow deactivate-project <project-path> [--force]
   codex-company-workflow update-templates <project-path> [--lang zh|en] [--force]
   codex-company-workflow generate-index <project-path> [--lang zh|en] [--force]

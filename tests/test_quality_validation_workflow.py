@@ -220,7 +220,7 @@ class QualityValidationWorkflowTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_are_wired(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.31", package["version"])
+        self.assertEqual("0.2.32", package["version"])
         self.assertIn("test_quality_validation_workflow.py", package["scripts"]["verify"])
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))

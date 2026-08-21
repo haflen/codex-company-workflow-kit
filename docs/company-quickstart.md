@@ -4,7 +4,7 @@
 
 初始化项目后，先阅读 `specs/global/assets/document-standard.md`。需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档默认采用：结论 -> Mermaid 图 -> 关键表格 -> 细节与证据。
 
-除非用户明确说“不需要图表”，Codex 不得自行省略类型化图表。旧项目执行 `update-templates` 后先检查 `specs/global/INDEX.generated.md` 和 `specs/global/assets.generated/`，确认差异再决定是否使用 `--force` 更新模板；该命令会安全刷新 `AGENTS.md` 的受管段落，但不会覆盖已确认索引或重写已完成的业务文档。
+除非用户明确说“不需要图表”，Codex 不得自行省略类型化图表。已有 marker 的项目执行 `update-templates`；无 marker 的早期公司规则执行 `migrate-project`。两者都保留已确认索引和业务文档，候选模板写入 `.generated` 位置。
 
 这份文档面向公司项目用户，也是内部培训的主入口。用户不需要记住所有 skill 名称，只需要知道在什么场景说什么。
 
@@ -130,6 +130,16 @@ bash scripts/install.sh update-templates /path/to/project --lang zh
 
 已有文件默认不会被覆盖；脚本会生成 `.generated` 文件供对比确认。
 
+如果 `AGENTS.md` 还是没有 `codex-workflow-kit:company` marker 的早期公司版本，改用：
+
+```bash
+bash scripts/install.sh migrate-project /path/to/project --lang zh
+```
+
+原 `AGENTS.md` 会保存到 `.codex-workflow/backups/`。当前规则写入受管 marker；`INDEX.md`、业务文档和源码保持原状。
+
+如果安装器发现旧规则中还有项目本地附加内容，会保留原文件、生成 `AGENTS.generated.md` 并停止自动迁移。此时先让 Codex 对比并人工合并，不要使用 `--force`。
+
 ## 空项目或需求雏形
 
 如果项目还是空目录，或者还在需求梳理阶段，`bootstrap-project` 仍然适合先执行。它会先放入 `AGENTS.md` 和 `specs/`，让 Codex 有统一的需求沉淀位置。
@@ -196,7 +206,7 @@ specs/features/project-kickoff/requirements.md
 请帮我把这个旧项目接入公司 Codex 工作流
 ```
 
-Codex 应先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。旧项目已有规则优先保留，公司 workflow 只追加约束段落。
+Codex 应先检查已有 `AGENTS.md`、README、manifest、docs、测试目录和启动命令，再生成或审查 `INDEX.md` 草稿。普通项目自定义规则保留并追加受管段落；早期无 marker 的整份公司规则先备份，再由 `migrate-project` 整体替换，避免新旧规则并存。
 
 如果旧项目已经接入过，但你不确定当前是否健康，先说：
 
@@ -400,6 +410,12 @@ bash scripts/install.sh update-templates /path/to/project --lang zh
 默认只生成 `specs/global/assets.generated/` 供对比。确认后再覆盖：
 
 同时会刷新 `AGENTS.md` 中带 marker 的公司规则，并生成 `specs/global/INDEX.generated.md` 供确认；项目自己的规则、已确认索引和业务文档不会被覆盖。
+
+早期无 marker 的公司规则不要用 `--force` 硬覆盖，使用：
+
+```bash
+bash scripts/install.sh migrate-project /path/to/project --lang zh
+```
 
 ```bash
 bash scripts/install.sh update-templates /path/to/project --lang zh --force

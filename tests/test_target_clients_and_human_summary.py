@@ -261,11 +261,13 @@ class HumanFirstSummaryTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.31", package["version"])
+        self.assertEqual("0.2.32", package["version"])
+        self.assertIn("test_legacy_project_migration.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", read(ROOT / "scripts/install.sh"))
         powershell = read(ROOT / "scripts/install.ps1")
         self.assertIn("test_target_clients_and_human_summary.py", powershell)
+        self.assertIn("test_legacy_project_migration.py", powershell)
         self.assertIn("Quality validation workflow regression tests failed", powershell)
         self.assertIn("Target client and human summary regression tests failed", powershell)
         for root in LANGUAGES.values():

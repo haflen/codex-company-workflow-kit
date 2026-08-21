@@ -32,6 +32,7 @@ function Show-Usage {
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 uninstall-plugin [-Lang zh|en|-All]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 bootstrap-project <project-path> [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 migrate-project <project-path> [-Lang zh|en]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 deactivate-project <project-path> [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-agents <project-path> [-Lang zh|en] [-Force]"
@@ -299,7 +300,67 @@ function Uninstall-Plugin {
   }
 }
 
-function Append-AgentsBlock($Target) {
+function Test-UnmarkedLegacyAgents($Content) {
+  if ($Content.Contains($MarkerBegin) -or $Content.Contains($LegacyMarkerBegin)) {
+    return $false
+  }
+  $normalized = $Content.TrimStart()
+  $signatures = @(
+    @("# 公司 Codex 工作流", "## 上下文优先", "## 阶段边界", "## Superpowers"),
+    @("# Company Codex Workflow", "## Context First", "## Phase Boundaries", "## Superpowers"),
+    @("# Codex 公司项目工作流", "## 上下文加载", "## 阶段边界", "## 验证规则"),
+    @("# Codex Company Workflow", "## Context Loading", "## Phase Boundaries", "## Verification Rules")
+  )
+  foreach ($signature in $signatures) {
+    if (-not $normalized.Contains($signature[0])) {
+      continue
+    }
+    $matches = 0
+    foreach ($part in $signature[1..3]) {
+      if ($Content.Contains($part)) {
+        $matches += 1
+      }
+    }
+    if ($matches -ge 2) {
+      return $true
+    }
+  }
+  return $false
+}
+
+function Get-NormalizedAgentsSha256($Content) {
+  $normalized = $Content.TrimStart([char]0xFEFF).Replace("`r`n", "`n").TrimEnd() + "`n"
+  $bytes = [Text.Encoding]::UTF8.GetBytes($normalized)
+  $sha = [Security.Cryptography.SHA256]::Create()
+  try {
+    return ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace("-", "").ToLowerInvariant()
+  } finally {
+    $sha.Dispose()
+  }
+}
+
+function Get-KnownLegacyAgentsHashes {
+  $hashes = @(
+    "ac01db91a51c2bac541714e9f2c90353f344dd8b1bfb38d64a64388c2b9eb3de",
+    "2b1dbe6fec8b753788833de2be7917c07e8006e73efe46ae25b59382bf0050d0"
+  )
+  $starterName = if ($Lang -eq "zh") {
+    "company-codex-workflow-template-zh"
+  } else {
+    "company-codex-workflow-template"
+  }
+  $starter = Join-Path $RootDir "outputs/$starterName/AGENTS.md"
+  if (Test-Path $starter) {
+    $hashes += Get-NormalizedAgentsSha256 (Get-Content -Raw $starter)
+  }
+  $currentFull = Join-Path $PluginSrc "AGENTS.md"
+  if (Test-Path $currentFull) {
+    $hashes += Get-NormalizedAgentsSha256 (Get-Content -Raw $currentFull)
+  }
+  return $hashes
+}
+
+function Append-AgentsBlock($Target, [string]$Mode = "safe") {
   $content = if (Test-Path $Target) { Get-Content -Raw $Target } else { "" }
   $source = (Get-Content -Raw (Join-Path $PluginSrc "AGENTS.md")).TrimEnd()
   $block = "$MarkerBegin`n$source`n$MarkerEnd"
@@ -307,6 +368,15 @@ function Append-AgentsBlock($Target) {
     @($MarkerBegin, $MarkerEnd),
     @($LegacyMarkerBegin, $LegacyMarkerEnd)
   )
+  $beginCount = 0
+  $endCount = 0
+  foreach ($pair in $pairs) {
+    $beginCount += ([regex]::Matches($content, [regex]::Escape($pair[0]))).Count
+    $endCount += ([regex]::Matches($content, [regex]::Escape($pair[1]))).Count
+  }
+  if ($beginCount -gt 1 -or $endCount -gt 1 -or $beginCount -ne $endCount) {
+    throw "AGENTS.md contains duplicate or unbalanced company workflow markers; resolve them manually before updating templates."
+  }
   foreach ($pair in $pairs) {
     $start = $content.IndexOf($pair[0])
     if ($start -lt 0) {
@@ -322,6 +392,37 @@ function Append-AgentsBlock($Target) {
     $parts = @($prefix, $block, $suffix) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
     Set-Content -Encoding UTF8 $Target (($parts -join "`n`n").TrimEnd() + "`n")
     Write-Host "Updated managed company workflow block in AGENTS.md."
+    return
+  }
+  if (Test-UnmarkedLegacyAgents $content) {
+    if ($Mode -eq "migrate") {
+      $backupDir = Join-Path (Split-Path $Target) ".codex-workflow/backups"
+      New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
+      $stamp = [DateTimeOffset]::UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")
+      $backup = Join-Path $backupDir "AGENTS.$stamp.bak"
+      Copy-Item -Force $Target $backup
+      $contentHash = Get-NormalizedAgentsSha256 $content
+      if ((Get-KnownLegacyAgentsHashes) -notcontains $contentHash) {
+        $candidate = Join-Path (Split-Path $Target) "AGENTS.generated.md"
+        Set-Content -Encoding UTF8 $candidate ($block.TrimEnd() + "`n")
+        Write-Host "Backed up unrecognized legacy AGENTS.md: $backup"
+        Write-Host "Generated current managed rules for manual merge: $candidate"
+        throw "Migration stopped: legacy AGENTS.md contains unknown or project-local changes. Preserve those rules and merge the generated candidate manually."
+      }
+      Set-Content -Encoding UTF8 $Target ($block.TrimEnd() + "`n")
+      $candidate = Join-Path (Split-Path $Target) "AGENTS.generated.md"
+      if (Test-Path $candidate) {
+        Remove-Item -Force $candidate
+      }
+      Write-Host "Backed up legacy AGENTS.md: $backup"
+      Write-Host "Migrated unmarked legacy company workflow rules to the managed block."
+    } else {
+      $candidate = Join-Path (Split-Path $Target) "AGENTS.generated.md"
+      Set-Content -Encoding UTF8 $candidate ($block.TrimEnd() + "`n")
+      Write-Host "Legacy unmarked AGENTS.md preserved: $Target"
+      Write-Host "Generated current managed rules for review: $candidate"
+      Write-Host "Run migrate-project to back up and replace the legacy workflow rules safely."
+    }
     return
   }
   $parts = @($content.TrimEnd(), $block) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
@@ -353,6 +454,7 @@ function Write-InstallManifest($Path) {
       ".codex-workflow/asset-boundaries.generated.json",
       ".codex-workflow/asset-boundaries.backup.json",
       ".codex-workflow/bin/asset_boundaries.py",
+      ".codex-workflow/backups/",
       ".codex-workflow/install.json"
     )
     preservedProjectAssets = @(
@@ -586,6 +688,19 @@ function Update-Templates($Path) {
   Write-ProjectExpertReadiness $Path
 }
 
+function Migrate-Project($Path) {
+  if ([string]::IsNullOrWhiteSpace($Path) -or (-not (Test-Path $Path -PathType Container))) {
+    throw "Project path not found: $Path"
+  }
+  if ($Force) {
+    throw "migrate-project does not accept -Force; protected project assets must remain review-only."
+  }
+  Append-AgentsBlock (Join-Path $Path "AGENTS.md") "migrate"
+  Update-Templates $Path
+  Write-Host "Legacy project workflow migration completed: $Path"
+  Write-Host "Existing project documents and source code were preserved. Review generated candidates before accepting them."
+}
+
 function Verify-Kit {
   Ensure-RootPluginJson $PluginSrc
   $validated = $false
@@ -634,6 +749,10 @@ function Verify-Kit {
   if ($LASTEXITCODE -ne 0) {
     throw "Target client and human summary regression tests failed"
   }
+  python3 (Join-Path $RootDir "tests/test_legacy_project_migration.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Legacy project migration regression tests failed"
+  }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }
@@ -642,6 +761,7 @@ switch ($Command) {
   "install-plugin" { Install-Plugin }
   "uninstall-plugin" { Uninstall-Plugin }
   "bootstrap-project" { Bootstrap-Project $ProjectPath }
+  "migrate-project" { Migrate-Project $ProjectPath }
   "deactivate-project" { Deactivate-Project $ProjectPath }
   "update-templates" { Update-Templates $ProjectPath }
   "install-agents" { Install-ProjectAgents $ProjectPath }
