@@ -14,6 +14,22 @@ Start here before using any company workflow.
 - Local run command:
 - Progress document: `说明文档.md` or equivalent
 
+## Target Client Baseline
+
+“Client” here means the user-facing product form, not TCP/HTTP network ports.
+
+| Target client | Support status | Shared page/code/API | Viewport, browser, and input | Responsive/touch requirement |
+| --- | --- | --- | --- | --- |
+| PC Web | Needs confirmation |  |  |  |
+| Mobile Web | Needs confirmation |  |  |  |
+| iOS/Android App | Needs confirmation |  |  |  |
+| Desktop client | Needs confirmation |  |  |  |
+| Large display | Needs confirmation |  |  |  |
+
+- Unconfirmed clients are unsupported by default; do not expand adaptation, interaction, or test scope from them.
+- UI features inherit this baseline. A feature exception must be explicit in requirements and confirmed by the user.
+- A PC-only product names its minimum viewport, browser, and input method. A non-UI feature may state “no direct client difference.”
+
 ## Routing
 
 - Current feature specs:

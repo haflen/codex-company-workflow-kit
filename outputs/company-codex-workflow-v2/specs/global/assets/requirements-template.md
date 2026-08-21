@@ -38,6 +38,22 @@
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
+## Target Clients and Adaptation Boundary
+
+“Client” means PC Web, Mobile Web, an app, desktop client, or large display, not a network port. Inherit the project baseline from `specs/global/INDEX.md`; state any feature exception explicitly.
+
+| Target client | Status: supported/inherited/deferred/unsupported | Shared page/code/API | Viewport, browser, and input | responsive/touch requirement | Related AC |
+| --- | --- | --- | --- | --- | --- |
+| PC Web |  |  |  |  |  |
+| Mobile Web |  |  |  |  |  |
+| iOS/Android App |  |  |  |  |  |
+| Desktop client |  |  |  |  |  |
+| Large display |  |  |  |  |  |
+
+- Do not adapt clients that are not explicitly supported, and do not add their interactions, screenshots, browser matrix, or E2E scope.
+- A PC-only feature names its minimum viewport, supported browsers, and mouse/keyboard needs. Requirements for responsive behavior, touch, and mobile-viewport verification apply only when mobile is explicitly supported.
+- A backend-only or client-neutral feature states “no direct client difference” instead of manufacturing multi-client requirements.
+
 ## Target Business Flow
 
 This diagram answers: how does the user move from the trigger to the result, including the important exception path?

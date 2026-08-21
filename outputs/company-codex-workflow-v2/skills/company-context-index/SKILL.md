@@ -22,6 +22,17 @@ Build enough project context without loading everything.
 9. If the branch affects the public entry, reading route, current phase, or document ownership, recommend `docs/public-doc-updates/<branch-or-feature>.md`.
 10. Output the context summary, document to update, and next step.
 
+## Target Client Check
+
+- Generated or refreshed INDEX content includes a target clients baseline for PC Web, Mobile Web, apps, desktop clients, and large displays for user confirmation.
+- Technical stack or existing CSS cannot prove product support. Keep inferred clients unconfirmed and unsupported; the workflow must not add mobile adaptation on its own.
+- Record shared page/code/API boundaries, minimum viewport, browsers, and input methods. A non-UI project may state “no direct client difference.”
+
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Output
 
 - Workflow layer: `company-context-index`

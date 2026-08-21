@@ -14,6 +14,7 @@ $PluginName = if ($Lang -eq "zh") { "company-codex-workflow-v2-zh" } else { "com
 $MarkerBegin = "<!-- codex-workflow-kit:company:start -->"
 $MarkerEnd = "<!-- codex-workflow-kit:company:end -->"
 $LegacyMarkerBegin = "<!-- company-codex-workflow-kit:start -->"
+$LegacyMarkerEnd = "<!-- company-codex-workflow-kit:end -->"
 $RootDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $PluginSrc = Join-Path $RootDir "outputs/$PluginName"
 $MarketplaceRoot = Join-Path $HOME ".agents/plugins"
@@ -300,14 +301,32 @@ function Uninstall-Plugin {
 
 function Append-AgentsBlock($Target) {
   $content = if (Test-Path $Target) { Get-Content -Raw $Target } else { "" }
-  if ($content -match [regex]::Escape($MarkerBegin) -or $content -match [regex]::Escape($LegacyMarkerBegin)) {
-    Write-Host "AGENTS.md already contains company workflow block."
+  $source = (Get-Content -Raw (Join-Path $PluginSrc "AGENTS.md")).TrimEnd()
+  $block = "$MarkerBegin`n$source`n$MarkerEnd"
+  $pairs = @(
+    @($MarkerBegin, $MarkerEnd),
+    @($LegacyMarkerBegin, $LegacyMarkerEnd)
+  )
+  foreach ($pair in $pairs) {
+    $start = $content.IndexOf($pair[0])
+    if ($start -lt 0) {
+      continue
+    }
+    $finish = $content.IndexOf($pair[1], $start)
+    if ($finish -lt 0) {
+      throw "AGENTS.md managed block has no closing marker: $($pair[1])"
+    }
+    $finish += $pair[1].Length
+    $prefix = $content.Substring(0, $start).TrimEnd()
+    $suffix = $content.Substring($finish).TrimStart()
+    $parts = @($prefix, $block, $suffix) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    Set-Content -Encoding UTF8 $Target (($parts -join "`n`n").TrimEnd() + "`n")
+    Write-Host "Updated managed company workflow block in AGENTS.md."
     return
   }
-  Add-Content $Target ""
-  Add-Content $Target $MarkerBegin
-  Add-Content $Target (Get-Content -Raw (Join-Path $PluginSrc "AGENTS.md"))
-  Add-Content $Target $MarkerEnd
+  $parts = @($content.TrimEnd(), $block) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+  Set-Content -Encoding UTF8 $Target (($parts -join "`n`n").TrimEnd() + "`n")
+  Write-Host "Added managed company workflow block to AGENTS.md."
 }
 
 function Write-InstallManifest($Path) {
@@ -552,8 +571,18 @@ function Update-Templates($Path) {
     Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
     Write-Host "Updated project templates: $destination"
   }
+  Append-AgentsBlock (Join-Path $Path "AGENTS.md")
+  $indexPath = Join-Path $Path "specs/global/INDEX.md"
+  if (Test-Path $indexPath) {
+    $generatedPath = Join-Path $Path "specs/global/INDEX.generated.md"
+    Generate-Index $Path $generatedPath $true
+    Write-Host "Existing INDEX.md preserved. Review INDEX.generated.md for new baseline fields."
+  } else {
+    Generate-Index $Path $indexPath $true
+  }
   Ensure-ProjectGovernanceFiles $Path
   Generate-AssetBoundaries $Path
+  Write-InstallManifest $Path
   Write-ProjectExpertReadiness $Path
 }
 
@@ -600,6 +629,10 @@ function Verify-Kit {
   python3 (Join-Path $RootDir "tests/test_quality_validation_workflow.py")
   if ($LASTEXITCODE -ne 0) {
     throw "Quality validation workflow regression tests failed"
+  }
+  python3 (Join-Path $RootDir "tests/test_target_clients_and_human_summary.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Target client and human summary regression tests failed"
   }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."

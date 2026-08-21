@@ -87,6 +87,23 @@ Do not bundle new feature behavior into a bugfix.
 
 Do not disguise "missing rule documentation" as a code bug. If correct behavior cannot be derived from requirements, design, or `business-rules.md`, complete the rule document or change request first.
 
+## Target Client Gate
+
+- Before fixing UI, interaction, browser, or client behavior, read the INDEX and current requirements for confirmed target clients, viewports, browsers, and input methods.
+- A bugfix may restore only an existing promise for a confirmed client. When mobile is unconfirmed, the workflow must not add mobile adaptation on its own, including responsive behavior, touch support, mobile screenshots, or mobile E2E.
+- If the correct fix needs a new client or changes the page/code/API sharing strategy, route back to requirements and design instead of treating it as an ordinary bugfix.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether the issue is fixed and its user impact.
+2. What was completed: explain the cause and repair in plain language.
+3. What needs attention: explain residual risk and the verification boundary.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Output
 
 - Workflow layer: `company-bugfix-runner`

@@ -11,6 +11,8 @@
 - 外部专家技能后续更新走 dry-run、diff、安全审查、用户确认和回滚记录。
 - 项目上下文索引 `INDEX.md` 可以自动生成草稿，再由用户确认。
 - 正式需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档统一采用“结论 -> 图 -> 关键表格 -> 细节”的人类可读结构，并使用 Mermaid 作为图表标准。
+- 项目和功能都明确目标使用终端；未确认移动端时，不会自行增加响应式布局、触摸交互、移动端截图或移动 E2E。
+- Workflow 最终回复默认先给“一句话结论、完成内容、注意事项、下一步”，再附技术审计，避免内部字段淹没用户结论。
 - 需求阶段可用 `company-requirements-prototype` 创建隔离 HTML/页面/交互原型，确认后转为需求基线，不会自动进入技术设计或任务拆分。
 - 长对话由 `company-thread-handoff` 自动建议继续、压缩、完整 fork 或分级交接；目标对话必须完成接收校验，不盲目继承旧状态或实现授权。
 - 实现后由 workflow 自动判断是否进入 `company-quality-validation`；小改动不加流程，多任务/跨模块 V2、里程碑、V3 和 hotfix 补偿按风险进入独立验收。
@@ -59,7 +61,7 @@ outputs/company-codex-workflow-template/
 - 新建正式文档默认必须带对应 Mermaid 图；只有用户明确说明不需要图表时，才能记录 `图表豁免`。
 - 每份正式文档使用 `work-item-id`，先给跨角色评审者可理解的结论和影响，再下沉技术细节。
 - 新文档完整执行规范；旧文档只在本次修改范围内渐进修复，不强制一次性重写历史资料。
-- 旧项目升级模板时，先运行 `update-templates` 生成 `specs/global/assets.generated/`，对比确认后再使用 `--force` 覆盖模板目录；业务文档不会被自动改写。
+- 旧项目升级时，先运行 `update-templates`。命令会自动刷新受 marker 管理的 `AGENTS.md` 规则，并生成 `specs/global/INDEX.generated.md` 和 `specs/global/assets.generated/` 供确认；不会覆盖已确认的项目索引或业务文档。对比模板后再使用 `--force` 覆盖模板目录。
 
 ## 能力调用透明度
 
@@ -332,10 +334,13 @@ bash scripts/install.sh update-templates /path/to/company-project --lang zh
 这个命令也会检查并补齐 `BUNDLES.md` 和 `EXPERTS.lock.md`。默认不覆盖现有模板和专家依赖文件，而是生成：
 
 ```text
+specs/global/INDEX.generated.md
 specs/global/assets.generated/
 BUNDLES.generated.md
 EXPERTS.lock.generated.md
 ```
+
+`AGENTS.md` 中带 `codex-workflow-kit:company` marker 的受管段落会直接更新，marker 外的项目规则保持不变；已确认的 `specs/global/INDEX.md` 始终保留，新增字段只写入 `INDEX.generated.md` 等待用户确认。
 
 确认新旧模板差异后，再显式覆盖：
 

@@ -103,6 +103,7 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 - Trivial copy, label, field, or single-line configuration changes.
 - Tasks where the workflow already has enough local evidence.
 - Expert use that would reopen confirmed requirements without a concrete inconsistency.
+- Expert advice remains subordinate to the target clients confirmed in the INDEX and current requirements. Generic responsive, mobile, or device-coverage advice in upstream expert text is not a product requirement; the workflow must not add mobile adaptation on its own or execute related advice until confirmed.
 
 ## Trace-Level Decision
 
@@ -119,6 +120,11 @@ This skill must choose the trace level automatically:
   - The user asks to audit, review the process, or confirm actual invocation.
 
 If `full-audit` is active, output the trigger reason and `Workflow Audit`.
+
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
 
 ## Output
 

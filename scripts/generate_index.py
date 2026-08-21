@@ -250,6 +250,21 @@ def render_zh(root):
 - 本地启动命令：{run_cmd}
 - 进度文档：{progress.name if progress else "待用户确认"}
 
+## 目标使用终端基线
+
+这里的“终端”指用户使用产品的客户端形态，不是 TCP/HTTP 网络端口。
+
+| 使用终端 | 支持状态 | 是否共用页面/代码/API | 视口、浏览器与输入方式 | 响应式/触摸要求 |
+| --- | --- | --- | --- | --- |
+| PC Web | 待用户确认 |  |  |  |
+| 移动 Web | 待用户确认 |  |  |  |
+| iOS/Android App | 待用户确认 |  |  |  |
+| 桌面客户端 | 待用户确认 |  |  |  |
+| 大屏 | 待用户确认 |  |  |  |
+
+- 未确认的终端默认不支持，不得据此自行增加适配、交互或测试范围。
+- PC-only 产品应确认最小视口、浏览器和输入方式；无 UI 功能可写“无直接终端差异”。
+
 ## 路由
 
 - 当前功能 specs：{format_list(feature_specs, fallback)}
@@ -369,6 +384,21 @@ Start here before using any company workflow.
 - Build command: {build_cmd}
 - Local run command: {run_cmd}
 - Progress document: {progress.name if progress else "Needs user confirmation"}
+
+## Target Client Baseline
+
+“Client” here means the user-facing product form, not TCP/HTTP network ports.
+
+| Target client | Support status | Shared page/code/API | Viewport, browser, and input | Responsive/touch requirement |
+| --- | --- | --- | --- | --- |
+| PC Web | Needs user confirmation |  |  |  |
+| Mobile Web | Needs user confirmation |  |  |  |
+| iOS/Android App | Needs user confirmation |  |  |  |
+| Desktop client | Needs user confirmation |  |  |  |
+| Large display | Needs user confirmation |  |  |  |
+
+- Unconfirmed clients are unsupported by default; do not expand adaptation, interaction, or test scope from them.
+- A PC-only product confirms its minimum viewport, browser, and input method. A non-UI feature may state “no direct client difference.”
 
 ## Routing
 

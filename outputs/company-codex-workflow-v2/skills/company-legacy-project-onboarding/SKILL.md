@@ -22,6 +22,17 @@ Introduce the company Codex workflow into an existing project without disrupting
 9. After the pilot, review process cost, verification evidence, expert routing accuracy, and document ownership fit.
 10. Promote the workflow to the team default only after the pilot is stable.
 
+## Target Client Check
+
+- During legacy onboarding, collect target clients candidates from product documents, entrypoints, and tests, but keep them as a user-confirmed draft.
+- Media queries or mobile tests do not prove that mobile remains supported. Until the user confirms it, the workflow must not add mobile adaptation on its own.
+- The first pilot requirement explicitly inherits or overrides the INDEX client baseline.
+
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Recommended Prompts
 
 - `Help me introduce the company Codex workflow into this existing project.`

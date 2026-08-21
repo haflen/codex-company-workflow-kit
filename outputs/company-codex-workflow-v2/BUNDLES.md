@@ -4,6 +4,8 @@ Bundles are small expert combinations used by workflow skills. They are not a ne
 
 The workflow should pick the smallest matching bundle automatically. Users may still name a specific expert in chat; an explicit user request overrides the default bundle.
 
+All expert advice remains subordinate to the target clients confirmed in `specs/global/INDEX.md` and current requirements. Generic responsive, mobile, or device-coverage advice in upstream expert text is not product scope and must not be executed until confirmed.
+
 ## Selection Rules
 
 1. Identify the work type from the request, current spec, files, and stack.

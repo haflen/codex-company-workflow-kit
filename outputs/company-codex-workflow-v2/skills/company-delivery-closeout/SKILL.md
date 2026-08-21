@@ -105,6 +105,17 @@ git diff --cached --stat
 6. Stop when a normal push is rejected, the remote is ahead, or permission/network state is unclear. Never rewrite history or escalate privileges automatically.
 7. `superpowers:finishing-a-development-branch` supplies final branch checks only. It must not replace the selected mode with a PR, merge, worktree deletion, or another integration action.
 
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether artifacts were committed or pushed.
+2. What was completed: describe delivered artifacts, cleanup, and repository result.
+3. What needs attention: explain excluded files, blockers, and residual risk impact.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the Phase 7 internal fields. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Phase 7: Closeout Report
 
 Report:

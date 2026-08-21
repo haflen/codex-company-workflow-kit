@@ -18,6 +18,11 @@ description: Use when a company project needs to verify bundled expert skills, c
 5. 如果专家缺失，要求重新执行 `install-plugin --force` 或 `all <project-path> --force`。
 6. 输出可用专家、缺失专家、受限专家、下一步。
 
+
+## 人类优先输出
+
+最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
+
 ## 输出
 
 - 工作流层：`company-expert-readiness`

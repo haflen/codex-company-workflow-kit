@@ -32,7 +32,7 @@ Do not use for:
 ```
 
 6. Maintain `prototype.json` in the draft directory with `feature`, `source_requirements`, `status`, `created_at`, `updated_at`, `owned_files`, `validation_questions`, and `browser_verification`. Never edit `.gitignore` silently.
-7. Verify relevant viewports, interactions, states, accessibility, and console errors. Stop processes created in this turn.
+7. Verify only confirmed target clients, viewports, browsers, and input methods from requirements. Check relevant interactions, states, accessibility, and console errors. Stop processes created in this turn.
 8. If feedback changes scope, rules, copy, or acceptance criteria, update authoritative documents through `company-feature-requirements`, then continue iteration.
 
 ## Promote to Requirements Baseline
@@ -52,6 +52,23 @@ If the user also explicitly authorizes technical design, promote first and route
 Stop prototype edits when the user requests a real API, database, authentication, production data/component, framework migration, backend, schema, infrastructure, performance, or feasibility evidence. Explain the boundary and choose between `company-spike-research` and explicitly authorized `company-feature-design`.
 
 Ambiguous “confirm”, “continue”, or “next” means continue the current requirements/prototype stage. It does not authorize design or production implementation.
+
+## Target Client Gate
+
+- The prototype inherits target clients from authoritative requirements; generic responsive advice from an expert skill cannot expand product scope.
+- When mobile is not explicitly supported, the workflow must not add mobile adaptation on its own, including breakpoints, touch behavior, device frames, screenshots, or mobile browser tests.
+- A new client request returns to `company-feature-requirements` to update the boundary and ACs before prototype work continues.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state what the prototype can now validate.
+2. What was completed: describe page, interaction, or feedback changes.
+3. What needs attention: explain unverified behavior and non-commitments.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
 
 ## Output Contract
 

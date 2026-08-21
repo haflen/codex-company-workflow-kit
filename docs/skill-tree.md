@@ -86,6 +86,8 @@
 | Codex Plan Mode Recommendation | 对不确定路线、方案对比、旧项目接入或高风险任务建议先用计划模式判断，不改文件不编码 | workflow help |
 | Subagents Recommendation | 对独立任务、独立失败域或高风险审查建议使用子 agent，说明能力状态，并要求显式请求和主 agent 复核 | workflow help, planning, implementation |
 | Next-Step Guidance | 每轮完成后给出下一步建议和可复制口令 | all company workflows |
+| Target Client Contract | 在 INDEX、需求、设计、任务、实现和验收之间传递 PC Web、移动 Web、App、桌面端或大屏边界；移动端未确认时禁止自行适配 | requirements, prototype, design, planning, implementation, quality validation |
+| Human-First Summary | 最终回复先用普通语言说明结论、完成内容、注意事项和一个主要下一步，再把内部字段放入技术审计附录 | all company workflows |
 | Documentation Drift Check | 检查代码变更是否需要同步需求、业务规则、设计、任务或公共文档 | implementation, bugfix, hotfix |
 | Chinese Code Logic Comments | 用中文解释跨语言代码里的业务规则、计算口径、数据映射和异常分支 | planning, implementation, bugfix, hotfix |
 | Codex built-in tools | 文件编辑、命令执行、浏览器验证、Git | all implementation and verification work |

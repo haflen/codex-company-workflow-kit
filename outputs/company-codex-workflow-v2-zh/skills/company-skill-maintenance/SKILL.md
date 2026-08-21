@@ -34,6 +34,11 @@ description: Use when updating, pinning, auditing, replacing, or reviewing open-
 - 运行安装或验证生成的报告属于产物，除非明确设计为模板，否则不要提交。
 - 脚本文件的可执行位、sandbox 风险和运行前审批要求必须作为依赖状态的一部分维护。
 
+
+## 人类优先输出
+
+最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
+
 ## 输出
 
 - 工作流层：`company-skill-maintenance`

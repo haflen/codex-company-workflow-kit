@@ -4,7 +4,7 @@
 
 初始化项目后，先阅读 `specs/global/assets/document-standard.md`。需求、设计、数据模型、业务规则、API 契约、任务、原型确认、spike、hotfix 和交付收口文档默认采用：结论 -> Mermaid 图 -> 关键表格 -> 细节与证据。
 
-除非用户明确说“不需要图表”，Codex 不得自行省略类型化图表。旧项目执行 `update-templates` 后先检查 `specs/global/assets.generated/`，确认差异再决定是否使用 `--force` 更新模板；该命令不会自动重写已完成的业务文档。
+除非用户明确说“不需要图表”，Codex 不得自行省略类型化图表。旧项目执行 `update-templates` 后先检查 `specs/global/INDEX.generated.md` 和 `specs/global/assets.generated/`，确认差异再决定是否使用 `--force` 更新模板；该命令会安全刷新 `AGENTS.md` 的受管段落，但不会覆盖已确认索引或重写已完成的业务文档。
 
 这份文档面向公司项目用户，也是内部培训的主入口。用户不需要记住所有 skill 名称，只需要知道在什么场景说什么。
 
@@ -16,6 +16,10 @@
 - [技能升级 dry-run 工作流](skill-upgrade-dry-run.md)
 
 ## 第一次放进项目
+
+安装后先确认 `specs/global/INDEX.md` 的 `目标使用终端基线`：产品支持 PC Web、移动 Web、App、桌面客户端还是大屏，是否共用页面/代码/API，以及最小视口、浏览器和输入方式。未确认的终端默认不支持；PC-only 项目不会自动产生移动端适配工作。
+
+Workflow 回复会先给人类摘要：一句话结论、完成内容、注意事项和一个主要下一步。Superpowers、专家调用、任务 ID、验证等级、命令和证据放在技术审计附录，普通用户不需要先读附录。
 
 推荐使用一键脚本：
 
@@ -394,6 +398,8 @@ bash scripts/install.sh update-templates /path/to/project --lang zh
 ```
 
 默认只生成 `specs/global/assets.generated/` 供对比。确认后再覆盖：
+
+同时会刷新 `AGENTS.md` 中带 marker 的公司规则，并生成 `specs/global/INDEX.generated.md` 供确认；项目自己的规则、已确认索引和业务文档不会被覆盖。
 
 ```bash
 bash scripts/install.sh update-templates /path/to/project --lang zh --force

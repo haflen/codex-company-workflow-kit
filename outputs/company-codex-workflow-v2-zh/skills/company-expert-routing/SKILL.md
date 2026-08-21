@@ -101,6 +101,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 - 文案、标签、字段或单行配置等简单改动。
 - 当前工作流已有足够本地证据。
 - 没有具体不一致时，不用专家重新打开已确认需求。
+- 专家建议必须服从 INDEX 和当前需求已确认的目标使用终端；专家原文中的通用响应式、移动端或设备覆盖建议不构成产品需求，未确认前不得自行增加移动端适配或执行相关建议。
 
 ## 透明度分级判定
 
@@ -117,6 +118,11 @@ description: Use when a company workflow needs to decide whether an expert skill
   - 用户要求审计、复核流程或确认是否真实调用。
 
 如果启用 `full-audit`，必须输出触发原因和 `Workflow Audit`。
+
+
+## 人类优先输出
+
+最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
 
 ## 输出
 

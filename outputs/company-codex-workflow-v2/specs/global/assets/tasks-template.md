@@ -59,6 +59,19 @@ Key conclusions:
 - Test strategy confirmed:
 - Asset boundary config `.codex-workflow/asset-boundaries.json` confirmed:
 
+## Target Clients and Adaptation Boundary
+
+| Target client | Covered by this batch | Allowed adaptation scope | Explicitly forbidden | Verification viewport/device |
+| --- | --- | --- | --- | --- |
+| PC Web |  |  |  |  |
+| Mobile Web |  |  |  |  |
+| iOS/Android App |  |  |  |  |
+| Desktop client |  |  |  |  |
+| Large display |  |  |  |  |
+
+- Tasks cover only confirmed target clients. Do not adapt clients that are not explicitly supported.
+- Tasks for responsive behavior, touch, mobile screenshots, and mobile E2E enter the plan only when requirements and design explicitly support mobile.
+
 ## Implementation Tasks
 
 | ID | User/system result | File/module | Verification level | Continuous execution | Subagent | Minimum failing case/anchor | Chinese comment coverage | Document drift | Dependency |

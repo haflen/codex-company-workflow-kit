@@ -65,6 +65,23 @@ Stop on conflicting entry, task, or acceptance sources. Return to requirements, 
 
 This skill must not modify production code. It may write the acceptance report, run read-only checks, and execute approved tests. Missing automated coverage becomes an explicit test task; adding or changing test code returns to planning/implementation or bugfix for scope authorization.
 
+## Target Client Gate
+
+- Read target clients from requirements, design, and tasks. Validate only explicitly supported clients, viewports, browsers, and input methods.
+- When mobile is unconfirmed, the workflow must not add mobile adaptation on its own and must not expand device matrices, screenshots, or E2E merely for broader coverage.
+- Unauthorized client behavior is scope drift and returns to requirements/design/planning; validation cannot repair it in place.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether the current candidate is deliverable.
+2. What was completed: explain accepted user behavior and results.
+3. What needs attention: explain defects, unverified items, and real impact.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Report
 
 Template lookup order:

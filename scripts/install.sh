@@ -14,6 +14,7 @@ PLUGIN_DST=""
 MARKER_BEGIN="<!-- codex-workflow-kit:company:start -->"
 MARKER_END="<!-- codex-workflow-kit:company:end -->"
 LEGACY_MARKER_BEGIN="<!-- company-codex-workflow-kit:start -->"
+LEGACY_MARKER_END="<!-- company-codex-workflow-kit:end -->"
 VALIDATOR_PATH="${CODEX_PLUGIN_VALIDATOR:-$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py}"
 
 usage() {
@@ -335,20 +336,47 @@ uninstall_plugin() {
 
 append_agents_block() {
   local target="$1"
-  if [[ -f "$target" ]] && grep -q "$MARKER_BEGIN" "$target"; then
-    echo "AGENTS.md already contains company workflow block."
-    return
-  fi
-  if [[ -f "$target" ]] && grep -q "$LEGACY_MARKER_BEGIN" "$target"; then
-    echo "AGENTS.md already contains company workflow block."
-    return
-  fi
-  {
-    echo ""
-    echo "$MARKER_BEGIN"
-    cat "$PLUGIN_SRC/AGENTS.md"
-    echo "$MARKER_END"
-  } >> "$target"
+  touch "$target"
+  AGENTS_PATH="$target" \
+    AGENTS_SOURCE="$PLUGIN_SRC/AGENTS.md" \
+    MARKER_BEGIN="$MARKER_BEGIN" \
+    MARKER_END="$MARKER_END" \
+    LEGACY_MARKER_BEGIN="$LEGACY_MARKER_BEGIN" \
+    LEGACY_MARKER_END="$LEGACY_MARKER_END" \
+    python3 - <<'PY'
+import os
+from pathlib import Path
+
+path = Path(os.environ["AGENTS_PATH"])
+source = Path(os.environ["AGENTS_SOURCE"]).read_text(encoding="utf-8").rstrip()
+begin = os.environ["MARKER_BEGIN"]
+end = os.environ["MARKER_END"]
+block = f"{begin}\n{source}\n{end}"
+text = path.read_text(encoding="utf-8")
+
+for old_begin, old_end in (
+    (begin, end),
+    (os.environ["LEGACY_MARKER_BEGIN"], os.environ["LEGACY_MARKER_END"]),
+):
+    start = text.find(old_begin)
+    if start == -1:
+        continue
+    finish = text.find(old_end, start)
+    if finish == -1:
+        raise SystemExit(f"AGENTS.md managed block has no closing marker: {old_end}")
+    finish += len(old_end)
+    prefix = text[:start].rstrip()
+    suffix = text[finish:].lstrip()
+    updated = "\n\n".join(part for part in (prefix, block, suffix) if part)
+    path.write_text(updated.rstrip() + "\n", encoding="utf-8")
+    print("Updated managed company workflow block in AGENTS.md.")
+    break
+else:
+    prefix = text.rstrip()
+    updated = "\n\n".join(part for part in (prefix, block) if part)
+    path.write_text(updated.rstrip() + "\n", encoding="utf-8")
+    print("Added managed company workflow block to AGENTS.md.")
+PY
 }
 
 write_install_manifest() {
@@ -576,8 +604,17 @@ update_templates() {
     find "$dst" -name ".DS_Store" -delete
     echo "Updated project templates: $dst"
   fi
+  append_agents_block "$project_path/AGENTS.md"
+  local index_path="$project_path/specs/global/INDEX.md"
+  if [[ -f "$index_path" ]]; then
+    generate_index "$project_path" "$project_path/specs/global/INDEX.generated.md" 1
+    echo "Existing INDEX.md preserved. Review INDEX.generated.md for new baseline fields."
+  else
+    generate_index "$project_path" "$index_path" 1
+  fi
   ensure_project_governance_files "$project_path"
   generate_asset_boundaries "$project_path"
+  write_install_manifest "$project_path"
   write_project_expert_readiness "$project_path"
 }
 
@@ -625,6 +662,7 @@ PY
   python3 "$ROOT_DIR/tests/test_asset_boundaries.py"
   python3 "$ROOT_DIR/tests/test_document_templates.py"
   python3 "$ROOT_DIR/tests/test_quality_validation_workflow.py"
+  python3 "$ROOT_DIR/tests/test_target_clients_and_human_summary.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"

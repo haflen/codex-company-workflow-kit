@@ -32,6 +32,11 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 7. 如果提案改变权限、工具、外部技能、脚本或专家依赖，运行 `company-skill-security-review`。
 8. 建议接受、修改或拒绝。
 
+
+## 人类优先输出
+
+最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
+
 ## 提案输出
 
 - 工作流层：`company-skill-evolution-lab`

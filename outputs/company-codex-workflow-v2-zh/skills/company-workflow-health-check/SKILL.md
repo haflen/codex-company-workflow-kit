@@ -31,6 +31,12 @@ description: Use when a company project needs to diagnose workflow installation 
 12. 对已存在的质量验收报告检查：是否位于权威任务文档同级或已登记路径，是否包含当前分支、HEAD、被验收路径、diff SHA-256、未跟踪文件哈希；候选指纹过期或条件通过缺少接受记录时标记为 `red`。
 13. 如发现模板缺失或旧版本，给出安全修复命令；默认推荐 `update-templates`，不要直接覆盖用户文档。
 
+## 目标终端检查
+
+- 检查 INDEX 是否存在已确认的目标使用终端基线，以及需求、设计和任务是否一致继承。
+- UI 项目缺少终端基线为 `yellow`；实现或测试包含未授权终端适配为 `red`。不得自行增加移动端适配作为修复手段。
+- 健康检查只报告缺口和修复入口，不替用户确认产品支持范围。
+
 ## 健康等级
 
 - `green`：核心文件、索引、模板和关键规则齐全；可以正常走 workflow。
@@ -43,6 +49,11 @@ description: Use when a company project needs to diagnose workflow installation 
 - 缺项目工作流入口：推荐 `bash scripts/install.sh bootstrap-project <project-path> --lang zh`。
 - 插件缺失或技能不暴露：推荐先重新安装插件，再重启 Codex。
 - 旧项目规则残留：推荐生成迁移清单，由用户确认后再整理，不自动删除。
+
+
+## 人类优先输出
+
+最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
 
 ## 输出格式
 

@@ -9,6 +9,22 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 - Read only the current version, milestone, feature docs, and source files relevant to the task.
 - Do not scan all Markdown files unless the task is an audit or migration.
 
+## Target Client Contract
+
+- “Client” means PC Web, Mobile Web, an app, desktop client, or large display, not TCP/HTTP network ports.
+- Read the baseline in `specs/global/INDEX.md`, then any feature exception in current requirements. Only explicitly supported target clients enter design, planning, implementation, and validation.
+- When mobile is unconfirmed, do not add responsive layouts, mobile breakpoints, touch interactions, mobile screenshots, device matrices, or mobile E2E.
+- A PC-only product covers only the confirmed minimum viewport, browser, and mouse/keyboard scenarios. A non-UI feature may state “no direct client difference.”
+- A confirmed client-scope change triggers the scope-change circuit breaker: update requirements, design, and tasks for user confirmation before adapting code.
+
+## Human-First Summary
+
+- In final replies, state the business result and impact first, then risks and the next action. Do not begin with Workflow Audit, task IDs, validation levels, or internal terms.
+- The first layer uses: `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. When no action is needed, say so plainly.
+- Explain internal terms on first use, for example “V3 (high-risk verification)”. Describe a file's purpose before its path.
+- Give one primary next action and one short reply phrase. Add alternatives only for a real decision branch.
+- Put Superpowers, expert calls, commands, paths, hashes, evidence, and internal workflow fields in a `Technical Audit Appendix`. Do not dump internal workflow fields one by one into the human summary.
+
 ## Workflow Document Ownership
 
 Before writing any project document, confirm its role, information level, numbering namespace, and update trigger. Do not merge the project entry summary, spike work log, formal requirements/design/tasks, and lifecycle summaries into one continuous task chain.

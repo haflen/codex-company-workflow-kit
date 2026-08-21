@@ -17,7 +17,7 @@
 bash scripts/install.sh update-templates /absolute/path/to/project --lang zh
 ```
 
-默认会保留现有 `specs/global/assets/`，并把候选模板写入 `specs/global/assets.generated/`。团队完成 diff 和评审后，才执行：
+默认会刷新 `AGENTS.md` 中带 marker 的受管规则，保留 marker 外的项目规则；已确认的 `specs/global/INDEX.md` 不覆盖，新索引草案写入 `specs/global/INDEX.generated.md`。现有 `specs/global/assets/` 也会保留，候选模板写入 `specs/global/assets.generated/`。团队完成 diff 和评审后，才执行：
 
 ```bash
 bash scripts/install.sh update-templates /absolute/path/to/project --lang zh --force
@@ -86,6 +86,24 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin -Lan
 - `full-audit`：阶段交接、实现完成、bugfix 完成、hotfix、spike 结论、技能升级、安全审查、专家能力未真实调用、验证缺失，或涉及生产、数据、权限、架构、性能、安全风险。
 
 这用于区分“真实调用了 Superpowers/专家 skill/插件能力”和“只是按对应视角执行”，团队成员不需要每次额外提醒。
+
+这些字段不会放在回复最前面。最终回复先用普通语言给出：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`；随后才给 `技术审计附录`。内部术语首次出现时会解释，例如 `V3（高风险验证）`。下一步默认只推荐一个动作，避免用户从多条技术口令中自行判断。
+
+## 目标使用终端
+
+项目初始化或首次需求澄清时，应确认 `specs/global/INDEX.md` 中的目标使用终端基线。这里的“终端”是用户使用产品的客户端形态，不是网络监听端口。
+
+- 可选范围包括 PC Web、移动 Web、iOS/Android App、桌面客户端和大屏。
+- 需要明确是否共用页面、代码或 API，以及最小视口、浏览器、鼠标/键盘、触摸等输入方式。
+- 未确认的终端默认不支持。仅 PC 使用的产品不会因为采用前端专家 skill 就自动增加移动端适配。
+- 功能需求可以覆盖项目基线，但必须明确记录并确认；设计、任务、实现和验收不得自行扩展。
+- 如果开发中临时提出新增移动端或改变多端共用方式，会触发范围变化熔断，先更新需求、设计和任务，再由用户授权编码。
+
+PC-only 产品可以直接说：
+
+```text
+本产品只在 PC Web 使用，最低支持 1280×720，使用 Chrome/Edge 和鼠标键盘；本期不做移动端适配。
+```
 
 从 `0.2.22` 起，workflow 还会像反馈 Superpowers 一样反馈 Codex 计划模式和 subagents：
 
@@ -375,8 +393,11 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 update-templates C:
 默认安全模式不会覆盖现有模板，而是生成：
 
 ```text
+specs/global/INDEX.generated.md
 specs/global/assets.generated/
 ```
+
+命令会直接刷新 `AGENTS.md` 中受 marker 管理的公司规则，但保留 marker 外的项目自定义内容；不会覆盖已确认的 `specs/global/INDEX.md`。
 
 这个命令也会检查项目根目录的专家依赖文件：
 

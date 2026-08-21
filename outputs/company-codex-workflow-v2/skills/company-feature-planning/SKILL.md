@@ -86,6 +86,23 @@ For every task that recommends a subagent, write:
 - Expected output: change summary, verification evidence, risks, and blockers.
 - Merge strategy: the main agent reviews diffs and verification instead of accepting the subagent's completion claim directly.
 
+## Target Client Gate
+
+- Every UI/client task cites confirmed target clients and verification viewports. Unconfirmed clients do not enter the task list.
+- When mobile is not explicitly supported, the workflow must not add mobile adaptation on its own, including responsive, touch, screenshot, or mobile E2E tasks.
+- If requirements and design disagree on target clients, stop planning and return to the conflicting document rather than choosing for the user.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether execution can start and say explicitly when coding has not begun.
+2. What was completed: translate tasks into user-understandable delivery results before listing task IDs.
+3. What needs attention: explain how constraints, dependencies, and risks affect delivery.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Output
 
 - Workflow layer: `company-feature-planning`

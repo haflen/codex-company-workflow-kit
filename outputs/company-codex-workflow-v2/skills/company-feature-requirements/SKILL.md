@@ -57,6 +57,24 @@ If none apply, output: `Business rules document: not needed, reason: ...`.
 
 Requirements work must not modify production implementation code or prescribe low-level architecture. Only `company-requirements-prototype` may edit an isolated, mock-only prototype under `.codex-workflow/prototypes/<feature>/draft/`; production source remains forbidden.
 
+## Target Client Gate
+
+- UI, interaction, or client work first reads the target clients baseline in `specs/global/INDEX.md` and states whether the feature inherits or overrides it.
+- Requirements name supported clients, shared page/code/API boundaries, minimum viewport, browser, input method, and whether responsive, touch, or mobile verification is required.
+- An unconfirmed client is unsupported; the workflow must not add mobile adaptation on its own, including breakpoints, touch behavior, screenshots, or mobile E2E.
+- Backend-only, task, or API work may state “no direct client difference” instead of manufacturing multi-client scope.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether the requirement is clear.
+2. What was completed: list the clarified goal, scope, and decisions.
+3. What needs attention: explain open questions and their impact.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Output
 
 - Workflow layer: `company-feature-requirements`

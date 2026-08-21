@@ -32,6 +32,11 @@ Self-improvement produces proposals first. Formal skills change only after revie
 7. Run `company-skill-security-review` if the proposal changes permissions, tools, external skills, scripts, or expert dependencies.
 8. Recommend accept, revise, or reject.
 
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Proposal Output
 
 - Workflow layer: `company-skill-evolution-lab`

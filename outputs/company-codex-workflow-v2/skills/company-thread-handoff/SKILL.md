@@ -118,6 +118,11 @@ Do not say only “I do not know the history,” and do not claim knowledge outs
 
 Check generated time, goal, state, next action, summary level, and knowledge boundary. Verify path, branch, HEAD, working tree, key files, unfinished work, authoritative documents, and authorization. Report matching, changed, and unverified items, then complete the six-field receipt. Continue after low-risk differences, re-verify medium risk, and stop for high-risk branch, scope, authorization, key-file, or authoritative-document conflicts.
 
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Transparency
 
 - Workflow layer: `company-thread-handoff`

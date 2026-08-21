@@ -18,6 +18,11 @@ Ensure the company workflow works out of the box: required external experts must
 5. If experts are missing, require `install-plugin --force` or `all <project-path> --force`.
 6. Report available experts, hidden experts, missing experts, and next steps.
 
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Output
 
 - Workflow layer: `company-expert-readiness`

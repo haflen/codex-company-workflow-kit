@@ -64,6 +64,23 @@ If the user confirmed only a requirements prototype, stop and route to `company-
 
 Design work after a scope change must not flow directly back into implementation. It must go through task planning and wait for user confirmation of the new scope.
 
+## Target Client Gate
+
+- Read confirmed target clients, sharing boundaries, viewports, browsers, and input methods from requirements. Generic frontend best practices do not create new product promises.
+- Unconfirmed clients do not enter architecture, components, responsive, touch, compatibility, or test design; the workflow must not add mobile adaptation on its own.
+- If client scope is unclear or design introduces a new client, stop and return to `company-feature-requirements`.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state the recommended design and problem solved.
+2. What was completed: describe key decisions and their effect.
+3. What needs attention: explain tradeoffs, risks, and confirmation points plainly.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Output
 
 - Workflow layer: `company-feature-design`

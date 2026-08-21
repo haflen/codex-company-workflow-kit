@@ -200,6 +200,23 @@ After the circuit breaker trips:
 - Output `Implementation authorization: expired; user confirmation required before coding`.
 - Wait for the user to confirm the new scope and use the implementation handoff phrase before entering TDD or editing code.
 
+## Target Client Gate
+
+- Before UI/client work, compare INDEX, requirements, design, and tasks for target clients, viewports, browsers, and input methods.
+- When mobile is not explicitly supported, the workflow must not add mobile adaptation on its own, including responsive breakpoints, touch behavior, mobile tests, or related dependencies.
+- A new client or changed page/code/API sharing strategy is a scope change: stop coding and return to documents for confirmation.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state whether the feature is complete and usable.
+2. What was completed: describe user-visible results before listing code files.
+3. What needs attention: explain unverified items, limits, and risk impact.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Completion Report
 
 - Workflow layer: `company-implementation-runner`

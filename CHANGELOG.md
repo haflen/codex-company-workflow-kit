@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.31 - 2026-08-21
+
+- Added a bilingual target-client contract across project context, requirements, prototypes, design, planning, implementation, and quality validation.
+- Made mobile support opt-in: unconfirmed mobile clients no longer trigger responsive layouts, touch behavior, mobile screenshots, device matrices, or mobile E2E work.
+- Added separate project and feature matrix rows for PC Web, Mobile Web, apps, desktop clients, and large displays, including shared-code/API boundaries, viewports, browsers, and input methods.
+- Reworked all 20 company workflow completion outputs into a human-first summary followed by a technical audit appendix.
+- Required plain-language impact, explanation of internal terms, and one primary next action while preserving Superpowers, expert, command, evidence, and risk traceability.
+- Made `update-templates` refresh the managed `AGENTS.md` block and generate `INDEX.generated.md` without overwriting confirmed project context, so existing projects receive new global rules safely.
+- Prevented bugfix and upstream expert guidance from bypassing the confirmed target-client scope without editing vendored expert content.
+- Added bilingual regression coverage and install-time verification for both contracts.
+
 ## 0.2.30 - 2026-08-11
 
 - Bound every persisted independent quality-validation report to one concrete delivery candidate using branch, HEAD commit, validated paths, diff SHA-256, and untracked-file hashes.

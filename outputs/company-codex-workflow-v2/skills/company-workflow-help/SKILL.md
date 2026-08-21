@@ -234,6 +234,23 @@ Users do not decide the trace level; this skill must choose automatically:
 
 If the recommended route triggers `full-audit`, state the trigger reason.
 
+## Target Client Routing
+
+- Before UI, interaction, or client work enters design or implementation, check whether `specs/global/INDEX.md` and current requirements confirm target clients.
+- Missing client scope routes to `company-feature-requirements`. Generic frontend advice is not a mobile requirement, and the workflow must not add mobile adaptation on its own.
+- A new client or changed sharing strategy during implementation is a scope change that invalidates prior implementation authorization.
+
+## Human-First Output
+
+Put the human summary before the Technical Audit Appendix:
+
+1. One-sentence conclusion: state the current status in business language.
+2. What was completed: list only results the user can understand.
+3. What needs attention: explain the impact of each risk; say plainly when no action is needed.
+4. What the user should do now: give one primary next action and one short reply phrase.
+
+Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
+
 ## Output / 输出格式
 
 - Workflow layer / 工作流层: `company-workflow-help`

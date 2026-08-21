@@ -39,6 +39,20 @@
 | --- | --- | --- | --- |
 | `<work-item-id>/AC-001` |  |  | `<work-item-id>/TC-001` |
 
+## Target Clients and Adaptation Boundary
+
+| Target client | Requirement status | Technical owner | Shared page/code/API strategy | Viewport, input, and capability differences | Explicit non-goals |
+| --- | --- | --- | --- | --- | --- |
+| PC Web | supported / inherited / unsupported |  |  |  |  |
+| Mobile Web | supported / inherited / unsupported |  |  |  |  |
+| iOS/Android App | supported / inherited / unsupported |  |  |  |  |
+| Desktop client | supported / inherited / unsupported |  |  |  |  |
+| Large display | supported / inherited / unsupported |  |  |  |  |
+
+- Design may carry only confirmed target clients. Do not adapt clients that are not explicitly supported.
+- State whether API, business logic, or UI is shared. Shared code does not automatically promise responsive or touch behavior.
+- For no direct client difference, state why and preserve existing interface compatibility only.
+
 ## Overall Technical Architecture
 
 This diagram answers: how do callers, application modules, data, and external dependencies work together, and where is this change located?

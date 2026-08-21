@@ -97,6 +97,11 @@ Do not overwrite production skills until the user clearly confirms.
 
 Ambiguous phrases such as "looks good", "continue", "seems fine", or "anything else?" are not confirmation to overwrite.
 
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
+
 ## Upgrade Report
 
 When a written artifact is useful, resolve the skill-upgrade report template in this order:

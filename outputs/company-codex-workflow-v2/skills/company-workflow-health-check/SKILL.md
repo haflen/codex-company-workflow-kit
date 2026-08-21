@@ -31,6 +31,12 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 12. For an existing validation report, check whether it is beside the authoritative task document or at a registered path and whether it records current branch, HEAD, validated paths, diff SHA-256, and untracked-file hashes. Mark stale candidate fingerprints or conditional passes without acceptance records as `red`.
 13. If templates or rules are missing, provide safe repair commands. Prefer `update-templates` by default; do not overwrite user documents directly.
 
+## Target Client Check
+
+- Check that INDEX has a confirmed target clients baseline and that requirements, design, and tasks inherit it consistently.
+- A UI project with no client baseline is `yellow`; implementation or tests for unauthorized clients are `red`. The workflow must not add mobile adaptation on its own as a repair.
+- Health checks report the gap and repair route but never confirm product support for the user.
+
 ## Health Levels
 
 - `green`: core files, index, templates, and current rules are present; workflow can be used normally.
@@ -43,6 +49,11 @@ Diagnose whether a company project is correctly connected to the Codex workflow 
 - Missing project workflow entry files: recommend `bash scripts/install.sh bootstrap-project <project-path> --lang en`.
 - Plugin missing or skills not exposed: reinstall the plugin, then restart Codex.
 - Legacy rule residue: generate a migration checklist and ask the user to confirm before editing; do not delete automatically.
+
+
+## Human-First Output
+
+Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
 
 ## Output
 
