@@ -19,11 +19,14 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 
 ## Human-First Summary
 
-- In final replies, state the business result and impact first, then risks and the next action. Do not begin with Workflow Audit, task IDs, validation levels, or internal terms.
+- For formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial user-facing reply that contains audit fields, state the business result and impact first, then risks and the next action. Do not begin with Workflow Audit, task IDs, validation levels, or internal terms.
+- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
 - The first layer uses: `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. When no action is needed, say so plainly.
+- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; do not remove, rename, or reorder the four headings.
 - Explain internal terms on first use, for example “V3 (high-risk verification)”. Describe a file's purpose before its path.
 - Give one primary next action and one short reply phrase. Add alternatives only for a real decision branch.
 - Put Superpowers, expert calls, commands, paths, hashes, evidence, and internal workflow fields in a `Technical Audit Appendix`. Do not dump internal workflow fields one by one into the human summary.
+- Apply a pre-send response gate: check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
 
 ## Workflow Document Ownership
 

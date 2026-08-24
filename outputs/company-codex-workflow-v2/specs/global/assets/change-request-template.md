@@ -16,7 +16,7 @@
 
 ## Requested Change
 
-- 
+-
 
 ## Reason
 
@@ -37,7 +37,7 @@
 
 ## Updated Acceptance Criteria
 
-- 
+-
 
 ## First Principles Check
 
@@ -59,4 +59,4 @@
 
 ## Follow-Up Tasks
 
-- 
+-

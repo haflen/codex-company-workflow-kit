@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.33 - 2026-08-24
+
+- Extended the human-first response contract from final replies to substantial completion, phase, progress, blocker, next-step, and detailed follow-up replies.
+- Added a pre-send response gate to all bilingual company workflow skills so detailed requests deepen the four fixed sections or technical appendix without replacing the user-facing structure.
+- Restricted workflow audit fields to the technical appendix and kept one- or two-sentence working updates and ordinary Q&A lightweight.
+- Moved decision summaries ahead of metadata and capability-audit sections in every formal bilingual project template.
+- Added automatic backups under `.codex-workflow/backups/assets.<timestamp>/` before forced template replacement on macOS/Linux and Windows.
+- Added regression coverage for response triggers, heading stability, human-first template order, safe forced updates, and release metadata.
+
 ## 0.2.32 - 2026-08-21
 
 - Added a bilingual `migrate-project` command for company projects that still use an unmarked legacy `AGENTS.md`.

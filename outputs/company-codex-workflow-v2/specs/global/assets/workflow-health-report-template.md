@@ -80,7 +80,7 @@
 
 ## Findings
 
-- 
+-
 
 ## Recommended Repair Commands
 
@@ -90,7 +90,7 @@
 
 ## Do Not Auto-Handle
 
-- 
+-
 
 ## Recheck Result
 

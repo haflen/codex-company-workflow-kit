@@ -472,6 +472,30 @@ function Ensure-ProjectGovernanceFiles($Path) {
   Copy-FileSafe (Join-Path $PluginSrc "EXPERTS.lock.md") (Join-Path $Path "EXPERTS.lock.md") (Join-Path $Path "EXPERTS.lock.generated.md")
 }
 
+function Ensure-LocalGitExcludes($Path) {
+  $gitCommand = Get-Command git -ErrorAction SilentlyContinue
+  if (-not $gitCommand) {
+    return
+  }
+  $excludeRelative = git -C $Path rev-parse --git-path info/exclude 2>$null
+  if ($LASTEXITCODE -ne 0 -or -not $excludeRelative) {
+    return
+  }
+  $excludePath = $excludeRelative.Trim()
+  if (-not [System.IO.Path]::IsPathRooted($excludePath)) {
+    $excludePath = Join-Path $Path $excludePath
+  }
+  New-Item -ItemType Directory -Force -Path (Split-Path $excludePath) | Out-Null
+  if (-not (Test-Path $excludePath)) {
+    New-Item -ItemType File -Force -Path $excludePath | Out-Null
+  }
+  $pattern = ".codex-workflow/backups/"
+  $hasPattern = Get-Content -Path $excludePath | Where-Object { $_.Trim() -eq $pattern }
+  if (-not $hasPattern) {
+    Add-Content -Encoding UTF8 $excludePath $pattern
+  }
+}
+
 function Ensure-ProjectTemplates($Path) {
   $source = Join-Path $PluginSrc "specs/global/assets"
   $destination = Join-Path $Path "specs/global/assets"
@@ -483,9 +507,21 @@ function Ensure-ProjectTemplates($Path) {
     Write-Host "Project templates already present: $destination"
   } else {
     if (Test-Path $destination) {
-      Remove-Item -Recurse -Force $destination
+      if ($Force) {
+        $backupRoot = Join-Path $Path ".codex-workflow/backups"
+        New-Item -ItemType Directory -Force -Path $backupRoot | Out-Null
+        $backupStamp = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")
+        $backupDestination = Join-Path $backupRoot "assets.$backupStamp"
+        Copy-Item -Recurse -Force $destination $backupDestination
+        Ensure-LocalGitExcludes $Path
+        Write-Host "Backed up project templates: $backupDestination"
+        Get-ChildItem -Path $source -Force | ForEach-Object {
+          Copy-Item -Recurse -Force $_.FullName $destination
+        }
+      }
+    } else {
+      Copy-Item -Recurse -Force $source $destination
     }
-    Copy-Item -Recurse -Force $source $destination
     Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
     Write-Host "Project templates ready: $destination"
   }
@@ -667,9 +703,21 @@ function Update-Templates($Path) {
     Write-Host "Next: compare assets and assets.generated, then rerun with -Force if you approve replacement."
   } else {
     if (Test-Path $destination) {
-      Remove-Item -Recurse -Force $destination
+      if ($Force) {
+        $backupRoot = Join-Path $Path ".codex-workflow/backups"
+        New-Item -ItemType Directory -Force -Path $backupRoot | Out-Null
+        $backupStamp = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")
+        $backupDestination = Join-Path $backupRoot "assets.$backupStamp"
+        Copy-Item -Recurse -Force $destination $backupDestination
+        Ensure-LocalGitExcludes $Path
+        Write-Host "Backed up project templates: $backupDestination"
+        Get-ChildItem -Path $source -Force | ForEach-Object {
+          Copy-Item -Recurse -Force $_.FullName $destination
+        }
+      }
+    } else {
+      Copy-Item -Recurse -Force $source $destination
     }
-    Copy-Item -Recurse -Force $source $destination
     Get-ChildItem -Path $destination -Recurse -Force -Filter ".DS_Store" | Remove-Item -Force
     Write-Host "Updated project templates: $destination"
   }

@@ -1,5 +1,13 @@
 # Business Rules and Calculation Semantics
 
+## Decision Summary
+
+- Rules governed here:
+- Applicable users and scenarios:
+- Key state or calculated result:
+- Most easily misunderstood semantic:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Related requirements and design:
-
-## Decision Summary
-
-- Rules governed here:
-- Applicable users and scenarios:
-- Key state or calculated result:
-- Most easily misunderstood semantic:
-- Confirmation needed now:
 
 ## What Changed
 

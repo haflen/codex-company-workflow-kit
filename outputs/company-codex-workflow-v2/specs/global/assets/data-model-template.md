@@ -1,5 +1,14 @@
 # Data Model Design
 
+## Decision Summary
+
+- Why these tables are needed:
+- Table count: create / extend / reuse unchanged / retire gradually
+- Authoritative data locations:
+- Most important data chain:
+- Invariants:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -10,15 +19,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Related requirements and technical design:
-
-## Decision Summary
-
-- Why these tables are needed:
-- Table count: create / extend / reuse unchanged / retire gradually
-- Authoritative data locations:
-- Most important data chain:
-- Invariants:
-- Confirmation needed now:
 
 ## What Changed
 

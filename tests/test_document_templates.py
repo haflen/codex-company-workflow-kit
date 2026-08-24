@@ -196,6 +196,40 @@ class DocumentTemplateContractTests(unittest.TestCase):
                     self.assertIn(config["waiver"], content)
                     self.assertIn("```mermaid", content)
 
+    def test_decision_summary_precedes_metadata_and_audit_details(self):
+        metadata_headings = {
+            "zh": ("## 元信息", "## 能力与执行透明度"),
+            "en": ("## Metadata", "## Capability and Execution Transparency"),
+        }
+        for language, config in LANGUAGES.items():
+            assets = config["plugin"] / "specs/global/assets"
+            for name in FORMAL_TEMPLATES:
+                content = read(assets / name)
+                conclusion_position = content.index(config["conclusion"])
+                for heading in metadata_headings[language]:
+                    position = content.find(heading)
+                    if position == -1:
+                        continue
+                    with self.subTest(language=language, file=name, heading=heading):
+                        self.assertLess(conclusion_position, position)
+
+    def test_project_templates_have_no_trailing_whitespace(self):
+        for language, config in LANGUAGES.items():
+            for root_name in ("plugin", "starter"):
+                assets = config[root_name] / "specs/global/assets"
+                for path in assets.glob("*.md"):
+                    bad_lines = [
+                        number
+                        for number, line in enumerate(read(path).splitlines(), start=1)
+                        if line.rstrip() != line
+                    ]
+                    with self.subTest(
+                        language=language,
+                        root=root_name,
+                        file=path.name,
+                    ):
+                        self.assertEqual([], bad_lines)
+
     def test_required_diagram_types(self):
         for language, config in LANGUAGES.items():
             assets = config["plugin"] / "specs/global/assets"

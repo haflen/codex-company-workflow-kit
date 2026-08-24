@@ -1,5 +1,13 @@
 # API Contract
 
+## Decision Summary
+
+- User/system capability supported:
+- Consumer and provider:
+- Successful result:
+- Most important error and compatibility boundary:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -11,14 +19,6 @@
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Provider / consumer:
 - Related requirements and design:
-
-## Decision Summary
-
-- User/system capability supported:
-- Consumer and provider:
-- Successful result:
-- Most important error and compatibility boundary:
-- Confirmation needed now:
 
 ## What Changed
 

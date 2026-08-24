@@ -1,5 +1,13 @@
 # Spike Validation Report
 
+## Decision Summary
+
+- Uncertainty reduced:
+- Conclusion: feasible / conditionally feasible / infeasible / insufficient evidence
+- Most important evidence:
+- Applicability boundary:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Status: active / ended / converted to formal work
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
-
-## Decision Summary
-
-- Uncertainty reduced:
-- Conclusion: feasible / conditionally feasible / infeasible / insufficient evidence
-- Most important evidence:
-- Applicability boundary:
-- Confirmation needed now:
 
 ## What Changed
 

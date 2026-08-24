@@ -1,5 +1,14 @@
 # Technical Design
 
+## Decision Summary
+
+- Recommended design:
+- Requirements/ACs addressed:
+- Affected systems, modules, and data:
+- Most important design decision:
+- Main cost and risk:
+- User confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -10,15 +19,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Requirements and business rules:
-
-## Decision Summary
-
-- Recommended design:
-- Requirements/ACs addressed:
-- Affected systems, modules, and data:
-- Most important design decision:
-- Main cost and risk:
-- User confirmation needed now:
 
 ## What Changed
 

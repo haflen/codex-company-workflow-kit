@@ -209,12 +209,24 @@ class HumanFirstSummaryTests(unittest.TestCase):
                 "先说业务结果和影响",
                 "首次出现的内部术语必须解释",
                 "只给一个主要下一步",
+                "本轮正式完成或阶段收尾",
+                "1-2 句的工作中更新和普通问答始终不触发固定格式",
+                "即使提到当前结果、风险或下一步",
+                "用户要求“详细一点”",
+                "发送前回复门禁",
+                "先重写再发送",
             ),
             "en": (
                 "Human-First Summary",
                 "state the business result and impact first",
                 "Explain internal terms on first use",
                 "Give one primary next action",
+                "formal completion or phase closeout",
+                "One- or two-sentence working updates and ordinary Q&A never trigger the fixed format",
+                "even when they mention the current result, risk, or next step",
+                "the user asks for more detail",
+                "pre-send response gate",
+                "rewrite it before sending",
             ),
         }
         for language, phrases in required.items():
@@ -222,6 +234,38 @@ class HumanFirstSummaryTests(unittest.TestCase):
                 content = read(root / "AGENTS.md")
                 for phrase in phrases:
                     with self.subTest(language=language, root=root.name, phrase=phrase):
+                        self.assertIn(phrase, content)
+
+    def test_every_workflow_has_a_response_contract_gate(self):
+        required = {
+            "zh": (
+                "### 回复契约门禁",
+                "本轮正式完成或阶段收尾",
+                "1-2 句的工作中更新和普通问答始终不触发固定格式",
+                "即使提到当前结果、风险或下一步",
+                "用户要求“详细一点”",
+                "不得删除、改名或调换四个标题",
+                "审计字段只能出现在 `技术审计附录`",
+                "发送前检查",
+                "先重写再发送",
+            ),
+            "en": (
+                "### Response Contract Gate",
+                "formal completion or phase closeout",
+                "One- or two-sentence working updates and ordinary Q&A never trigger the fixed format",
+                "even when they mention the current result, risk, or next step",
+                "the user asks for more detail",
+                "must not remove, rename, or reorder the four headings",
+                "Audit fields may appear only in the `Technical Audit Appendix`",
+                "Before sending",
+                "rewrite it before sending",
+            ),
+        }
+        for language, root in LANGUAGES.items():
+            for skill in HUMAN_SUMMARY_SKILLS:
+                content = read(root / "skills" / skill / "SKILL.md")
+                for phrase in required[language]:
+                    with self.subTest(language=language, skill=skill, phrase=phrase):
                         self.assertIn(phrase, content)
 
     def test_human_summary_precedes_workflow_audit_fields(self):
@@ -261,7 +305,7 @@ class HumanFirstSummaryTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.32", package["version"])
+        self.assertEqual("0.2.33", package["version"])
         self.assertIn("test_legacy_project_migration.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", read(ROOT / "scripts/install.sh"))

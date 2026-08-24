@@ -1,5 +1,13 @@
 # Hotfix Report
 
+## Decision Summary
+
+- Fault and user impact:
+- Current status:
+- Temporary containment:
+- Root cause and permanent repair:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Status: active / contained / recovered / closed
 - Timeline:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
-
-## Decision Summary
-
-- Fault and user impact:
-- Current status:
-- Temporary containment:
-- Root cause and permanent repair:
-- Confirmation needed now:
 
 ## What Changed
 

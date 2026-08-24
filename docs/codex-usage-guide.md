@@ -448,7 +448,7 @@ EXPERTS.lock.generated.md
 请对比 BUNDLES.md 和 BUNDLES.generated.md、EXPERTS.lock.md 和 EXPERTS.lock.generated.md，说明专家组合和版本锁有哪些变化。
 ```
 
-确认无问题后再覆盖：
+确认无问题后再覆盖。脚本会先把当前模板完整备份到 `.codex-workflow/backups/assets.<timestamp>/`，再覆盖同名受管模板；项目独有文件保持不变：
 
 ```bash
 bash scripts/install.sh update-templates /path/to/project --lang zh --force

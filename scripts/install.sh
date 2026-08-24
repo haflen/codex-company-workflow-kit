@@ -157,6 +157,24 @@ copy_file_safe() {
   echo "Wrote file: $dst"
 }
 
+ensure_local_git_excludes() {
+  local project_path="$1"
+  local exclude_path=""
+  local pattern=".codex-workflow/backups/"
+  if ! git -C "$project_path" rev-parse --git-dir >/dev/null 2>&1; then
+    return
+  fi
+  exclude_path="$(git -C "$project_path" rev-parse --git-path info/exclude)"
+  if [[ "$exclude_path" != /* ]]; then
+    exclude_path="$project_path/$exclude_path"
+  fi
+  mkdir -p "$(dirname "$exclude_path")"
+  touch "$exclude_path"
+  if ! grep -Fqx "$pattern" "$exclude_path"; then
+    printf '%s\n' "$pattern" >> "$exclude_path"
+  fi
+}
+
 ensure_root_plugin_json() {
   local plugin_root="$1"
   local manifest="$plugin_root/.codex-plugin/plugin.json"
@@ -562,8 +580,21 @@ ensure_project_templates() {
   if [[ -d "$dst" && "$FORCE" != "1" ]]; then
     echo "Project templates already present: $dst"
   else
-    rm -rf "$dst"
-    cp -R "$src" "$dst"
+    if [[ -d "$dst" && "$FORCE" == "1" ]]; then
+      local backup_root="$project_path/.codex-workflow/backups"
+      local backup_stamp
+      local backup_dst
+      mkdir -p "$backup_root"
+      backup_stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+      backup_dst="$backup_root/assets.$backup_stamp"
+      cp -R "$dst" "$backup_dst"
+      ensure_local_git_excludes "$project_path"
+      echo "Backed up project templates: $backup_dst"
+      cp -R "$src/." "$dst/"
+    else
+      rm -rf "$dst"
+      cp -R "$src" "$dst"
+    fi
     find "$dst" -name ".DS_Store" -delete
     echo "Project templates ready: $dst"
   fi
@@ -719,8 +750,21 @@ update_templates() {
     echo "Generated updated templates for review: $review_dst"
     echo "Next: compare assets and assets.generated, then rerun with --force if you approve replacement."
   else
-    rm -rf "$dst"
-    cp -R "$src" "$dst"
+    if [[ -d "$dst" && "$FORCE" == "1" ]]; then
+      local backup_root="$project_path/.codex-workflow/backups"
+      local backup_stamp
+      local backup_dst
+      mkdir -p "$backup_root"
+      backup_stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+      backup_dst="$backup_root/assets.$backup_stamp"
+      cp -R "$dst" "$backup_dst"
+      ensure_local_git_excludes "$project_path"
+      echo "Backed up project templates: $backup_dst"
+      cp -R "$src/." "$dst/"
+    else
+      rm -rf "$dst"
+      cp -R "$src" "$dst"
+    fi
     find "$dst" -name ".DS_Store" -delete
     echo "Updated project templates: $dst"
   fi

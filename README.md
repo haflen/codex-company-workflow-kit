@@ -59,7 +59,7 @@ outputs/company-codex-workflow-template/
 
 - 入口：`specs/global/assets/document-standard.md`，定义 `DOC-G01` 到 `DOC-G12` 质量门禁。
 - 新建正式文档默认必须带对应 Mermaid 图；只有用户明确说明不需要图表时，才能记录 `图表豁免`。
-- 每份正式文档使用 `work-item-id`，先给跨角色评审者可理解的结论和影响，再下沉技术细节。
+- 每份正式文档使用 `work-item-id`，第一节先给跨角色评审者可理解的结论和影响，再下沉元信息、能力审计与技术细节。
 - 新文档完整执行规范；旧文档只在本次修改范围内渐进修复，不强制一次性重写历史资料。
 - 已有 marker 的项目升级时运行 `update-templates`，它会刷新受管规则并生成索引、模板候选，不覆盖已确认的项目索引或业务文档。
 - 没有 marker、仍使用旧版公司规则的项目运行 `migrate-project`。安装器会先备份 `AGENTS.md`，再切换为当前受管规则；直接运行 `update-templates` 只会生成 `AGENTS.generated.md`，不会把新旧规则叠加。
@@ -359,7 +359,7 @@ npm 全局安装或 `npx` 用户也可执行：
 npx codex-company-workflow migrate-project /path/to/company-project --lang zh
 ```
 
-确认新旧模板差异后，再显式覆盖：
+确认新旧模板差异后，再显式覆盖。覆盖前会把现有模板完整备份到 `.codex-workflow/backups/assets.<timestamp>/`；只覆盖同名受管模板，项目独有文件保持不变：
 
 ```bash
 bash scripts/install.sh update-templates /path/to/company-project --lang zh --force

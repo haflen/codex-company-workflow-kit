@@ -19,7 +19,7 @@
 
 安装后先确认 `specs/global/INDEX.md` 的 `目标使用终端基线`：产品支持 PC Web、移动 Web、App、桌面客户端还是大屏，是否共用页面/代码/API，以及最小视口、浏览器和输入方式。未确认的终端默认不支持；PC-only 项目不会自动产生移动端适配工作。
 
-Workflow 回复会先给人类摘要：一句话结论、完成内容、注意事项和一个主要下一步。Superpowers、专家调用、任务 ID、验证等级、命令和证据放在技术审计附录，普通用户不需要先读附录。
+Workflow 的完成结果、阶段结果、进度总结、阻塞说明、下一步建议和详细追问都会先给固定的人类摘要：一句话结论、完成内容、注意事项和一个主要下一步。Superpowers、专家调用、任务 ID、验证等级、命令和证据放在技术审计附录；1-2 句工作中更新和普通问答保持轻量。
 
 推荐使用一键脚本：
 
@@ -128,7 +128,7 @@ npx codex-company-workflow all /path/to/project --lang zh
 bash scripts/install.sh update-templates /path/to/project --lang zh
 ```
 
-已有文件默认不会被覆盖；脚本会生成 `.generated` 文件供对比确认。
+已有文件默认不会被覆盖；脚本会生成 `.generated` 文件供对比确认。确认后使用 `--force` 覆盖时，旧模板会先备份到 `.codex-workflow/backups/assets.<timestamp>/`，同名受管模板会更新，项目独有文件保持不变。
 
 如果 `AGENTS.md` 还是没有 `codex-workflow-kit:company` marker 的早期公司版本，改用：
 

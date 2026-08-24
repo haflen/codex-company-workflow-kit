@@ -1,5 +1,13 @@
 # Feature Requirements
 
+## Decision Summary
+
+- User problem:
+- Requirements decision:
+- User-visible result:
+- Affected roles, pages, or flows:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -10,14 +18,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Related discussion or ticket:
-
-## Decision Summary
-
-- User problem:
-- Requirements decision:
-- User-visible result:
-- Affected roles, pages, or flows:
-- Confirmation needed now:
 
 ## What Changed
 

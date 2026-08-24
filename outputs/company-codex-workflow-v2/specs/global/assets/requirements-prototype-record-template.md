@@ -1,5 +1,13 @@
 # Requirements Prototype Validation Record
 
+## Decision Summary
+
+- Requirements question validated:
+- Confirmed page, interaction, or state:
+- Content not promised by the prototype:
+- Ready to become a requirements baseline:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved prototype record + Git commit
 - Authoritative requirements document:
-
-## Decision Summary
-
-- Requirements question validated:
-- Confirmed page, interaction, or state:
-- Content not promised by the prototype:
-- Ready to become a requirements baseline:
-- Confirmation needed now:
 
 ## What Changed
 

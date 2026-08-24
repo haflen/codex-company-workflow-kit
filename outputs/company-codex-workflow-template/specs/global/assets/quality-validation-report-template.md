@@ -1,5 +1,13 @@
 # Quality Validation Report
 
+## Decision Summary
+
+- Validation result: pass / conditional-pass / blocked
+- User-visible outcome:
+- Primary evidence:
+- Unverified items and impact:
+- Next step: delivery closeout / user risk acceptance / bugfix / requirements or design
+
 ## Metadata
 
 - work-item-id:
@@ -29,14 +37,6 @@
 | Validated paths | Type | Includes untracked files | Note |
 | --- | --- | --- | --- |
 |  | code / test / configuration / migration / asset | no / yes |  |
-
-## Decision Summary
-
-- Validation result: pass / conditional-pass / blocked
-- User-visible outcome:
-- Primary evidence:
-- Unverified items and impact:
-- Next step: delivery closeout / user risk acceptance / bugfix / requirements or design
 
 ## What Changed
 

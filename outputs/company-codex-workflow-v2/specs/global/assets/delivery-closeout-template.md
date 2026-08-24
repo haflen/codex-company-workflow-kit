@@ -1,5 +1,13 @@
 # Delivery Closeout Report
 
+## Decision Summary
+
+- User-visible result actually delivered:
+- Code, document, script, and configuration artifacts:
+- Verification level and result:
+- Known remaining risk:
+- Confirmation needed now: commit / push / do not release
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous closeout report + Git commit
 - Business branch:
-
-## Decision Summary
-
-- User-visible result actually delivered:
-- Code, document, script, and configuration artifacts:
-- Verification level and result:
-- Known remaining risk:
-- Confirmation needed now: commit / push / do not release
 
 ## What Changed
 

@@ -251,10 +251,99 @@ class LegacyProjectMigrationTests(unittest.TestCase):
             self.assertIn("Human-First Summary", updated)
             self.assertFalse((project / "AGENTS.generated.md").exists())
 
+    def test_force_template_update_backs_up_existing_assets_before_replacement(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=project, check=True)
+            assets = project / "specs/global/assets"
+            assets.mkdir(parents=True)
+            local_template = assets / "quality-validation-report-template.md"
+            local_template.write_text("LOCAL_TEMPLATE\n", encoding="utf-8")
+            project_only_template = assets / "project-only-template.md"
+            project_only_template.write_text("KEEP_PROJECT_ONLY\n", encoding="utf-8")
+
+            run_installer(
+                "update-templates",
+                str(project),
+                "--lang",
+                "zh",
+                "--force",
+            )
+
+            backups = list(
+                (project / ".codex-workflow/backups").glob("assets.*")
+            )
+            self.assertEqual(1, len(backups))
+            self.assertEqual(
+                "LOCAL_TEMPLATE\n",
+                (backups[0] / "quality-validation-report-template.md").read_text(
+                    encoding="utf-8"
+                ),
+            )
+            updated = local_template.read_text(encoding="utf-8")
+            self.assertIn("## 先看结论", updated)
+            self.assertLess(updated.index("## 先看结论"), updated.index("## 元信息"))
+            self.assertEqual(
+                "KEEP_PROJECT_ONLY\n",
+                project_only_template.read_text(encoding="utf-8"),
+            )
+            ignored = subprocess.run(
+                ["git", "check-ignore", "-q", str(backups[0])],
+                cwd=project,
+            )
+            self.assertEqual(0, ignored.returncode)
+
     def test_powershell_exposes_equivalent_migration_command(self):
         content = (ROOT / "scripts/install.ps1").read_text(encoding="utf-8")
         self.assertIn("migrate-project", content)
         self.assertIn("function Migrate-Project", content)
+        self.assertIn("Backed up project templates", content)
+        self.assertIn(".codex-workflow/backups/", content)
+        self.assertIn("$_.Trim() -eq $pattern", content)
+
+    def test_powershell_force_template_update_when_available(self):
+        pwsh = shutil.which("pwsh")
+        if not pwsh:
+            self.skipTest("pwsh is not installed")
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=project, check=True)
+            assets = project / "specs/global/assets"
+            assets.mkdir(parents=True)
+            local_template = assets / "quality-validation-report-template.md"
+            local_template.write_text("LOCAL_TEMPLATE\n", encoding="utf-8")
+            project_only_template = assets / "project-only-template.md"
+            project_only_template.write_text("KEEP_PROJECT_ONLY\n", encoding="utf-8")
+
+            subprocess.run(
+                [
+                    pwsh,
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    str(ROOT / "scripts/install.ps1"),
+                    "update-templates",
+                    str(project),
+                    "-Lang",
+                    "zh",
+                    "-Force",
+                ],
+                check=True,
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+
+            backups = list((project / ".codex-workflow/backups").glob("assets.*"))
+            self.assertEqual(1, len(backups))
+            self.assertEqual("LOCAL_TEMPLATE\n", read(backups[0] / local_template.name))
+            self.assertEqual("KEEP_PROJECT_ONLY\n", read(project_only_template))
+            self.assertIn("## 先看结论", read(local_template))
+            ignored = subprocess.run(
+                ["git", "check-ignore", "-q", str(backups[0])], cwd=project
+            )
+            self.assertEqual(0, ignored.returncode)
 
     def test_powershell_executes_migration_when_available(self):
         pwsh = shutil.which("pwsh")

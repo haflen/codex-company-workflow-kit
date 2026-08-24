@@ -1,5 +1,13 @@
 # Task Plan
 
+## Decision Summary
+
+- User-visible result for this batch:
+- Task count and main modules:
+- Scope allowed for continuous execution:
+- Mandatory confirmation stops:
+- Confirmation needed now:
+
 ## Metadata
 
 - work-item-id:
@@ -9,14 +17,6 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous approved path + Git commit
 - Requirements, design, and API contract:
-
-## Decision Summary
-
-- User-visible result for this batch:
-- Task count and main modules:
-- Scope allowed for continuous execution:
-- Mandatory confirmation stops:
-- Confirmation needed now:
 
 ## What Changed
 
