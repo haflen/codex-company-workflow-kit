@@ -305,7 +305,7 @@ class HumanFirstSummaryTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.33", package["version"])
+        self.assertEqual("0.2.34", package["version"])
         self.assertIn("test_legacy_project_migration.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", read(ROOT / "scripts/install.sh"))

@@ -16,12 +16,30 @@ Task completion does not prove delivery readiness. Consolidate artifacts, eviden
 | “Start delivery closeout” | `prepare` | no commit or push |
 | “Close out and commit” | `commit` | local commit, no push |
 | “Close out and push the business branch” | `deliver` | local commit and normal push of the current business branch |
+| “API unavailable; approve merge into `<business-branch>`” | `conditional-merge` | merge into the named ordinary business branch; push only if authorized; remain not delivered |
 
 Default to `prepare` when intent is unclear. “All tasks are complete. Start delivery closeout and push the business branch.” grants one-shot `deliver` authorization; do not ask again on the normal path.
 
 ## Authorization Boundary
 
-Authorization covers only an ordinary local commit and ordinary push for the confirmed closeout scope. It never expands to force push, rebase, amend, merge, branch deletion, release, deployment, unknown-file deletion, or out-of-scope work.
+Authorization covers only an ordinary local commit and ordinary push for the confirmed closeout scope. It never expands to force push, rebase, amend, branch deletion, release, deployment, unknown-file deletion, or out-of-scope work. Only `conditional-merge` may perform one explicitly approved ordinary merge, and it must record the source candidate, Target business branch, and whether push is authorized.
+
+## Conditional Merge When an API Is Unavailable
+
+**Conditional merge is not conditional pass.** When real API integration is confirmed scope but the API/environment is unavailable, quality validation remains `blocked / API_PENDING`; this mode is only an engineering integration decision.
+
+Enable `conditional-merge` only when every condition holds:
+
+1. The user explicitly records Approved by, Approved at, source candidate and fingerprint, Target business branch, allowed files, API unavailable evidence, Expiry condition, and Compensating task.
+2. The target is an ordinary business branch; it must not enter main, master, develop, integration, release, a protected branch, release tag, or production, and it must not release or deploy.
+3. API unavailability is an external dependency or environment limitation, not a known implementation defect disguised as an environment problem.
+4. Applicable contract, unit, type, lint, build, Fixture-isolation, and browser checks pass; the production path must not silently fall back to Fixture or Mock.
+5. The original API-integration and acceptance tasks stay open with `FIXTURE_READY -> API_PENDING -> CONDITIONAL_MERGED`; do not claim `API_INTEGRATED`, `QUALITY_PASS`, or delivered.
+6. Before merging, verify clean source and target workspaces and an unchanged candidate fingerprint. Follow the project's ordinary merge policy; prohibit rebase, force push, history rewrite, and automatic conflict resolution.
+
+Put this customer notice near the start of the human summary, never buried in the audit appendix:
+
+> Only the Fixture-based frontend candidate is complete and has been approved for merge into `<Target business branch>`. Because `<API/environment>` is unavailable, real API integration and real-page acceptance are incomplete. This merge does not mean formal delivery and must not prove real data, charts, or business calculations correct. Complete `<Compensating task>` after API restoration; until then the status remains "conditional merge / not delivered."
 
 ## Quality Validation State Handoff
 
@@ -38,9 +56,9 @@ Authorization covers only an ordinary local commit and ordinary push for the con
 1. Confirm project root, current branch, upstream, remote, and authoritative task document.
 2. Require every task to be complete, explicitly deferred, or explicitly rejected; never silently close unfinished work.
 3. Read the implementation or bugfix decision through the Quality Validation State Handoff. When it is `required/mandatory`, require a fresh report and evidence for the current delivery candidate.
-4. Stop when validation is missing, stale, or `blocked`. Continue from `conditional-pass` only when the risk is eligible and the user explicitly accepted it; high-risk `V3` cannot be conditionally released.
+4. Stop when validation is missing, stale, or `blocked`. Continue from `conditional-pass` only when the risk is eligible and the user explicitly accepted it; high-risk `V3` cannot be conditionally released. The only exception is `conditional-merge` satisfying all six gates above; it remains blocked and not delivered.
 5. List allowed directories, files, and existing user changes.
-6. Block `commit`/`deliver` on `main`, `master`, `develop`, `integration`, `release`, and project-defined protected branches.
+6. Block `commit`/`deliver`/`conditional-merge` on `main`, `master`, `develop`, `integration`, `release`, and project-defined protected branches.
 7. Distinguish accumulated milestone work from true concurrent file conflicts; only the latter is a blocker.
 
 ## Phase 2: Inventory and Classify Every File
@@ -137,6 +155,10 @@ Report:
 - Quality validation report path and candidate fingerprint:
 - Quality validation report and evidence freshness:
 - User acceptance record for conditional pass:
+- Integration disposition: formal delivery / `CONDITIONAL_MERGED` and not delivered
+- API status: not applicable / `API_PENDING` / `API_INTEGRATED`
+- Conditional merge Approved by, Approved at, Target business branch, Expiry condition, and Compensating task:
+- Customer notice: not applicable / summary states API unavailable and branch merge only
 - Artifacts: code / tests / documents / configuration / assets
 - Deleted temporary files:
 - Retained-but-excluded files:
@@ -155,7 +177,7 @@ Report:
 
 ## Stop Conditions
 
-Stop for a protected branch, unfinished task, required quality validation that is missing/stale/blocked, an unaccepted conditional pass, real ownership conflict, unknown/out-of-scope file, unproven cleanup candidate, failed validation or review, documentation conflict, suspected secret/production/database/large file, staged mismatch, remote-ahead state, rejected normal push, or unclear network/permission state.
+Stop for a protected branch, unfinished task, required quality validation that is missing/stale/blocked, an unaccepted conditional pass, real ownership conflict, unknown/out-of-scope file, unproven cleanup candidate, failed validation or review, documentation conflict, suspected secret/production/database/large file, staged mismatch, remote-ahead state, rejected normal push, or unclear network/permission state. `conditional-merge` may waive only the API-unavailable validation block and its corresponding unfinished API task; it cannot waive any other stop condition.
 
 The stop report names blockers, completed safe steps, Git actions not executed, and the recovery entry. Never claim commit or push success without evidence.
 

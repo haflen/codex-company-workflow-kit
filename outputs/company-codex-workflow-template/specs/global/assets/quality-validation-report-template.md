@@ -79,6 +79,25 @@ Key decision: failures return to repair or document workflows and rerun the same
 | --- | --- | --- | --- |
 | App version, dependencies, browser, database, test data |  |  |  |
 
+## Data Source and Real API Gate
+
+- Current state: `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- Evidence data source: Fixture / Mock / real API / mixed
+- Real API, environment, data range, and candidate fingerprint:
+- Evidence that the production path has no silent Fixture/Mock fallback:
+- API unavailable: no / yes; reason, time, and impact:
+- Real API integration and real-page acceptance: incomplete / complete
+
+When a real API is required and the state is `API_PENDING`, validation must remain blocked. Even after `CONDITIONAL_MERGED` approval, never rewrite it as conditional pass, and it must not prove real data, charts, or business calculations correct.
+
+Record an approved conditional merge without changing validation:
+
+- Approved by:
+- Approved at:
+- Target business branch:
+- Expiry condition:
+- Compensating task:
+
 ## Verification Evidence
 
 | Category | Command or steps | Result | Evidence location | Freshness |

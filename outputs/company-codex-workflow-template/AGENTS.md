@@ -121,6 +121,14 @@ These instructions define the team workflow for Codex in this project. Keep chan
 - Results are pass, conditional-pass, or blocked. Blocked work returns to bugfix and reruns validation; conditional acceptance requires explicit user approval.
 - Independent validation never edits production code, and mandatory validation must pass before delivery closeout.
 
+## Fixture-to-Real-API Delivery Boundary
+
+- Fixture or Mock data is only a frontend-development bridge; local verification may establish only `FIXTURE_READY`.
+- When required real API integration is incomplete, mark `API_PENDING` and keep validation blocked. Conditional merge is not conditional pass.
+- Mark a candidate `CONDITIONAL_MERGED` and merge it into an ordinary business branch only after explicit approval records Approved by, Approved at, Target business branch, Expiry condition, and Compensating task.
+- Conditional merge does not mean acceptance, delivery, release, deployment, or real-data correctness. The production path must not silently fall back to Fixture or Mock.
+- After API restoration, complete real integration and independent validation. Formal delivery requires `API_INTEGRATED` and `QUALITY_PASS`.
+
 ## Human-Readable Formal Documents
 
 - Read `specs/global/assets/document-standard.md` before creating or substantially rewriting a formal document.

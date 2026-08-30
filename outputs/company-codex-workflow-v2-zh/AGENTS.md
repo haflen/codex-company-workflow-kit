@@ -89,13 +89,21 @@
 - `company-quality-validation` 不修改生产代码；需求、规则或设计不明确时回到文档阶段。
 - `company-delivery-closeout` 必须检查强制验收证据；缺失、过期或阻断时停止 commit/push。
 
+## Fixture 到真实 API 的交付边界
+
+- Fixture 或 Mock 只用于前端开发过渡。通过本地、组件、构建或 Fixture 浏览器检查只能标记 `FIXTURE_READY`，不能证明真实联调或交付。
+- 需要真实 API 时，未完成联调必须标记 `API_PENDING`，独立质量验收保持 `阻断`。**有条件合入不等于有条件通过**。
+- API 不可用时，只有用户明确记录批准人、批准时间、源候选、目标业务分支、范围、原因、到期条件和补偿任务后，才可将候选标记为 `CONDITIONAL_MERGED` 并合入普通业务分支。
+- `CONDITIONAL_MERGED` 不关闭原任务，不得表示验收、交付、发布、部署或数据正确；生产路径不得静默回退到 Fixture 或 Mock。
+- API 恢复后必须对当前候选或重新生成指纹后的候选完成真实 API 联调与质量验收，达到 `API_INTEGRATED` 和 `QUALITY_PASS` 后才能进入正式交付。
+
 ## 交付收口边界
 
 - 任务实现和里程碑交付收口是两个阶段；任务完成报告不能替代收口。
 - 所有任务均已完成、明确延期或明确不做后，使用 `company-delivery-closeout`。
 - `prepare` 不 commit、不 push；`commit` 只本地提交；`deliver` 才允许普通 push 当前业务分支。
 - 未知归属、未完成任务、验证失败、文档冲突、敏感/生产/数据库/异常大文件、受保护分支、staged 清单不一致或普通 push 被拒绝时停止。
-- 普通 push 授权不包含 rebase、强制推送、amend、合并、发布或部署。
+- 普通 push 授权不包含 rebase、强制推送、amend、合并、发布或部署；唯一例外是按上述门禁显式批准的 `conditional-merge`，且只允许普通业务分支。
 - 收口只精确暂存已分类文件，不整仓暂存；临时文件只有来源可证明时才能删除。
 
 ## 对话交接

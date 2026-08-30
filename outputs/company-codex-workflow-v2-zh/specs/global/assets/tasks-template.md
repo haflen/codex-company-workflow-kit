@@ -59,6 +59,27 @@ flowchart LR
 - 测试策略已确认：
 - 资产边界配置 `.codex-workflow/asset-boundaries.json` 已确认：
 
+## 数据源与真实 API 联调计划
+
+- 开发数据源：Fixture / Mock / 真实 API / 混合
+- 当前集成状态：未开始 / `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- 真实 API 联调是否属于本次确认范围：否 / 是
+- Fixture/Mock 退出条件与生产路径隔离检查：
+- 真实 API 联调任务 ID、环境、数据范围和验证入口：
+- API 不可用证据：不适用 / 依赖、环境、时间与影响
+
+仅在用户明确批准有条件合入时填写：
+
+- 批准人：
+- 批准时间：
+- 源候选与候选指纹：
+- 目标业务分支：
+- 批准范围与原因：
+- 到期条件：
+- 补偿任务：
+
+`FIXTURE_READY` 不是 API 联调完成；`CONDITIONAL_MERGED` 不是验收或交付。真实 API 联调与验收任务在 `QUALITY_PASS` 前不得关闭。
+
 ## 目标使用终端与适配边界
 
 | 使用终端 | 本批任务是否覆盖 | 允许的适配范围 | 明确禁止 | 验证视口/设备 |

@@ -89,13 +89,21 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - `company-quality-validation` never edits production code. Unclear requirements, rules, or design return to their document workflow.
 - `company-delivery-closeout` checks mandatory validation evidence and blocks commit/push when evidence is missing, stale, or blocked.
 
+## Fixture-to-Real-API Delivery Boundary
+
+- Fixture or Mock data is only a frontend-development bridge. Local, component, build, or Fixture browser checks may establish `FIXTURE_READY`; they cannot prove real integration or delivery.
+- When real API integration is required but incomplete, mark `API_PENDING` and keep independent quality validation `blocked`. **Conditional merge is not conditional pass**.
+- When an API is unavailable, mark a candidate `CONDITIONAL_MERGED` and merge it into an ordinary business branch only after explicit user approval records Approved by, Approved at, source candidate, Target business branch, scope, reason, Expiry condition, and Compensating task.
+- `CONDITIONAL_MERGED` does not close the original task and must not claim acceptance, delivery, release, deployment, or data correctness. The production path must not silently fall back to Fixture or Mock.
+- After API restoration, complete real API integration and quality validation against the same or newly fingerprinted candidate. Formal delivery requires `API_INTEGRATED` and `QUALITY_PASS`.
+
 ## Delivery Closeout Boundary
 
 - Task implementation and milestone delivery closeout are separate phases; a task completion report does not replace closeout.
 - Use `company-delivery-closeout` only after every task is complete, explicitly deferred, or explicitly rejected.
 - `prepare` never commits or pushes; `commit` creates only a local commit; only `deliver` permits an ordinary push of the current business branch.
 - Stop for unknown ownership, unfinished tasks, failed validation, documentation conflict, sensitive/production/database/unexpected-large files, protected branches, staged-list mismatch, or a rejected normal push.
-- Ordinary push authorization excludes rebase, force push, amend, merge, release, and deployment.
+- Ordinary push authorization excludes rebase, force push, amend, merge, release, and deployment. The only merge exception is an explicitly approved `conditional-merge` into an ordinary business branch under the boundary above.
 - Stage only classified files by exact path; delete temporary files only when provenance is proven.
 
 ## Conversation Handoff

@@ -52,11 +52,20 @@ Stop on conflicting entry, task, or acceptance sources. Return to requirements, 
 6. Perform adversarial review for relevant abnormal, boundary, permission, concurrency, data, performance, compatibility, or rendering scenarios.
 7. Produce exactly one result: `pass / conditional-pass / blocked`.
 
+## Real API Evidence Gate
+
+- When requirements, design, API contracts, or tasks require a real API, real database, or real business data, Fixture/Mock evidence, local static data, screenshot existence, component tests, or frontend-only E2E cannot replace real API integration and real-page acceptance.
+- A Fixture candidate may reach only `FIXTURE_READY`. While real integration is incomplete, mark `API_PENDING` and keep validation `blocked`.
+- The user may explicitly approve a conditional merge of an `API_PENDING` candidate into an ordinary business branch and mark it `CONDITIONAL_MERGED`, but **Conditional merge is not conditional pass** and does not change this skill's blocked result.
+- `API_INTEGRATED` requires evidence binding the real API, environment, data range, candidate fingerprint, and absence of silent Fixture/Mock fallback. Risk-matched validation must then pass before `QUALITY_PASS`.
+- Without real API evidence, the workflow must not prove real data, charts, or business calculations correct and must not present Fixture screenshots as customer acceptance evidence.
+
 ## Result Routing
 
 - `pass`: continue to `company-delivery-closeout`.
 - `conditional-pass`: list gaps, impact, and expiry condition; record Accepted by, Accepted at, Accepted scope, Expiry condition, and compensating task, and require explicit user acceptance. Security, permission, data-integrity, money or metric-formula, migration, rollback, or recovery risks cannot receive conditional pass.
 - `blocked`: route implementation defects to `company-bugfix-runner`, then rerun the same acceptance scope.
+- API or integration environment unavailable: remain `blocked / API_PENDING`. If the user needs code integrated first, hand only the explicitly approved conditional-merge decision to `company-delivery-closeout`; never rewrite it as `conditional-pass`.
 - Unclear requirements, business rules, or acceptance criteria enter `company-feature-requirements`.
 - Unclear architecture, API, data, or technical design enters `company-feature-design`.
 - Missing test assets or repair-task authorization enters `company-feature-planning`.
@@ -121,6 +130,9 @@ Completion output includes:
 - Unverified items:
 - Remaining risk:
 - Delivery closeout readiness: ready / not-ready
+- Data source and integration state: `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- Real API and Fixture-isolation evidence:
+- Conditional-merge disposition: not applicable / approved while validation remains blocked
 - Next step:
 - Recommended user phrase:
 

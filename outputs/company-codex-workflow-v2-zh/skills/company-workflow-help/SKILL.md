@@ -154,6 +154,19 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 验收 `blocked` 时进入 `company-bugfix-runner`，修复后回到同一验收范围；验收节点不得直接修改生产代码。
 - `conditional-pass` 只有在风险不属于禁止条件且用户明确接受时才可进入收口；高风险 `V3` 不能用条件通过规避阻断。
 
+## API 不可用与条件合入路由
+
+当任务要求真实 API，但当前只能使用 Fixture/Mock 时，自动按以下状态判断：
+
+- 前端候选已完成：`FIXTURE_READY`。
+- 真实 API 联调或真实页面验收未完成：`API_PENDING`，质量验收保持阻断。
+- 用户没有明确批准先合入：停在 `company-quality-validation` 或等待 API 恢复。
+- 用户明确批准先合入指定普通业务分支：进入 `company-delivery-closeout` 的 `conditional-merge`，合入后为 `CONDITIONAL_MERGED`，原任务保持未完成。
+
+**有条件合入不等于有条件通过。** 路由回答必须先用人话告诉客户“API 不可用，本次只先合并了分支，尚未完成真实联调和交付”，再给技术字段。不得证明真实数据、图表或业务计算正确。
+
+推荐批准口令：`API 当前不可用；我批准将已验证的 Fixture 前端候选有条件合入 <目标业务分支>，不视为验收或交付，不发布不部署；API 恢复后继续 <补偿任务>。`
+
 ## Codex 计划模式建议
 
 Codex 计划模式适合在正式 workflow 前做路线判断，不替代需求、设计、任务确认，也不授权实现。本 skill 只做建议，不自动进入计划模式。

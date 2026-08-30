@@ -27,6 +27,102 @@ def read(path: Path) -> str:
 
 
 class QualityValidationWorkflowTests(unittest.TestCase):
+    def test_fixture_candidate_and_real_api_delivery_states_are_separate(self):
+        required = {
+            "zh": (
+                "FIXTURE_READY",
+                "API_PENDING",
+                "CONDITIONAL_MERGED",
+                "有条件合入不等于有条件通过",
+                "真实 API 联调",
+                "不得证明真实数据、图表或业务计算正确",
+            ),
+            "en": (
+                "FIXTURE_READY",
+                "API_PENDING",
+                "CONDITIONAL_MERGED",
+                "Conditional merge is not conditional pass",
+                "real API integration",
+                "must not prove real data, charts, or business calculations correct",
+            ),
+        }
+        skills = (
+            "company-implementation-runner",
+            "company-quality-validation",
+            "company-delivery-closeout",
+            "company-workflow-help",
+        )
+        for language, root in LANGUAGES.items():
+            combined = read(root / "AGENTS.md") + "\n" + "\n".join(
+                read(root / "skills" / skill / "SKILL.md") for skill in skills
+            )
+            for phrase in required[language]:
+                with self.subTest(language=language, phrase=phrase):
+                    self.assertIn(phrase, combined)
+
+    def test_api_unavailable_conditional_merge_is_persisted_and_customer_visible(self):
+        required = {
+            "zh": (
+                "批准人",
+                "批准时间",
+                "目标业务分支",
+                "到期条件",
+                "补偿任务",
+                "API 不可用",
+                "本次合入不代表功能正式交付",
+                "未交付",
+            ),
+            "en": (
+                "Approved by",
+                "Approved at",
+                "Target business branch",
+                "Expiry condition",
+                "Compensating task",
+                "API unavailable",
+                "This merge does not mean formal delivery",
+                "not delivered",
+            ),
+        }
+        templates = (
+            "tasks-template.md",
+            "quality-validation-report-template.md",
+            "delivery-closeout-template.md",
+        )
+        for language, root in LANGUAGES.items():
+            combined = "\n".join(
+                read(root / "specs/global/assets" / template) for template in templates
+            )
+            for phrase in required[language]:
+                with self.subTest(language=language, phrase=phrase):
+                    self.assertIn(phrase, combined)
+            for template in templates:
+                with self.subTest(language=language, template=template):
+                    self.assertEqual(
+                        read(root / "specs/global/assets" / template),
+                        read(STARTERS[language] / "specs/global/assets" / template),
+                    )
+
+    def test_conditional_merge_cannot_target_protected_or_release_paths(self):
+        required = {
+            "zh": (
+                "普通业务分支",
+                "不得进入 main、master、develop、integration、release",
+                "不得发布或部署",
+                "生产路径不得静默回退到 Fixture 或 Mock",
+            ),
+            "en": (
+                "ordinary business branch",
+                "must not enter main, master, develop, integration, release",
+                "must not release or deploy",
+                "production path must not silently fall back to Fixture or Mock",
+            ),
+        }
+        for language, root in LANGUAGES.items():
+            content = read(root / "skills/company-delivery-closeout/SKILL.md")
+            for phrase in required[language]:
+                with self.subTest(language=language, phrase=phrase):
+                    self.assertIn(phrase, content)
+
     def test_bilingual_skill_and_ui_registration(self):
         for language, root in LANGUAGES.items():
             skill_dir = root / "skills/company-quality-validation"
@@ -220,7 +316,7 @@ class QualityValidationWorkflowTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_are_wired(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.33", package["version"])
+        self.assertEqual("0.2.34", package["version"])
         self.assertIn("test_quality_validation_workflow.py", package["scripts"]["verify"])
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))

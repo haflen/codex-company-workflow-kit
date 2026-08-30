@@ -52,11 +52,20 @@ description: Use when company implementation is complete and integrated acceptan
 6. 执行对抗式审查：至少覆盖与本次风险相关的异常、边界、权限、并发、数据、性能、兼容或渲染场景。
 7. 输出唯一结论：`通过 / 有条件通过 / 阻断`。
 
+## 真实 API 证据门禁
+
+- 需求、设计、API 契约或任务要求真实 API、真实数据库或真实业务数据时，Fixture/Mock、本地静态数据、截图存在、组件测试或仅前端 E2E 都不能替代真实 API 联调和真实页面验收。
+- Fixture 候选最多标记 `FIXTURE_READY`。真实联调未完成时必须标记 `API_PENDING`，验收结论保持 `阻断`。
+- 用户可以明确批准把 `API_PENDING` 候选有条件合入普通业务分支并标记 `CONDITIONAL_MERGED`，但**有条件合入不等于有条件通过**，也不改变本 skill 的阻断结论。
+- `API_INTEGRATED` 必须绑定真实 API、环境、数据范围、候选指纹和无 Fixture/Mock 静默回退证据；随后完成风险匹配验收才可给出 `QUALITY_PASS`。
+- 缺少真实 API 证据时，不得证明真实数据、图表或业务计算正确，不得把 Fixture 截图写成客户验收证据。
+
 ## 结果路由
 
 - `通过`：进入 `company-delivery-closeout`。
 - `有条件通过`：列出未验证项、影响和到期条件；必须记录接受人、接受时间、接受范围、到期条件和补偿任务，并由用户显式接受。安全、权限、数据完整性、金额或指标公式、迁移、回滚或恢复风险不得有条件通过。
 - `阻断`：实现缺陷进入 `company-bugfix-runner`；修复完成后重新执行原验收范围。
+- API 或集成环境暂不可用：保持 `阻断 / API_PENDING`。如用户需要先集成代码，只把明确批准的条件合入决定交给 `company-delivery-closeout`，不得改写为 `有条件通过`。
 - 需求、业务规则或验收标准不明确：进入 `company-feature-requirements`。
 - 架构、接口、数据或技术方案不明确：进入 `company-feature-design`。
 - 缺少测试资产或修复任务授权：进入 `company-feature-planning`。
@@ -121,6 +130,9 @@ description: Use when company implementation is complete and integrated acceptan
 - 未验证项：
 - 剩余风险：
 - 交付收口就绪：就绪 / 未就绪
+- 数据源与集成状态：`FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- 真实 API 证据与 Fixture 隔离证据：
+- 条件合入决定：不适用 / 已批准但验收仍阻断
 - 下一步建议：
 - 推荐用户下一句：
 

@@ -59,6 +59,27 @@ Key conclusions:
 - Test strategy confirmed:
 - Asset boundary config `.codex-workflow/asset-boundaries.json` confirmed:
 
+## Data Source and Real API Integration Plan
+
+- Development data source: Fixture / Mock / real API / mixed
+- Current integration state: not started / `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- Real API integration belongs to confirmed scope: no / yes
+- Fixture/Mock exit condition and production-path isolation check:
+- Real API integration task ID, environment, data range, and verification entrypoint:
+- API unavailable evidence: not applicable / dependency, environment, time, and impact
+
+Complete only after explicit conditional-merge approval:
+
+- Approved by:
+- Approved at:
+- Source candidate and fingerprint:
+- Target business branch:
+- Approved scope and reason:
+- Expiry condition:
+- Compensating task:
+
+`FIXTURE_READY` does not mean API integration complete; `CONDITIONAL_MERGED` does not mean acceptance or delivery. Keep real API integration and acceptance tasks open until `QUALITY_PASS`.
+
 ## Target Clients and Adaptation Boundary
 
 | Target client | Covered by this batch | Allowed adaptation scope | Explicitly forbidden | Verification viewport/device |

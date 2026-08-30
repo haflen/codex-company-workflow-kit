@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.34 - 2026-08-30
+
+- Separated Fixture frontend readiness, real API integration, quality acceptance, and formal delivery into explicit `FIXTURE_READY`, `API_PENDING`, `CONDITIONAL_MERGED`, `API_INTEGRATED`, and `QUALITY_PASS` states.
+- Allowed an explicitly approved conditional merge into an ordinary business branch while keeping required API validation blocked and the original integration task open.
+- Prohibited conditional merge from being reported as conditional pass, acceptance, delivery, release, deployment, or proof of real data, chart, and business-calculation correctness.
+- Added hard guards for protected branches, production Fixture/Mock fallback, approval metadata, expiry conditions, compensating tasks, and post-restoration API validation.
+- Added mandatory plain-language customer notice that the API is unavailable and only the branch was merged.
+- Added bilingual workflow, project-rule, template, documentation, and regression-test coverage for the new boundary.
+
 ## 0.2.33 - 2026-08-24
 
 - Extended the human-first response contract from final replies to substantial completion, phase, progress, blocker, next-step, and detailed follow-up replies.

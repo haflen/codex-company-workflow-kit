@@ -7,6 +7,9 @@
 - Verification level and result:
 - Known remaining risk:
 - Confirmation needed now: commit / push / do not release
+- Integration disposition: formal delivery / conditional merge and not delivered
+
+When the API is unavailable and only a conditional merge is approved, state this fact exactly: **This merge does not mean formal delivery**. Only the business branch was merged; real API integration and real-page acceptance remain incomplete.
 
 ## Metadata
 
@@ -17,6 +20,22 @@
 - Last updated:
 - Comparison baseline: initial edition, no comparison baseline / previous closeout report + Git commit
 - Business branch:
+
+## API-Unavailable Conditional-Merge Record
+
+- Current state: not applicable / `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED`
+- API unavailable evidence, time, and impact:
+- Approved by:
+- Approved at:
+- Source candidate and fingerprint:
+- Target business branch:
+- Approved scope and reason:
+- Expiry condition:
+- Compensating task:
+- Confirm no release, no deployment, and API-integration task remains open: no / yes
+- Evidence that the production path has no silent Fixture/Mock fallback:
+
+Customer notice: Only the Fixture-based frontend candidate is complete and approved for merge into the business branch above. Because the API is unavailable, real API integration and real-page acceptance remain incomplete. The status is "conditional merge / not delivered" and must not prove real data, charts, or business calculations correct.
 
 ## What Changed
 

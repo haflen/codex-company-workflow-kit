@@ -153,6 +153,19 @@ Users do not decide whether a separate test node is required. After implementati
 - A `blocked` result routes to `company-bugfix-runner`, then repeats the same validation scope. The validation workflow never edits production code.
 - `conditional-pass` can reach closeout only when the condition is eligible and the user explicitly accepts it. High-risk `V3` findings cannot use conditional acceptance to bypass a block.
 
+## API-Unavailable Conditional-Merge Routing
+
+When the task requires a real API but only Fixture/Mock data is currently available, decide automatically:
+
+- Frontend candidate complete: `FIXTURE_READY`.
+- Real API integration or real-page acceptance incomplete: `API_PENDING`; quality validation stays blocked.
+- No explicit approval to integrate first: remain in `company-quality-validation` or wait for API restoration.
+- Explicit approval to merge into a named ordinary business branch: enter `company-delivery-closeout` in `conditional-merge` mode, then mark `CONDITIONAL_MERGED` while the original task remains open.
+
+**Conditional merge is not conditional pass.** Tell the customer in plain language first: the API is unavailable, only the branch was merged, and real integration and delivery remain incomplete. The workflow must not prove real data, charts, or business calculations correct.
+
+Suggested approval phrase: `The API is unavailable. I approve a conditional merge of the verified Fixture frontend candidate into <Target business branch>. This is not acceptance or delivery; do not release or deploy. Continue <Compensating task> after API restoration.`
+
 ## Codex Plan Mode Recommendation / Codex 计划模式建议
 
 Codex Plan Mode is useful for route selection before the formal workflow. It does not replace requirements, design, task confirmation, or implementation authorization. This skill recommends Plan Mode; it does not enter it automatically.

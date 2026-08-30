@@ -62,6 +62,20 @@ Implementation TDD and completion verification provide fast feedback; they do no
 
 When `required/mandatory`, the next workflow is `company-quality-validation`. That node performs independent validation and never modifies production code. A `blocked` result enters `company-bugfix-runner`, then repeats the original validation scope.
 
+## Fixture-to-Real-API State Machine
+
+When requirements, design, or tasks require a real API, real database, or real business data, separate the frontend candidate from complete delivery:
+
+1. After approved Fixture/Mock implementation and checks, mark only `FIXTURE_READY`.
+2. While real API integration or real-page acceptance is incomplete, mark `API_PENDING` and keep the related API/acceptance tasks open.
+3. If the API is unavailable and the user explicitly approves an ordinary business-branch merge, route only to `company-delivery-closeout` in `conditional-merge` mode; after merge mark `CONDITIONAL_MERGED`.
+4. Mark `API_INTEGRATED` only after real API integration completes and the production path has no silent Fixture/Mock fallback.
+5. Mark `QUALITY_PASS` and enter formal delivery only after independent quality validation passes.
+
+**Conditional merge is not conditional pass.** `CONDITIONAL_MERGED` must not close the original task, must not prove real data, charts, or business calculations correct, and must not claim acceptance, delivery, release, or deployment.
+
+When an API is unavailable, put a customer-facing warning near the start of the human summary: only the Fixture frontend candidate is complete; who approved which business-branch merge; real API integration and real-page acceptance remain incomplete; and which Compensating task runs after API restoration. The production path must not silently fall back to Fixture or Mock.
+
 ## Continuous Implementation Mode
 
 Continuous implementation mode is for confirmed task plans where the user wants fewer approval loops. It is controlled batching, not unlimited autopilot.
@@ -117,6 +131,9 @@ Continuous mode completion reports must include:
 - Independent quality validation evidence:
 - Expected quality validation report path: not applicable / `quality-validation-report.md` beside the authoritative task document
 - Candidate awaiting validation: current branch, HEAD commit, validated paths
+- Data source and integration state: `FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- Real API integration task and status:
+- Conditional-merge approval and customer notice: not applicable / recorded
 - Recommended next workflow: continue `company-implementation-runner` / enter `company-quality-validation` / enter `company-delivery-closeout`
 
 When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, first decide independent quality validation. If it is `not required`, recommend closeout. If it is `required/mandatory`, recommend: `Implementation is complete. Run independent quality validation.` The implementation runner must not perform milestone-level commit or push.

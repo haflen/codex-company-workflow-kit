@@ -62,6 +62,20 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 命中 `需要/强制` 时，下一 workflow 为 `company-quality-validation`。该节点只执行独立验收，不修改生产代码；`blocked` 结果进入 `company-bugfix-runner`，修复后回到原验收范围。
 
+## Fixture 到真实 API 状态机
+
+只要需求、设计或任务要求真实 API、真实数据库或真实业务数据，就必须把前端候选和完整交付拆开：
+
+1. Fixture/Mock 下完成批准范围的实现与验证后，只标记 `FIXTURE_READY`。
+2. 真实 API 尚未联调或真实页面尚未验收时标记 `API_PENDING`，相关 API/验收任务保持未完成。
+3. API 不可用且用户明确批准先合入普通业务分支时，只可路由到 `company-delivery-closeout` 的 `conditional-merge`；合入后标记 `CONDITIONAL_MERGED`。
+4. 真实 API 联调完成、生产路径没有 Fixture/Mock 静默回退后才标记 `API_INTEGRATED`。
+5. 独立质量验收通过后才标记 `QUALITY_PASS` 并进入正式交付。
+
+**有条件合入不等于有条件通过。** `CONDITIONAL_MERGED` 不能关闭原任务，不能证明真实数据、图表或业务计算正确，也不能写成验收、交付、发布或部署完成。
+
+API 不可用时，完成报告必须把客户告知放在人类摘要前部：当前仅完成 Fixture 前端候选；经谁批准合入哪个业务分支；真实 API 联调和真实页面验收尚未完成；API 恢复后执行哪个补偿任务。生产路径不得静默回退到 Fixture 或 Mock。
+
 ## 连续执行模式
 
 连续执行模式用于“文档和任务已确认，用户希望少确认几次”的实现阶段。它不是无限自动驾驶。
@@ -117,6 +131,9 @@ description: Use when company requirements, design, and task plan are confirmed 
 - 独立质量验收判定依据：
 - 预期质量验收报告路径：不适用 / 权威任务文档同级 `quality-validation-report.md`
 - 待验收候选：当前分支、HEAD commit、被验收路径
+- 数据源与集成状态：`FIXTURE_READY` / `API_PENDING` / `CONDITIONAL_MERGED` / `API_INTEGRATED` / `QUALITY_PASS`
+- 真实 API 联调任务与状态：
+- 条件合入批准记录与客户告知：不适用 / 已记录
 - 推荐下一 workflow：继续 `company-implementation-runner` / 进入 `company-quality-validation` / 进入 `company-delivery-closeout`
 
 当下一批候选任务为空，且全部任务均已完成、明确延期或明确不做时，先做独立质量验收判定。判定为 `不需要` 时推荐收口；判定为 `需要/强制` 时推荐：`实现已完成，请执行独立质量验收。` 实现 runner 不得自行执行里程碑级 commit 或 push。
