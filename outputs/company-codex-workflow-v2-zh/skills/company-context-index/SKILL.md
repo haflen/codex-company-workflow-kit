@@ -5,6 +5,10 @@ description: Use when starting work in a company project, resuming an existing f
 
 # 公司上下文索引
 
+## 文档归属检查
+
+先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。确认已有任务、owner-path、record-path 和 release-target；优先复用原记录，归属不明时只询问关键归属。
+
 ## 目的
 
 在进入需求、设计、实现、bugfix、spike 或 hotfix 前，建立最小必要项目上下文。
@@ -30,17 +34,11 @@ description: Use when starting work in a company project, resuming an existing f
 
 ## 人类优先输出
 
-最终回复先使用：`一句话结论`、`这次完成了什么`、`需要你注意什么`、`你现在需要做什么`。用业务结果和用户影响表达，只给一个主要下一步；首次出现的内部术语必须解释。随后把 Superpowers、专家调用、命令、路径、哈希、验证证据和内部 workflow 字段放入 `技术审计附录`，不得把内部 workflow 字段逐项倾倒到人类摘要，也不得用审计字段代替人类摘要。
-
+先读取 `../../specs/global/assets/human-output-standard.md`，同时尊重项目已确认的读者和交付用途。保留一句话结论和下一步建议；用中文解释结果、依据和影响。以下输出/报告中的内部字段写入已有执行记录，不默认附在用户回复或人类文档中。
 
 ### 回复契约门禁
 
-- 触发范围：本轮正式完成或阶段收尾、用户明确索要进度总结、阻塞结论或下一步方案，以及包含审计字段的成段回复。
-- 1-2 句的工作中更新和普通问答始终不触发固定格式，即使提到当前结果、风险或下一步；但不得在轻量回复中附带完整审计明细。
-- 用户要求“详细一点”时，只增加四段正文或 `技术审计附录` 的深度，不得删除、改名或调换四个标题。
-- 审计字段只能出现在 `技术审计附录`，不得与四段人类摘要并列或抢在其前。
-- 发送前检查四个标题是否齐全且顺序正确、风险是否翻译为实际影响、是否只有一个主要下一步；任一不满足时先重写再发送。
-
+发送前按共享规范复核事实范围、前置条件、责任方、授权、读者及显示效果。普通问答不套固定标题；用户需要详细解释时补充有用依据。未通过阅读检查先重写再发送。
 ## 输出
 
 - 工作流层：`company-context-index`

@@ -2,6 +2,10 @@
 
 This project uses a lightweight SDLC adapted from audited source skills. The goal is traceability and consistent delivery without slowing down simple work.
 
+## Document Ownership Check
+
+Before creating or substantially updating documents, read `specs/global/assets/document-ownership.md` (fall back to the same path in the plugin). Resolve the existing authoritative task and owner before choosing record size. Small repairs in versioned projects inherit their version/module directory, not a new root features path. Update this entry only for navigation, scope, phase, or release-state changes, following public-document branch policy.
+
 ## Context First
 
 - Read `specs/global/INDEX.md` before planning or editing.
@@ -19,15 +23,9 @@ This project uses a lightweight SDLC adapted from audited source skills. The goa
 
 ## Human-First Summary
 
-- For formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial user-facing reply that contains audit fields, state the business result and impact first, then risks and the next action. Do not begin with Workflow Audit, task IDs, validation levels, or internal terms.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- The first layer uses: `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. When no action is needed, say so plainly.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; do not remove, rename, or reorder the four headings.
-- Explain internal terms on first use, for example “V3 (high-risk verification)”. Describe a file's purpose before its path.
-- Give one primary next action and one short reply phrase. Add alternatives only for a real decision branch.
-- Put Superpowers, expert calls, commands, paths, hashes, evidence, and internal workflow fields in a `Technical Audit Appendix`. Do not dump internal workflow fields one by one into the human summary.
-- Apply a pre-send response gate: check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
+Read `specs/global/assets/human-output-standard.md` for replies and documents, using the plugin's same-path fallback when missing. State the business result and impact first; retain a one-sentence conclusion and next-step recommendation. Ordinary Q&A has no fixed headings; organize formal delivery for its reader.
 
+Capability traces and internal completion-report fields below belong in existing internal execution records. Human documents stand alone without a default audit inventory. Keep necessary technical specifications, diagrams, operating commands, and evidence links. This policy changes output placement, not acceptance or authorization requirements.
 ## Workflow Document Ownership
 
 Before writing any project document, confirm its role, information level, numbering namespace, and update trigger. Do not merge the project entry summary, spike work log, formal requirements/design/tasks, and lifecycle summaries into one continuous task chain.
@@ -132,7 +130,7 @@ Continuous implementation mode is only for confirmed implementation task plans. 
 Every implementation, bugfix, hotfix, spike, or document handoff completion must include next-step guidance:
 
 - `Next-step guidance:` continue implementation / return to requirements / return to design / confirm tasks / add verification / pause.
-- `Recommended next user phrase:` give a copyable sentence.
+- Ask the user for an action only when required information, a decision, or authority is missing; continue within existing authorization.
 
 ## Codex Goal Tracking
 
@@ -327,7 +325,7 @@ If code changes operation logic, calculation semantics, field meaning, API contr
 
 ## Capability Trace
 
-All company workflows use this trace protocol by default unless the user explicitly asks for a minimal answer:
+This protocol is for internal execution records. Apply human-output-standard.md to user replies/documents; provide full audit details only when explicitly requested.
 
 ### Automatic Levels
 
@@ -344,7 +342,7 @@ Users do not decide which trace level to use; the workflow must choose automatic
   - Production, data, permission, architecture, performance, or security risk is involved.
   - The user asks to audit, check the process, or confirm compliance.
 
-Opening:
+Execution information in the internal record:
 
 - `Workflow layer:`
 - `Trace mode: light` or `Trace mode: full-audit`
@@ -359,7 +357,7 @@ Opening:
 - `Adversarial Review:`
 - `Execution strategy:`
 
-Closing:
+Verification information in the internal record:
 
 - `Verification evidence:` include commands, check results, file changes, screenshots, logs, or manual evidence.
 - `Unverified items:` include anything not checked or not applicable to this phase.
@@ -420,14 +418,13 @@ Self-improvement is proposal-only by default. Use `company-skill-evolution-lab` 
 - Company projects should keep `说明文档.md` or an equivalent progress document.
 - Projects should keep a document ownership map, preferably in `specs/global/INDEX.md`.
 - Documents at different levels must not share bare task numbers; spike tasks, feature tasks, version tasks, and project events must use separate namespaces.
-- Versioned specs may use `specs/versions/<version>/<milestone>/`.
-- Small changes may use one compact feature spec under `specs/features/<feature>/`.
+- Formal specs inherit the confirmed version/module or feature layout; small changes reduce record size, not ownership.
 - Public APIs and complex logic need comments; routine functions do not need boilerplate comments.
 
 ## Human-Readable Formal Documents
 
-- Before creating or substantially rewriting formal requirements, design, data-model, business-rule, API-contract, task, prototype-approval, spike, hotfix, or delivery-closeout documents, read the project copy of `specs/global/assets/document-standard.md`; use the plugin copy at the same path as fallback.
+- Before creating or substantially rewriting formal requirements, design, data-model, business-rule, API-contract, task, prototype-approval, spike, hotfix, delivery-closeout, acceptance, operating-guide, or management documents, read the project copy of `specs/global/assets/document-standard.md`; use the plugin copy at the same path as fallback.
 - Default reading order is: decision first, diagrams second, key tables third, details and evidence last. Never hide a key conclusion only inside a table or Mermaid diagram.
-- Formal documents require a `work-item-id` and their type-specific Mermaid diagrams. Only an explicit user request may create a `Diagram Waiver`; Codex must not self-waive diagrams.
-- Apply `DOC-G01` through `DOC-G12` to new documents. Improve legacy documents only within the touched scope unless the user requests a full rewrite.
+- Engineering specifications retain a `work-item-id`; acceptance, operating, and management documents cite existing tasks, versions, or sources as appropriate. Determine and include applicable Mermaid diagrams by purpose and content under document-standard.md; not applicable is not a waiver. Only an explicit user request may create a `Diagram Waiver`; Codex must not self-waive diagrams.
+- Check applicable gates from `DOC-G01` through `DOC-G12` for new documents according to purpose and content; do not judge content by fixed headings or section counts. Improve legacy documents only within the touched scope unless the user requests a full rewrite.
 - Workflow skills enforce their phase gates and `company-workflow-health-check` diagnoses the complete set. Do not substitute section counts or line counts for content checks.

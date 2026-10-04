@@ -1,5 +1,7 @@
 # Technical Design
 
+Authoring instruction (remove from finished document): identify reader and purpose; follow [communication standard](human-output-standard.md). Keep invocation/authority logs and detailed candidate identity in existing execution records; use [execution record template](execution-record-template.md) when needed. Retain technical specifications and evidence needed to decide or operate; remove unused template prompts.
+
 ## Decision Summary
 
 - Recommended design:
@@ -216,7 +218,6 @@ No waiver by default. Record architecture and sequence waivers separately after 
 ## Human Confirmation and Next Step
 
 - Ready for task planning: no / yes
-- Implementation authorization: not granted / invalidated / awaiting user confirmation
 - Remaining interface, data, or risk decisions:
 - User confirmation of the recommended design:
 - Recommended next step: continue design / `company-feature-planning`

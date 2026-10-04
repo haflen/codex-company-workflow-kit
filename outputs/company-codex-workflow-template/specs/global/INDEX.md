@@ -2,6 +2,10 @@
 
 Use this file as the first stop for project context. Keep summaries short and link only documents that should guide future Codex work.
 
+## Document Ownership Check
+
+Before creating or substantially updating documents, read `specs/global/assets/document-ownership.md` (fall back to the same path in the plugin). Resolve the existing authoritative task and owner before choosing record size. Small repairs in versioned projects inherit their version/module directory, not a new root features path. Update this entry only for navigation, scope, phase, or release-state changes, following public-document branch policy.
+
 ## Project Snapshot
 
 - Product:
@@ -66,8 +70,13 @@ flowchart LR
 
 | Feature | Status | Requirements | Design | Tasks | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Example | Draft | `specs/features/example/requirements.md` | `specs/features/example/design.md` | `specs/features/example/tasks.md` | Replace with real features |
+| Example | Draft | `<owner-path>/requirements.md` | `<owner-path>/design.md` | `<owner-path>/tasks.md` | Use confirmed ownership; list only needed documents |
 
 ## Current Risks
 
 - Asset placement configuration has not been confirmed.
+
+## Reply and Document Communication
+
+- [Human output standard](assets/human-output-standard.md)
+- [Internal execution record template](assets/execution-record-template.md) (reuse existing records first)

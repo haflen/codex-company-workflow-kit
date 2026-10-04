@@ -1,5 +1,7 @@
 # API Contract
 
+Authoring instruction (remove from finished document): identify reader and purpose; follow [communication standard](human-output-standard.md). Keep invocation/authority logs and detailed candidate identity in existing execution records; use [execution record template](execution-record-template.md) when needed. Retain technical specifications and evidence needed to decide or operate; remove unused template prompts.
+
 ## Decision Summary
 
 - User/system capability supported:

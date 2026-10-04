@@ -2,6 +2,10 @@
 
 These instructions define the team workflow for Codex in this project. Keep changes simple, scoped, and verified.
 
+## Document Ownership Check
+
+Before creating or substantially updating documents, read `specs/global/assets/document-ownership.md` (fall back to the same path in the plugin). Resolve the existing authoritative task and owner before choosing record size. Small repairs in versioned projects inherit their version/module directory, not a new root features path. Update this entry only for navigation, scope, phase, or release-state changes, following public-document branch policy.
+
 ## Operating Principles
 
 - Prefer the smallest change that satisfies the accepted requirement.
@@ -27,15 +31,9 @@ These instructions define the team workflow for Codex in this project. Keep chan
 
 ## Human-First Summary
 
-- For formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial user-facing reply that contains audit fields, state the business result and impact first, then risks and the next action. Do not begin with Workflow Audit, task IDs, validation levels, or internal terms.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- The first layer uses: `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. When no action is needed, say so plainly.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; do not remove, rename, or reorder the four headings.
-- Explain internal terms on first use, for example “V3 (high-risk verification)”. Describe a file's purpose before its path.
-- Give one primary next action and one short reply phrase. Add alternatives only for a real decision branch.
-- Put Superpowers, expert calls, commands, paths, hashes, evidence, and internal workflow fields in a `Technical Audit Appendix`. Do not dump internal workflow fields one by one into the human summary.
-- Apply a pre-send response gate: check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
+Read `specs/global/assets/human-output-standard.md` for replies and documents, using the plugin's same-path fallback when missing. State the business result and impact first; retain a one-sentence conclusion and next-step recommendation. Ordinary Q&A has no fixed headings; organize formal delivery for its reader.
 
+Capability traces and internal completion-report fields below belong in existing internal execution records. Human documents stand alone without a default audit inventory. Keep necessary technical specifications, diagrams, operating commands, and evidence links. This policy changes output placement, not acceptance or authorization requirements.
 ## Document Ownership And Numbering
 
 - Before writing any project document, confirm its role, information level, numbering namespace, and update trigger.
@@ -132,6 +130,6 @@ These instructions define the team workflow for Codex in this project. Keep chan
 ## Human-Readable Formal Documents
 
 - Read `specs/global/assets/document-standard.md` before creating or substantially rewriting a formal document.
-- Use the reading order: decision first, diagrams second, key tables third, details and evidence last.
-- Formal documents require a `work-item-id` and type-specific Mermaid diagrams. Only an explicit user request may create a `Diagram Waiver`.
-- Apply `DOC-G01` through `DOC-G12` to new documents; improve legacy documents only within the touched scope.
+- Suggested reading order (applicable content only): decision first, diagrams second, key tables third, details and evidence last.
+- Engineering specifications retain a `work-item-id`; acceptance, operating, and management documents cite applicable tasks, versions, or sources. Determine diagrams by purpose and content under document-standard.md; not applicable is not a waiver. Only an explicit user request may create a `Diagram Waiver`.
+- Check applicable gates from `DOC-G01` through `DOC-G12` by purpose and content without fixed headings; improve legacy documents only within the touched scope.

@@ -825,8 +825,10 @@ PY
   bash -n "$ROOT_DIR/scripts/install.sh"
   python3 "$ROOT_DIR/tests/test_asset_boundaries.py"
   python3 "$ROOT_DIR/tests/test_document_templates.py"
+  python3 "$ROOT_DIR/tests/test_document_ownership.py"
   python3 "$ROOT_DIR/tests/test_quality_validation_workflow.py"
   python3 "$ROOT_DIR/tests/test_target_clients_and_human_summary.py"
+  python3 "$ROOT_DIR/tests/test_human_output.py"
   python3 "$ROOT_DIR/tests/test_legacy_project_migration.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then

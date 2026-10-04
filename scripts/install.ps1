@@ -789,10 +789,16 @@ function Verify-Kit {
   if ($LASTEXITCODE -ne 0) {
     throw "Document template regression tests failed"
   }
+  python3 (Join-Path $RootDir "tests/test_document_ownership.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "Document ownership regression tests failed"
+  }
   python3 (Join-Path $RootDir "tests/test_quality_validation_workflow.py")
   if ($LASTEXITCODE -ne 0) {
     throw "Quality validation workflow regression tests failed"
   }
+  python3 (Join-Path $RootDir "tests/test_human_output.py")
+  if ($LASTEXITCODE -ne 0) { throw "Human output regression tests failed" }
   python3 (Join-Path $RootDir "tests/test_target_clients_and_human_summary.py")
   if ($LASTEXITCODE -ne 0) {
     throw "Target client and human summary regression tests failed"

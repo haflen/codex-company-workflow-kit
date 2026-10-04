@@ -5,6 +5,10 @@ description: Use when a company project is still in requirements and needs an is
 
 # Company Requirements Prototype
 
+## Document Ownership Check
+
+Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
+
 ## Core Boundary
 
 A requirements prototype validates what users see and do. Purpose and dependencies determine its stage, not the extension.
@@ -61,24 +65,11 @@ Ambiguous “confirm”, “continue”, or “next” means continue the curren
 
 ## Human-First Output
 
-Put the human summary before the Technical Audit Appendix:
-
-1. One-sentence conclusion: state what the prototype can now validate.
-2. What was completed: describe page, interaction, or feedback changes.
-3. What needs attention: explain unverified behavior and non-commitments.
-4. What the user should do now: give one primary next action and one short reply phrase.
-
-Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
-
+Read `../../specs/global/assets/human-output-standard.md` first and respect the project's agreed audience and delivery purpose. Keep a one-sentence conclusion and next-step recommendation; explain results, evidence, and impact in the user's language. Internal fields in the output/report sections below belong in existing execution records, not ordinary user replies or human documents.
 
 ### Response Contract Gate
 
-- Trigger this gate for formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial reply containing audit fields.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; must not remove, rename, or reorder the four headings.
-- Audit fields may appear only in the `Technical Audit Appendix`; they must not sit beside or before the four-section human summary.
-- Before sending, check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
-
+Before sending, check factual scope, prerequisites, actor, authority, audience, and display against the shared policy. Ordinary Q&A has no fixed headings; requests for detail receive useful evidence. Rewrite any part that fails the reading check.
 ## Output Contract
 
 - Workflow layer: `company-requirements-prototype`

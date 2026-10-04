@@ -1,5 +1,7 @@
 # Quality Validation Report
 
+Authoring instruction (remove from finished document): identify reader and purpose; follow [communication standard](human-output-standard.md). Keep invocation/authority logs and detailed candidate identity in existing execution records; use [execution record template](execution-record-template.md) when needed. Retain technical specifications and evidence needed to decide or operate; remove unused template prompts. Headings and section order may change. First drafts need no change table; version-change reviews still explain baseline, changes, and impact. Select diagrams by purpose and content under the [document standard](document-standard.md), preserving existing acceptance and evidence conditions.
+
 ## Decision Summary
 
 - Validation result: pass / conditional-pass / blocked
@@ -18,25 +20,10 @@
 - Validation time:
 - Comparison baseline: first version, no baseline / previous approved document path + Git commit
 
-## Capability and Execution Transparency
+## Validated Version and Evidence
 
-- Workflow layer: `company-quality-validation`
-- Trace mode: `full-audit`
-- Superpowers layer:
-- Actual calls:
-- Expert/plugin capabilities:
-- Not called, lens only:
-
-## Final Candidate Identity
-
-- Current branch:
-- HEAD commit:
-- Diff SHA-256: computed from `git diff --binary HEAD -- <validated paths>`
-- Untracked file paths and SHA-256:
-
-| Validated paths | Type | Includes untracked files | Note |
-| --- | --- | --- | --- |
-|  | code / test / configuration / migration / asset | no / yes |  |
+- Candidate version and validation time:
+- Version-bound evidence link: link the actual internal record with HEAD, Diff SHA-256, validated paths, and untracked file checksums; never link only an empty template.
 
 ## What Changed
 
@@ -136,12 +123,6 @@ Complete only for eligible remaining risk:
 
 No waiver by default. Only an explicit user request records the user, scope, and reason.
 
-## Human-Readability Check
-
-| Gate | Result | Evidence or note |
-| --- | --- | --- |
-| `DOC-G01`, `DOC-G04` | pass / waived / blocked |  |
-| `DOC-G05` through `DOC-G12` | pass / blocked |  |
 
 ## Human Confirmation and Next Step
 

@@ -1,5 +1,7 @@
 # Task Plan
 
+Authoring instruction (remove from finished document): identify reader and purpose; follow [communication standard](human-output-standard.md). Keep invocation/authority logs and detailed candidate identity in existing execution records; use [execution record template](execution-record-template.md) when needed. Retain technical specifications and evidence needed to decide or operate; remove unused template prompts.
+
 ## Decision Summary
 
 - User-visible result for this batch:
@@ -95,9 +97,9 @@ Complete only after explicit conditional-merge approval:
 
 ## Implementation Tasks
 
-| ID | User/system result | File/module | Verification level | Continuous execution | Subagent | Minimum failing case/anchor | Chinese comment coverage | Document drift | Dependency |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `T-001` |  |  | V0/V1/V2/V3 | continuous / cautious / must stop | none / implementation / investigation / review |  |  |  |  |
+| ID | User/system result | File/module | Verification level | Minimum failing case/anchor | Chinese comment coverage | Document drift | Dependency |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `T-001` |  |  | V0/V1/V2/V3 |  |  |  |  |
 
 ## Asset Placement Plan
 
@@ -113,17 +115,9 @@ Complete only after explicit conditional-merge approval:
 
 Levels: V0 document or no behavior change; V1 low-risk single point; V2 standard feature or ordinary bugfix; V3 production, permission, security, data, performance, money, cross-system, or hotfix work.
 
-## Continuous Execution and Stop Conditions
+## Dependencies and Stop Conditions
 
-| Task scope | Continuous | Stop condition | User authorization |
-| --- | --- | --- | --- |
-|  |  | scope change / verification failure / V3 / user confirmation / local resource anomaly |  |
-
-## Subagent Boundaries
-
-| Task scope | Recommendation | Role | Allowed files | Forbidden work | Main-agent review |
-| --- | --- | --- | --- | --- | --- |
-|  | none / recommended / strongly recommended | implementation / investigation / spec / quality / test |  | shared state, same migration, and same contract cannot run in parallel | diff / verification / drift / risk |
+State delivery dependencies, when to stop, the owner, and conditions for resuming. Preserve already granted continuous-execution authority in the internal record; do not request it again.
 
 ## Document Drift and Chinese Code Comments
 

@@ -1,5 +1,7 @@
 # Delivery Closeout Report
 
+Authoring instruction (remove from finished document): identify reader and purpose; follow [communication standard](human-output-standard.md). Keep invocation/authority logs and detailed candidate identity in existing execution records; use [execution record template](execution-record-template.md) when needed. Retain technical specifications and evidence needed to decide or operate; remove unused template prompts. Headings and section order may change. First drafts need no change table; version-change reviews still explain baseline, changes, and impact. Select diagrams by purpose and content under the [document standard](document-standard.md), preserving existing acceptance and evidence conditions.
+
 ## Decision Summary
 
 - User-visible result actually delivered:

@@ -2,6 +2,10 @@
 
 每次使用公司工作流前先从这里开始。
 
+## 文档归属检查
+
+创建或实质更新文档前，读取 `specs/global/assets/document-ownership.md`（缺失时使用插件同路径 fallback）。先确定已有权威任务及归属，再决定记录详略；版本化项目的小修复继承已有版本/模块目录，不因工作量小改用根级 features。仅当阅读路径、范围、阶段或发布状态改变时更新本入口，遵守公共文档分支协议。
+
 ## 项目快照
 
 - 产品：
@@ -106,3 +110,8 @@ flowchart LR
 ## 当前风险
 
 - 资产落点配置尚未确认。
+
+## 回复与文档表达
+
+- [人类输出规范](assets/human-output-standard.md)
+- [内部执行记录模板](assets/execution-record-template.md)（优先复用已有记录）

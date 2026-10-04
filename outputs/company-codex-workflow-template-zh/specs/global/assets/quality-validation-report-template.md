@@ -1,5 +1,7 @@
 # 质量验收报告
 
+编写说明（成稿时移除）：先确定读者和用途，遵守 [回复与文档表达规范](human-output-standard.md)。内部调用、授权流水和详细候选指纹复用已有执行记录；确需新记录时参考 [执行记录模板](execution-record-template.md)。正文保留决策或操作所需技术规格与证据链接，删除无关占位项。 标题和章节顺序可调整；初稿不必保留变更表，版本变更评审仍须说明基线、变化及影响。图表按 [文档标准](document-standard.md) 的文种与内容要求选择，既有验收和证据条件不变。
+
 ## 先看结论
 
 - 验收结论：通过 / 有条件通过 / 阻断
@@ -10,7 +12,7 @@
 
 ## 元信息
 
-- work-item-id：
+- 关联任务编号：
 - 验收范围：任务批次 / 功能 / 里程碑 / 版本 / hotfix 补偿
 - 正式报告路径：权威任务文档同级目录下的 `quality-validation-report.md` 或带项目编号前缀的等价路径
 - 独立质量验收：不需要 / 需要 / 强制
@@ -18,25 +20,10 @@
 - 验收时间：
 - 对比基线：初版，无对比基线 / 上一确认文档路径 + Git commit
 
-## 能力与执行透明度
+## 验收版本与证据
 
-- 工作流层：`company-quality-validation`
-- 透明度模式：`full-audit`
-- Superpowers 叠加：
-- 实际调用：
-- 专家/插件能力：
-- 未调用但采用视角：
-
-## 最终候选身份
-
-- 当前分支：
-- HEAD commit：
-- diff SHA-256：基于 `git diff --binary HEAD -- <被验收路径>`
-- 未跟踪文件路径与 SHA-256：
-
-| 被验收路径 | 类型 | 是否包含未跟踪文件 | 说明 |
-| --- | --- | --- | --- |
-|  | 代码 / 测试 / 配置 / 迁移 / 资产 | 否 / 是 |  |
+- 候选版本与验收时间：
+- 范围及版本对应的证据链接：链接实际内部记录中的 HEAD、diff SHA-256、被验收路径及未跟踪文件校验值；不得仅链接空模板。
 
 ## 本次变化
 
@@ -136,16 +123,10 @@ flowchart LR
 
 默认不豁免。只有用户明确说明不需要图表时，记录用户、范围和原因。
 
-## 人类可读性检查
-
-| 门禁 | 结果 | 证据或说明 |
-| --- | --- | --- |
-| `DOC-G01`、`DOC-G04` | 通过 / 豁免 / 阻断 |  |
-| `DOC-G05` 至 `DOC-G12` | 通过 / 阻断 |  |
 
 ## 人工确认与下一步
 
 - 验收结论已确认：否 / 是
 - 有条件通过风险已由用户接受：不适用 / 否 / 是
 - 交付收口就绪：未就绪 / 就绪
-- 推荐下一 workflow：`company-bugfix-runner` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning` / `company-delivery-closeout`
+- 下一步责任方与动作（成稿时用中文描述）：`company-bugfix-runner` / `company-feature-requirements` / `company-feature-design` / `company-feature-planning` / `company-delivery-closeout`
