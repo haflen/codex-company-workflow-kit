@@ -5,6 +5,10 @@ description: Use when a company project needs feature requirements, acceptance c
 
 # 公司功能需求澄清
 
+## 文档归属检查
+
+先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
+
 ## 目的
 
 产出可进入技术设计的目标、范围、验收标准和边界条件。
@@ -39,7 +43,7 @@ description: Use when a company project needs feature requirements, acceptance c
 1. 项目内：`specs/global/assets/business-rules-template.md`。
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/business-rules-template.md`。
 
-小需求可保存到 `specs/features/<feature>/requirements.md`。如果用户明确只想轻量探讨方案，不要强制落正式需求文档；可以只输出目标、方案选项、风险、待确认问题和下一步建议。
+小需求按文档归属检查复用所属目录和已有记录，不另设默认 features 落点。如果用户明确只想轻量探讨方案，不要强制落正式需求文档；可以只输出目标、方案选项、风险、待确认问题和下一步建议。
 
 ## 业务规则文档触发条件
 
@@ -66,24 +70,11 @@ description: Use when a company project needs feature requirements, acceptance c
 
 ## 人类优先输出
 
-最终回复先给人类摘要，再给技术审计附录：
-
-1. 一句话结论：用业务语言说明需求是否清楚。
-2. 这次完成了什么：只列已澄清的目标、范围和决策。
-3. 需要你注意什么：把待确认事项及其影响说清楚。
-4. 你现在需要做什么：只给一个主要下一步和一句简短回复。
-
-随后使用 `技术审计附录` 承载下面的内部字段。首次出现的缩写和等级必须解释；不得把内部 workflow 字段逐项倾倒到人类摘要。
-
+先读取 `../../specs/global/assets/human-output-standard.md`，同时尊重项目已确认的读者和交付用途。保留一句话结论和下一步建议；用中文解释结果、依据和影响。以下输出/报告中的内部字段写入已有执行记录，不默认附在用户回复或人类文档中。
 
 ### 回复契约门禁
 
-- 触发范围：本轮正式完成或阶段收尾、用户明确索要进度总结、阻塞结论或下一步方案，以及包含审计字段的成段回复。
-- 1-2 句的工作中更新和普通问答始终不触发固定格式，即使提到当前结果、风险或下一步；但不得在轻量回复中附带完整审计明细。
-- 用户要求“详细一点”时，只增加四段正文或 `技术审计附录` 的深度，不得删除、改名或调换四个标题。
-- 审计字段只能出现在 `技术审计附录`，不得与四段人类摘要并列或抢在其前。
-- 发送前检查四个标题是否齐全且顺序正确、风险是否翻译为实际影响、是否只有一个主要下一步；任一不满足时先重写再发送。
-
+发送前按共享规范复核事实范围、前置条件、责任方、授权、读者及显示效果。普通问答不套固定标题；用户需要详细解释时补充有用依据。未通过阅读检查先重写再发送。
 ## 输出格式
 
 - 工作流层：`company-feature-requirements`

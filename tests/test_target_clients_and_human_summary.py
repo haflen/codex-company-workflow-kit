@@ -161,6 +161,8 @@ class TargetClientContractTests(unittest.TestCase):
                 text=True,
             )
 
+            self.assertTrue((project / "specs/global/assets/human-output-standard.md").is_file())
+            self.assertTrue((project / "specs/global/assets/execution-record-template.md").is_file())
             updated_agents = read(agents)
             self.assertIn("# Local rule", updated_agents)
             self.assertNotIn("old managed rule", updated_agents)
@@ -174,138 +176,27 @@ class TargetClientContractTests(unittest.TestCase):
 
 
 class HumanFirstSummaryTests(unittest.TestCase):
-    def test_key_workflows_put_plain_language_before_audit(self):
-        required = {
-            "zh": (
-                "## 人类优先输出",
-                "一句话结论",
-                "这次完成了什么",
-                "需要你注意什么",
-                "你现在需要做什么",
-                "技术审计附录",
-                "不得把内部 workflow 字段逐项倾倒",
-            ),
-            "en": (
-                "## Human-First Output",
-                "One-sentence conclusion",
-                "What was completed",
-                "What needs attention",
-                "What the user should do now",
-                "Technical Audit Appendix",
-                "Do not dump internal workflow fields one by one",
-            ),
-        }
-        for language, root in LANGUAGES.items():
+    def test_every_workflow_loads_shared_policy(self):
+        for root in LANGUAGES.values():
             for skill in HUMAN_SUMMARY_SKILLS:
                 content = read(root / "skills" / skill / "SKILL.md")
-                for phrase in required[language]:
-                    with self.subTest(language=language, skill=skill, phrase=phrase):
-                        self.assertIn(phrase, content)
+                with self.subTest(root=root.name, skill=skill):
+                    self.assertIn("../../specs/global/assets/human-output-standard.md", content)
+                    self.assertTrue("回复契约门禁" in content or "Response Contract Gate" in content)
 
-    def test_agents_define_plain_language_and_single_next_action(self):
-        required = {
-            "zh": (
-                "人类优先总结",
-                "先说业务结果和影响",
-                "首次出现的内部术语必须解释",
-                "只给一个主要下一步",
-                "本轮正式完成或阶段收尾",
-                "1-2 句的工作中更新和普通问答始终不触发固定格式",
-                "即使提到当前结果、风险或下一步",
-                "用户要求“详细一点”",
-                "发送前回复门禁",
-                "先重写再发送",
-            ),
-            "en": (
-                "Human-First Summary",
-                "state the business result and impact first",
-                "Explain internal terms on first use",
-                "Give one primary next action",
-                "formal completion or phase closeout",
-                "One- or two-sentence working updates and ordinary Q&A never trigger the fixed format",
-                "even when they mention the current result, risk, or next step",
-                "the user asks for more detail",
-                "pre-send response gate",
-                "rewrite it before sending",
-            ),
-        }
-        for language, phrases in required.items():
+    def test_agents_scope_audit_fields_to_internal_records(self):
+        for language in LANGUAGES:
             for root in (LANGUAGES[language], STARTERS[language]):
                 content = read(root / "AGENTS.md")
-                for phrase in phrases:
-                    with self.subTest(language=language, root=root.name, phrase=phrase):
-                        self.assertIn(phrase, content)
-
-    def test_every_workflow_has_a_response_contract_gate(self):
-        required = {
-            "zh": (
-                "### 回复契约门禁",
-                "本轮正式完成或阶段收尾",
-                "1-2 句的工作中更新和普通问答始终不触发固定格式",
-                "即使提到当前结果、风险或下一步",
-                "用户要求“详细一点”",
-                "不得删除、改名或调换四个标题",
-                "审计字段只能出现在 `技术审计附录`",
-                "发送前检查",
-                "先重写再发送",
-            ),
-            "en": (
-                "### Response Contract Gate",
-                "formal completion or phase closeout",
-                "One- or two-sentence working updates and ordinary Q&A never trigger the fixed format",
-                "even when they mention the current result, risk, or next step",
-                "the user asks for more detail",
-                "must not remove, rename, or reorder the four headings",
-                "Audit fields may appear only in the `Technical Audit Appendix`",
-                "Before sending",
-                "rewrite it before sending",
-            ),
-        }
-        for language, root in LANGUAGES.items():
-            for skill in HUMAN_SUMMARY_SKILLS:
-                content = read(root / "skills" / skill / "SKILL.md")
-                for phrase in required[language]:
-                    with self.subTest(language=language, skill=skill, phrase=phrase):
-                        self.assertIn(phrase, content)
-
-    def test_human_summary_precedes_workflow_audit_fields(self):
-        markers = {
-            "zh": (
-                "## 人类优先输出",
-                "\n## 输出",
-                "\n## 报告",
-                "\n## 完成报告",
-                "\n## 阶段七：交付报告",
-                "\n## 提案输出",
-                "\n## 透明度输出",
-                "\n## 升级报告",
-            ),
-            "en": (
-                "## Human-First Output",
-                "\n## Output",
-                "\n## Report",
-                "\n## Completion Report",
-                "\n## Phase 7: Closeout Report",
-                "\n## Proposal Output",
-                "\n## Transparency",
-                "\n## Upgrade Report",
-            ),
-        }
-        for language, root in LANGUAGES.items():
-            human_heading, *audit_headings = markers[language]
-            for skill in HUMAN_SUMMARY_SKILLS:
-                content = read(root / "skills" / skill / "SKILL.md")
-                human_position = content.index(human_heading)
-                later_audits = [
-                    content.find(heading, human_position + len(human_heading))
-                    for heading in audit_headings
-                ]
-                with self.subTest(language=language, skill=skill):
-                    self.assertTrue(any(position > human_position for position in later_audits))
+                with self.subTest(root=root.name):
+                    self.assertIn("human-output-standard.md", content)
+                    self.assertIn("内部执行记录" if language == "zh" else "internal execution records", content)
+                    self.assertNotIn("不得删除、改名或调换四个标题", content)
+                    self.assertNotIn("must not remove, rename, or reorder the four headings", content)
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.34", package["version"])
+        self.assertEqual("0.2.37", package["version"])
         self.assertIn("test_legacy_project_migration.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", package["scripts"]["verify"])
         self.assertIn("test_target_clients_and_human_summary.py", read(ROOT / "scripts/install.sh"))

@@ -184,7 +184,8 @@ class DocumentTemplateContractTests(unittest.TestCase):
                         read(starter_assets / name),
                     )
 
-    def test_common_human_reading_contract(self):
+    def test_default_template_scaffolds_keep_useful_sections(self):
+        # These are starter headings, not mandatory headings in authored documents.
         for language, config in LANGUAGES.items():
             assets = config["plugin"] / "specs/global/assets"
             for name in FORMAL_TEMPLATES:

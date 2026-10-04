@@ -5,6 +5,10 @@ description: Use when company code behavior differs from requirements, design, a
 
 # 公司 Bugfix 执行器
 
+## 文档归属检查
+
+先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
+
 ## 目的
 
 区分 bug 和需求变更，并完成复现、最小修复和回归验证。
@@ -79,7 +83,7 @@ Bugfix 前检查最小上下文：
 1. 项目内：`specs/global/assets/hotfix-report-template.md`。
 2. 插件内置 fallback：相对当前 skill 目录读取 `../../specs/global/assets/hotfix-report-template.md`。
 
-普通 bug 更新功能说明或分支内进度文档即可。非集成分支不要直接改公共入口页的主线当前状态；改写 `docs/public-doc-updates/<branch-or-feature>.md`。
+普通 bug 按 document-ownership.md 续写原任务或归属目录中的紧凑修复记录，保留预期、范围和验证证据；不以泛化进度摘要替代修复记录。仅当影响公共阅读路线或主线状态时，非集成分支写 `docs/public-doc-updates/<branch-or-feature>.md`，不直接改公共入口。
 
 ## 边界
 
@@ -95,23 +99,11 @@ Bugfix 前检查最小上下文：
 
 ## 人类优先输出
 
-最终回复先给人类摘要，再给技术审计附录：
-
-1. 一句话结论：说明问题是否修复以及用户影响。
-2. 这次完成了什么：说明根因和修复结果，用普通语言表达。
-3. 需要你注意什么：说明仍可能出现的问题和验证边界。
-4. 你现在需要做什么：只给一个主要下一步和一句简短回复。
-
-随后使用 `技术审计附录` 承载下面的内部字段。首次出现的缩写和等级必须解释；不得把内部 workflow 字段逐项倾倒到人类摘要。
+先读取 `../../specs/global/assets/human-output-standard.md`，同时尊重项目已确认的读者和交付用途。保留一句话结论和下一步建议；用中文解释结果、依据和影响。以下输出/报告中的内部字段写入已有执行记录，不默认附在用户回复或人类文档中。
 
 ### 回复契约门禁
 
-- 触发范围：本轮正式完成或阶段收尾、用户明确索要进度总结、阻塞结论或下一步方案，以及包含审计字段的成段回复。
-- 1-2 句的工作中更新和普通问答始终不触发固定格式，即使提到当前结果、风险或下一步；但不得在轻量回复中附带完整审计明细。
-- 用户要求“详细一点”时，只增加四段正文或 `技术审计附录` 的深度，不得删除、改名或调换四个标题。
-- 审计字段只能出现在 `技术审计附录`，不得与四段人类摘要并列或抢在其前。
-- 发送前检查四个标题是否齐全且顺序正确、风险是否翻译为实际影响、是否只有一个主要下一步；任一不满足时先重写再发送。
-
+发送前按共享规范复核事实范围、前置条件、责任方、授权、读者及显示效果。普通问答不套固定标题；用户需要详细解释时补充有用依据。未通过阅读检查先重写再发送。
 ## 输出格式
 
 - 工作流层：`company-bugfix-runner`
@@ -141,7 +133,7 @@ Bugfix 前检查最小上下文：
 
 ## 文档质量门禁
 
-创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。仅在创建或实质修改 hotfix/bugfix 正式记录时触发。
+修复记录更新前，读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。所有修复在本次影响范围检查 `DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`；新建独立正式报告时增加 `DOC-G01`、`DOC-G04`、`DOC-G05`。续写条目不重写历史全文，也不能省略受影响的追溯、图表和证据检查。
 - 复现或证据：
 - 事实链和最小复现条件：
 - 根因：

@@ -30,7 +30,7 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 
 ## Phase Permission
 
-Expert routing is not implementation authorization. Every routing response must output `Phase permission`:
+Expert routing is not implementation authorization. Every routing response must preserve `Phase permission` in the internal execution record:
 
 - `implementation allowed`: requirements, design, task plan, and current scope are confirmed, with no new scope change.
 - `documentation only`: the user asks to update requirements, design, tasks, field mappings, business semantics, or public-doc impact, or the changed scope must be documented first.
@@ -39,7 +39,7 @@ Expert routing is not implementation authorization. Every routing response must 
 - `user confirmation required`: documentation creates a new contract, field mapping, task list, or changed scope; old implementation authorization cannot be reused.
 - `route back to workflow help`: the user is only asking what to do next and no workflow is clear.
 
-If phase permission is not `implementation allowed`, output `Implementation authorization: expired; user confirmation required before coding` or explain why no implementation authorization exists.
+If phase permission is not `implementation allowed`, record `Implementation authorization: expired; user confirmation required before coding` internally, and explain the practical impact to the user or why no implementation authority exists.
 
 When the scope-change circuit breaker triggers, do not treat expert selection as coding permission. Experts may only help complete requirements, design, tasks, or confirmation points.
 
@@ -119,22 +119,16 @@ This skill must choose the trace level automatically:
   - Production, data, permission, architecture, performance, or security risk is involved.
   - The user asks to audit, review the process, or confirm actual invocation.
 
-If `full-audit` is active, output the trigger reason and `Workflow Audit`.
+If `full-audit` is active, preserve the trigger reason and `Workflow Audit` in the internal execution record; supply the audit only when explicitly requested.
 
 
 ## Human-First Output
 
-Start the final reply with `One-sentence conclusion`, `What was completed`, `What needs attention`, and `What the user should do now`. Use business outcomes and user impact, give one primary next action, and explain internal terms on first use. Then place Superpowers, expert calls, commands, paths, hashes, verification evidence, and internal workflow fields in a `Technical Audit Appendix`; Do not dump internal workflow fields one by one into the human summary or use audit fields as a substitute for it.
-
+Read `../../specs/global/assets/human-output-standard.md` first and respect the project's agreed audience and delivery purpose. Keep a one-sentence conclusion and next-step recommendation; explain results, evidence, and impact in the user's language. Internal fields in the output/report sections below belong in existing execution records, not ordinary user replies or human documents.
 
 ### Response Contract Gate
 
-- Trigger this gate for formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial reply containing audit fields.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; must not remove, rename, or reorder the four headings.
-- Audit fields may appear only in the `Technical Audit Appendix`; they must not sit beside or before the four-section human summary.
-- Before sending, check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
-
+Before sending, check factual scope, prerequisites, actor, authority, audience, and display against the shared policy. Ordinary Q&A has no fixed headings; requests for detail receive useful evidence. Rewrite any part that fails the reading check.
 ## Output
 
 When routing matters, include:

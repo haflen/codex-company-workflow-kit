@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.37 - 2026-10-05
+
+- Evaluate human documents by complete conclusions, evidence, impact, and next actions rather than literal template headings. Require baseline comparisons for version-change reviews without forcing a change table into first drafts.
+- Define diagram requirements for acceptance reports, operating guides, and management reports while preserving engineering diagrams, explicit waivers, and existing acceptance conditions.
+- Align bilingual plugin and starter rules, clarify report templates, and add regression checks for content-based gates and retained evidence.
+
+## 0.2.36
+
+- Separate human replies/documents from AI execution records through a shared bilingual communication standard; retain conclusions, useful evidence, risks, and actionable next steps.
+- Replace mandatory audit appendices and rigid reply headings across company workflows. Preserve authorization, real API acceptance, candidate identity, and diagram gates.
+- Update templates, ownership routing, generated indexes, and regression coverage. Chinese output explains statuses; exact operational code remains intact.
+
+## 0.2.35 - 2026-09-21
+
+- Added a bilingual shared document-ownership policy without adding a user-facing skill.
+- Made existing task/module/version ownership take precedence over change size; separated ownership from release inclusion.
+- Reused unaccepted task records and compact fix logs while preserving high-risk verification and formal diagram requirements.
+- Connected context, requirements, design, planning, prototype, spike, implementation, bugfix, validation, closeout, and health checks to the policy.
+- Removed unconditional features-directory instructions from requirements and installation guidance.
+- Added policy packaging, workflow integration, and obsolete-routing regression checks. Historical project migration remains separately authorized.
+
 ## 0.2.34 - 2026-08-30
 
 - Separated Fixture frontend readiness, real API integration, quality acceptance, and formal delivery into explicit `FIXTURE_READY`, `API_PENDING`, `CONDITIONAL_MERGED`, `API_INTEGRATED`, and `QUALITY_PASS` states.

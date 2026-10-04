@@ -5,6 +5,10 @@ description: Use when a company project needs feature requirements, acceptance c
 
 # Company Feature Requirements
 
+## Document Ownership Check
+
+Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
+
 ## Purpose
 
 Provide a Codex-ready requirements workflow.
@@ -39,7 +43,7 @@ When a business-rules template is needed, resolve it in this order:
 1. Project copy: `specs/global/assets/business-rules-template.md`.
 2. Plugin fallback: read `../../specs/global/assets/business-rules-template.md` relative to this skill directory.
 
-Save small work under `specs/features/<feature>/requirements.md`. If the user explicitly wants lightweight solution exploration, do not force a full requirements document; provide goals, options, risks, open questions, and next-step recommendations.
+For small work, reuse the owning directory and existing record from the ownership check; do not default to a separate features path. If the user explicitly wants lightweight solution exploration, do not force a full requirements document; provide goals, options, risks, open questions, and next-step recommendations.
 
 ## Business Rules Document Triggers
 
@@ -66,24 +70,11 @@ Requirements work must not modify production implementation code or prescribe lo
 
 ## Human-First Output
 
-Put the human summary before the Technical Audit Appendix:
-
-1. One-sentence conclusion: state whether the requirement is clear.
-2. What was completed: list the clarified goal, scope, and decisions.
-3. What needs attention: explain open questions and their impact.
-4. What the user should do now: give one primary next action and one short reply phrase.
-
-Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
-
+Read `../../specs/global/assets/human-output-standard.md` first and respect the project's agreed audience and delivery purpose. Keep a one-sentence conclusion and next-step recommendation; explain results, evidence, and impact in the user's language. Internal fields in the output/report sections below belong in existing execution records, not ordinary user replies or human documents.
 
 ### Response Contract Gate
 
-- Trigger this gate for formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial reply containing audit fields.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; must not remove, rename, or reorder the four headings.
-- Audit fields may appear only in the `Technical Audit Appendix`; they must not sit beside or before the four-section human summary.
-- Before sending, check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
-
+Before sending, check factual scope, prerequisites, actor, authority, audience, and display against the shared policy. Ordinary Q&A has no fixed headings; requests for detail receive useful evidence. Rewrite any part that fails the reading check.
 ## Output
 
 - Workflow layer: `company-feature-requirements`

@@ -85,9 +85,9 @@
 | Codex Goal Tracking Recommendation | 对跨阶段、跨会话、高风险或连续执行任务建议建立目标，并提示目标不等于实现授权 | workflow help, implementation |
 | Codex Plan Mode Recommendation | 对不确定路线、方案对比、旧项目接入或高风险任务建议先用计划模式判断，不改文件不编码 | workflow help |
 | Subagents Recommendation | 对独立任务、独立失败域或高风险审查建议使用子 agent，说明能力状态，并要求显式请求和主 agent 复核 | workflow help, planning, implementation |
-| Next-Step Guidance | 每轮完成后给出下一步建议和可复制口令 | all company workflows |
+| Next-Step Guidance | 说明下一步及责任方；仅缺信息、决定或授权时交给用户 | all company workflows |
 | Target Client Contract | 在 INDEX、需求、设计、任务、实现和验收之间传递 PC Web、移动 Web、App、桌面端或大屏边界；移动端未确认时禁止自行适配 | requirements, prototype, design, planning, implementation, quality validation |
-| Human-First Summary | 最终回复先用普通语言说明结论、完成内容、注意事项和一个主要下一步，再把内部字段放入技术审计附录 | all company workflows |
+| Human-First Summary | 回复说明结论、依据、影响和下一步；人类文档按用途独立编写，内部字段保存在执行记录 | all company workflows |
 | Documentation Drift Check | 检查代码变更是否需要同步需求、业务规则、设计、任务或公共文档 | implementation, bugfix, hotfix |
 | Chinese Code Logic Comments | 用中文解释跨语言代码里的业务规则、计算口径、数据映射和异常分支 | planning, implementation, bugfix, hotfix |
 | Codex built-in tools | 文件编辑、命令执行、浏览器验证、Git | all implementation and verification work |
@@ -139,7 +139,7 @@
 - 目标追踪建议是跨轮次总目标保护：L2/L3、跨会话、连续执行、旧项目接入和技能治理任务会建议建立 Codex 目标；目标存在不代表实现授权有效。
 - Codex 计划模式建议是正式 workflow 前的路线保护：需求不清、方案分歧、旧项目接入、范围变化或 L3 高风险任务会建议先用计划模式判断路线；计划模式不改文件、不编码。
 - Subagents 建议是复杂执行的上下文隔离保护：小任务默认不用；独立任务、独立失败域或高风险审查才建议使用。真实调用需要用户显式要求 spawn/delegate，且主 agent 必须复核子 agent 的 diff、验证证据和剩余风险。
-- 下一步引导是所有完成报告的固定出口：必须给出 `下一步建议` 和 `推荐用户下一句`，避免用户不知道该继续、确认还是回退到文档阶段。
+- 完成报告保留下一步建议，说明责任方与前置条件；已获授权的工作继续执行，不要求用户反复照抄口令。
 - 交付收口是实现后的独立出口：只有任务全部完成、明确延期或明确不做时才能进入；它负责最终成果盘点、来源化清理、审查、复验、精确暂存和授权范围内的 commit/push。
 
 ## Typical Flow

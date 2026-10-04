@@ -284,6 +284,8 @@ def render_zh(root):
 
 ## 文档职责地图
 
+创建或更新文档前读取 `specs/global/assets/document-ownership.md`（缺失时使用插件 fallback）。继承已有任务和版本/模块归属，再决定记录粒度；小修复不自动另建根级 features，交付批次不改变文档归属。
+
 | 文档 | 职责 | 更新触发 | 编号命名空间 |
 | --- | --- | --- | --- |
 | `说明文档.md` 或等价入口页 | 项目入口、当前状态、最近重要事件、阅读路线 | 当前阶段、最近重要事件、阅读路线或关键状态变化 | 不使用 spike 任务号；使用日期型项目事件或最近变更 |
@@ -321,6 +323,8 @@ flowchart LR
 
 | 需求 | 模板 |
 | --- | --- |
+| 回复与文档表达 | `specs/global/assets/human-output-standard.md` |
+| 内部执行记录模板 | `specs/global/assets/execution-record-template.md` |
 | 正式文档阅读与质量规范 | `specs/global/assets/document-standard.md` |
 | 功能需求 | `specs/global/assets/requirements-template.md` |
 | 数据模型与表结构 | `specs/global/assets/data-model-template.md` |
@@ -419,6 +423,8 @@ Start here before using any company workflow.
 
 ## Document Ownership Map
 
+Before creating or updating documents, read `specs/global/assets/document-ownership.md` (plugin fallback if absent). Inherit the existing task and version/module owner before choosing record size; small repairs do not automatically create root features, and release batches do not change ownership.
+
 | Document | Role | Update trigger | Numbering namespace |
 | --- | --- | --- | --- |
 | `说明文档.md` or equivalent entry page | Project entry, current state, recent important events, reading route | Current phase, recent important event, reading route, or key status change | Do not use spike task IDs; use date-based project events or recent changes |
@@ -456,6 +462,8 @@ flowchart LR
 
 | Need | Template |
 | --- | --- |
+| Human communication standard | `specs/global/assets/human-output-standard.md` |
+| Internal execution record | `specs/global/assets/execution-record-template.md` |
 | Formal document reading and quality standard | `specs/global/assets/document-standard.md` |
 | Feature requirements | `specs/global/assets/requirements-template.md` |
 | Data model and table design | `specs/global/assets/data-model-template.md` |

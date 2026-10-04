@@ -2,6 +2,10 @@
 
 Start here before using any company workflow.
 
+## Document Ownership Check
+
+Before creating or substantially updating documents, read `specs/global/assets/document-ownership.md` (fall back to the same path in the plugin). Resolve the existing authoritative task and owner before choosing record size. Small repairs in versioned projects inherit their version/module directory, not a new root features path. Update this entry only for navigation, scope, phase, or release-state changes, following public-document branch policy.
+
 ## Project Snapshot
 
 - Product:
@@ -106,3 +110,8 @@ flowchart LR
 ## Active Risks
 
 - Asset placement configuration has not been confirmed.
+
+## Reply and Document Communication
+
+- [Human output standard](assets/human-output-standard.md)
+- [Internal execution record template](assets/execution-record-template.md) (reuse existing records first)

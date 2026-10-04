@@ -5,6 +5,10 @@ description: Use when company code behavior differs from requirements, design, a
 
 # Company Bugfix Runner
 
+## Document Ownership Check
+
+Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
+
 ## Purpose
 
 Provide a Codex bugfix flow that distinguishes bugs from change requests.
@@ -79,7 +83,7 @@ For urgent production work, resolve the hotfix template in this order:
 1. Project copy: `specs/global/assets/hotfix-report-template.md`.
 2. Plugin fallback: read `../../specs/global/assets/hotfix-report-template.md` relative to this skill directory.
 
-For ordinary bugs, update feature notes or branch-local progress documents. Non-integration branches must not directly edit public entry current-state sections; write `docs/public-doc-updates/<branch-or-feature>.md`.
+For ordinary bugs, follow document-ownership.md and update the original task or an owned compact fix record with expected behavior, scope, and evidence; a generic progress summary is not a substitute. Only when public navigation or mainline status is affected should non-integration branches write `docs/public-doc-updates/<branch-or-feature>.md`, rather than editing public entries.
 
 ## Boundary
 
@@ -95,24 +99,11 @@ Do not disguise "missing rule documentation" as a code bug. If correct behavior 
 
 ## Human-First Output
 
-Put the human summary before the Technical Audit Appendix:
-
-1. One-sentence conclusion: state whether the issue is fixed and its user impact.
-2. What was completed: explain the cause and repair in plain language.
-3. What needs attention: explain residual risk and the verification boundary.
-4. What the user should do now: give one primary next action and one short reply phrase.
-
-Then use `Technical Audit Appendix` for the internal fields below. Explain acronyms and levels on first use. Do not dump internal workflow fields one by one into the human summary.
-
+Read `../../specs/global/assets/human-output-standard.md` first and respect the project's agreed audience and delivery purpose. Keep a one-sentence conclusion and next-step recommendation; explain results, evidence, and impact in the user's language. Internal fields in the output/report sections below belong in existing execution records, not ordinary user replies or human documents.
 
 ### Response Contract Gate
 
-- Trigger this gate for formal completion or phase closeout, an explicit user request for a progress summary, blocker conclusion, or next-step proposal, plus any substantial reply containing audit fields.
-- One- or two-sentence working updates and ordinary Q&A never trigger the fixed format, even when they mention the current result, risk, or next step; do not attach full audit details to a lightweight reply.
-- When the user asks for more detail, expand only the four sections or the `Technical Audit Appendix`; must not remove, rename, or reorder the four headings.
-- Audit fields may appear only in the `Technical Audit Appendix`; they must not sit beside or before the four-section human summary.
-- Before sending, check that the four headings are present in order, risks are translated into practical impact, and only one primary next action is given. If any check fails, rewrite it before sending.
-
+Before sending, check factual scope, prerequisites, actor, authority, audience, and display against the shared policy. Ordinary Q&A has no fixed headings; requests for detail receive useful evidence. Rewrite any part that fails the reading check.
 ## Output
 
 - Workflow layer: `company-bugfix-runner`
@@ -142,7 +133,7 @@ Then use `Technical Audit Appendix` for the internal fields below. Explain acron
 
 ## Document Quality Gates
 
-Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`. Trigger these only when creating or substantially changing a formal hotfix or bugfix record.
+Before updating a fix record, read the project copy of `specs/global/assets/document-standard.md`; fall back to the bundled `../../specs/global/assets/document-standard.md`. Every fix checks `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12` within its affected scope. New standalone formal reports also check `DOC-G01`, `DOC-G04`, and `DOC-G05`. Appending an entry does not rewrite all history or skip affected traceability, diagrams, and evidence.
 - Reproduction or evidence:
 - Fact chain and minimum reproduction conditions:
 - Root cause:

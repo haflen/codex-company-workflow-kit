@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2-zh",
-  "version": "0.2.34",
+  "version": "0.2.37",
   "description": "公司 Codex 工作流 starter kit，提供需求阶段隔离原型验证与确认式需求基线、原生对话连续性路由、分级交接与接收校验、内置专家依赖、专家路由、健康诊断、阶段一致性预检、资产落点门禁、范围变化熔断、受控连续执行、触发式独立质量验收、里程碑交付收口、Codex 计划模式建议、条件式 subagents 建议、可选 custom agents、Codex 目标追踪建议、下一步引导、验证分级、中文代码逻辑备注、依赖治理、用户确认式技能升级和受控自进化。",
   "author": {
     "name": "haflen",
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "公司 Codex 工作流 V2 中文版",
     "shortDescription": "公司治理型工作流 skills 中文版。",
-    "longDescription": "公司 Codex 工作流 V2 中文版提供轻量 SDLC、需求阶段隔离 HTML/页面/交互原型验证与确认式需求基线、长对话 resume/compact/fork/handoff 路由、quick/standard/decision-rich 分级交接与语义接收校验、内置专家依赖、专家路由、工作流健康诊断、阶段一致性预检、资产落点门禁、范围变化熔断、受控连续执行、触发式独立质量验收、里程碑交付收口、Codex 计划模式建议、条件式 subagents 建议、可选项目级 custom agents、Codex 目标追踪建议、下一步引导、验证等级、中文代码逻辑备注、文档漂移检查、公共文档边界协议、业务规则与计算口径模板、触发式技术方案对比、专家依赖维护、安全审查、用户确认式技能升级和受控自进化。交付收口会检查质量验收结论、盘点成果、验证最终候选、按来源清理临时文件，并按授权本地提交或普通推送业务分支。每轮 workflow 输出会区分实际调用、未调用但采用视角、计划模式建议、subagent 能力状态、subagents 实际调用、验证证据和剩余风险。",
+    "longDescription": "公司 Codex 工作流 V2 中文版提供轻量 SDLC、需求阶段隔离 HTML/页面/交互原型验证与确认式需求基线、长对话 resume/compact/fork/handoff 路由、quick/standard/decision-rich 分级交接与语义接收校验、内置专家依赖、专家路由、工作流健康诊断、阶段一致性预检、资产落点门禁、范围变化熔断、受控连续执行、触发式独立质量验收、里程碑交付收口、Codex 计划模式建议、条件式 subagents 建议、可选项目级 custom agents、Codex 目标追踪建议、下一步引导、验证等级、中文代码逻辑备注、文档漂移检查、公共文档边界协议、业务规则与计算口径模板、触发式技术方案对比、专家依赖维护、安全审查、用户确认式技能升级和受控自进化。交付收口会检查质量验收结论、盘点成果、验证最终候选、按来源清理临时文件，并按授权本地提交或普通推送业务分支。回复与人类文档说明结论、依据、影响和下一步；技能调用、执行策略及详细验证记录另存，按需提供。",
     "developerName": "haflen",
     "category": "Productivity",
     "capabilities": [

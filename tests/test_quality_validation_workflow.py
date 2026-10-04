@@ -266,9 +266,10 @@ class QualityValidationWorkflowTests(unittest.TestCase):
         }
         for language, root in LANGUAGES.items():
             content = read(root / "specs/global/assets/quality-validation-report-template.md")
-            for phrase in required[language]:
+            internal = read(root / "specs/global/assets/execution-record-template.md")
+            for index, phrase in enumerate(required[language]):
                 with self.subTest(language=language, phrase=phrase):
-                    self.assertIn(phrase, content)
+                    self.assertIn(phrase, internal if index < 9 else content)
 
     def test_defect_routes_use_canonical_workflow_names(self):
         routes = (
@@ -316,7 +317,7 @@ class QualityValidationWorkflowTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_are_wired(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.34", package["version"])
+        self.assertEqual("0.2.37", package["version"])
         self.assertIn("test_quality_validation_workflow.py", package["scripts"]["verify"])
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))
