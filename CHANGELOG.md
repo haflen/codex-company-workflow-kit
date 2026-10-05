@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.38 - 2026-10-05
+
+- Make phase-closeout next steps visible in a final standalone paragraph, with an owner, action, and prerequisites or an explicit no-action completion state.
+- Continue already authorized work without repeated confirmation; preserve ordinary Q&A, existing approval boundaries, and truthful observation/notification limits.
+- Synchronize bilingual plugin/starter rules, execution records, usage guides, and regression checks.
+
 ## 0.2.37 - 2026-10-05
 
 - Evaluate human documents by complete conclusions, evidence, impact, and next actions rather than literal template headings. Require baseline comparisons for version-change reviews without forcing a change table into first drafts.

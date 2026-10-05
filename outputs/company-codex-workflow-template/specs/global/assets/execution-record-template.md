@@ -11,6 +11,7 @@ For AI continuity and audit. Extend existing records; do not create one for ever
 - Authoritative task/specification, human report, applicable version:
 - Phase, existing authority, actions not authorized:
 - Current result, next execution point, prerequisites, owner:
+- Closing state: continue execution / await user / complete; match the conversational next step, record observation triggers, and reuse existing authority.
 
 ## Capability and Verification
 

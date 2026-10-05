@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "description": "Company Codex workflow starter kit with isolated requirements-stage prototypes and confirmed requirements baselines, native conversation continuity routing, tiered handoff and semantic receipt verification, bundled expert dependencies, expert routing, workflow health checks, phase consistency preflight, asset placement gates, scope-change circuit breaker, controlled continuous implementation, triggered independent quality validation, milestone delivery closeout, Codex Plan Mode recommendations, conditional subagents recommendations, optional custom agents, Codex goal tracking recommendations, next-step guidance, validation levels, Chinese code logic comments, dependency governance, user-confirmed skill upgrades, and controlled skill evolution.",
   "author": {
     "name": "haflen",

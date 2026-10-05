@@ -1,6 +1,6 @@
 {
   "name": "company-codex-workflow-v2-zh",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "description": "公司 Codex 工作流 starter kit，提供需求阶段隔离原型验证与确认式需求基线、原生对话连续性路由、分级交接与接收校验、内置专家依赖、专家路由、健康诊断、阶段一致性预检、资产落点门禁、范围变化熔断、受控连续执行、触发式独立质量验收、里程碑交付收口、Codex 计划模式建议、条件式 subagents 建议、可选 custom agents、Codex 目标追踪建议、下一步引导、验证分级、中文代码逻辑备注、依赖治理、用户确认式技能升级和受控自进化。",
   "author": {
     "name": "haflen",

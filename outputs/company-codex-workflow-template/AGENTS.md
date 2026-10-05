@@ -33,6 +33,8 @@ Before creating or substantially updating documents, read `specs/global/assets/d
 
 Read `specs/global/assets/human-output-standard.md` for replies and documents, using the plugin's same-path fallback when missing. State the business result and impact first; retain a one-sentence conclusion and next-step recommendation. Ordinary Q&A has no fixed headings; organize formal delivery for its reader.
 
+At phase closeout, end with a standalone **Next step:** naming continued execution, required user action, or completion, plus the owner and prerequisites; follow the shared communication standard.
+
 Capability traces and internal completion-report fields below belong in existing internal execution records. Human documents stand alone without a default audit inventory. Keep necessary technical specifications, diagrams, operating commands, and evidence links. This policy changes output placement, not acceptance or authorization requirements.
 ## Document Ownership And Numbering
 

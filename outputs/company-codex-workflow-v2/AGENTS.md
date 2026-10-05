@@ -25,6 +25,8 @@ Before creating or substantially updating documents, read `specs/global/assets/d
 
 Read `specs/global/assets/human-output-standard.md` for replies and documents, using the plugin's same-path fallback when missing. State the business result and impact first; retain a one-sentence conclusion and next-step recommendation. Ordinary Q&A has no fixed headings; organize formal delivery for its reader.
 
+At phase closeout, end with a standalone **Next step:** naming continued execution, required user action, or completion, plus the owner and prerequisites; follow the shared communication standard.
+
 Capability traces and internal completion-report fields below belong in existing internal execution records. Human documents stand alone without a default audit inventory. Keep necessary technical specifications, diagrams, operating commands, and evidence links. This policy changes output placement, not acceptance or authorization requirements.
 ## Workflow Document Ownership
 
@@ -125,11 +127,11 @@ Continuous implementation mode is only for confirmed implementation task plans. 
 - Task plans should mark `continuous / careful-continuous / must-stop`.
 - `V0/V1` tasks may be batched when related; `V2` tasks may batch only 1-3 tightly related items; `V3` tasks stop after one task by default.
 - After every task, re-check scope change, verification failure, V3 risk, user confirmation points, worktree conflicts, high-permission commands, and local resource anomalies.
-- If a stop condition is hit, do not continue to the next task; report the stop reason, evidence, and recommended next phrase.
+- If a stop condition is hit, do not continue to the next task; state the stop reason, evidence, and specific missing input, then give the next step under the shared standard.
 
 Every implementation, bugfix, hotfix, spike, or document handoff completion must include next-step guidance:
 
-- `Next-step guidance:` continue implementation / return to requirements / return to design / confirm tasks / add verification / pause.
+- End with a standalone **Next step:** stating one primary action, owner, and prerequisites, or explicitly state that no action is needed, following the shared standard.
 - Ask the user for an action only when required information, a decision, or authority is missing; continue within existing authorization.
 
 ## Codex Goal Tracking

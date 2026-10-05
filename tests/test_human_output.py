@@ -4,6 +4,44 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 class HumanOutputTests(unittest.TestCase):
+    def test_closeout_next_step_is_visible_and_scoped(self):
+        for suffix, phrases in (
+            ('-zh', ('**下一步：**', '最后一个独立段落', '普通问答和工作中更新',
+                     '不把这条收尾要求扩展为正文固定标题', '不把进度更新当作结束任务')),
+            ('', ('**Next step:**', 'last standalone paragraph', 'Ordinary Q&A and progress updates',
+                  'does not impose fixed headings on the body', 'do not end the task at a progress update')),
+        ):
+            for distribution in ('v2', 'template'):
+                root = ROOT / f'outputs/company-codex-workflow-{distribution}{suffix}'
+                policy = (root / 'specs/global/assets/human-output-standard.md').read_text()
+                with self.subTest(root=root):
+                    for phrase in phrases:
+                        self.assertIn(phrase, policy)
+                    self.assertIn(phrases[0], (root / 'AGENTS.md').read_text())
+
+    def test_next_step_preserves_authorization_and_completion_boundaries(self):
+        for suffix, phrases in (
+            ('-zh', ('已有授权且前置条件满足', '需要用户处理', '本任务已完成，你现在无需操作',
+                     '不新增审批或扩大授权', '触发条件与责任方', '不承诺自动监控或日后通知')),
+            ('', ('Already authorized and prerequisites met', 'User action required',
+                  'This task is complete; no action is needed from you now', 'no new approval gate or wider authority',
+                  'trigger and owner', 'do not promise automatic monitoring or future notifications')),
+        ):
+            root = ROOT / f'outputs/company-codex-workflow-v2{suffix}'
+            policy = (root / 'specs/global/assets/human-output-standard.md').read_text()
+            for phrase in phrases:
+                with self.subTest(language=suffix, phrase=phrase):
+                    self.assertIn(phrase, policy)
+
+    def test_next_step_contract_reaches_guides_and_internal_record(self):
+        for name in ('README.md', 'docs/company-quickstart.md', 'docs/codex-usage-guide.md'):
+            with self.subTest(guide=name):
+                self.assertIn('**下一步：**', (ROOT / name).read_text())
+        for suffix, phrase in (('-zh', '继续执行 / 等待用户 / 已完成'),
+                               ('', 'continue execution / await user / complete')):
+            root = ROOT / f'outputs/company-codex-workflow-v2{suffix}'
+            self.assertIn(phrase, (root / 'specs/global/assets/execution-record-template.md').read_text())
+
     def test_document_gates_check_content_instead_of_literal_headings(self):
         for suffix, phrases, obsolete in (
             ('-zh', ('标题可改名', '版本变更评审', '初稿不要求变更表', '不适用不是图表豁免'),

@@ -14,6 +14,20 @@ Formal closeouts may use One-sentence conclusion, What was completed, What needs
 - Match the user's language for headings, statuses, explanations, and link labels. In Chinese conversations, use Chinese prose. Retain exact status codes, code, commands, paths, fields, errors, and proper names when needed to inspect or operate, explaining their purpose. Do not ban English code or expose unnecessary internal English fields.
 - Explain the mechanism and practical effect instead of relying on jargon such as closure, watermark, or starvation. For example: one project's failed check does not stop checks for other projects.
 
+## Next Step at Phase Closeout
+
+At phase completion, delivery summary, a blocking stop, or an answer to “what next”, put the next step in the last standalone paragraph beginning with **Next step:**. Give one primary action, its owner, and necessary prerequisites; explicitly state when the user has no action. This does not impose fixed headings on the body. Localize the label to the user's language, using **下一步：** in Chinese.
+
+| Current state | Closing content and execution |
+| --- | --- |
+| Already authorized and prerequisites met | State “I will next…” with a concrete action and continue within that authority; do not end the task at a progress update or wait for another “continue” |
+| User action required | Specify the missing information, decision, or action and which step it blocks; request only what is missing, with no new approval gate or wider authority |
+| Agreed scope complete | State “This task is complete; no action is needed from you now”; do not invent extra work to fill a next step |
+
+Ordinary Q&A and progress updates stay concise without a mandatory closing paragraph; use the table when a phase actually closes or work is blocked. For previously agreed observation or acceptance that cannot yet run, give its trigger and owner; do not promise automatic monitoring or future notifications without an actual execution mechanism. Distinguish candidate fixes, branch integration, commit, push, and deployment; unfinished agreed delivery is not “all complete”.
+
+Before sending, check that the reader can immediately find the next step, its owner, and whether they must act. Rewrite that paragraph if unclear. This rule applies to conversational closeout; human documents retain their type-specific structure.
+
 ## Materials by Audience
 
 | Material | Retain | Destination |
