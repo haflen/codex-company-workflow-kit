@@ -499,3 +499,7 @@ bash /absolute/path/to/codex-company-workflow-kit/scripts/install.sh bootstrap-p
 多阶段或恢复任务按 `specs/global/assets/task-execution-policy.md` 使用插件 `skills/company-workflow-help/scripts/task_state.py`。脚本提供 init/show/update/validate，检查记录、版本冲突、候选和证据；不执行记录中的命令，也不会自动唤醒。只有模板没有脚本时，继续已有记录并明确结构化校验尚未执行。电脑开机、Codex 可用是本阶段前提。
 
 API 不可用保留 API_PENDING，工具未真正运行就写“未验证”。恢复先核对实际结果，避免重复提交或上传。旧状态不能覆盖用户的新限制。
+
+## 中文汇报与评审写作
+
+可以直接说“根据这些材料写本周汇报”或“把这个方案整理成同事能读懂的评审稿”。工作流使用内置company-document-writing，沿用已有读者与用途，内部核对并修订后交付。它不替代业务事实核查，不自动发送文档或授权业务修改。

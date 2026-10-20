@@ -76,6 +76,7 @@ Workflow skills should call this routing skill without requiring the user to nam
 | Signal | Bundle |
 | --- | --- |
 | Generic product/process/QA feature | `company-core-delivery` |
+| Chinese reports, weekly updates, proposals and review drafts or edits (excluding single-sentence polishing) | `company-document-writing` |
 | Java, Spring, JVM, transactions, persistence | `company-backend-java` |
 | Python service, automation, async job | `company-python-service` |
 | Django, DRF, Celery, ORM-heavy work | `company-django-service` |
@@ -94,6 +95,7 @@ If more than one bundle matches, choose the one that owns the riskiest decision 
 | Trigger | Expert |
 | --- | --- |
 | Product scope, user stories, prioritization, AC quality | `product-manager` |
+| Chinese reports, weekly updates, proposals and review drafts or edits (excluding single-sentence polishing) | `company-document-writing` |
 | Business process, metrics, reporting, policy, approvals, state transitions | `business-analyst` |
 | Vague idea with multiple viable directions | `superpowers:brainstorming` |
 | LLM, RAG, prompt, agent workflow, AI safety, provider APIs | `ai-product` |
@@ -175,3 +177,7 @@ When routing matters, include:
 ## Document Translation Route
 
 Use `company-document-translation` / `professional-translation` for customer manuals, technical/business translation and bilingual review; ordinary short phrases need no workflow. When existing project BUNDLES/EXPERTS files lack this new entry, supplement from the bundled entry instead of treating absence as an unavailable skill or overwriting project customisations. Explicit project restrictions take precedence. This route handles documents and grants no code-change or publication authority.
+
+## Report and review writing route
+
+Use `company-document-writing` for Chinese reports, weekly updates, proposals and review drafts. Do not force the route for single-sentence edits. Use verified source facts; add `business-analyst` only for unresolved business meaning. If old project BUNDLES/EXPERTS omit this new entry, consult bundled entries while preserving explicit project restrictions and custom content. The executor completes internal editing without new approval tables or stage prompts. This route grants no business changes, sending or publishing permission.

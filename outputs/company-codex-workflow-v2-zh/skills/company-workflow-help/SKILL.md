@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, and professional document translation.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # 公司工作流入口帮助
@@ -316,3 +316,7 @@ Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段�
 ## 文档翻译入口
 
 “把客户手册翻译成英文”“检查中英文是否一致”等请求直接使用 `professional-translation`，按已知源文、语言和交付目标执行，缺必要信息才问。不要求用户记住技能名，也不要求先走软件需求、设计和实现阶段。原文件默认保留，交付文字审校不冒充版面或线上功能验收。
+
+## 汇报与评审写作入口
+
+“写周会汇报”“整理成能发给同事的说明”“把方案写得便于评审”等请求，直接使用 `company-document-writing`，沿用已有读者、材料、用途和授权完成成稿、内部核稿及必要显示检查。已知信息不重复询问，不要求用户点技能或审批提纲。内部检查发现表达问题，在原范围修好后交付，不把普通修订作为用户下一步。仅改一句文案在当前任务完成；翻译仍走 `professional-translation`。这项能力不授予业务实现、发消息或发布权限。

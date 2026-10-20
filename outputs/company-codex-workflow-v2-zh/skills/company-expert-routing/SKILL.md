@@ -74,6 +74,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 信号 | Bundle |
 | --- | --- |
 | 通用产品/流程/QA 功能 | `company-core-delivery` |
+| 中文周会、汇报、方案与评审成稿或精简（不含单句润色） | `company-document-writing` |
 | Java、Spring、JVM、事务、持久化 | `company-backend-java` |
 | Python 服务、自动化、异步任务 | `company-python-service` |
 | Django、DRF、Celery、ORM | `company-django-service` |
@@ -92,6 +93,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 | 触发 | 专家 |
 | --- | --- |
 | 产品范围、用户故事、优先级、AC 质量 | `product-manager` |
+| 中文周会、汇报、方案与评审成稿或精简（不含单句润色） | `company-document-writing` |
 | 业务流程、指标、报表、政策、审批、状态流转 | `business-analyst` |
 | 开放想法有多个方向 | `superpowers:brainstorming` |
 | LLM、RAG、prompt、agent workflow、AI 安全、Provider API | `ai-product` |
@@ -171,3 +173,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 ## 文档翻译补充路由
 
 客户手册、技术或业务文档的翻译、双语审校使用 `company-document-translation` / `professional-translation`；短句不强制进入。旧项目 BUNDLES/EXPERTS 已存在但缺少此新增条目时，读取插件内置条目补充，不把旧表缺项解释为技能不存在，也不覆盖项目定制。项目明确禁用或限制优先。此路由仅处理文档，不授予业务代码变更或发布权限。
+
+## 汇报与评审补充路由
+
+中文周会、汇报、方案与评审成稿或精简使用 `company-document-writing`。单句文案不强制路由；业务事实沿用已核实材料，只有口径确有疑义时增加 `business-analyst`。项目旧BUNDLES/EXPERTS缺新增条目时读取插件内置条目，保留项目明确限制与定制。内部写作核对和修订由执行者完成，不新增审批表或用户阶段口令。此路由不授予业务修改、发送或发布权限。

@@ -19,6 +19,7 @@ from pathlib import Path
 
 
 EXPERTS = [
+    ("company-document-writing", "skills/company-document-writing", "company-authored", "company-document-writing"),
     ("professional-translation", "skills/professional-translation", "company-adapted", "company-document-translation"),
     ("product-manager", "skills/product-manager", "business", "company-core-delivery"),
     ("business-analyst", "skills/business-analyst", "business", "company-core-delivery"),
@@ -48,6 +49,15 @@ SOURCE = {
 
 # SOURCE remains the default for existing experts; exceptions are explicit.
 SOURCE_OVERRIDES = {
+    "company-document-writing": {
+        "maintainer": "company workflow",
+        "origin": "company-authored",
+        "candidate": "0.7",
+        "content_sha256": "3f6c12205b056783ed8826d5a01e7ca3d81e0234f4aebe039fed7e5f50c5f793",
+        "license": "Internal company package; no external import",
+        "scope": "Chinese document writing guidance; no runtime",
+        "review_date": "2026-10-20",
+    },
     "professional-translation": {
         "maintainer": "company workflow",
         "reference_repository": "Tasdax123/claude-fidelity-translator",
@@ -227,6 +237,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
         "Tasdax123/claude-fidelity-translator at c9f0651b007b547bdfae103235a4567fa1acd75e (MIT). "
         "See skills/professional-translation/PROVENANCE.md and LICENSE.",
         "",
+        "- company-document-writing is company-authored; it is not imported from the default external catalog. "
+        "See skills/company-document-writing/PROVENANCE.md.",
         *notes,
         "",
     ]

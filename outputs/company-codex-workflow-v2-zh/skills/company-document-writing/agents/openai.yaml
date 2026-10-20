@@ -1,0 +1,4 @@
+interface:
+  display_name: "/company-document-writing"
+  short_description: "公司汇报与评审写作"
+  default_prompt: "使用 $company-document-writing，把这些材料整理成给同事阅读和评审的文档。"

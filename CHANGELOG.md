@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.39-rc.9 — 2026-10-20
+
+- Standardize the writing skill identifier as `company-document-writing`, shortcut display as `/company-document-writing`, and description as 公司汇报与评审写作; update dependency references and metadata. Writing instructions and examples are unchanged.
+- Include the writing capability in the automatic bundle selection and expert mapping tables, preserving the detailed routing and authorization boundaries.
+
+## 0.2.39-rc.8 — 2026-10-20
+
+- Bundle the company-authored human-documents skill for Chinese reports and review documents, including concrete writing examples.
+- Route writing requests from workflow help and expert routing; preserve translation and business authorization boundaries.
+- Check the writer as a required bundled dependency and identify its internal source separately from external experts.
+- Preserve existing approvals, task state, completion tools and project customization.
+
 ## 0.2.39-rc.7 — 2026-10-19
 
 - Inspect actual context before explicitly blind reviews; keep prior answers and scores separate without globally disabling memory or adding review rounds.

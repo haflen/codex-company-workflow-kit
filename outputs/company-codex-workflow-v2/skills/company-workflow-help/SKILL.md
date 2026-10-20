@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, and professional document translation.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -320,3 +320,7 @@ Apply shared WAIT-01 using current native capabilities. Verify the real mechanis
 ## Document Translation Entry
 
 Requests such as “translate this customer manual into English” or “review this bilingual manual” go directly to `professional-translation`, using known source, language and delivery scope. Ask only for necessary missing information. Users need not name the skill or enter software requirements/design/implementation phases. Preserve originals by default; text review is not layout or live product acceptance.
+
+## Reports and review documents
+
+For Chinese weekly reports, colleague-facing explanations and readable proposal reviews, use `company-document-writing` directly. Reuse known audience, materials, purpose and permissions, then finish drafting, internal editing and applicable display checks. Do not ask users to repeat known context, name skills or approve outlines. Fix ordinary writing issues before delivery rather than handing editing back to the user. Single-sentence edits stay local; translation still uses `professional-translation`. This route grants no business implementation, sending or publishing permission.

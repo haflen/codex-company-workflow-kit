@@ -114,3 +114,7 @@ This expert is not from the AAS catalog above. Local path: `skills/professional-
 ### 2026-10-14 local incremental-path revision
 
 professional-translation: company-authored conditional Markdown incremental path, full workflow retained for missing/unreliable baselines, complex or conflicting edits, full-review requests and DOCX/PDF/image/layout work. Mechanism reference dsh-translate-docs at reviewed commit prefix d74326738864; no code import or new runtime. See skill PROVENANCE.md and CW-AUTO-20261007/T-041–T-043. Existing upstream pin/license and bundle membership unchanged. Local package version 0.2.39-rc.3.
+
+## company-document-writing — company-authored writing capability
+
+Required bundled expert for `company-document-writing`, package 0.2.39-rc.9. Internal isolated candidate 0.7; no upstream repository or external runtime. SKILL.md SHA256 `3f6c12205b056783ed8826d5a01e7ca3d81e0234f4aebe039fed7e5f50c5f793`. Pure Markdown guidance and examples, plus Codex display metadata; low execution risk. Limited writing validation does not guarantee reader acceptance. See `skills/company-document-writing/PROVENANCE.md`.

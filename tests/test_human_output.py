@@ -103,6 +103,9 @@ class HumanOutputTests(unittest.TestCase):
 
     def test_all_workflows_load_shared_contract_without_old_appendix(self):
         for path in (ROOT / 'outputs').glob('company-codex-workflow-v2*/skills/company-*/SKILL.md'):
+            # This bundled writing expert remains outside the stage-workflow contract.
+            if path.parent.name == 'company-document-writing':
+                continue
             content = path.read_text()
             with self.subTest(path=path):
                 self.assertIn('human-output-standard.md', content)
