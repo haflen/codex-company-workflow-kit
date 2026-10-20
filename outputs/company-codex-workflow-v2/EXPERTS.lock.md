@@ -106,3 +106,11 @@ Use `BUNDLES.md` as the runnable bundle map. This section is a dependency-mainte
 | 2026-06-11 | skill governance workflow | Added user-friendly skill upgrade workflow with candidate fetch, diff, security review, confirmation gate, apply, validation, and rollback record | Upgrade operations now route through `company-skill-upgrade-runner` before production overwrite | Revert `company-skill-upgrade-runner`, upgrade report template, and related routing updates |
 | 2026-06-24 | all required expert skills | Vendored required AAS expert skills into the company plugin and added install-time readiness/security reports | Out-of-box usable after plugin install and new Codex thread; future updates stay controlled | Revert vendored expert skill directories and this lock update |
 | 2026-06-29 | 13 vendored expert skills | Synced upstream `sickn33/antigravity-awesome-skills@e0ef87efd0ad`; preserved Codex trigger descriptions and updated bodies/resources | Static review passed; pure Markdown remains safe/medium, `typescript-expert`/`webapp-testing` scripts require runtime approval | Revert this commit or restore previous vendored `skills/<expert>` directories |
+
+## professional-translation — company-maintained adaptation
+
+This expert is not from the AAS catalog above. Local path: `skills/professional-translation`. Reference: `Tasdax123/claude-fidelity-translator`, commit `c9f0651b007b547bdfae103235a4567fa1acd75e`, MIT; reviewed 2026-10-11. Only the scoped Codex Markdown protocol is included, with upstream license and PROVENANCE.md; no upstream scripts, model/API dependency or automatic parallel execution. Risk: low for this reviewed artifact. Required bundled expert; missing skill blocks installation. Version follows the company plugin.
+
+### 2026-10-14 local incremental-path revision
+
+professional-translation: company-authored conditional Markdown incremental path, full workflow retained for missing/unreliable baselines, complex or conflicting edits, full-review requests and DOCX/PDF/image/layout work. Mechanism reference dsh-translate-docs at reviewed commit prefix d74326738864; no code import or new runtime. See skill PROVENANCE.md and CW-AUTO-20261007/T-041–T-043. Existing upstream pin/license and bundle membership unchanged. Local package version 0.2.39-rc.3.

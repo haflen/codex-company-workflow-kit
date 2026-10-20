@@ -5,6 +5,20 @@ description: Use when company requirements, design, and task plan are confirmed 
 
 # Company Implementation Runner
 
+Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
+
+## DELEGATE-01: Review results and fall back to serial execution
+
+Before dispatch, check effective authority, actual tools and independent scope; routing advice grants no permission. Without clear dispatch authority or capability, use serial execution for allowed work; do not install agents or create user chats. Adopt parallel work only when comparable samples preserve pass rate and show a real benefit after coordination overhead; no measured comparison means no speedup claim.
+
+A narrow task packet records actual task_id, allowed paths, prohibited actions, acceptance, candidate_fingerprint, budget and output location. The main agent alone owns shared contracts, state and integration; read-only review writes no files by default. Reuse agreed limits and leave unknown budgets unknown. At a limit or cancellation, stop only the actual agents for this task, verify stopping and preserve usable work. Recover only affected failed work serially within scope; do not redispatch indefinitely.
+
+Before adoption, verify result_id, actual candidate identity, changed paths and original check evidence. A DONE without evidence, stale candidate, out-of-scope action, unknown side effect or self-reported success is not completion; inspect actual results before acceptance or replay. Duplicate result_id must not cause repeated integration. Candidate drift requires checking affected evidence again. Synthetic replies test decisions only, not real dispatch, cancellation or parallel performance.
+
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -19,7 +33,7 @@ Provide a Codex orchestration skill that reuses Superpowers TDD and verification
 2. Run Phase Consistency Preflight: check whether `说明文档.md`, `specs/global/INDEX.md`, the current feature/version README, task document, and related public-doc patch agree.
 3. If public entry docs, indexes, version README, or task docs conflict, pause implementation; output the conflict, provisional authoritative document, and repair recommendation before coding.
 4. Run the scope-change circuit breaker check: confirm this turn did not add an architecture layer, data-preparation layer, table, API boundary, business semantics, field mapping, scheduler chain, or unconfirmed documentation artifact.
-5. If the circuit breaker triggers, stop coding; update only requirements, design, tasks, field mappings, or public-doc impact, and output `Implementation authorization: expired; user confirmation required before coding`.
+5. If unauthorized scope or a substantive conflict appears, stop affected coding and prepare a reviewable delta; continue independent authorized work under FLOW-06.
    - When this turn adds or moves files, read `.codex-workflow/asset-boundaries.json` and run `.codex-workflow/bin/asset_boundaries.py check <project> --path <path>` on complete planned paths before the first edit.
    - Stop and return to design/planning when the gate blocks, the task lacks allowed roots, or engineering assets target `specs/`/`docs/`. The label “executable specification” is not an exception.
 6. Identify the next task, its verification, and whether controlled continuous implementation applies.
@@ -82,41 +96,11 @@ When an API is unavailable, put a customer-facing warning near the start of the 
 
 ## Continuous Implementation Mode
 
-Continuous implementation mode is for confirmed task plans where the user wants fewer approval loops. It is controlled batching, not unlimited autopilot.
+Use FLOW-01 through FLOW-07 when natural-language intent and existing authority cover subsequent work and requirements, design, tasks and mandatory gates are satisfied. No extra enable phrase is required.
 
-### Enable Conditions
+Group related V0/V1 work; review V2 every 1-3 tasks and V3 after each task with full verification. A batch boundary is not a human handoff. Save actual evidence after each task, then enter the next task with satisfied prerequisites.
 
-All conditions must be true:
-
-- The user explicitly asks for "continue all remaining tasks", "continuous implementation", "batch progress", "finish the confirmed task list", or equivalent wording.
-- Requirements, design, task planning, and required `business-rules.md` / API contracts are confirmed.
-- The task document contains task IDs, order, verification anchors, and estimated validation levels.
-- Phase Consistency Preflight passes.
-- The scope-change circuit breaker does not trigger.
-
-If any condition is missing, fall back to normal single-task or small-batch mode and explain why.
-
-### Batch Boundary
-
-- `V0` documentation or no-behavior tasks: one related group is acceptable.
-- `V1` small tasks: 3-5 related low-risk tasks are acceptable.
-- `V2` standard tasks: 1-3 tightly related tasks are acceptable.
-- `V3` high-risk tasks: one task only by default, then stop for user confirmation.
-
-Do not merge unrelated tasks just to keep the batch running.
-
-### Stop Conditions After Every Task
-
-Stop and report the reason when any condition appears:
-
-- Scope-change circuit breaker: new architecture layer, data-preparation layer, table, API, business semantics, field mapping, scheduler chain, or unconfirmed document.
-- Phase consistency becomes invalid: entry docs, INDEX, README, task doc, or public-doc patch conflict.
-- Current-task verification fails, tests are flaky, build fails, or critical browser verification fails.
-- The next task becomes `V3`, or touches production, permissions, security, data migration, money/metric formulas, performance bottlenecks, or cross-system impact.
-- Network, high-permission, destructive, database-write, or external-service action needs user approval.
-- Business rules, operation logic, calculation semantics, field sources, exception/degradation behavior are not confirmed.
-- The worktree has user changes that conflict with this batch.
-- Local resource risk is visible, such as Playwright/browser zombie processes or Three.js pages driving sustained high CPU.
+Classify failures first: in-scope defects enter bugfix; external dependencies retain recovery conditions; missing business decisions, permissions, document conflicts or conflicting user edits stop affected actions. Preserve progress and contain resource anomalies. Follow shared repair rules; never rewrite failure as success.
 
 ### Extra Report Fields
 
@@ -140,7 +124,7 @@ Continuous mode completion reports must include:
 - Conditional-merge approval and customer notice: not applicable / recorded
 - Recommended next workflow: continue `company-implementation-runner` / enter `company-quality-validation` / enter `company-delivery-closeout`
 
-When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, first decide independent quality validation. If it is `not required`, recommend closeout. If it is `required/mandatory`, recommend: `Implementation is complete. Run independent quality validation.` The implementation runner must not perform milestone-level commit or push.
+When no candidate task remains and every task is complete, explicitly deferred, or explicitly rejected, first decide independent quality validation. If it is `not required`, enter authorized closeout. If `required/mandatory`, perform independent quality validation under FLOW-03. The implementation runner must not perform milestone-level commit or push.
 
 ## Subagents Execution Strategy
 
@@ -179,7 +163,7 @@ It is enough to say "goal tracking not needed" for:
 When reporting goal status, state:
 
 - A goal does not make implementation authorization valid.
-- If scope-change circuit breaker, phase conflict, V3 risk, or verification failure appears, implementation must stop even when the goal remains active.
+- An active goal cannot bypass gates; classify failures, conflicts and missing authority under FLOW-04 through FLOW-06 instead of stopping solely for a V3 label.
 - Recommend closing the goal only when all final success criteria are satisfied.
 
 ## Chinese Code Logic Comments
@@ -206,20 +190,9 @@ If the entry page still says spike/backlog while the current version README says
 
 ## Scope-Change Circuit Breaker
 
-Before implementation, decide whether the old authorization still applies. Pause coding when any of these is true:
+Apply FLOW-06 by comparing the current request with the contract. New architecture, tables, APIs, scheduling, field sources or business rules trigger a gate when outside confirmed scope or involving unresolved choices. Keywords or routine document synchronization alone do not trigger it.
 
-- The user request contains signals such as "missing", "fill the gap", "analyze first", "why", "how to fit this in", "update docs", "business semantics", or "requirements/design/tasks need updates".
-- This turn adds an architecture layer, data-preparation layer, database table, API boundary, scheduler chain, external system, key module, or cross-team responsibility.
-- The task plan does not cover the new scope, or the new scope appeared after the previous implementation handoff.
-- Field sources, calculation semantics, state transitions, exception/degradation strategy, permission boundaries, data-sync strategy, rerun strategy, or last-success snapshot strategy are not confirmed.
-- Documentation work creates a new contract, field mapping, task list, or public-doc impact patch that the user has not confirmed.
-
-After the circuit breaker trips:
-
-- Only update requirements, `business-rules.md`, design, API contracts, task planning, field mappings, or public-doc patches.
-- Output `Phase permission: documentation only / design first / planning needed / user confirmation required`.
-- Output `Implementation authorization: expired; user confirmation required before coding`.
-- Wait for the user to confirm the new scope and use the implementation handoff phrase before entering TDD or editing code.
+Stop affected actions, show facts, scope differences and the missing decision; prepare concrete requirements, design or planning deltas. Enter TDD when real authorization for the new scope and its prerequisites are satisfied, without a repeated phrase. Preserve authority for other work.
 
 ## Target Client Gate
 
@@ -318,3 +291,5 @@ Goal tracking is only for cross-turn objective management. It must not replace p
 ## Document Quality Gates
 
 Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`. Check only formal documents synchronized in this implementation; do not rewrite all legacy documents.
+
+Apply REPAIR-01 in shared `task-execution-policy.md`: classify and record recovery, bound scoped repairs and return to the original AC. Retain failure evidence and counts; expected TDD red does not count; explicit permission denial is never retried, while host approval for authorized Git delivery follows APPROVAL-01. Continue independent authorized work when a check stops; do not claim overall completion.

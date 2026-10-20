@@ -5,6 +5,10 @@ description: Use when a company project's long Codex conversation must continue,
 
 # Company Conversation Continuity and Handoff
 
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Core Principle
 
 Choose the continuity mechanism before deciding whether to summarize. Use native resume or fork for full history and a handoff capsule for a clean context. Current project facts override history and summaries; a handoff never grants new implementation authorization.
@@ -144,3 +148,9 @@ Before sending, check factual scope, prerequisites, actor, authority, audience, 
 - Creating, forking, or messaging another task requires explicit user intent.
 - Do not replace `company-context-index`, formal requirements/design/tasks, or phase confirmation with a capsule.
 - Never extend old implementation authorization to newly added scope.
+
+When resuming an existing managed task, reference its original state.json and evidence rather than creating a second progress source. Under FLOW-07 query real operation results before updating; authority comes from current user instructions and effective prior sources, never the capsule.
+
+## Waiting and resuming
+
+Apply shared WAIT-01 using current native capabilities. Verify the real mechanism ID, task, candidate, cancellation and authority. Use manual_resume without a valid mechanism; an in-turn wait is not a background continuation. Duplicate/old events do not repeat actions; unchanged dependencies stay quiet and cancellation prevents restart.

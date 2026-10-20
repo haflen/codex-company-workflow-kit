@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.2.39-rc.7 — 2026-10-19
+
+- Inspect actual context before explicitly blind reviews; keep prior answers and scores separate without globally disabling memory or adding review rounds.
+- Reuse applicable raw evidence and verified historical path mappings through existing tool traces; retain necessary captures and recheck only affected gaps.
+- Preserve completion-tool logic, expert pins, routing triggers and existing external-evidence requirements.
+
+## 0.2.39-rc.6 — 2026-10-17
+
+- Prevent ordinary completion-tool help, rejected inputs and registration calls from writing imported bytecode into the plugin directory; restore the caller bytecode setting after import.
+- Add bilingual default-invocation regression coverage without requiring `-B` or environment workarounds. State, evidence, authorization and workflow entry rules remain unchanged.
+
+## 0.2.39-rc.4 — 2026-10-14
+
+- Align task-plan and execution-record stop conditions with scoped continuation and REPAIR-01 across both plugin languages and starter templates.
+- Preserve bounded repair, missing-authority stops, item-by-item V3 review and full verification; no new execution permission or automatic project overwrite.
+- Local source, installation and trial-admission evidence: CW-AUTO-20261007/T-044 and T-019.
+
+## 0.2.39-rc.3 — 2026-10-14
+
+- Add a conditional Markdown incremental path to professional-translation in both distributions, retaining full review for unreliable baselines, conflicts, complex documents and explicit full-review requests.
+- Preserve completeness, semantics, critical values/states, source-data isolation and DOCX/PDF rendering gates; keep unchanged correct text and avoid unnecessary review attachments for eligible updates.
+- No new upstream executable, service, permission, bundle or trigger description. Local integration evidence: CW-AUTO-20261007/T-041–T-043.
+
+## 0.2.39-rc.2 — 2026-10-11
+
+- Add professional document translation with terminology, semantic coverage and evidence-based review; route ordinary manual requests directly.
+- Require the bundled translation expert at install time and record its MIT reference separately from existing AAS experts.
+- Preserve existing project routes with a per-entry fallback; no upstream API runtime or automatic parallelism.
+
+## 0.2.39-rc.1 — unreleased candidate
+
+- Add scoped task contracts, validated local state, bounded recovery and current-candidate evidence checks.
+- Continue authorized phases and distinguish required host Git approval from rejected approval.
+- Include bilingual task scripts, full regression discovery and offline installation staging.
+- Preserve differing managed AGENTS blocks as review-only candidates, including custom rules inside markers.
+- Reject overwriting an existing generated candidate during managed-block upgrades; bind recovery evidence to the original check identity.
+- Add scoped reading and lightweight completion for low-risk edits without weakening required acceptance.
+- Collect explicit evidence identities without executing saved commands or writing plugin bytecode.
+- Require controlled experience adoption, real native wait identities and reviewed delegation results with serial fallback.
+- Candidate only: real host activation, cross-turn scheduler operation, parallel performance and Windows execution remain unverified.
+
 ## 0.2.38 - 2026-10-05
 
 - Make phase-closeout next steps visible in a final standalone paragraph, with an owner, action, and prerequisites or an explicit no-action completion state.

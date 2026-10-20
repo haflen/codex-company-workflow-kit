@@ -6,6 +6,7 @@ MARKETPLACE_ROOT="${HOME}/.agents/plugins"
 MARKETPLACE_FILE="$MARKETPLACE_ROOT/marketplace.json"
 PLUGIN_INSTALL_ROOT="${HOME}/plugins"
 FORCE=0
+STAGING_ROOT=""
 ALL_LANGS=0
 LANG_CODE="zh"
 PLUGIN_NAME=""
@@ -20,7 +21,7 @@ VALIDATOR_PATH="${CODEX_PLUGIN_VALIDATOR:-$HOME/.codex/skills/.system/plugin-cre
 usage() {
   cat <<'USAGE'
 Usage:
-  bash scripts/install.sh install-plugin [--lang zh|en] [--force]
+  bash scripts/install.sh install-plugin [--lang zh|en] [--force] [--staging-root <absolute-directory>]
   bash scripts/install.sh uninstall-plugin [--lang zh|en|--all]
   bash scripts/install.sh bootstrap-project <project-path> [--lang zh|en] [--force]
   bash scripts/install.sh migrate-project <project-path> [--lang zh|en]
@@ -42,6 +43,15 @@ USAGE
 parse_options() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
+      --staging-root)
+        STAGING_ROOT="${2:-}"
+        if [[ "$cmd" != "install-plugin" || "$STAGING_ROOT" != /* || "$STAGING_ROOT" == "/" ]]; then
+          echo "--staging-root requires install-plugin and an absolute non-root directory." >&2
+          exit 1
+        fi
+        PLUGIN_INSTALL_ROOT="$STAGING_ROOT/plugins"
+        shift 2
+        ;;
       --force)
         FORCE=1
         shift
@@ -280,6 +290,10 @@ install_plugin() {
     ensure_root_plugin_json "$PLUGIN_DST"
     review_bundled_experts "$PLUGIN_DST" 1
   fi
+  if [[ -n "$STAGING_ROOT" ]]; then
+    echo "Offline staging only: plugin not registered with Codex; activation is unverified."
+    return
+  fi
   mkdir -p "$MARKETPLACE_ROOT" "$PLUGIN_INSTALL_ROOT"
   MARKETPLACE_FILE="$MARKETPLACE_FILE" PLUGIN_NAME="$PLUGIN_NAME" python3 - <<'PY'
 import json
@@ -465,8 +479,17 @@ for old_begin, old_end in marker_pairs:
     prefix = text[:start].rstrip()
     suffix = text[finish:].lstrip()
     updated = "\n\n".join(part for part in (prefix, block, suffix) if part)
+    if text[start:finish].strip() != block.strip():
+        candidate = path.with_name("AGENTS.generated.md")
+        try:
+            with candidate.open("x", encoding="utf-8") as handle:
+                handle.write(updated.rstrip() + "\n")
+        except FileExistsError:
+            raise SystemExit(f"Existing candidate preserved: {candidate}; review or move it before retrying.")
+        print(f"Existing managed rules preserved; review candidate: {candidate}")
+        raise SystemExit(0)
     path.write_text(updated.rstrip() + "\n", encoding="utf-8")
-    print("Updated managed company workflow block in AGENTS.md.")
+    print("Current managed company workflow block in AGENTS.md preserved.")
     break
 else:
     if is_unmarked_legacy_workflow(text):
@@ -823,13 +846,7 @@ PY
     exit 1
   fi
   bash -n "$ROOT_DIR/scripts/install.sh"
-  python3 "$ROOT_DIR/tests/test_asset_boundaries.py"
-  python3 "$ROOT_DIR/tests/test_document_templates.py"
-  python3 "$ROOT_DIR/tests/test_document_ownership.py"
-  python3 "$ROOT_DIR/tests/test_quality_validation_workflow.py"
-  python3 "$ROOT_DIR/tests/test_target_clients_and_human_summary.py"
-  python3 "$ROOT_DIR/tests/test_human_output.py"
-  python3 "$ROOT_DIR/tests/test_legacy_project_migration.py"
+  python3 -B -m unittest discover -s "$ROOT_DIR/tests" -p "test_*.py"
   review_bundled_experts "$PLUGIN_SRC" 0 >/dev/null
   if command -v pwsh >/dev/null 2>&1; then
     pwsh -NoProfile -Command "\$null = [scriptblock]::Create((Get-Content -Raw '$ROOT_DIR/scripts/install.ps1'))"

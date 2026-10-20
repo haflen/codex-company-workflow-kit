@@ -1,9 +1,33 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, and professional document translation.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
+
+Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
+
+## Local completion registration
+
+For an existing task state with endpoint `prepare`, no external acceptance, status `running` and phase `validation`/`delivery`, confirm the actual environment is unchanged, then use `scripts/complete_task.py`. One revision-protected update records `delivery` and `completed`; only new evidence with an omitted environment inherits the recorded environment. Completed items and evidence are appended, while explicit environment mismatches are rejected and old evidence is preserved.
+
+```sh
+python3 <installed-plugin>/skills/company-workflow-help/scripts/complete_task.py \
+  --project-root <project> --task-id <task> --expected-revision <current-revision> \
+  --submission <submission.json>
+```
+
+The submission JSON contains only new `evidence`, `completed_items`, and optional `current_task`/`next_step`; never resubmit history or pass `phase`, `status`, or `environment`. Evidence still needs raw logs, checksums, candidate fingerprints and acceptance mappings. An environment label does not prove the actual runtime; revalidate when continuity is uncertain instead of relabelling evidence.
+
+Use the original `task_state.py` flow for other endpoints, external acceptance or unmet preconditions. After rejection, show/validate and investigate; never delete locks, refresh fingerprints or repeat business operations automatically. Do not register an already completed task again.
+
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
+## Task Contract and Existing Authority
+
+Reuse the shared rules above. Use `../../specs/global/assets/task-contract-template.md` when recording a contract. Extract goal, scope, acceptance, endpoint and authority from the real request; reuse confirmed facts and one authoritative contract. Respect read-only or plan-only scope. Existing authority does not require a repeated phrase; missing decisions block only affected actions.
 
 ## Purpose / 目的
 
@@ -36,7 +60,7 @@ Use the user's current goal, project state, and available artifacts:
 | Requirements and acceptance criteria are confirmed / 需求和验收标准已确认 | L2 | `company-feature-design` | `superpowers:brainstorming` when L2/L3 solution comparison is triggered | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | Design is confirmed / 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | Tasks are confirmed / 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
-| Tasks are confirmed and the user wants fewer approval loops / 任务清单已确认且希望连续推进 | L1/L2 | `company-implementation-runner` continuous mode | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| Tasks are confirmed and the user wants fewer approval loops / 任务清单已确认且希望连续推进 | L1/L2 | `company-implementation-runner` continuous mode | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到缺失业务决定、权限或不可安全恢复的冲突再停。` |
 | Implementation tasks are complete and delivery acceptance must be decided or executed / 实现完成，需要独立验收判断 | L1/L2/L3 | decide automatically; route to `company-quality-validation` when triggered | `superpowers:verification-before-completion`; use `testing-qa` for test strategy | `Implementation is complete. Decide and run independent quality validation.` |
 | A task batch, feature, or milestone is complete and needs consolidation, cleanup, commit, or push / 任务批次、功能或里程碑已完成，需要收口 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `All tasks are complete. Start delivery closeout and push the business branch.` |
 | Existing behavior is wrong / 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
@@ -65,10 +89,10 @@ Users do not classify prototype stages themselves. Route by purpose and dependen
 - Page, interaction, copy, and mock-state validation: use `company-requirements-prototype` and remain in requirements.
 - Feedback changes goals, scope, acceptance criteria, or business rules: update authority through `company-feature-requirements`, then continue the prototype.
 - The user confirms only requirements and prototype: promote the requirements baseline and stop; do not enter design or planning.
-- The user confirms both and explicitly authorizes technical design: promote, then enter `company-feature-design`; do not create tasks.
+- The user confirms both and explicitly authorizes technical design: promote, then enter `company-feature-design`; apply FLOW-01/02 at the next boundary.
 - Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility: stop and choose `company-spike-research` or explicitly authorized design.
 
-Ambiguous “confirm”, “continue”, or “next” continues the current requirements/prototype stage. Never infer “page design confirmed; start task planning.”
+Interpret “continue” using existing explicit authority. Prototype confirmation alone cannot authorize design or implementation.
 
 ## Conversation Handoff Routing / 对话交接路由
 
@@ -84,18 +108,7 @@ On explicit file-output requests, only overwrite `.codex/handoff/current.md`. A 
 
 ## Scope-Change Circuit Breaker / 范围变化熔断判断
 
-Users do not need to know when to trigger this. This skill must detect it automatically. When any of the following signals appears, do not recommend continuing `company-implementation-runner` coding:
-
-- User intent like "missing", "fill the gap", "analyze first", "why", "how to fit this in", "update docs", "business semantics", or "requirements/design/tasks need updates".
-- The work introduces an architecture layer, data-preparation layer, table, API boundary, scheduler chain, external system, key module, or cross-team responsibility.
-- Documentation updates create a new contract, field mapping, task list, public-doc impact, or business rule needing confirmation.
-- The original implementation task did not cover this new scope, or the old implementation authorization predates the scope change.
-
-Recommended response:
-
-- `Phase permission: documentation only` or `Phase permission: user confirmation required`.
-- Output `Implementation authorization: expired; user confirmation required before coding`.
-- Ask the user to confirm the new requirements, design, tasks, or field mapping before using the implementation handoff phrase again.
+Use FLOW-06 to compare existing scope with the current request. Block unauthorized additions or actual conflicts, prepare concrete differences and ask for missing decisions; preserve effective authority for existing work. Keywords and routine documentation updates do not revoke authority.
 
 ## Validation-Level Routing / 验证等级路由
 
@@ -110,26 +123,9 @@ Entry help may state the expected level, but the execution workflow confirms the
 
 ## Continuous Implementation Routing / 连续执行路由
 
-Users do not need to decide whether continuous mode applies. This skill must judge it.
+Apply FLOW-01 through FLOW-07 to choose executable steps. A concrete goal and existing end-to-end authority allow continuation without an enable phrase. Retain requirements, design, task and acceptance gates; missing substantive decisions block dependent actions only. V3 requires per-task review rather than an automatic user handoff.
 
-Recommend continuous implementation when:
-
-- The user explicitly asks to "continue all remaining tasks", "run continuously", or "batch progress".
-- Requirements, design, task plan, and required business rules are confirmed.
-- The task list has order, task IDs, verification anchors, and estimated validation levels.
-- Tasks are mainly `V1/V2` and belong to one feature chain or one acceptance target.
-
-Do not recommend continuous implementation when:
-
-- Requirements, design, business rules, field mapping, or task planning are still being drafted.
-- A scope-change circuit breaker was just triggered, or new documents are not user-confirmed.
-- Work contains `V3` risk, production/permission/security/data migration/money formula/cross-system impact.
-- Project phase, entry document, task document, or public-doc patch is inconsistent.
-
-Recommended phrases:
-
-- Normal implementation: `任务已确认，开始实现`
-- Continuous implementation: `任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。`
+Example: `Implement, verify and package the approved design; ask only about genuinely missing business decisions, scope or permissions.` This is an example, not a required phrase.
 
 ## Delivery Closeout Routing / 交付收口路由
 
@@ -186,7 +182,7 @@ Boundaries:
 
 - Plan Mode output is only a route proposal. Formal artifacts still go through `company-feature-requirements`, `company-feature-design`, `company-feature-planning`, or the relevant workflow.
 - Plan Mode does not replace user confirmation for requirements, solution choices, task plans, or implementation scope.
-- Plan Mode cannot override scope-change circuit breakers, phase preflight, V3 stop conditions, or verification requirements.
+- Plan Mode cannot override scope-change circuit breakers, phase preflight, V3 verification and actual permission gates, or verification requirements.
 
 ## Subagents Recommendation / Subagents 使用建议
 
@@ -226,7 +222,7 @@ Success criteria: requirements/design/tasks confirmed; code implemented; verific
 
 Boundaries:
 
-- A goal does not authorize coding. Phase preflight, scope-change circuit breaker, V3 stop conditions, and user confirmation still take priority.
+- A goal does not authorize coding. Phase preflight, scope-change circuit breaker, V3 verification and actual permission gates, and user confirmation still take priority.
 - A goal records what final outcome must be true; do not stuff every workflow step into the goal.
 - Do not recommend goals for small tasks.
 
@@ -316,3 +312,11 @@ Before sending, check factual scope, prerequisites, actor, authority, audience, 
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
 - Do not expand a detailed expert list in the entry-help phase; only decide whether `company-expert-routing` is needed.
 - When the scope-change circuit breaker is triggered, do not recommend continuing implementation; route to docs, design, or task confirmation first.
+
+## Waiting and resuming
+
+Apply shared WAIT-01 using current native capabilities. Verify the real mechanism ID, task, candidate, cancellation and authority. Use manual_resume without a valid mechanism; an in-turn wait is not a background continuation. Duplicate/old events do not repeat actions; unchanged dependencies stay quiet and cancellation prevents restart.
+
+## Document Translation Entry
+
+Requests such as “translate this customer manual into English” or “review this bilingual manual” go directly to `professional-translation`, using known source, language and delivery scope. Ask only for necessary missing information. Users need not name the skill or enter software requirements/design/implementation phases. Preserve originals by default; text review is not layout or live product acceptance.

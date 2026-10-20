@@ -5,6 +5,12 @@ description: Use when 公司项目的任务批次、功能、里程碑或版本�
 
 # 公司交付收口
 
+本地 `prepare` 收口已满足全部门禁且已有结构化任务状态时，按 [完成登记入口](../company-workflow-help/SKILL.md#本地完成登记) 调用 `../company-workflow-help/scripts/complete_task.py`；其他终点或外部验收保留原流程。该入口只登记状态，不执行提交、推送、部署或业务操作。
+
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。核对本次记录的归属、引用和当前状态；分开确认提交、合并、部署。仅在路由或阶段变化时更新上层入口，遵守公共文档分支协议。
@@ -182,3 +188,15 @@ git diff --cached --stat
 ## 文档质量门禁
 
 创建或实质修改正式文档前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件内置 `../../specs/global/assets/document-standard.md`。本 skill 负责检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。
+
+按共享 `task-execution-policy.md` 的 EVIDENCE-01 核对必需检查、依赖路径、真实环境和约定终点。只重验受影响证据；最新失败/跳过、旧外部证据或缺产物均不能完成。结构化校验通过不能替代实际执行和授权来源。
+
+Git 写入前按共享 `task-execution-policy.md` 的 APPROVAL-01 区分宿主要求正规审批与明确拒绝。已有用户授权不替代宿主批准；工具要求且提供合法审批入口时按其流程处理，明确拒绝、无入口或未知副作用则停止相关写入并保存事实。
+
+## 固定证据收集
+
+当任务需要打包/正式收口且反复收集候选及原始检查时，使用本技能 `scripts/collect_delivery_evidence.py --project-root <root> --paths-file <json> --output <new-report.json>`。简单单点任务不额外生成报告。paths-file 和 output 都在项目内，绝对路径或项目相对路径均可；输出必须是新文件，不能覆盖输入或已有报告。
+
+输入示例：`{"paths":["labels.py","test_labels.py","dist/labels.zip"],"checks":[{"id":"unit","capture_path":"evidence/unit.json"}]}`。paths 完整列明候选输入/产物；checks 可省略。capture_path 指向首次实际检查保存的 JSON，包含 command 数组、check_exit_code 整数、stdout 和 stderr 字符串。不能手填假结果；工具不执行其中命令。只列本次获准读取且不含秘密的文件；已知凭据路径会拒绝，输出不复制文件或日志正文。任意业务文件也可能含秘密，路径过滤不能代替执行者判断。
+
+输出保留当前候选指纹、每项哈希、原始 capture 引用/哈希和退出码摘要；指纹复用 P0 状态工具格式。退出 0 仅表示收集成功；acceptance 始终 not_assessed，检查与当前候选的时效/来源仍须按 EVIDENCE-01 核对。失败检查、缺文件、损坏 JSON、符号链接或写入失败返回非零并保留明细；部分文件成功不能覆盖失败。不自动更新 state、提交、发布或扫描其他目录。仅在已支持安全文件描述符操作的平台可用。

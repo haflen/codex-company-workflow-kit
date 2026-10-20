@@ -5,6 +5,22 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 # Company Expert Routing
 
+Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
+
+## DELEGATE-01: Review results and fall back to serial execution
+
+Before dispatch, check effective authority, actual tools and independent scope; routing advice grants no permission. Without clear dispatch authority or capability, use serial execution for allowed work; do not install agents or create user chats. Adopt parallel work only when comparable samples preserve pass rate and show a real benefit after coordination overhead; no measured comparison means no speedup claim.
+
+A narrow task packet records actual task_id, allowed paths, prohibited actions, acceptance, candidate_fingerprint, budget and output location. The main agent alone owns shared contracts, state and integration; read-only review writes no files by default. Reuse agreed limits and leave unknown budgets unknown. At a limit or cancellation, stop only the actual agents for this task, verify stopping and preserve usable work. Recover only affected failed work serially within scope; do not redispatch indefinitely.
+
+Before adoption, verify result_id, actual candidate identity, changed paths and original check evidence. A DONE without evidence, stale candidate, out-of-scope action, unknown side effect or self-reported success is not completion; inspect actual results before acceptance or replay. Duplicate result_id must not cause repeated integration. Candidate drift requires checking affected evidence again. Synthetic replies test decisions only, not real dispatch, cancellation or parallel performance.
+
+## REVIEW-01: Blind-review inputs and evidence reuse
+
+Only when the task explicitly requires blind review or withheld expected answers, inspect actual visible inputs before dispatch, including inherited conversation, historical summaries and injected memory; a new agent or no parent-history inheritance does not establish a clean context. Retain the input diagnostic and inspection result, and have the reviewer self-check at the start. If prior answers or scores are present, or input isolation cannot be established, do not count that attempt as blind; use a verified clean context within existing authority. Where supported, disable memory only for that invocation, without changing global settings or removing higher-priority safety rules; state limitations when verification is unavailable. Ordinary review does not require disabling memory. Keep answers and scoring with the coordinator, freeze the report before revealing answers, and add no agents or review rounds merely because of this rule.
+
+Apply shared EVIDENCE-01 to verify existing raw logs against candidate/tool fingerprints, requirements, environment applicability, completeness and original outputs; reuse applicable evidence and recheck only missing, changed or contradictory portions. Retain necessary commands, cwd, actual start/end times, exit codes, stdout/stderr, key inputs/before-and-after states and provenance hashes. Reuse the host's existing tool trace for current access instead of building a temporary full file-access recorder. Use the verified historical-to-current path mapping; historical absolute paths are metadata, not permission to read outside scope. Preserve original timestamps and do not claim a fresh execution. A blind packet may include equally scoped unscored raw observations, but no prior conclusions, answers or scores. Old logs cannot replace required fresh external checks; insufficient evidence remains unverified. Record actual time, contamination aborts, sample reruns and capture/integrity-check reruns separately with their reasons; do not trade away evidence for speed or infer general savings from one comparison.
+
 ## Purpose
 
 Centralize bundle and expert selection so workflow skills do not duplicate and drift.
@@ -24,7 +40,7 @@ Centralize bundle and expert selection so workflow skills do not duplicate and d
 4. Check `EXPERTS.lock.md` and `.codex-workflow/EXPERT-READINESS.md`; required experts should be bundled with the company plugin.
 5. Within the selected bundle, use only the experts needed for the current phase.
 6. If the expert is exposed as a Codex skill in the current session, use it when its trigger matches.
-7. If multi-agent support is available and the issue is complex, dispatch a focused expert review.
+7. If multi-agent support is available and the issue is complex, apply DELEGATE-01 to authority, scope and benefit before deciding whether to dispatch a focused review.
 8. If an expert is bundled but not visible in the current session, record it under `Not called, lens only`, say that a new Codex thread is needed to refresh the skill list, and do not ask users to install experts one by one.
 9. For fast-moving APIs, prefer current official docs or local package docs.
 
@@ -155,3 +171,7 @@ When routing matters, include:
 - Result:
 - Any official docs checked:
 - Workflow Audit (only in full-audit mode):
+
+## Document Translation Route
+
+Use `company-document-translation` / `professional-translation` for customer manuals, technical/business translation and bilingual review; ordinary short phrases need no workflow. When existing project BUNDLES/EXPERTS files lack this new entry, supplement from the bundled entry instead of treating absence as an unavailable skill or overwriting project customisations. Explicit project restrictions take precedence. This route handles documents and grants no code-change or publication authority.

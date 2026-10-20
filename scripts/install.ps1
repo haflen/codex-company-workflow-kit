@@ -6,7 +6,8 @@ param(
   [ValidateSet("zh", "en")]
   [string]$Lang = "zh",
   [switch]$Force,
-  [switch]$All
+  [switch]$All,
+  [string]$StagingRoot
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,6 +20,12 @@ $RootDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $PluginSrc = Join-Path $RootDir "outputs/$PluginName"
 $MarketplaceRoot = Join-Path $HOME ".agents/plugins"
 $PluginInstallRoot = Join-Path $HOME "plugins"
+if ($StagingRoot) {
+  if ($Command -ne "install-plugin" -or -not [IO.Path]::IsPathFullyQualified($StagingRoot) -or [IO.Path]::GetPathRoot($StagingRoot) -eq $StagingRoot) {
+    throw "StagingRoot requires install-plugin and an absolute non-root directory."
+  }
+  $PluginInstallRoot = Join-Path $StagingRoot "plugins"
+}
 $PluginDst = Join-Path $PluginInstallRoot $PluginName
 $MarketplaceFile = Join-Path $MarketplaceRoot "marketplace.json"
 $ValidatorPath = if ($env:CODEX_PLUGIN_VALIDATOR) {
@@ -29,7 +36,7 @@ $ValidatorPath = if ($env:CODEX_PLUGIN_VALIDATOR) {
 
 function Show-Usage {
   Write-Host "Usage:"
-  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin [-Lang zh|en] [-Force]"
+  Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 install-plugin [-Lang zh|en] [-Force] [-StagingRoot <absolute-directory>]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 uninstall-plugin [-Lang zh|en|-All]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 bootstrap-project <project-path> [-Lang zh|en] [-Force]"
   Write-Host "  powershell -ExecutionPolicy Bypass -File scripts/install.ps1 migrate-project <project-path> [-Lang zh|en]"
@@ -79,6 +86,7 @@ function Get-CodexCli {
 }
 
 function Refresh-CodexPluginRegistration {
+  if ($StagingRoot) { throw "Offline staging cannot register a plugin." }
   $codexCli = Get-CodexCli
   if ([string]::IsNullOrWhiteSpace($codexCli)) {
     Write-Warning "Codex CLI not found; plugin source is installed but the Codex cache was not refreshed."
@@ -239,6 +247,10 @@ function Install-Plugin {
     Ensure-RootPluginJson $PluginDst
     Review-BundledExperts $PluginDst $true
   }
+  if ($StagingRoot) {
+    Write-Host "Offline staging only: plugin not registered with Codex; activation is unverified."
+    return
+  }
   New-Item -ItemType Directory -Force -Path $MarketplaceRoot | Out-Null
   New-Item -ItemType Directory -Force -Path $PluginInstallRoot | Out-Null
   if (Test-Path $MarketplaceFile) {
@@ -390,8 +402,21 @@ function Append-AgentsBlock($Target, [string]$Mode = "safe") {
     $prefix = $content.Substring(0, $start).TrimEnd()
     $suffix = $content.Substring($finish).TrimStart()
     $parts = @($prefix, $block, $suffix) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    if ($content.Substring($start, $finish - $start).Trim() -ne $block.Trim()) {
+      $candidate = Join-Path (Split-Path $Target) "AGENTS.generated.md"
+      # CreateNew rejects existing files and links, including a candidate under review.
+      $stream = [System.IO.File]::Open($candidate, [System.IO.FileMode]::CreateNew, [System.IO.FileAccess]::Write)
+      try {
+        $bytes = [System.Text.Encoding]::UTF8.GetBytes((($parts -join "`n`n").TrimEnd() + "`n"))
+        $stream.Write($bytes, 0, $bytes.Length)
+      } finally {
+        $stream.Dispose()
+      }
+      Write-Host "Existing managed rules preserved; review candidate: $candidate"
+      return
+    }
     Set-Content -Encoding UTF8 $Target (($parts -join "`n`n").TrimEnd() + "`n")
-    Write-Host "Updated managed company workflow block in AGENTS.md."
+    Write-Host "Current managed company workflow block in AGENTS.md preserved."
     return
   }
   if (Test-UnmarkedLegacyAgents $content) {
@@ -781,32 +806,8 @@ function Verify-Kit {
     Write-Error "Unexpected disallowed wording found.`n$risk"
   }
   $null = [scriptblock]::Create((Get-Content -Raw (Join-Path $RootDir "scripts/install.ps1")))
-  python3 (Join-Path $RootDir "tests/test_asset_boundaries.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Asset boundary regression tests failed"
-  }
-  python3 (Join-Path $RootDir "tests/test_document_templates.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Document template regression tests failed"
-  }
-  python3 (Join-Path $RootDir "tests/test_document_ownership.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Document ownership regression tests failed"
-  }
-  python3 (Join-Path $RootDir "tests/test_quality_validation_workflow.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Quality validation workflow regression tests failed"
-  }
-  python3 (Join-Path $RootDir "tests/test_human_output.py")
-  if ($LASTEXITCODE -ne 0) { throw "Human output regression tests failed" }
-  python3 (Join-Path $RootDir "tests/test_target_clients_and_human_summary.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Target client and human summary regression tests failed"
-  }
-  python3 (Join-Path $RootDir "tests/test_legacy_project_migration.py")
-  if ($LASTEXITCODE -ne 0) {
-    throw "Legacy project migration regression tests failed"
-  }
+  python3 -B -m unittest discover -s (Join-Path $RootDir "tests") -p "test_*.py"
+  if ($LASTEXITCODE -ne 0) { throw "Workflow regression tests failed" }
   Review-BundledExperts $PluginSrc $false | Out-Null
   Write-Host "Verification passed."
 }

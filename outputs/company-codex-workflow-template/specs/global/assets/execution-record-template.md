@@ -13,6 +13,14 @@ For AI continuity and audit. Extend existing records; do not create one for ever
 - Current result, next execution point, prerequisites, owner:
 - Closing state: continue execution / await user / complete; match the conversational next step, record observation triggers, and reuse existing authority.
 
+## Contract and State References
+
+- Task contract: [template](task-contract-template.md); location of the adopted contract:
+- Multi-stage state: `.codex-workflow/tasks/<task-id>/state.json`; current revision and actual latest validation:
+- Evidence directory or original record links:
+
+When structured state is used, reference its contract, state and evidence instead of maintaining a second progress or authorization list. Without state tooling, continue this record and disclose that structured validation has not run.
+
 ## Capability and Verification
 
 - Workflow layer:
@@ -52,4 +60,6 @@ For AI continuity and audit. Extend existing records; do not create one for ever
 
 | Task scope | Continuous | Stop condition | User authorization |
 | --- | --- | --- | --- |
-|  |  | scope change / verification failure / V3 / user confirmation / local resource anomaly |  |
+|  |  | unauthorized scope / missing business decision / permission or file conflict / exhausted repairs / local resource limit |  |
+
+Handle ordinary failures with bounded repair under REPAIR-01 in the [task execution policy](task-execution-policy.md). Keep item-by-item V3 review and full verification without repeated confirmation solely because of the risk level. Stop only affected actions; continue independent authorized work.

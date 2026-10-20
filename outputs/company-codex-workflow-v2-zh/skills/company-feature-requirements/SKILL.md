@@ -5,6 +5,10 @@ description: Use when a company project needs feature requirements, acceptance c
 
 # 公司功能需求澄清
 
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
@@ -23,7 +27,7 @@ description: Use when a company project needs feature requirements, acceptance c
 6. L2/L3 或业务规则复杂时，补充第一性原理检查：核心假设、不可破坏约束、最小成立条件。
 7. 编写 Given-When-Then 验收标准，并至少列出关键反例或异常场景。
 8. 用户希望在需求阶段验证页面、交互、文案或模拟状态时，路由到 `company-requirements-prototype`；原型反馈改变需求时，先更新权威需求或 `business-rules.md`，再继续原型。
-9. 需求阶段结束后停止。原型确认只允许转为需求基线；除非用户明确给出设计交接口令，否则不得进入技术设计，更不得创建任务。
+9. 需求阶段完成后按 FLOW-01/02 核对并路由。仅授权需求/原型时停在基线；已有整体实施授权且需求决定已满足时进入设计，不要求新的口令。原型确认本身不增加授权。
 
 ## Superpowers 叠加
 

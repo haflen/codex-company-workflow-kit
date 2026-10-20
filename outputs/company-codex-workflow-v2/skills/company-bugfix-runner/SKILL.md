@@ -5,6 +5,12 @@ description: Use when company code behavior differs from requirements, design, a
 
 # Company Bugfix Runner
 
+Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
+
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -141,3 +147,5 @@ Before updating a fix record, read the project copy of `specs/global/assets/docu
 - Regression verification:
 - Public-doc impact:
 - Remaining risk:
+
+Apply REPAIR-01 in shared `task-execution-policy.md`: classify and record recovery, bound scoped repairs and return to the original AC. Retain failure evidence and counts; expected TDD red does not count; explicit permission denial is never retried, while host approval for authorized Git delivery follows APPROVAL-01. Continue independent authorized work when a check stops; do not claim overall completion.

@@ -18,6 +18,7 @@ All expert advice remains subordinate to the target clients confirmed in `specs/
 
 | Bundle | Use When | Default Experts | Optional Experts |
 | --- | --- | --- | --- |
+| `company-document-translation` | Customer manuals, technical/business document translation and bilingual review | `professional-translation` | `business-analyst` only for unresolved business meaning |
 | `company-core-delivery` | Generic feature work with product, process, and QA concerns | `product-manager`, `business-analyst`, `testing-qa` | `systematic-debugging`, `test-driven-development` |
 | `company-backend-java` | Java/Spring backend, transactions, concurrency, APIs, persistence | `business-analyst`, `java-pro`, `testing-qa` | `systematic-debugging`, `test-driven-development` |
 | `company-python-service` | Python services, automation, FastAPI-style APIs, async jobs | `business-analyst`, `python-pro`, `testing-qa` | `python-patterns`, `systematic-debugging` |

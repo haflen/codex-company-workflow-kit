@@ -1,6 +1,6 @@
 {
   "name": "codex-company-workflow",
-  "version": "0.2.38",
+  "version": "0.2.39-rc.7",
   "description": "Codex company workflow kit with a thin npm CLI wrapper.",
   "license": "UNLICENSED",
   "bin": {
@@ -17,9 +17,11 @@
     "docs/skill-upgrade-dry-run.md",
     "outputs/",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "!**/__pycache__/**",
+    "!**/*.pyc"
   ],
   "scripts": {
-    "verify": "node --check bin/codex-company-workflow.js && bash -n scripts/install.sh && python3 tests/test_asset_boundaries.py && python3 tests/test_document_templates.py && python3 tests/test_document_ownership.py && python3 tests/test_quality_validation_workflow.py && python3 tests/test_target_clients_and_human_summary.py && python3 tests/test_legacy_project_migration.py && python3 tests/test_human_output.py"
+    "verify": "node --check bin/codex-company-workflow.js && bash -n scripts/install.sh && python3 -B -m unittest discover -s tests -p \"test_*.py\""
   }
 }

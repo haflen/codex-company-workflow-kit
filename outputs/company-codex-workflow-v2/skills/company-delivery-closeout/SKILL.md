@@ -5,6 +5,12 @@ description: Use when a company task batch, feature, milestone, or version phase
 
 # Company Delivery Closeout
 
+When local `prepare` closeout has passed all gates and already uses structured task state, follow [local completion registration](../company-workflow-help/SKILL.md#local-completion-registration) and call `../company-workflow-help/scripts/complete_task.py`. Other endpoints and external acceptance retain the original flow. This entry only records state; it does not commit, push, deploy or execute business operations.
+
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Check ownership, references, and current status for this scope; separate commit, merge, and deployment. Update upper-level entries only for routing or phase changes, following public-document branch policy.
@@ -182,3 +188,15 @@ The stop report names blockers, completed safe steps, Git actions not executed, 
 ## Document Quality Gates
 
 Before creating or substantially changing a formal document, read the project copy of `specs/global/assets/document-standard.md`; if absent, read the bundled `../../specs/global/assets/document-standard.md`. This skill enforces `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`.
+
+Apply EVIDENCE-01 in shared `task-execution-policy.md` to required checks, input dependencies, actual environment and the authorized endpoint. Recheck affected evidence only. Latest failures/skips, old external evidence or missing artifacts prevent completion; structural validation never substitutes for execution or authority.
+
+Before Git writes, apply APPROVAL-01 in shared `task-execution-policy.md` to distinguish a host approval requirement from explicit rejection. Existing user authorization does not replace host approval. Follow an available lawful approval entrypoint when the tool requires it; explicit rejection, no entrypoint or an unknown side effect stops the affected write and preserves the facts.
+
+## Fixed evidence collection
+
+For packaging/formal closeout with repeated identity and saved-check collection, use this skill's `scripts/collect_delivery_evidence.py --project-root <root> --paths-file <json> --output <new-report.json>`. Do not add reports to simple single-point tasks. Both inputs and output stay inside the project; absolute or project-relative paths are supported. Output must be new and must not overlap inputs.
+
+Example input: `{"paths":["labels.py","test_labels.py","dist/labels.zip"],"checks":[{"id":"unit","capture_path":"evidence/unit.json"}]}`. List every candidate input/artifact; checks are optional. Each capture is JSON from an actual first execution with command (array), check_exit_code (integer), stdout and stderr (strings). Never fabricate captures. The tool never executes their commands. Include only authorized non-secret files; known credential paths are rejected and report bodies omit file/log contents. Path filtering cannot detect secrets in arbitrary business files.
+
+The report includes the current candidate fingerprint, file hashes, original capture references/hashes and exit-code summaries, reusing the P0 state format. Exit 0 means collection succeeded only; acceptance stays not_assessed. Freshness, source authenticity and candidate binding still require EVIDENCE-01 review. Failed checks, missing files, malformed JSON, symlinks and output errors return nonzero with retained details; partial success cannot hide failure. No state updates, commits, releases or unrelated directory scans. Requires supported safe descriptor-relative file operations.

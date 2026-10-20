@@ -44,14 +44,17 @@ flowchart LR
     T003 --> GATE{"Verification and confirmation stop"}
     T004 --> GATE
     GATE -->|pass| T005["T-005<br/>Regression and document sync"]
-    GATE -->|failure/scope change| STOP["Stop and return to design or planning"]
+    GATE -->|ordinary in-scope failure| REPAIR["Bounded repair and rerun original check"]
+    REPAIR --> GATE
+    GATE -->|missing authority or decision| STOP["Stop affected action and resolve missing decision"]
+    REPAIR -->|limit reached or no progress| STOP
 ```
 
 Key conclusions:
 
 - Core behavior starts with a failing case or verification anchor.
 - `T-003` and `T-004` run in parallel only when file and state boundaries are independent.
-- Stop on verification failure, scope change, V3 risk, or a user confirmation point.
+- Follow REPAIR-01 in the [task execution policy](task-execution-policy.md): repair ordinary failures within bounds and rerun the original check. Stop affected actions for unauthorized scope, missing business decisions, permission or file conflicts, exhausted repairs, or local resource limits; continue independent authorized work. Keep item-by-item V3 review and full verification. Continue when existing authority and prerequisites cover the action without repeated confirmation.
 
 ## Preconditions
 

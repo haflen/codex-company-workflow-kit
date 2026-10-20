@@ -5,6 +5,8 @@ description: Use when starting work in a company project, resuming an existing f
 
 # 公司上下文索引
 
+按共享 `../../specs/global/assets/task-execution-policy.md` 的 READ-01 读取当前任务必需章节；已读未变的规则不重复加载。单点低风险修改在本技能完成局部验证即可结束；需要正式交付、打包或独立验收时保留对应阶段。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。确认已有任务、owner-path、record-path 和 release-target；优先复用原记录，归属不明时只询问关键归属。

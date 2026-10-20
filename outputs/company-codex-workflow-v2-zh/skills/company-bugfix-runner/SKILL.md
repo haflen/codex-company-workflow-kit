@@ -5,6 +5,12 @@ description: Use when company code behavior differs from requirements, design, a
 
 # 公司 Bugfix 执行器
 
+按共享 `../../specs/global/assets/task-execution-policy.md` 的 READ-01 读取当前任务必需章节；已读未变的规则不重复加载。单点低风险修改在本技能完成局部验证即可结束；需要正式交付、打包或独立验收时保留对应阶段。
+
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
@@ -141,3 +147,5 @@ Bugfix 前检查最小上下文：
 - 回归验证：
 - 公共文档影响：
 - 剩余风险：
+
+按共享 `task-execution-policy.md` 的 REPAIR-01 分类并记录恢复：范围内失败有限修复后回原 AC；保留失败证据与次数；预期 TDD 红灯不计数；明确的权限拒绝不重试，已授权 Git 交付的宿主审批按 APPROVAL-01 区分。达到停止条件时继续独立授权工作，不宣布整体完成。

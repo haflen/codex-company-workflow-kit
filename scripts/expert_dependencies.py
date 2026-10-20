@@ -19,6 +19,7 @@ from pathlib import Path
 
 
 EXPERTS = [
+    ("professional-translation", "skills/professional-translation", "company-adapted", "company-document-translation"),
     ("product-manager", "skills/product-manager", "business", "company-core-delivery"),
     ("business-analyst", "skills/business-analyst", "business", "company-core-delivery"),
     ("ai-product", "skills/ai-product", "ai-ml", "company-ai-feature"),
@@ -42,6 +43,19 @@ SOURCE = {
     "vendored_pin": "e0ef87efd0ad5a18a23e21bb08406b3eaf563b35",
     "review_date": "2026-06-29",
     "license": "MIT for code; CC BY 4.0 for original non-code content unless upstream states otherwise",
+}
+
+
+# SOURCE remains the default for existing experts; exceptions are explicit.
+SOURCE_OVERRIDES = {
+    "professional-translation": {
+        "maintainer": "company workflow",
+        "reference_repository": "Tasdax123/claude-fidelity-translator",
+        "reference_pin": "c9f0651b007b547bdfae103235a4567fa1acd75e",
+        "license": "MIT reference; license included in skill directory",
+        "scope": "company-adapted Markdown protocol; no upstream runtime",
+        "review_date": "2026-10-11",
+    },
 }
 
 RISK_PATTERNS = {
@@ -209,6 +223,10 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
         f"- URL: {SOURCE['url']}",
         f"- License: {SOURCE['license']}",
         "",
+        "- Source above is the default; professional-translation uses the company-maintained adaptation of "
+        "Tasdax123/claude-fidelity-translator at c9f0651b007b547bdfae103235a4567fa1acd75e (MIT). "
+        "See skills/professional-translation/PROVENANCE.md and LICENSE.",
+        "",
         *notes,
         "",
     ]
@@ -220,6 +238,7 @@ def write_json(reviews: list[ExpertReview], path: Path) -> None:
     data = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "source": SOURCE,
+        "sourceOverrides": SOURCE_OVERRIDES,
         "experts": [review.__dict__ for review in reviews],
     }
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

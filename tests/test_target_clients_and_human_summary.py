@@ -131,7 +131,7 @@ class TargetClientContractTests(unittest.TestCase):
                     with self.subTest(language=language, root=root.name, phrase=phrase):
                         self.assertIn(phrase, content)
 
-    def test_update_templates_refreshes_managed_rules_without_overwriting_index(self):
+    def test_update_templates_stages_differing_managed_rules_without_overwriting_index(self):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             agents = project / "AGENTS.md"
@@ -165,9 +165,11 @@ class TargetClientContractTests(unittest.TestCase):
             self.assertTrue((project / "specs/global/assets/execution-record-template.md").is_file())
             updated_agents = read(agents)
             self.assertIn("# Local rule", updated_agents)
-            self.assertNotIn("old managed rule", updated_agents)
-            self.assertIn("目标使用终端契约", updated_agents)
-            self.assertIn("人类优先总结", updated_agents)
+            self.assertIn("old managed rule", updated_agents)
+            candidate_agents = read(project / "AGENTS.generated.md")
+            self.assertIn("# Local rule", candidate_agents)
+            self.assertIn("目标使用终端契约", candidate_agents)
+            self.assertIn("人类优先总结", candidate_agents)
             self.assertEqual("# Confirmed project index\n", read(index))
             generated = read(project / "specs/global/INDEX.generated.md")
             self.assertIn("目标使用终端基线", generated)
@@ -196,15 +198,12 @@ class HumanFirstSummaryTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.38", package["version"])
-        self.assertIn("test_legacy_project_migration.py", package["scripts"]["verify"])
-        self.assertIn("test_target_clients_and_human_summary.py", package["scripts"]["verify"])
-        self.assertIn("test_target_clients_and_human_summary.py", read(ROOT / "scripts/install.sh"))
+        self.assertEqual("0.2.39-rc.7", package["version"])
+        self.assertIn("unittest discover", package["scripts"]["verify"])
+        self.assertIn("unittest discover", read(ROOT / "scripts/install.sh"))
         powershell = read(ROOT / "scripts/install.ps1")
-        self.assertIn("test_target_clients_and_human_summary.py", powershell)
-        self.assertIn("test_legacy_project_migration.py", powershell)
-        self.assertIn("Quality validation workflow regression tests failed", powershell)
-        self.assertIn("Target client and human summary regression tests failed", powershell)
+        self.assertIn("unittest discover", powershell)
+        self.assertIn("Workflow regression tests failed", powershell)
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))
             self.assertEqual(package["version"], manifest["version"])

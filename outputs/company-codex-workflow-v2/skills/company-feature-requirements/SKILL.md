@@ -5,6 +5,10 @@ description: Use when a company project needs feature requirements, acceptance c
 
 # Company Feature Requirements
 
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -23,7 +27,7 @@ Provide a Codex-ready requirements workflow.
 6. For L2/L3 or complex business rules, add a first-principles check: core assumptions, non-negotiable constraints, and minimum conditions.
 7. Write Given-When-Then acceptance criteria and include key counterexamples or abnormal scenarios.
 8. When the user wants to validate pages, interactions, copy, or mock states during requirements, route to `company-requirements-prototype`. If prototype feedback changes requirements, update the authoritative requirements or `business-rules.md` before continuing the prototype.
-9. Stop after requirements. Prototype confirmation authorizes only promotion to a requirements baseline; do not enter design or create tasks without an explicit design handoff.
+9. Apply FLOW-01/02 after requirements. Requirements/prototype-only authority ends at the baseline. Existing end-to-end authority and satisfied requirements decisions allow design without a new phrase. Prototype confirmation itself grants no additional authority.
 
 ## Superpowers Layer
 

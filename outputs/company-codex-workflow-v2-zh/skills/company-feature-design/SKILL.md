@@ -5,6 +5,10 @@ description: Use when company feature requirements are confirmed and a technical
 
 # 公司功能技术设计
 
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
@@ -26,9 +30,9 @@ description: Use when company feature requirements are confirmed and a technical
 9. 设计不得重新发明业务公式；只能把 `business-rules.md` 中的操作逻辑、状态流转、字段口径和计算公式映射到模块、接口、数据结构和测试策略。
 10. 输出设计、契约、风险说明、反例场景和测试策略。
 11. 涉及前后端或服务边界时，任务拆解前先产出 API 契约。
-12. 如果本轮设计来自实现阶段中发现的范围变化，必须标记 `实现授权状态：已失效，需要用户确认后再编码`，并说明旧任务授权不覆盖新范围。
+12. 如果本轮设计来自实现阶段中发现的范围变化，标记新增范围待确认，说明旧授权不覆盖新增动作；独立的原范围授权保持有效。
 13. L2/L3 方案对比触发后，必须获得用户对推荐方案的确认，才能进入任务拆解。
-14. 设计阶段结束后停止，除非用户给出任务拆解交接口令。
+14. 按 FLOW-01/02 进入已有授权覆盖的任务规划；仅设计或缺实质方案决定时停在相应边界。
 
 ## Superpowers 叠加
 

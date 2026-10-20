@@ -5,6 +5,10 @@ description: Use when company implementation is complete and integrated acceptan
 
 # Company Quality Validation
 
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -57,6 +61,8 @@ Stop on conflicting entry, task, or acceptance sources. Return to requirements, 
 7. Produce exactly one result: `pass / conditional-pass / blocked`.
 
 ## Real API Evidence Gate
+
+On the first read-only CLI API/dependency check, apply CAPTURE-01 in the shared task-execution-policy.md to capture actual results. Missing original output remains unverified; a later log cannot authenticate execution.
 
 - When requirements, design, API contracts, or tasks require a real API, real database, or real business data, Fixture/Mock evidence, local static data, screenshot existence, component tests, or frontend-only E2E cannot replace real API integration and real-page acceptance.
 - A Fixture candidate may reach only `FIXTURE_READY`. While real integration is incomplete, mark `API_PENDING` and keep validation `blocked`.
@@ -130,3 +136,5 @@ Completion output includes:
 ## Document Quality Gates
 
 Before creating or substantially changing a formal validation report, read the project `specs/global/assets/document-standard.md`; use the plugin fallback when absent. Check `DOC-G01`, `DOC-G04`, `DOC-G05`, `DOC-G06`, `DOC-G07`, `DOC-G08`, `DOC-G09`, `DOC-G10`, `DOC-G11`, and `DOC-G12`.
+
+Apply EVIDENCE-01 in shared `task-execution-policy.md` to required checks, input dependencies, actual environment and the authorized endpoint. Recheck affected evidence only. Latest failures/skips, old external evidence or missing artifacts prevent completion; structural validation never substitutes for execution or authority.

@@ -1,9 +1,33 @@
 ---
 name: company-workflow-help
-description: Use when a company user is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, and skill updates.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, and professional document translation.
 ---
 
 # 公司工作流入口帮助
+
+按共享 `../../specs/global/assets/task-execution-policy.md` 的 READ-01 读取当前任务必需章节；已读未变的规则不重复加载。单点低风险修改在本技能完成局部验证即可结束；需要正式交付、打包或独立验收时保留对应阶段。
+
+## 本地完成登记
+
+已使用任务状态、终点为 `prepare`、无外部验收且任务为 `running` 的 `validation`/`delivery` 阶段，核对实际环境未变化后，使用 `scripts/complete_task.py`。它在同一次受 revision 保护的更新中登记 `delivery` 和 `completed`；仅为新增且未填写环境的证据继承现有环境，追加完成项和证据历史。显式环境不一致仍拒绝，不改写旧证据。
+
+```sh
+python3 <installed-plugin>/skills/company-workflow-help/scripts/complete_task.py \
+  --project-root <project> --task-id <task> --expected-revision <current-revision> \
+  --submission <submission.json>
+```
+
+提交 JSON 只包含本次新增的 `evidence`、`completed_items`，以及可选的 `current_task`、`next_step`；不要重复提交历史条目，也不要传 `phase`、`status` 或 `environment`。证据仍需原始日志、校验和、候选指纹及对应验收项。环境名称不会证明真实运行环境；无法确认一致时先补验，不靠改标签通过。
+
+其他终点、外部验收或不满足上述前提时继续使用 `task_state.py` 原流程；拒绝后先 show/validate 核对真实原因，不自动删锁、刷新指纹或重跑业务操作。已完成任务不重复登记。
+
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
+## 任务约定与已有授权
+
+复用上文共享规则，需要记录时使用 `../../specs/global/assets/task-contract-template.md`。从真实请求提取目标、范围、验收、终点与授权来源，复用已确认信息；已有约定保持单一来源。只读或仅规划请求按其范围执行。已有授权覆盖的后续动作不要求重复口令；缺失决定只阻塞相关动作。
 
 ## 目的
 
@@ -32,7 +56,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 | 需求和验收标准已确认 | L2 | `company-feature-design` | L2/L3 方案对比触发时使用 `superpowers:brainstorming` | `需求已确认，进入技术设计；如命中 L2/L3，请先做方案对比。` |
 | 技术方案已确认 | L2 | `company-feature-planning` | `superpowers:writing-plans` | `方案已确认，进入任务拆解` |
 | 任务清单已确认 | L1/L2/L3 | `company-implementation-runner` | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，开始实现` |
-| 任务清单已确认，且用户希望少确认几次连续推进 | L1/L2 | `company-implementation-runner` 连续执行模式 | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到范围变化或验证失败再停。` |
+| 任务清单已确认，且用户希望少确认几次连续推进 | L1/L2 | `company-implementation-runner` 连续执行模式 | `superpowers:test-driven-development` + `superpowers:verification-before-completion` | `任务已确认，连续完成后续所有可执行任务；遇到缺失业务决定、权限或不可安全恢复的冲突再停。` |
 | 实现任务已经完成，需要判断是否独立验收或执行交付门禁 | L1/L2/L3 | 自动判定；命中条件时进入 `company-quality-validation` | `superpowers:verification-before-completion`；测试策略使用 `testing-qa` | `实现已完成，请判断并执行独立质量验收。` |
 | 任务批次、功能或里程碑已全部完成，需要规整成果、清理临时文件、提交或推送 | L2/L3 | `company-delivery-closeout` | `superpowers:requesting-code-review` + `superpowers:verification-before-completion` + `superpowers:finishing-a-development-branch` | `所有任务已完成，开始交付收口并推送业务分支。` |
 | 现有行为不符合预期 | L1/L2 | `company-bugfix-runner` | `superpowers:systematic-debugging` | `开始 bugfix：...` |
@@ -61,10 +85,10 @@ description: Use when a company user is unsure which workflow to start, asks wha
 - 页面、交互、文案和模拟业务状态验证：进入 `company-requirements-prototype`，保持需求阶段。
 - 原型反馈改变目标、范围、验收标准或业务规则：先回 `company-feature-requirements` 更新权威文档，再继续原型。
 - 用户只确认需求和原型：转为需求基线后停止，不进入技术设计或任务拆分。
-- 用户确认需求和原型并明确说“进入技术设计”：转为基线后进入 `company-feature-design`，仍不创建任务。
+- 用户确认需求和原型并明确说“进入技术设计”：转为基线后进入 `company-feature-design`，后续按 FLOW-01/02 核对。
 - 真实 API、数据库、认证、生产数据/组件、后端、数据库结构、基础设施、性能或技术可行性：停止需求原型，改判 `company-spike-research` 或已授权的 `company-feature-design`。
 
-模糊的“确认”“继续”“下一步”只延续当前需求/原型阶段。不得输出“页面设计已确认，进入任务拆解”等自动跨阶段结论。
+“继续”按已有明确授权解释；没有整体授权时不能由原型确认推导出设计或实现权限。
 
 ## 对话交接路由
 
@@ -85,18 +109,7 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 范围变化熔断判断
 
-用户不需要知道何时启用熔断；本 skill 必须自动识别。命中以下信号时，不推荐 `company-implementation-runner` 继续编码：
-
-- 用户说“遗漏”“补漏”“先分析”“为什么”“怎么放入”“补充完善文档”“业务口径”“需求方案/技术方案/任务文档需要同步更新”。
-- 当前工作新增架构层、数据加工层、表、接口边界、调度链路、外部系统、关键模块或跨团队责任。
-- 文档更新后产生新的契约、字段映射、任务清单、公共文档影响或待确认业务规则。
-- 原实现任务没有覆盖这次新增范围，或旧的实现授权来自范围变化之前。
-
-推荐动作：
-
-- `阶段许可：只允许补文档` 或 `阶段许可：需要用户确认`。
-- 输出 `实现授权状态：已失效，需要用户确认后再编码`。
-- 让用户确认新的需求、设计、任务或字段映射后，再用 `任务已确认，开始实现` 进入实现。
+按 FLOW-06 比较已有范围与当前请求。只阻塞未授权新增范围或实际冲突，补具体差异并问缺失决定；保留原范围有效授权。关键词和常规文档同步不使授权失效。
 
 ## 验证等级路由
 
@@ -111,26 +124,9 @@ description: Use when a company user is unsure which workflow to start, asks wha
 
 ## 连续执行路由
 
-用户不需要知道是否该开启连续执行；本 skill 必须自动判断。
+按 FLOW-01 至 FLOW-07 判断当前可执行步骤。明确目标与整体授权已经覆盖后续阶段时直接推进，不增加启用口令。必要需求、设计、任务和验收不能省略；实质决定缺失只阻塞依赖它的动作。V3 每项复核而非一律等待用户。
 
-推荐连续执行的条件：
-
-- 用户明确要求“继续完成后续所有任务”“连续执行”“批量推进”。
-- 需求、设计、任务拆解和必要业务规则已经确认。
-- 当前任务清单有顺序、任务 ID、验证点和预估验证等级。
-- 任务主要是 `V1/V2`，且属于同一功能链路或同一批验收目标。
-
-不推荐连续执行的条件：
-
-- 正在补需求、设计、业务规则、字段映射或任务拆解。
-- 刚触发范围变化熔断，或新文档尚未由用户确认。
-- 任务包含 `V3` 风险、生产/权限/安全/数据迁移/金额公式/跨系统影响。
-- 当前项目阶段、入口文档、任务文档或公共文档影响补丁不一致。
-
-推荐口令：
-
-- 普通实现：`任务已确认，开始实现`
-- 连续执行：`任务已确认，连续完成后续所有可执行任务；遇到范围变化、V3 风险、验证失败或需要我确认时再停。`
+示例：`按已确认方案完成实现、验证和打包；仅在业务决定、范围或权限确有缺失时找我。` 示例不是必须照抄的口令。
 
 ## 交付收口路由
 
@@ -187,7 +183,7 @@ Codex 计划模式适合在正式 workflow 前做路线判断，不替代需求�
 
 - 计划模式输出只是路线建议；正式产物仍要进入 `company-feature-requirements`、`company-feature-design`、`company-feature-planning` 或对应 workflow。
 - 计划模式不能替代用户对需求、方案、任务或实现范围的确认。
-- 计划模式不能覆盖范围变化熔断、阶段一致性预检、V3 停止条件和验证要求。
+- 计划模式不能覆盖范围变化熔断、阶段一致性预检、V3 验证要求与实际权限门禁和验证要求。
 
 ## Subagents 使用建议
 
@@ -227,7 +223,7 @@ Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段�
 
 边界：
 
-- 目标存在不代表可以直接编码；阶段一致性预检、范围变化熔断、V3 停止条件和用户确认仍然优先。
+- 目标存在不代表可以直接编码；阶段一致性预检、范围变化熔断、V3 验证要求与实际权限门禁和用户确认仍然优先。
 - 目标只记录“最终要完成什么”，不要把每个 workflow 步骤都塞进目标。
 - 不要为了小任务建议建立目标。
 
@@ -312,3 +308,11 @@ Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段�
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
 - 不要在入口帮助阶段展开详细专家清单；只判断是否需要进入 `company-expert-routing`。
 - 命中范围变化熔断时，不得推荐继续实现；先推荐补文档、设计或任务确认。
+
+## 等待与接续
+
+按共享 WAIT-01 探测当时可用的原生等待能力，核对真实机制ID、原任务、当前候选、取消状态和授权。无有效机制时明确 manual_resume；本回合等待不等于已建后台续做。重复或旧事件不重做动作；无变化不通知，取消后不重启。
+
+## 文档翻译入口
+
+“把客户手册翻译成英文”“检查中英文是否一致”等请求直接使用 `professional-translation`，按已知源文、语言和交付目标执行，缺必要信息才问。不要求用户记住技能名，也不要求先走软件需求、设计和实现阶段。原文件默认保留，交付文字审校不冒充版面或线上功能验收。

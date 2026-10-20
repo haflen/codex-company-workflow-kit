@@ -1,5 +1,7 @@
 # Company Codex Workflow
 
+Use READ-01 in task-execution-policy.md for scoped reading; reuse unchanged rules already loaded this turn. V0/V1 single-point changes ending at local verification finish in the current skill; formal delivery and V2/V3 retain existing gates.
+
 This project uses a lightweight SDLC adapted from audited source skills. The goal is traceability and consistent delivery without slowing down simple work.
 
 ## Document Ownership Check
@@ -78,7 +80,7 @@ When multiple branches run in parallel, public entry documents represent mainlin
 - Implementation starts only after requirements, design, and task plan are confirmed, except for `/spike` or `/hotfix`.
 - Prototype confirmation authorizes only a requirements baseline under `prototype/` beside the authoritative requirements. Do not enter design or planning unless the user explicitly authorizes technical design.
 - Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility requests stop requirements-prototype work and reroute to a spike or authorized design.
-- Ambiguous "confirm", "continue", or "next" means continue the current phase, not advance to the next phase.
+- Interpret “continue” using existing explicit authority; never expand scope without a real source.
 
 ## Triggered Quality Validation
 
@@ -120,19 +122,9 @@ When multiple branches run in parallel, public entry documents represent mainlin
 
 ## Continuous Implementation Mode
 
-Continuous implementation mode is only for confirmed implementation task plans. It reduces repeated approval loops; it does not remove workflow boundaries.
+Read `specs/global/assets/task-execution-policy.md` and apply FLOW-01 through FLOW-07. The contract identifies endpoints and authority sources. Continue authorized stages with satisfied prerequisites without repeated phrases. V3 retains per-task review and full quality validation. Ordinary defects enter bounded repair; permission denial, new business decisions and actual conflicts stop affected actions while independent work continues. Record actual results and evidence after each task.
 
-- Enable it only when the user explicitly asks to "continue all remaining tasks", "run continuously", "batch progress", or equivalent wording.
-- Phase Consistency Preflight and Scope Change Circuit Breaker must pass before enabling it.
-- Task plans should mark `continuous / careful-continuous / must-stop`.
-- `V0/V1` tasks may be batched when related; `V2` tasks may batch only 1-3 tightly related items; `V3` tasks stop after one task by default.
-- After every task, re-check scope change, verification failure, V3 risk, user confirmation points, worktree conflicts, high-permission commands, and local resource anomalies.
-- If a stop condition is hit, do not continue to the next task; state the stop reason, evidence, and specific missing input, then give the next step under the shared standard.
-
-Every implementation, bugfix, hotfix, spike, or document handoff completion must include next-step guidance:
-
-- End with a standalone **Next step:** stating one primary action, owner, and prerequisites, or explicitly state that no action is needed, following the shared standard.
-- Ask the user for an action only when required information, a decision, or authority is missing; continue within existing authorization.
+Read-only and plan-only requests end at their agreed endpoint. Check concrete authority separately for Git, deployment, messages, automation and agents; task state grants no permission.
 
 ## Codex Goal Tracking
 
@@ -142,7 +134,7 @@ Codex goals are for cross-turn objective management. They do not replace company
 - L2 standard features, cross-phase work, cross-session work, multi-document work, or continuous implementation should recommend goal tracking.
 - L3 high-risk work, legacy onboarding, skill upgrade/security review, expert maintenance, and hotfix follow-up chains should strongly recommend goal tracking.
 - Goal descriptions must state final success criteria, not every workflow step.
-- An active goal does not make implementation authorization valid; Phase Consistency Preflight, Scope Change Circuit Breaker, V3 stop conditions, verification failures, and user confirmation still take priority.
+- An active goal does not make implementation authorization valid; Phase Consistency Preflight, Scope Change Circuit Breaker, V3 verification and actual authority gates still take priority; classify ordinary failures under the shared policy.
 - Completion reports for complex tasks should output `Goal status guidance`: whether to create, keep, or close a Codex goal.
 
 ## Codex Plan Mode
@@ -174,27 +166,7 @@ Subagents are for context isolation, independent investigation, independent exec
 
 ## Scope Change Circuit Breaker
 
-Implementation authorization applies only to the requirements, design, and task scope that was confirmed at the time. After implementation starts, if the user or Codex discovers a material scope change, the old "start implementation" authorization immediately expires; pause coding and reconfirm the phase.
-
-Trigger the `Scope Change Circuit Breaker` by default when any of these appears:
-
-- A new or previously missing architecture layer, data-preparation layer, table, API boundary, scheduler chain, external system, or key module.
-- User intent such as "missing", "analyze first", "why", "how to fit this in", "update the docs", "business semantics are not confirmed", or "requirements/design/tasks need updates".
-- The implementation scope exceeds confirmed task planning, solution comparison, API contracts, or `business-rules.md`.
-- Field sources, calculation semantics, state transitions, exception/degradation strategy, permission boundaries, or data-sync strategy are not confirmed.
-- Documentation updates create a new contract, field mapping, task list, or public-doc impact note that the user has not confirmed.
-
-After the circuit breaker trips, allowed actions are:
-
-- Update only requirements, business rules, technical design, task planning, field mappings, or public-doc impact patches.
-- Output `Implementation authorization: expired; user confirmation required before coding`.
-- List the scope change, authoritative documents, and the next user phrase needed.
-
-After the circuit breaker trips, forbidden actions are:
-
-- Do not reuse an old `tasks confirmed, start implementation` authorization for the new scope.
-- Do not continue into coding immediately after updating docs.
-- Do not treat expert-routing output as a substitute for user confirmation on the changed implementation scope.
+Apply FLOW-06 in task-execution-policy.md to compare approved work with proposed actions. Read-only requests do not authorize coding; new business rules, unauthorized scope or actual conflicts stop affected actions. Preserve user edits, effective authority for existing scope and independent work. Routine document synchronization, new files within approved scope and keywords alone do not trigger approval. Present concrete scope differences and continue once authentic authority and prerequisites exist, without repeated phrases.
 
 ## Phase Consistency Preflight
 
@@ -379,6 +351,8 @@ When `full-audit` is active, also output:
 - `Conclusion:`
 
 ## Handoff Signals
+
+These are example ways to express intent; existing effective authority does not require repetition.
 
 - `需求已确认，进入技术设计`
 - `方案已确认，进入任务拆解`

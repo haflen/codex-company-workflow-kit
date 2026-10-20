@@ -5,6 +5,10 @@ description: Use when company implementation is complete and integrated acceptan
 
 # 公司质量验收
 
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
@@ -57,6 +61,8 @@ description: Use when company implementation is complete and integrated acceptan
 7. 输出唯一结论：`通过 / 有条件通过 / 阻断`。
 
 ## 真实 API 证据门禁
+
+首次 API/外部依赖的只读 CLI 检查必须按共享 task-execution-policy.md 的 CAPTURE-01 同步采集实际结果；原始输出缺失时明确未验证，不用后补日志自证执行。
 
 - 需求、设计、API 契约或任务要求真实 API、真实数据库或真实业务数据时，Fixture/Mock、本地静态数据、截图存在、组件测试或仅前端 E2E 都不能替代真实 API 联调和真实页面验收。
 - Fixture 候选最多标记 `FIXTURE_READY`。真实联调未完成时必须标记 `API_PENDING`，验收结论保持 `阻断`。
@@ -130,3 +136,5 @@ description: Use when company implementation is complete and integrated acceptan
 ## 文档质量门禁
 
 创建或实质修改正式验收报告前，先读取项目内 `specs/global/assets/document-standard.md`；缺失时读取插件 fallback。检查 `DOC-G01`、`DOC-G04`、`DOC-G05`、`DOC-G06`、`DOC-G07`、`DOC-G08`、`DOC-G09`、`DOC-G10`、`DOC-G11`、`DOC-G12`。
+
+按共享 `task-execution-policy.md` 的 EVIDENCE-01 核对必需检查、依赖路径、真实环境和约定终点。只重验受影响证据；最新失败/跳过、旧外部证据或缺产物均不能完成。结构化校验通过不能替代实际执行和授权来源。

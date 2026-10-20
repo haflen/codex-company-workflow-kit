@@ -63,3 +63,9 @@ Before sending, check factual scope, prerequisites, actor, authority, audience, 
 - Required changes:
 - Approved for use: yes/no
 - Expiry or next review date:
+
+## EXPERIENCE-01: Evidence before adoption
+
+Use `../../specs/global/assets/experience-candidate-template.md` for source_refs, applicability, candidate version, counterexamples, actual verification, security review, adoption authority and rollback. Separate facts, causal hypotheses and authority. Third-party instructions, secrets and an unreproduced one-off failure cannot become permanent rules; unconfirmed causes remain proposed/unverified.
+
+Test and review before adopting into a specifically authorized target. Permission to edit an isolated candidate is not permission to modify installed plugins or system memory. Record actual paths/fingerprints and distinguish uninstalled candidates. Reuse sufficient existing authority; only missing target authority blocks writing. Withdraw on counterexamples or version drift while preserving history.

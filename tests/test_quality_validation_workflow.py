@@ -317,13 +317,13 @@ class QualityValidationWorkflowTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_are_wired(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.38", package["version"])
-        self.assertIn("test_quality_validation_workflow.py", package["scripts"]["verify"])
+        self.assertEqual("0.2.39-rc.7", package["version"])
+        self.assertIn("unittest discover", package["scripts"]["verify"])
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))
             self.assertEqual(package["version"], manifest["version"])
-        self.assertIn("test_quality_validation_workflow.py", read(ROOT / "scripts/install.sh"))
-        self.assertIn("test_quality_validation_workflow.py", read(ROOT / "scripts/install.ps1"))
+        self.assertIn("unittest discover", read(ROOT / "scripts/install.sh"))
+        self.assertIn("unittest discover", read(ROOT / "scripts/install.ps1"))
 
 
 if __name__ == "__main__":

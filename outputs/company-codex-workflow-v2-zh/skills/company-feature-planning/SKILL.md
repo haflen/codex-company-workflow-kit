@@ -5,6 +5,14 @@ description: Use when company requirements and technical design are confirmed an
 
 # 公司功能任务拆解
 
+## 阶段连续性
+
+按 READ-01 读取项目 `specs/global/assets/task-execution-policy.md` 的适用章节，缺失时使用 `../../specs/global/assets/task-execution-policy.md`；已读未变则复用。按 FLOW-01 至 FLOW-07 核对并实际进入已授权下一阶段；已有来源仍有效，不索要重复口令。保留本技能的质量、文档归属、权限及真实验收要求。
+
+## 任务约定与已有授权
+
+先读取项目内 `specs/global/assets/task-execution-policy.md`；缺失时读取插件 `../../specs/global/assets/task-execution-policy.md`。需要记录时使用 `../../specs/global/assets/task-contract-template.md`。从真实请求提取目标、范围、验收、终点与授权来源，复用已确认信息；已有约定保持单一来源。只读或仅规划请求按其范围执行。已有授权覆盖的后续动作不要求重复口令；缺失决定只阻塞相关动作。
+
 ## 文档归属检查
 
 先读取项目内 `specs/global/assets/document-ownership.md`；缺失时读取插件内置 `../../specs/global/assets/document-ownership.md`。创建或更新阶段文档前，继承已确认归属并选择记录粒度；未验收任务续写原记录，小修复不自动新建根级 features 或完整文档包。必要的专项设计和验证不因记录精简而省略。
@@ -27,11 +35,11 @@ description: Use when company requirements and technical design are confirmed an
 10. 任务边界不清、跨团队或依赖复杂技术栈细节时，使用 `company-expert-routing`。
 11. 如果任务合并后需要更新 `说明文档.md`、`specs/global/INDEX.md` 或阅读路线，增加“公共文档影响补丁”任务，而不是在业务分支直接改公共文档。
 12. 如果任务可能改变需求、业务规则、技术设计、API 契约或项目入口，增加“文档漂移检查”任务。
-13. 如果任务拆解来自实现阶段中的范围变化，必须写明旧实现授权已失效，新任务需要用户重新确认。
+13. 如果任务拆解来自实现阶段中的范围变化，写明未获批准的新范围及缺失决定；保留原范围有效授权。
 14. 标注连续执行资格：哪些任务可批量连续推进，哪些任务必须单独完成后停下确认。
 15. 标注 subagent 拆分建议：哪些任务适合主 agent 串行执行，哪些适合子 agent 独立实现、独立排查或独立审查。
 16. 预估独立质量验收为 `不需要 / 需要 / 强制`，并记录触发依据、验收范围、关键 AC、环境/测试数据和预期验收类型；最终判定由实现或 bugfix 完成后做出，命中时进入 `company-quality-validation`。
-17. 任务规划阶段结束后停止，除非用户给出实现交接口令。
+17. 规划完成后核对任务约定：已有实现授权且方案、任务及必要门禁已满足时继续；仅规划或缺实质决定时交付规划并指出缺项，不重复索要实现交接口令。
 
 ## Superpowers 叠加
 
@@ -68,7 +76,8 @@ description: Use when company requirements and technical design are confirmed an
 
 - `可连续`：`V0/V1` 或强相关 `V2`，范围清楚、验证点明确、失败不会扩大影响。
 - `谨慎连续`：`V2` 且跨多个文件/页面/API，但仍在同一已确认任务链内；每 1-3 个任务后复核。
-- `必须停下`：`V3`，或涉及生产、权限、安全、数据迁移、金额/指标公式、跨系统、未确认业务规则、范围变化、用户决策点。
+- `逐项复核`：`V3` 保留完整验证；通过且下一动作仍有授权则继续。
+- `必须停下相关动作`：未决业务规则、未授权范围、冲突、新权限或宿主强制门禁；独立已授权工作继续。
 
 连续执行任务仍必须逐项完成验证；不能因为“连续”而跳过 TDD、文档漂移检查或完成前验证。
 

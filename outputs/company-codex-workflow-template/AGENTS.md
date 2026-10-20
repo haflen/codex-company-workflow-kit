@@ -1,5 +1,7 @@
 # Codex Company Workflow
 
+Use READ-01 in task-execution-policy.md for scoped reading; reuse unchanged rules already loaded this turn. V0/V1 single-point changes ending at local verification finish in the current skill; formal delivery and V2/V3 retain existing gates.
+
 These instructions define the team workflow for Codex in this project. Keep changes simple, scoped, and verified.
 
 ## Document Ownership Check
@@ -59,7 +61,7 @@ Capability traces and internal completion-report fields below belong in existing
 - Implementation begins only after requirements and design are confirmed, unless the user explicitly invokes `/spike` or `/hotfix`.
 - Prototype confirmation authorizes only a requirements baseline under `prototype/` beside authoritative requirements; do not enter design or planning without explicit authorization.
 - Real APIs, databases, authentication, production data/components, backend, schema, infrastructure, performance, or feasibility requests stop and reroute requirements-prototype work.
-- Ambiguous "confirm", "continue", or "next" means continue the current phase, not advance to design or coding.
+- Interpret “continue” using existing explicit authority; do not expand scope without a real source.
 
 ## Phase Consistency Preflight
 
@@ -76,6 +78,8 @@ Capability traces and internal completion-report fields below belong in existing
 
 ## Standard Handoff Signals
 
+These are examples; existing effective authority requires no repeated phrase.
+
 - "Requirements confirmed, enter design" moves from requirements to technical design.
 - "Design confirmed, start implementation" moves from design to implementation.
 - "Start bugfix" enters root-cause debugging and repair.
@@ -84,10 +88,7 @@ Capability traces and internal completion-report fields below belong in existing
 
 ## Scope Change Circuit Breaker
 
-- Implementation authorization applies only to the confirmed requirements, design, and task scope.
-- If implementation reveals a missing architecture layer, data-preparation layer, table, API boundary, business rule, field semantics, or required document update, the old authorization expires.
-- After the circuit breaker trips, only update requirements, design, tasks, field mappings, or public-doc impact patches, and output `Implementation authorization: expired; user confirmation required before coding`.
-- Do not continue coding immediately after updating docs; wait for the user to reconfirm the implementation scope.
+Apply FLOW-06 in task-execution-policy.md to compare approved work with proposed actions. Read-only requests do not authorize coding; new business rules, unauthorized scope or actual conflicts stop affected actions. Preserve user edits, effective authority for existing scope and independent work. Routine document synchronization, new files within approved scope and keywords alone do not trigger approval. Present concrete scope differences and continue once authentic authority and prerequisites exist, without repeated phrases.
 
 ## Verification Rules
 
@@ -135,3 +136,9 @@ Capability traces and internal completion-report fields below belong in existing
 - Suggested reading order (applicable content only): decision first, diagrams second, key tables third, details and evidence last.
 - Engineering specifications retain a `work-item-id`; acceptance, operating, and management documents cite applicable tasks, versions, or sources. Determine diagrams by purpose and content under document-standard.md; not applicable is not a waiver. Only an explicit user request may create a `Diagram Waiver`.
 - Check applicable gates from `DOC-G01` through `DOC-G12` by purpose and content without fixed headings; improve legacy documents only within the touched scope.
+
+## Continuous Implementation Mode
+
+Read `specs/global/assets/task-execution-policy.md` and apply FLOW-01 through FLOW-07. The contract identifies endpoints and authority sources. Continue authorized stages with satisfied prerequisites without repeated phrases. V3 retains per-task review and full quality validation. Ordinary defects enter bounded repair; permission denial, new business decisions and actual conflicts stop affected actions while independent work continues. Record actual results and evidence after each task.
+
+Read-only and plan-only requests end at their agreed endpoint. Check concrete authority separately for Git, deployment, messages, automation and agents; task state grants no permission.

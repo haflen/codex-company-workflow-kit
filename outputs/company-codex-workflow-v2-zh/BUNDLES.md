@@ -18,6 +18,7 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 
 | Bundle | 使用场景 | 默认专家 | 可选专家 |
 | --- | --- | --- | --- |
+| `company-document-translation` | 客户手册、技术/业务文档翻译及双语审校 | `professional-translation` | 业务口径确有疑义时加 `business-analyst` |
 | `company-core-delivery` | 通用功能交付，涉及产品、流程和 QA | `product-manager`, `business-analyst`, `testing-qa` | `systematic-debugging`, `test-driven-development` |
 | `company-backend-java` | Java/Spring 后端、事务、并发、API、持久化 | `business-analyst`, `java-pro`, `testing-qa` | `systematic-debugging`, `test-driven-development` |
 | `company-python-service` | Python 服务、自动化、API、异步任务 | `business-analyst`, `python-pro`, `testing-qa` | `python-patterns`, `systematic-debugging` |

@@ -5,6 +5,10 @@ description: Use when company feature requirements are confirmed and a technical
 
 # Company Feature Design
 
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -26,9 +30,9 @@ Provide a Codex-ready design workflow.
 9. Do not reinvent business formulas in design; map operation logic, state transitions, field semantics, and calculation formulas from `business-rules.md` into modules, APIs, data structures, and tests.
 10. Produce design, contracts, risk notes, counterexample scenarios, and test strategy.
 11. For frontend/backend or service boundaries, create an API contract before task planning.
-12. If this design comes from a scope change discovered during implementation, mark `Implementation authorization: expired; user confirmation required before coding`, and state that the old task authorization does not cover the new scope.
+12. If this design comes from a scope change discovered during implementation, identify the unapproved new scope; old authority does not cover new actions but remains effective for independent existing work.
 13. If L2/L3 solution comparison was triggered, get user confirmation on the recommended option before task planning.
-14. Stop after design unless the user gives the task-planning handoff signal.
+14. Apply FLOW-01/02 to enter already-authorized planning; stop at a design-only endpoint or a missing substantive design decision.
 
 ## Superpowers Layer
 

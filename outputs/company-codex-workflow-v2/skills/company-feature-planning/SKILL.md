@@ -5,6 +5,14 @@ description: Use when company requirements and technical design are confirmed an
 
 # Company Feature Planning
 
+## Phase Continuity
+
+Use READ-01 to read applicable sections of project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`; reuse unchanged rules already read. Apply FLOW-01 through FLOW-07 and actually enter the authorized next phase. Existing effective authority persists without repeated phrases. Retain this skill’s quality, document ownership, permission and real acceptance requirements.
+
+## Task Contract and Existing Authority
+
+Read the project `specs/global/assets/task-execution-policy.md`, falling back to `../../specs/global/assets/task-execution-policy.md`. Use `../../specs/global/assets/task-contract-template.md` when recording a contract. Extract goal, scope, acceptance, endpoint and authority from the real request; reuse confirmed facts and one authoritative contract. Respect read-only or plan-only scope. Existing authority does not require a repeated phrase; missing decisions block only affected actions.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Before creating or updating phase documents, inherit confirmed ownership and choose record size. Continue the existing unaccepted task; small fixes do not automatically create root features or a full document package. Compact records do not remove necessary focused design or verification.
@@ -27,11 +35,11 @@ Provide executable Codex task planning.
 10. Use `company-expert-routing` only if task boundaries are unclear, cross teams, or rely on complex stack details.
 11. If merged work needs to update `说明文档.md`, `specs/global/INDEX.md`, or the reading route, add a public-doc update patch task instead of directly editing public docs on the business branch.
 12. If a task may change requirements, business rules, technical design, API contracts, or project entry docs, add a documentation-drift check task.
-13. If planning comes from a scope change discovered during implementation, state that old implementation authorization has expired and the new tasks require user reconfirmation.
+13. If planning comes from a scope change discovered during implementation, identify unapproved expanded scope and missing decisions; preserve effective authority for existing scope.
 14. Mark continuous implementation eligibility: which tasks can be batched and which tasks must stop for user confirmation.
 15. Mark subagent split recommendations: which tasks should remain serial under the main agent, and which tasks are suitable for independent implementation, investigation, or review.
 16. Estimate independent quality validation as `not required / required / mandatory`, recording trigger evidence, scope, critical ACs, environment/test data, and expected validation types. Implementation or bugfix makes the final decision after work completes and enters `company-quality-validation` when triggered.
-17. Stop after task planning unless the user gives the implementation handoff signal.
+17. After planning, check the contract: continue when implementation is already authorized and the design, tasks and mandatory gates are satisfied. For plan-only scope or a missing substantive decision, deliver the plan and identify the gap; do not require a repeated handoff phrase.
 
 ## Superpowers Layer
 
@@ -68,7 +76,8 @@ Task planning must help implementation decide whether batching is safe:
 
 - `continuous`: `V0/V1` or tightly related `V2`; scope is clear, verification is explicit, and failure has limited blast radius.
 - `careful-continuous`: `V2` across multiple files/pages/APIs but still inside one confirmed task chain; re-check every 1-3 tasks.
-- `must-stop`: `V3`, production, permission, security, data migration, money/metric formulas, cross-system work, unconfirmed business rules, scope change, or user decision point.
+- `per-task review`: retain complete V3 verification; continue when it passes and the next action remains authorized.
+- `must-stop affected action`: unresolved business rules, unauthorized scope, conflicts, missing permission or mandatory host gates; continue independent authorized work.
 
 Continuous tasks still require per-task verification. Do not skip TDD, documentation-drift checks, or completion verification because a batch is authorized.
 

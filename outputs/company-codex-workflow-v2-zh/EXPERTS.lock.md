@@ -86,3 +86,11 @@
 | --- | --- | --- | --- | --- |
 | 2026-06-24 | 全部强依赖专家 | 改为随公司插件 vendored 安装，并由安装脚本自动生成安全审查和就绪报告 | 开箱可用；后续更新仍走受控审查 | 回退本文件、移除 vendored expert skill 目录或使用上一版 starter kit |
 | 2026-06-29 | 13 个 vendored 专家 | 同步上游 `sickn33/antigravity-awesome-skills@e0ef87efd0ad`；保留 Codex 化触发 description，更新正文和配套资源 | 通过静态审查；纯 Markdown 为 safe/medium，`typescript-expert`/`webapp-testing` 脚本运行前审批 | 回退本次 commit 或恢复上一版 vendored `skills/<expert>` 目录 |
+
+## professional-translation — company-maintained adaptation
+
+This expert is not from the AAS catalog above. Local path: `skills/professional-translation`. Reference: `Tasdax123/claude-fidelity-translator`, commit `c9f0651b007b547bdfae103235a4567fa1acd75e`, MIT; reviewed 2026-10-11. Only the scoped Codex Markdown protocol is included, with upstream license and PROVENANCE.md; no upstream scripts, model/API dependency or automatic parallel execution. Risk: low for this reviewed artifact. Required bundled expert; missing skill blocks installation. Version follows the company plugin.
+
+### 2026-10-14 local incremental-path revision
+
+professional-translation: company-authored conditional Markdown incremental path, full workflow retained for missing/unreliable baselines, complex or conflicting edits, full-review requests and DOCX/PDF/image/layout work. Mechanism reference dsh-translate-docs at reviewed commit prefix d74326738864; no code import or new runtime. See skill PROVENANCE.md and CW-AUTO-20261007/T-041–T-043. Existing upstream pin/license and bundle membership unchanged. Local package version 0.2.39-rc.3.

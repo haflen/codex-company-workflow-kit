@@ -5,6 +5,8 @@ description: Use when starting work in a company project, resuming an existing f
 
 # Company Context Index
 
+Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
+
 ## Document Ownership Check
 
 Read the project policy at `specs/global/assets/document-ownership.md`; fall back to the bundled `../../specs/global/assets/document-ownership.md`. Establish the existing task, owner-path, record-path, and release-target; reuse its record and clarify only unresolved ownership.
