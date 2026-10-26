@@ -43,7 +43,7 @@ description: Use when company implementation is complete and integrated acceptan
 
 只读取当前验收范围，不全量扫描文档：
 
-1. 已确认需求、AC 和必要的 `business-rules.md`。
+1. 原始材料的相关版本/位置、需求审查保存的独立覆盖依据、已确认需求、AC 和必要的 `business-rules.md`。
 2. 当前设计、API/数据契约和任务完成状态。
 3. 当前分支、最终候选 diff、测试入口、环境和数据说明。
 4. 实现或 bugfix 完成报告中的验证证据与未验证项。
@@ -53,7 +53,7 @@ description: Use when company implementation is complete and integrated acceptan
 ## 验收流程
 
 1. 输出 `独立质量验收：不需要 / 需要 / 强制` 和触发依据。
-2. 建立 `AC -> 场景 -> 证据 -> 结果` 追溯矩阵，不能用覆盖率替代 AC 追溯。
+2. 先回查需求审查的独立覆盖依据与原始材料，再建立 `原始要求 -> 需求/AC -> 场景 -> 证据 -> 结果` 追溯矩阵，不能用覆盖率或作者 AC 全通过替代原义覆盖。逐项核对必须保留的业务关系、关键属性、核心用户操作及有效暂缓边界；检查 AC 全通过但原要求仍遗漏或被收窄的反例。没有来源/授权和可解释边界的省略不得通过；覆盖依据缺失或不独立时明确缺口，不能用实现作者的测试反推完整。未知事实继续待确认，不新增业务规则或生产算法；按下方结果路由处理受影响项。
 3. 按最高风险选择单元、集成、API、E2E、浏览器、权限、数据、性能或恢复验证；复用已有新鲜证据，避免无差别重跑。
 4. 默认实际使用 `testing-qa`；Web 关键路径按需使用 `e2e-testing-patterns`、`webapp-testing`，复杂领域才进入 `company-expert-routing`。
 5. **REQUIRED SUB-SKILL:** Use `superpowers:verification-before-completion`。只接受当前最终候选的新鲜证据。

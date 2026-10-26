@@ -1,19 +1,25 @@
 ---
 name: company-expert-routing
-description: Use when a company workflow needs to decide whether an expert skill, subagent review, official documentation, or current-agent expert lens should be used.
+description: Use when a company workflow needs to decide whether an expert skill, multi-agent delivery, subagent review, official documentation, or current-agent expert lens should be used.
 ---
 
 # Company Expert Routing
 
 Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
 
+Apply [workflow entry](../company-workflow-help/SKILL.md) sections “Choosing workflow or multi-agent execution” and “Briefly disclose the execution approach” for mode, effective authority and disclosure. Using expert skills in the ordinary workflow is not agent dispatch. Preserve quality gates when users choose one executor; do not silently upgrade.
+
 ## DELEGATE-01: Review results and fall back to serial execution
 
 Before dispatch, check effective authority, actual tools and independent scope; routing advice grants no permission. Without clear dispatch authority or capability, use serial execution for allowed work; do not install agents or create user chats. Adopt parallel work only when comparable samples preserve pass rate and show a real benefit after coordination overhead; no measured comparison means no speedup claim.
 
-A narrow task packet records actual task_id, allowed paths, prohibited actions, acceptance, candidate_fingerprint, budget and output location. The main agent alone owns shared contracts, state and integration; read-only review writes no files by default. Reuse agreed limits and leave unknown budgets unknown. At a limit or cancellation, stop only the actual agents for this task, verify stopping and preserve usable work. Recover only affected failed work serially within scope; do not redispatch indefinitely.
+A narrow task packet records actual task_id, allowed paths, prohibited actions, acceptance, candidate_fingerprint, budget and output location. Before dispatch, include immutable field names, types and values (including closed status values), and the editable fields, body and file scope from the existing contract in the task packet itself, not only a coordinator scoring sheet. If a correction requires changing a fixed field, preserve it and report the concrete conflict instead of extending the contract. The main agent alone owns shared contracts, state and integration; read-only review writes no files by default. Reuse agreed limits and leave unknown budgets unknown. At a limit or cancellation, stop only the actual agents for this task, verify stopping and preserve usable work. Recover only affected failed work serially within scope; do not redispatch indefinitely.
 
 Before adoption, verify result_id, actual candidate identity, changed paths and original check evidence. A DONE without evidence, stale candidate, out-of-scope action, unknown side effect or self-reported success is not completion; inspect actual results before acceptance or replay. Duplicate result_id must not cause repeated integration. Candidate drift requires checking affected evidence again. Synthetic replies test decisions only, not real dispatch, cancellation or parallel performance.
+
+## Multi-agent delivery execution
+
+When the user explicitly requests multi-agent delivery starting from business materials/requirements, implementation or independent review, read and execute the [complete procedure](references/multi-agent-delivery.md). Reuse actual authority and the current business workflow; add no approval phase, activation phrase, skill or scheduler. DELEGATE-01 serial execution limits concurrent work based on measured benefit; an executor followed by a separate independent reviewer can run sequentially, without claiming speedup. Check native capabilities and explicitly supply role instructions; only actual calls and returned identities count as dispatch. Use section 1a to select existing phase workflows and necessary experts, preserving source meaning, requirement IDs, counterexamples and open issues. In existing inputs/results, retain exact skill paths/sections, actual read fingerprints and rule-to-artifact evidence; the main agent verifies tool traces or raw outputs and actual artifacts, not role names or self-report. An unavailable irreplaceable skill or required review remains unmet. Without tools, fall back to a single executor and do not claim independent review. Cancelling an agent does not prove its commands or services stopped; verify actual runtime identities and stop evidence before redispatch or dependency release.
 
 ## REVIEW-01: Blind-review inputs and evidence reuse
 
@@ -52,10 +58,10 @@ Expert routing is not implementation authorization. Every routing response must 
 - `documentation only`: the user asks to update requirements, design, tasks, field mappings, business semantics, or public-doc impact, or the changed scope must be documented first.
 - `design first`: a new architecture layer, data-preparation layer, API boundary, table, external system, performance/permission/data strategy, or technical tradeoff appears.
 - `planning needed`: the design is confirmed but the new scope lacks tasks, verification anchors, and documentation-drift checks.
-- `user confirmation required`: documentation creates a new contract, field mapping, task list, or changed scope; old implementation authorization cannot be reused.
+- `user confirmation required`: a new business rule, material architectural choice, contract conflict or scope change is not covered by existing authority and sources; block only dependent actions. Documenting confirmed meaning or tasks does not itself invalidate authority.
 - `route back to workflow help`: the user is only asking what to do next and no workflow is clear.
 
-If phase permission is not `implementation allowed`, record `Implementation authorization: expired; user confirmation required before coding` internally, and explain the practical impact to the user or why no implementation authority exists.
+When implementation is not yet permitted, record the specific missing prerequisite or authority boundary; a requirements/design prerequisite does not automatically revoke end-to-end authority. Complete authorized phases under FLOW-01/02 and continue once prerequisites are satisfied. Ask only for actual missing decisions or permissions. Discussion-only and requirements-only requests stop at their agreed endpoint.
 
 When the scope-change circuit breaker triggers, do not treat expert selection as coding permission. Experts may only help complete requirements, design, tasks, or confirmation points.
 

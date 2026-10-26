@@ -1,6 +1,6 @@
 {
   "name": "codex-company-workflow",
-  "version": "0.2.39-rc.9",
+  "version": "0.2.39-rc.14",
   "description": "Codex company workflow kit with a thin npm CLI wrapper.",
   "license": "UNLICENSED",
   "bin": {
@@ -11,6 +11,7 @@
     "scripts/",
     "tests/",
     "docs/company-quickstart.md",
+    "docs/multi-agent-quickstart.md",
     "docs/codex-usage-guide.md",
     "docs/pilot-playbook.md",
     "docs/skill-tree.md",

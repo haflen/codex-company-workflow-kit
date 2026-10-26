@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.2.39-rc.14
+
+- Integrate the isolated managed-delivery rules in both language packages: agreed endpoints, minimal multi-project coordination and verified cross-turn checkpoints. Existing authority, optional delegation and cancellation gates remain in force.
+- Requirements review saves an independent source-coverage basis before reading author requirements/AC, checks omitted relationships, attributes and user operations even when all author AC pass, and requires justified deferrals without inventing unknown business rules.
+- Final quality validation revisits original materials and that independent coverage basis. No new roles, review rounds, scheduler, expert pins or trigger frontmatter.
+- Candidate-only validation and adoption evidence are maintained outside the shipped source; installation is not implied by this version change.
+
+## 0.2.39-rc.13 — 2026-10-25
+
+- Keep ordinary workflow and explicitly requested multi-agent collaboration as two simple natural-language choices using the same skills.
+- Disclose planned roles/capabilities briefly at start and actual participation/findings at delivery; preserve authorization, cancellation and independent-review gates.
+- Simplify quickstart examples and remove the ambiguous English implication that an independent check alone authorizes another agent.
+
+## 0.2.39-rc.12 — 2026-10-25
+
+- Align new-client scope wording with FLOW-06: block only affected unauthorized/conflicting work and preserve valid original-scope authorization. Found during installed-entry verification.
+
+
+## 0.2.39-rc.11 — 2026-10-25
+
+- Extend existing multi-agent entry from raw business material through requirements, design, planning, implementation, independent validation and closeout.
+- Carry required existing skills, source-backed requirements and actual skill application evidence across stage handoffs without adding task-state fields.
+- Clarify continuous authorization, business-level cross-checks and three starting points in the user guide.
+
+
+## 0.2.39-rc.10 — 2026-10-25
+
+- 在既有工作流入口加入多agent交付路由，按需安排执行者、独立审查者及探索员，由主代理核对成果和授权终点。
+- 双语补齐窄任务包、不可变字段、结果验收、局部纠错及取消/恢复要求；缺少实际子代理能力时如实回退，不冒称独立审查。
+- 提供多agent使用说明；复用原生执行能力，不新增调度器，不将单进程试验脚本作为通用清理工具。
+
+
 ## 0.2.39-rc.9 — 2026-10-20
 
 - Standardize the writing skill identifier as `company-document-writing`, shortcut display as `/company-document-writing`, and description as 公司汇报与评审写作; update dependency references and metadata. Writing instructions and examples are unchanged.

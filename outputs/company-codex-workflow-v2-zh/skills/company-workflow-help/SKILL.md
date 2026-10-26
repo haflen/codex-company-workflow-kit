@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
+description: Use when a company user requests managed task delivery within stated boundaries, including multi-agent delivery from business materials or unclear requirements through closeout and independent review, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # 公司工作流入口帮助
@@ -128,6 +128,20 @@ python3 <installed-plugin>/skills/company-workflow-help/scripts/complete_task.py
 
 示例：`按已确认方案完成实现、验证和打包；仅在业务决定、范围或权限确有缺失时找我。` 示例不是必须照抄的口令。
 
+## 托管到约定终点
+
+“把这件事做到可验收交付”“我不在线时继续已授权工作”等自然语言，结合已有任务约定判断连续执行范围；不要要求用户再填写任务卡或逐阶段回复“继续”。从已有材料提取目标、范围、验收、终点、可自主决定的事项及停止条件，简短告知本次做到哪里；未知事实不能补成已确认的业务规则。
+
+托管决定“由谁持续推进下一步”，协作决定“由一个还是多个代理执行”，两者分别判断：普通工作流可以由当前代理托管，多 Agent 也可以只做到需求评审。未表达派发意图仍不派发；已明确整体授权不再询问是否托管。用户仅要求方案、只读或本阶段时，到该终点停止。
+
+当前代理是任务负责人：从最早缺失阶段实际读取并应用现有技能，核对前置产物和授权后连续完成需求、设计、计划、实现、必要质量验收、有限修复和已授权收口。普通可逆选择采用符合现有规则的推荐方案，在执行记录保存选择、理由和影响；只有关键业务事实、实质新取舍或权限缺失才问相应问题，其余独立工作继续。不要在已经可以执行时只输出“建议下一步”。
+
+本回合内有可执行动作就直接继续；跨轮续做按共享 WAIT-01，分别核对明确授权、真实能力与创建结果。一般“做完任务”不自动授权定时、监控、创建目标或跨聊天消息；用户明确要求稍后续做或本任务已有有效许可时，才在相应工具条件内建立最小机制。建立前说明本地电脑与应用可用等前提，完成或取消后清理本任务安排。机制缺失不影响独立已授权工作，但不得承诺用户离线后自动继续。
+
+多个已授权项目只维护一份简短汇总：每个项目有自己的负责人、权威状态及证据；协调者读取摘要和待决点，按需查看受影响原文。优先级、依赖、并发上限和资源占用写入现有执行记录，不扩展 task_state schema。有关多 Agent 的实际派发仍遵循下文协作说明；没有派发授权时由当前代理依次完成可执行项目。
+
+汇总向用户显示成果、关键决定及理由、验收证据、下一步自动动作和真正需要人决定的事项；没有待决事项就明确无需操作。按证据区分已完成、等待、取消与未验证，保留可观测耗时/用量；未知值写未测，无可比基线不声称效率提升。
+
 ## 交付收口路由
 
 用户不需要判断何时进入收口。只有当前任务清单中的事项全部完成、明确延期或明确不做，并且不再有可执行实现任务时，才进入质量验收判定；无需独立验收，或验收为 `pass` / 用户明确接受且允许的 `conditional-pass` 后，才路由到 `company-delivery-closeout`。
@@ -185,9 +199,26 @@ Codex 计划模式适合在正式 workflow 前做路线判断，不替代需求�
 - 计划模式不能替代用户对需求、方案、任务或实现范围的确认。
 - 计划模式不能覆盖范围变化熔断、阶段一致性预检、V3 验证要求与实际权限门禁和验证要求。
 
+## 工作流与多 Agent 的选择
+
+- 用户说“用工作流”“按原流程”，或未表达派发意图时，由当前代理执行原工作流并按需使用 skills，不自动派发其他代理，也不先让用户填写模式或技能清单。工作复杂本身不构成派发授权。
+- 用户明确说“用多agent”“启用agent协作”“让几个agent分工”，或本任务已有仍有效的派发授权时，进入多 Agent 协作；告知分工后继续，不再问是否启用，不逐个代理确认。用户只提到agent、讨论其能力或泛称“独立检查”，不自动视为派发请求。
+- 最新明确的“不用agent”“单个代理做”优先；已有授权只在其明确范围内沿用，不自动扩展到无关新任务。用户切回普通工作流时停止新派发，按原取消规则核对已派工作实际停止并保留成果，再接续，不重复执行。
+- 普通工作流仍保留原质量验收阶段。独立验收阶段不自动等于另一名代理；契约或上级要求明确需要不同执行者、而尚无派发授权时，只说明这一缺口并请求一次决定，继续不依赖它的工作。不得静默派发或用自查冒充独立审查。普通工作流能完成时，不把推荐多 Agent 变成开始任务的必答题。
+
+## 简短告知本次使用方式
+
+任务开始时用一两句话说明方式、谁负责、当前相关能力和目标。普通方式示例：“本次按普通工作流，由我使用需求梳理和业务分析能力，先把业务规则与验收标准整理清楚。”协作方式示例：“本次用多agent协作：执行者负责需求梳理，独立审查者核对业务原义；我负责协调和交付。”按当前任务填写，不照搬不适用角色，不默认罗列内部skill名、路径、等级或整张能力表。
+
+开始的安排用“将使用/负责”，实际读取与派发之后才称“已使用/已派发”。分工实质改变或能力不可用时简短更新，阶段不变无需重复。交付时说明实际参与的角色及能力、检查发现与纠正、未验证项；未派发就明确由当前代理完成。详细技能名称、读取轨迹和证据放已有记录供回查；简短告知不代替技能应用核验，也不是新增审批。
+
+## 多 Agent 交付入口
+
+用户说“用多agent从这些业务资料梳理需求并完成交付”“用多agent完成某任务及独立审查”或等价自然语言，已表达本任务的派发意图；不要求用户先给出已拆分任务。读取已授权材料与已有产物，区分事实、推断及未决决定，找到最早缺失阶段，沿用有效范围和终点，再实际进入 `company-expert-routing`，按其 [多 Agent 交付说明](../company-expert-routing/references/multi-agent-delivery.md) 执行。不要只给建议或要求用户重复启用口令；缺少业务决定只阻塞相关动作。业务理解、需求、设计、任务、实现、验证、审查和收口按说明第1a节的现有技能连续做到已授权终点，Git 与外部业务操作仍分别核对真实授权。仅讨论或仅需求仍按约定终点停止；资料中已经给出的答案先读取，不重复询问。派发传入本阶段技能准确路径/章节和原义来源，结果核对实际读取与采用证据；角色名不等于技能调用。未请求多 agent 时保留原推荐规则。
+
 ## Subagents 使用建议
 
-Subagents 适合隔离上下文、独立审查或处理互不影响的问题域，不是默认执行方式。本 skill 只做建议，真正执行需要当前 Codex 环境支持，并且用户显式请求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
+Subagents 适合隔离上下文、独立审查或处理互不影响的问题域，不是默认执行方式。未获派发授权时本 skill 只做建议；已有上述自然语言请求时进入专家路由执行。真正执行需要当前 Codex 环境支持，并且用户显式请求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
 
 Subagents 建议分三档：
 
@@ -202,7 +233,7 @@ Subagents 建议分三档：
 - 不要让多个子 agent 同时编辑同一文件或同一共享状态。
 - 子 agent 输出不能直接等于完成；主 agent 必须复核 diff、验证证据和剩余风险。
 - Codex App 端主要展示 subagent 活动，不要求用户寻找独立子代理入口；CLI 可用 `/agent` 管理 agent thread。
-- 如需稳定公司角色，建议先执行 `bash scripts/install.sh install-agents <project-path> --lang zh`，生成 `.codex/agents/company-*.toml`。
+- 如需稳定公司角色，建议先执行 `bash scripts/install.sh install-agents <project-path> --lang zh`，生成 `.codex/agents/company-*.toml`。这不是原生派发的前提，也不证明宿主自动加载；实际调用显式传入角色正文，按当时工具能力核对。
 
 ## Codex 目标追踪建议
 
@@ -248,7 +279,7 @@ Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段�
 
 - UI、交互或客户端请求在进入设计、实现前，先检查 `specs/global/INDEX.md` 和当前需求是否确认目标使用终端。
 - 终端范围缺失时路由到 `company-feature-requirements`；不得把通用前端建议当成移动端需求，不得自行增加移动端适配。
-- 用户在实现中临时新增终端或改变共用策略时，判定为范围变化并使旧实现授权失效。
+- 用户在实现中临时新增终端或改变共用策略时，按 FLOW-06 判定范围变化；只阻塞尚未授权或存在实际冲突的受影响部分，保留原范围的有效授权。新终端或共用策略明确并获得相应授权后，才继续相关实现。
 
 ## 人类优先输出
 
@@ -303,7 +334,7 @@ Codex 目标适合做跨轮次目标容器，不替代公司 workflow 的阶段�
 
 - 不要从模糊需求直接进入实现。
 - 对文案、标签、单行配置等简单任务，不要强行套重流程。
-- 如果用户正在某个阶段中，默认继续当前阶段，除非用户明确要求进入下一阶段。
+- 如果用户正在某个阶段中，先完成当前阶段；既有整体授权覆盖且前置条件满足时按 FLOW-01/02 继续，否则停在已授权终点。
 - 如果多个入口都可能适用，优先选择能补齐最早缺失产物的入口。
 - 每次推荐工作流时都必须显式说明 Superpowers 是否叠加；如果不叠加，说明原因是任务足够简单。
 - 不要在入口帮助阶段展开详细专家清单；只判断是否需要进入 `company-expert-routing`。

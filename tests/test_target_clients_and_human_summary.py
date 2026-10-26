@@ -200,7 +200,7 @@ class HumanFirstSummaryTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_include_new_contract(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.39-rc.9", package["version"])
+        self.assertEqual("0.2.39-rc.14", package["version"])
         self.assertIn("unittest discover", package["scripts"]["verify"])
         self.assertIn("unittest discover", read(ROOT / "scripts/install.sh"))
         powershell = read(ROOT / "scripts/install.ps1")

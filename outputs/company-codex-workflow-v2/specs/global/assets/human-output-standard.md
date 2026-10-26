@@ -2,6 +2,8 @@
 
 This policy defines audience, destination, and expression; phase skills define the required work. Their output, report, completion report, and trace fields are execution-record requirements, not a checklist to paste into user replies. Preserve acceptance, authorization, diagram, and evidence gates; add no approval stage.
 
+At workflow task start, follow entry rules to briefly state ordinary workflow or multi-agent collaboration, responsible roles and relevant capabilities; at delivery report actual usage and check results. Keep this short user disclosure visible while internal skill identifiers, paths, trace levels and detailed audits stay in execution records. Ordinary Q&A needs no repeated mode declaration; authorized collaboration needs no extra confirmation.
+
 ## User Replies
 
 Start with a one-sentence conclusion naming the subject, current result, and whether the next step can proceed. Explain completed work, evidence, and practical impact of unverified items as needed. End with a next-step recommendation naming the actor, action, and prerequisites.

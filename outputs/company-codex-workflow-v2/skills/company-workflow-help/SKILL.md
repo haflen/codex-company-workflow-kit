@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
+description: Use when a company user requests managed task delivery within stated boundaries, including multi-agent delivery from business materials or unclear requirements through closeout and independent review, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -127,6 +127,20 @@ Apply FLOW-01 through FLOW-07 to choose executable steps. A concrete goal and ex
 
 Example: `Implement, verify and package the approved design; ask only about genuinely missing business decisions, scope or permissions.` This is an example, not a required phrase.
 
+## Managed execution to the agreed endpoint
+
+Natural requests such as “finish this to an acceptable delivery” or “continue authorized work while I am away” are interpreted with the existing task agreement. Do not ask users to fill another task card or say “continue” at every phase. Extract goal, scope, acceptance, endpoint, autonomous decisions and stop conditions from existing sources, then briefly state the endpoint. Unknown facts cannot become confirmed business rules.
+
+Managed execution determines who keeps work moving; collaboration determines whether one or multiple agents execute. The ordinary workflow can be managed by the current agent, and multi-agent work can stop at requirements review. Do not dispatch without dispatch intent; existing end-to-end authority does not need a second managed-mode question. Stop at the agreed endpoint for plan-only, read-only or phase-only requests.
+
+The current agent owns the task: actually read and apply existing phase skills from the earliest missing phase, check prerequisites and authority, then continue through requirements, design, planning, implementation, required quality validation, bounded repair and authorized closeout. Choose routine reversible options consistent with existing rules and record choice, reason and impact. Ask only for missing key business facts, material new tradeoffs or permissions; continue independent work. Do not merely recommend a next step that can already be executed.
+
+Continue executable actions within this turn. For cross-turn continuation, apply shared WAIT-01 and separately verify explicit authority, actual capability and creation result. A general request to finish a task does not authorize scheduling, monitoring, goal creation or cross-chat messages. Establish the minimum supported mechanism only on an explicit request to resume later or existing effective task permission. Explain prerequisites such as an available local computer and application; clean up this task's arrangements on completion or cancellation. Missing mechanisms do not block independent authorized work, but do not promise automatic work while the user is offline.
+
+For multiple authorized projects, keep one short summary: each project retains its owner, authoritative state and evidence. The coordinator reads summaries and open decisions, consulting affected originals as needed. Record priorities, dependencies, concurrency limit and resource ownership in existing execution records; do not expand the task_state schema. Actual dispatch still follows the collaboration procedure below; without dispatch authority, the current agent proceeds sequentially through executable projects.
+
+Show results, key decisions and reasons, acceptance evidence, next automatic actions and genuinely human decisions; explicitly say when no user action is needed. Distinguish completed, waiting, cancelled and unverified from evidence. Retain observable time/usage, label unknown values unmeasured, and make no efficiency claim without a comparable baseline.
+
 ## Delivery Closeout Routing / 交付收口路由
 
 Users do not select this transition manually. When every task is complete, explicitly deferred, or explicitly rejected and no executable implementation task remains, first decide independent quality validation. Route to `company-delivery-closeout` only when validation is not required, returns `pass`, or returns an eligible `conditional-pass` explicitly accepted by the user.
@@ -184,9 +198,26 @@ Boundaries:
 - Plan Mode does not replace user confirmation for requirements, solution choices, task plans, or implementation scope.
 - Plan Mode cannot override scope-change circuit breakers, phase preflight, V3 verification and actual permission gates, or verification requirements.
 
+## Choosing workflow or multi-agent execution
+
+- When users say “use the workflow”, “follow the usual process”, or express no delegation intent, the current agent runs the existing workflow and uses relevant skills without dispatching other agents or asking users to fill in modes or skill lists. Complexity alone does not authorize delegation.
+- An explicit request such as “use multiple agents”, “enable agent collaboration”, or “have agents divide the work”, or still-valid delegation authority for this task, enables collaboration. Announce the division of work and continue without reconfirming activation or each agent. Merely mentioning agents, discussing their abilities, or asking for an “independent check” does not itself authorize dispatch.
+- The latest explicit “no agents” or “one agent only” choice takes priority. Reuse authority only within its stated scope, not unrelated new tasks. On switching back to the ordinary workflow, stop new dispatch, apply existing cancellation rules to verify actual stopping of delegated work and preserve outputs, then resume without duplicate execution.
+- Keep existing quality-validation stages in the ordinary workflow. An independent validation phase does not automatically mean another agent. If the contract or higher-priority rules specifically require a different executor and delegation is not authorized, explain that gap and ask once, while continuing independent authorized work. Do not silently dispatch or present self-checks as independent review. Do not make a multi-agent recommendation a mandatory startup question when the ordinary workflow is sufficient.
+
+## Briefly disclose the execution approach
+
+At task start, use one or two sentences to state the approach, who is responsible, the relevant capabilities and the goal. Ordinary example: “I will handle this through the regular workflow, using requirements analysis and business analysis to clarify the rules and acceptance criteria.” Collaborative example: “I will use multiple agents: an executor will shape requirements, an independent reviewer will check source meaning, and I will coordinate delivery.” Adapt to the task; do not list irrelevant roles, internal skill identifiers, paths, trace levels or the full capability catalogue.
+
+Use planned language before execution; claim skills used or agents dispatched only after actual reads/calls. Briefly update material role changes or unavailable capabilities, not every unchanged phase. At delivery, report actual roles/capabilities, findings and corrections, and unverified items; if no dispatch occurred, identify the current agent as the executor. Keep exact skill names, read traces and evidence in existing records for inspection. Brief disclosure supplements skill verification and adds no approval stage.
+
+## Multi-agent delivery entry
+
+A request such as “use multiple agents to turn these business materials into requirements and finish delivery” or “have another agent independently review this task” establishes dispatch intent. Do not require users to split tasks first. Read authorized materials and existing artifacts, distinguish facts, inferences and open decisions, locate the earliest missing phase, preserve effective scope and endpoint, then actually enter `company-expert-routing` and follow its [multi-agent delivery procedure](../company-expert-routing/references/multi-agent-delivery.md). Do not stop at advice or request another activation phrase. Missing business decisions block only dependent actions. Use the existing skills in procedure section 1a for business understanding, requirements, design, planning, implementation, verification, review and closeout through the authorized endpoint; check actual authority separately for Git and external business operations. Discussion-only or requirements-only requests stop at their agreed endpoint. Read available answers before asking again. Dispatch exact phase skill paths/sections and original-meaning sources, then verify actual reading/application evidence; role names are not skill calls. Without a multi-agent request, retain the existing recommendation rules.
+
 ## Subagents Recommendation / Subagents 使用建议
 
-Subagents are useful for context isolation, independent review, or independent problem domains. They are not the default execution mode. This skill only recommends them. Actual use requires Codex support in the current environment and an explicit user request such as `spawn agents`, `delegate in parallel`, `use subagents for parallel review`, or equivalent wording.
+Subagents are useful for context isolation, independent review, or independent problem domains. They are not the default execution mode. Without dispatch authority this skill only recommends them; with the natural-language request above it routes to actual expert-routing execution. Actual use requires Codex support in the current environment and an explicit user request such as `spawn agents`, `delegate in parallel`, `use subagents for parallel review`, or equivalent wording.
 
 Recommendation levels:
 
@@ -201,7 +232,7 @@ Use principles:
 - Do not let multiple subagents edit the same file or shared state in parallel.
 - A subagent result is not completion. The main agent must review diffs, verification evidence, and remaining risk.
 - The Codex App primarily surfaces subagent activity; users do not need to find a separate subagent button. The CLI can manage agent threads with `/agent`.
-- For stable company roles, recommend running `bash scripts/install.sh install-agents <project-path> --lang en` first to generate `.codex/agents/company-*.toml`.
+- For stable company roles, recommend running `bash scripts/install.sh install-agents <project-path> --lang en` first to generate `.codex/agents/company-*.toml`. This is not a prerequisite for native dispatch or proof of host auto-loading; explicitly pass role instructions and check the actual tool capabilities.
 
 ## Codex Goal Tracking Recommendation / Codex 目标追踪建议
 
@@ -247,7 +278,7 @@ If the recommended route triggers `full-audit`, state the trigger reason.
 
 - Before UI, interaction, or client work enters design or implementation, check whether `specs/global/INDEX.md` and current requirements confirm target clients.
 - Missing client scope routes to `company-feature-requirements`. Generic frontend advice is not a mobile requirement, and the workflow must not add mobile adaptation on its own.
-- A new client or changed sharing strategy during implementation is a scope change that invalidates prior implementation authorization.
+- For a new client or changed sharing strategy during implementation, apply FLOW-06: block only the affected part that lacks authorization or has an actual conflict, and preserve valid authorization for the original scope. Continue the affected implementation only after the new client or sharing strategy is defined and authorized.
 
 ## Human-First Output
 
@@ -304,8 +335,8 @@ Before sending, check factual scope, prerequisites, actor, authority, audience, 
 - 不要从模糊需求直接进入实现。
 - Do not force a heavy workflow for trivial copy, labels, or single-line config changes.
 - 对文案、标签、单行配置等简单任务，不要强行套重流程。
-- If the user is in the middle of a phase, continue that phase unless they clearly ask to advance.
-- 如果用户正在某个阶段中，默认继续当前阶段，除非用户明确要求进入下一阶段。
+- Finish the current phase, then continue under FLOW-01/02 when existing end-to-end authority and prerequisites cover it; otherwise stop at the authorized endpoint.
+- 先完成当前阶段；既有整体授权及前置条件满足时继续，否则停在授权终点。
 - If multiple routes fit, pick the route that resolves the earliest missing artifact.
 - 如果多个入口都可能适用，优先选择能补齐最早缺失产物的入口。
 - Every routing answer must explicitly state whether a Superpowers layer is used; if not, state that the task is simple enough to skip it.

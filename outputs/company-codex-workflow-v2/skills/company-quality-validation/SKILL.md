@@ -43,7 +43,7 @@ Skipping this independent stage never means skipping tests. The implementation o
 
 Read only the current acceptance scope:
 
-1. Approved requirements, ACs, and any required `business-rules.md`.
+1. Relevant original material versions/locations, the independent coverage basis saved during requirements review, approved requirements, ACs, and any required `business-rules.md`.
 2. Current design, API/data contracts, and task completion state.
 3. Current branch, final candidate diff, test entrypoints, environment, and test-data notes.
 4. Verification evidence and unverified items from implementation or bugfix completion.
@@ -53,7 +53,7 @@ Stop on conflicting entry, task, or acceptance sources. Return to requirements, 
 ## Validation Flow
 
 1. Output `Independent quality validation: not-required / required / mandatory` with the trigger evidence.
-2. Build an `AC -> scenario -> evidence -> result` trace matrix. Coverage percentage does not replace AC traceability.
+2. Revisit the independent coverage basis and original materials first, then build an `original requirement -> requirement/AC -> scenario -> evidence -> result` trace matrix. Coverage percentage or all author AC passing cannot replace original-meaning coverage. Check each mandatory business relationship, key attribute, core user operation and valid deferral boundary, including the counterexample where AC all pass but an original requirement is omitted or narrowed. Omission without source/authority and an explainable boundary cannot pass. Disclose missing or non-independent coverage evidence; author tests cannot reconstruct completeness. Keep unknown facts awaiting confirmation without inventing business rules or production algorithms; route affected items under Result Routing.
 3. Select unit, integration, API, E2E, browser, permission, data, performance, or recovery checks by highest risk. Reuse fresh evidence and avoid indiscriminate reruns.
 4. Use `testing-qa` by default. Add `e2e-testing-patterns` or `webapp-testing` for critical Web paths; use `company-expert-routing` only for complex domain risk.
 5. **REQUIRED SUB-SKILL:** Use `superpowers:verification-before-completion`. Accept only fresh evidence from the current final candidate.
