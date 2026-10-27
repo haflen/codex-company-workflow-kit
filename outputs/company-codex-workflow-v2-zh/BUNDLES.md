@@ -34,6 +34,8 @@ Bundle 是工作流使用的小型专家组合，不是一套新的流程引擎�
 | `company-workflow-entry` | 用户不知道应该从哪个工作流开始，或需要确认专家依赖是否就绪 | `company-workflow-help` | `company-expert-routing`, `company-expert-readiness` |
 | `company-legacy-onboarding` | 旧项目接入、项目上下文草稿生成、首次流程试点 | `company-legacy-project-onboarding`, `company-context-index` | `company-workflow-help`, 匹配项目技术栈的专家 |
 
+| `company-agent-delivery` | 用户明确要求多 Agent 协作交付 | `company-agent-routing` | `company-expert-routing`，当前阶段工作流与必要专家 |
+
 ## 阶段默认值
 
 | 阶段 | Bundle 使用 |

@@ -23,10 +23,10 @@ description: Use when company workflow skills repeatedly misfire, feel too heavy
 
 ## 工作流
 
-1. 用具体例子记录摩擦或失败。
+1. 复用当前任务及关联反馈记录，按[经验候选](../../specs/global/assets/experience-candidate-template.md)的“反馈复用与规则精简”记录实际问题和后续结果，不重复登记同一事件。
 2. 判断问题来自触发文本、工作流正文、专家路由、模板形态还是缺失依赖。
 3. 如果问题是专家选择，先提议修改 `BUNDLES.md` 或 `company-expert-routing`。
-4. 起草改进提案，不直接改生产版本。
+4. 先按同一模板对照已有规则，说明复用、合并、替换或新增及具体位置；已有要求足够就修执行，不追加重复规则。确有规则缺口才起草最小提案，不直接改生产版本。
 5. 从第一性原理说明旧规则为什么失败：触发条件、阶段边界、上下文假设或验证锚点哪个不成立。
 6. 增加或更新能捕捉旧问题的回归用例，并做对抗式审查，确认新规则不会过度触发。
 7. 如果提案改变权限、工具、外部技能、脚本或专家依赖，运行 `company-skill-security-review`。

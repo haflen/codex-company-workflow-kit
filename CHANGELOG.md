@@ -1,4 +1,25 @@
-# Changelog
+# 升级记录
+
+本次 main 同步整合已验证并在本地采用的 rc.15—rc.17，当前包版本为 `0.2.39-rc.17`。README 与多 Agent 使用说明同步更新，保留原有连续交付启动提示词。下列“local adoption / 未提交推送”等表述记录各次本地采用时的范围，不代表后续 Git 交付状态；提交历史为仓库同步依据。本次不部署。
+
+## 0.2.39-rc.17 — 2026-10-28 — approved local adoption
+
+- Reuse existing task/feedback records for real corrections and later related outcomes, distinguishing tests, agent checks and user-use evidence without new user steps, polling or background services.
+- Require rule-location comparisons before proposing/adopting changes: reuse sufficient guidance, merge or replace authorized overlap, and justify genuinely missing coverage. Keep shared guidance in one place and preserve safety and authority constraints.
+- Connect shared output guidance and the existing evolution skill to the existing experience template. No new skills, scheduler, state schema or review rounds; local adoption only, with no Git commit or push.
+
+## 0.2.39-rc.16 — 2026-10-27 — approved local adoption
+
+- Add a dedicated company-agent-routing entry in both language packages. Ordinary workflow remains independently usable; help forwards existing requests without becoming a mandatory entry.
+- Check existing system capabilities before proposals, keep one coordinated human-facing narrative, and reuse independent review for source coverage and artifact reading checks. Preserve business uncertainties while keeping agent execution constraints in internal records.
+- Narrow installer unfinished-content checks to explicit markers, retaining risk-phrase checks; normal business wording and code placeholder examples no longer cause false failures.
+- Update entry documentation and regression coverage. Local adoption and Chinese plugin loading verification only; no Git commit, push, deployment or Rinova changes.
+
+## 0.2.39-rc.15 — 2026-10-26 — approved local adoption
+
+- Update 13 AAS experts from fixed v20.0.0 while retaining local triggers; product-manager is restricted to user-confirmed noncommercial use under CC BY-NC-SA 4.0 with license/provenance bundled.
+- Fix readiness output so static scanning cannot claim security approval; retain diagnostic-failure and command-boundary regressions.
+- User authorized source adoption and Chinese plugin installation/loading verification, with personal workflow and Superpowers unchanged. No commit, push or public release.
 
 ## 0.2.39-rc.14
 

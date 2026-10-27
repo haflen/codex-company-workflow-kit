@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, including multi-agent delivery from business materials or unclear requirements through closeout and independent review, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # Company Workflow Help / 公司工作流入口帮助
@@ -213,7 +213,7 @@ Use planned language before execution; claim skills used or agents dispatched on
 
 ## Multi-agent delivery entry
 
-A request such as “use multiple agents to turn these business materials into requirements and finish delivery” or “have another agent independently review this task” establishes dispatch intent. Do not require users to split tasks first. Read authorized materials and existing artifacts, distinguish facts, inferences and open decisions, locate the earliest missing phase, preserve effective scope and endpoint, then actually enter `company-expert-routing` and follow its [multi-agent delivery procedure](../company-expert-routing/references/multi-agent-delivery.md). Do not stop at advice or request another activation phrase. Missing business decisions block only dependent actions. Use the existing skills in procedure section 1a for business understanding, requirements, design, planning, implementation, verification, review and closeout through the authorized endpoint; check actual authority separately for Git and external business operations. Discussion-only or requirements-only requests stop at their agreed endpoint. Read available answers before asking again. Dispatch exact phase skill paths/sections and original-meaning sources, then verify actual reading/application evidence; role names are not skill calls. Without a multi-agent request, retain the existing recommendation rules.
+Route explicit multi-agent tasks to [company-agent-routing](../company-agent-routing/SKILL.md) for stage, role and expert selection and continuation. Help retains mode recognition and compatibility forwarding; it is not a prerequisite. Reuse the [multi-agent procedure](../company-expert-routing/references/multi-agent-delivery.md) for mechanics. Otherwise continue the ordinary workflow.
 
 ## Subagents Recommendation / Subagents 使用建议
 

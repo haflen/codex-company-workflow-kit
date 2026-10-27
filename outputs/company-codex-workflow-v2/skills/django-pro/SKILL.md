@@ -1,9 +1,11 @@
 ---
 name: django-pro
 description: Use when Django, DRF, Celery, Channels, ORM, migrations, async views, or Django service architecture needs expert guidance.
-upstream_risk: unknown
+upstream_risk: critical
 upstream_source: community
-upstream_date_added: 2026-02-27
+upstream_date_added: '2026-02-27'
+upstream_commit: 6d4ea18320984083107f07ff69587fa355ee94c0
+upstream_release: v20.0.0
 ---
 ## Use this skill when
 

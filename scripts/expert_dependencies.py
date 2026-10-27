@@ -39,16 +39,24 @@ EXPERTS = [
 SOURCE = {
     "repository": "sickn33/antigravity-awesome-skills",
     "url": "https://github.com/sickn33/antigravity-awesome-skills",
-    "observed_version": "V13.4.0",
-    "observed_size": "1,693+ skills",
-    "vendored_pin": "e0ef87efd0ad5a18a23e21bb08406b3eaf563b35",
-    "review_date": "2026-06-29",
+    "observed_version": "V20.0.0",
+    "observed_size": "2,750+ skills (upstream package metadata)",
+    "vendored_pin": "6d4ea18320984083107f07ff69587fa355ee94c0",
+    "review_date": "2026-10-26",
     "license": "MIT for code; CC BY 4.0 for original non-code content unless upstream states otherwise",
 }
 
 
 # SOURCE remains the default for existing experts; exceptions are explicit.
 SOURCE_OVERRIDES = {
+    "product-manager": {
+        "repository": "sickn33/antigravity-awesome-skills",
+        "vendored_pin": "6d4ea18320984083107f07ff69587fa355ee94c0",
+        "original_repository": "Digidai/product-manager-skills",
+        "license": "CC BY-NC-SA 4.0; catalog MIT label conflicts with original LICENSE",
+        "license_evidence_pin": "bedf44d06159e37d99e4f11c591761c7f70e96ec",
+        "use_scope": "noncommercial-only; explicitly confirmed by user 2026-10-26",
+    },
     "company-document-writing": {
         "maintainer": "company workflow",
         "origin": "company-authored",
@@ -124,7 +132,8 @@ def review_expert(plugin_root: Path, item: tuple[str, str, str, str]) -> ExpertR
         risk = "medium"
     else:
         risk = "low"
-    status = "installed-auto-reviewed-approved"
+    # 静态扫描只记录风险信号，不能代替内容审查或授予采用权限。
+    status = "installed-static-reviewed"
 
     return ExpertReview(
         name=name,
@@ -153,7 +162,7 @@ def fail_if_missing_or_blocking(reviews: list[ExpertReview]) -> None:
 def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path | None = None) -> str:
     now = datetime.now(timezone.utc).isoformat()
     missing = [r for r in reviews if not r.installed]
-    approved = [r for r in reviews if r.installed and "approved" in r.status]
+    installed = [r for r in reviews if r.installed]
     high_risk = [r for r in reviews if r.installed and r.risk == "high"]
 
     if lang == "en":
@@ -169,8 +178,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             f"- Observed upstream version: `{SOURCE['observed_version']}`",
             f"- Observed catalog size: `{SOURCE['observed_size']}`",
             f"- Vendored pin: `{SOURCE['vendored_pin']}`",
-            f"- Installed experts: `{len(approved)}/{len(reviews)}`",
-            f"- Auto-reviewed and approved for bundled use: `{len(approved)}`",
+            f"- Installed experts: `{len(installed)}/{len(reviews)}`",
+            f"- Statically scanned (not security approval): `{len(installed)}`",
             f"- High-risk findings requiring runtime guardrails: `{len(high_risk)}`",
             f"- Missing: `{len(missing)}`",
         ]
@@ -179,7 +188,7 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             "## Runtime Policy",
             "",
             "- Bundled expert skills may be invoked directly when Codex exposes them in the current session.",
-            "- High-risk findings do not block use; they require normal Codex sandbox, approval, and verification guardrails.",
+            "- Static presence/risk checks do not grant security approval. Consult EXPERTS.lock.md and actual authorization before use; high-risk execution requires the normal sandbox and review guards.",
             "- If a current session was opened before installation, start a new Codex thread so the skill list refreshes.",
             "- Updates still go through company skill maintenance and security review; external hub updates are not auto-merged silently.",
         ]
@@ -193,8 +202,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             f"- 观察上游版本：`{SOURCE['observed_version']}`",
             f"- 观察目录规模：`{SOURCE['observed_size']}`",
             f"- Vendored pin：`{SOURCE['vendored_pin']}`",
-            f"- 已安装专家：`{len(approved)}/{len(reviews)}`",
-            f"- 自动审查并批准随包使用：`{len(approved)}`",
+            f"- 已安装专家：`{len(installed)}/{len(reviews)}`",
+            f"- 已完成静态扫描（不代表安全批准）：`{len(installed)}`",
             f"- 高风险发现，需运行时护栏：`{len(high_risk)}`",
             f"- 缺失：`{len(missing)}`",
         ]
@@ -203,7 +212,7 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
             "## 运行策略",
             "",
             "- 内置专家 skill 在 Codex 当前会话暴露后可直接调用。",
-            "- 高风险发现不阻止调用；执行时仍遵守 Codex sandbox、审批和验证护栏。",
+            "- 静态存在性/风险检查不授予安全批准；使用前核对 EXPERTS.lock.md 与实际授权，高风险执行仍遵守 sandbox、审查和验证护栏。",
             "- 如果当前会话早于安装动作创建，请新开 Codex 线程刷新 skill 列表。",
             "- 后续更新仍走公司技能维护和安全审查；不会静默合并外部 hub 更新。",
         ]
@@ -229,6 +238,8 @@ def render_markdown(reviews: list[ExpertReview], lang: str, project_path: Path |
         *rows,
         "",
         "## Source and License" if lang == "en" else "## 来源和许可",
+        "",
+        "- product-manager is updated at the current pin for user-confirmed noncommercial use only under CC BY-NC-SA 4.0; the catalog MIT label is not commercial permission. See its LICENSE/PROVENANCE.md and EXPERTS.lock.md.",
         "",
         f"- URL: {SOURCE['url']}",
         f"- License: {SOURCE['license']}",

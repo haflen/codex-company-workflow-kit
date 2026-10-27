@@ -1,8 +1,8 @@
 # Multi-agent delivery procedure
 
-This is an operating reference for `company-expert-routing`, reached through `company-workflow-help`; it creates no skill, scheduler, daemon or agent runner. It adds no dependency, network requirement or approval stage. Follow DELEGATE-01, REVIEW-01 and the existing AUTH, FLOW, REPAIR and EVIDENCE rules. Role separation does not replace required quality validation.
+This procedure is used by [company-agent-routing](../../company-agent-routing/SKILL.md). Reuse native agents, existing roles and phase skills without adding schedulers, daemons or runners. DELEGATE-01, REVIEW-01 and existing AUTH, FLOW, REPAIR and EVIDENCE safeguards remain applicable; role assignments do not replace quality validation.
 
-Activation and disclosure follow the two execution choices in [workflow entry](../../company-workflow-help/SKILL.md). Users may use the ordinary workflow alone; enter this collaborative procedure only with explicit dispatch intent or effective task-scoped authority. Briefly disclose approach, roles and capabilities at the start and actual participation/checks at delivery; users do not fill in the internal task packet.
+The dedicated entry owns activation and disclosure. Ordinary workflows remain independent; help is only a compatibility forwarding path, not a prerequisite. Users do not fill internal packets.
 
 ## 1. Establish the task and current capabilities
 
@@ -27,7 +27,7 @@ Users may provide business materials or an idea and request continuous multi-age
 | Closeout | [company-delivery-closeout](../../company-delivery-closeout/SKILL.md) | Only remaining risks that need expertise | Authorized endpoint, actual artifacts, acceptance evidence, remaining items and delivery limits |
 | Handoff when needed | [company-thread-handoff](../../company-thread-handoff/SKILL.md) | Usually none | Original goal/requirement IDs and meaning, decisions/reasons, candidate, valid evidence, open items, authority and next action |
 
-Actually read and apply the phase entry skill. Load experts only for the current concrete issue, never every skill in the table. Resolve links to verified exact paths before dispatch; a role name, skill name or table alone is not invocation. With confirmed requirements, start at the earliest missing design work; with valid design/tasks, enter implementation. Discussion-only requests create no formal documents; requirements-only authority stops after requirements. End-to-end authority and satisfied prerequisites allow FLOW-01/02 continuation without stage phrases. Ask only for missing business decisions, unresolved conflicting meaning or material new architectural tradeoffs; read available answers before asking again.
+Actually read and apply the phase entry skill. Load experts only for the current concrete issue, never every skill in the table. Resolve links to verified exact paths before dispatch; a role name, skill name or table alone is not invocation. With confirmed requirements, start at the earliest missing design work; with valid design/tasks, enter implementation. Discussion without a requested deliverable creates no formal documents; an explicit request for a discussion draft or review document authorizes that document, not implementation. Requirements-only authority stops after requirements. End-to-end authority and satisfied prerequisites allow FLOW-01/02 continuation without stage phrases. Ask only for missing business decisions, unresolved conflicting meaning or material new architectural tradeoffs; read available answers before asking again.
 
 ### Skill reading and application evidence
 
@@ -44,6 +44,10 @@ Keep the same requirement IDs across “source location and original meaning →
 Review objects vary by phase: business/requirements review uses source meaning, scope, AC and exceptions; design/planning review checks coverage, contracts, dependencies and verifiability; implementation review and quality validation examine actual code/tests/runtime outputs. When review is needed, identify the relevant document/material or code snapshot by fingerprint. Do not force code diffs or one frozen-code procedure onto every phase, or require a separate review agent in every phase.
 
 Requirements review follows [Independent coverage of original materials](../../company-feature-requirements/SKILL.md#independent-coverage-of-original-materials): first read only original materials to extract mandatory business relationships, key attributes and core user operations. Save the independent coverage basis and order evidence before reading author requirements and AC. Map each item to requirements/AC, omissions, unknowns or deferrals with source/authority and explainable boundaries. Test all author AC passing while original requirements remain omitted; unsupported omission or narrowing cannot pass. Keep unknown facts unconfirmed without imposing business rules or production algorithms. Disclose prior author-content contamination rather than backfilling records or adding rounds. Quality validation must revisit this basis and originals, not trust author AC alone. Then check facts presented as inferences or vice versa, ignored source conflicts, missing values treated as zero, abnormal data silently treated as normal, and scope/denominator drift. Report traceable alternatives for ambiguous business rules instead of selecting an answer. Quality validation inherits these counterexamples and independently derives expected results from original rules before comparing actual output. Passing author tests or agent voting cannot replace independent judgment. Findings retain requirement ID, source location, semantic conflict, counterexample and impact; use the bounded section 4 correction loop. Changes to original business rules require an actual decision source.
+
+### Integration and review for human deliverables
+
+Apply the delivery reading check in the [output standard](../../../specs/global/assets/human-output-standard.md). Put audience, purpose, existing capabilities, intended changes and reader entry in existing inputs and acceptance for executor and reviewer. Use document-writing guidance for drafts; the coordinator integrates one business narrative instead of concatenating agent reports. Add concrete restatement and ambiguity findings within the existing review, then correct against sources. Add no fields, roles or review rounds; source-first requirements review is not a context-free reader test.
 
 ## 2. Select the smallest roles and schedule
 
@@ -106,6 +110,8 @@ Reviewer role text: “Read the phase skills and original materials in inputs, i
 Explorer role text: “Read applicable skills and sources in inputs and return applied rules with evidence. Answer only the specified unresolved question using scoped evidence. Do not edit files or decide unconfirmed business rules. Return sources, observed facts, unknowns and effect on this task; do not expand the assignment.”
 
 ## 4. Result contract and one correction cycle
+
+This section describes internal agent returns, not text to paste into user replies or reader deliverables.
 
 Return section 1a skill-read/application evidence and requirement-meaning traceability, plus actual `task_id`, `result_id`, agent ID, role, input and output `candidate_fingerprint`, changed/read paths, acceptance mapping, immutable-field check, raw verification evidence, findings, unknowns, remaining runtime identities and next action. For each check retain command, cwd, actual start/end, exit code and original stdout/stderr or their retrievable location. Include actual elapsed time and limits consumed when available; never fabricate token use. A result marker such as DONE is not evidence or a new persisted status value.
 

@@ -21,6 +21,24 @@ class MultiAgentDeliveryAssetsTests(unittest.TestCase):
                     self.assertEqual(target.resolve(), (source.parent / links[0]).resolve())
                 self.assertFalse((target.parent / 'SKILL.md').exists(), 'Reference must not become another skill')
 
+    def test_dedicated_agent_entry_is_shipped_and_links_resolve(self):
+        for package in PACKAGES:
+            skills = ROOT / 'outputs' / package / 'skills'
+            entry = skills / 'company-agent-routing/SKILL.md'
+            with self.subTest(package=package):
+                self.assertTrue(entry.is_file(), 'Explicit multi-agent selection needs a discoverable skill')
+                content = entry.read_text()
+                self.assertIn('name: company-agent-routing\n', content)
+                references = re.findall(r'\]\(([^)]+\.md)\)', content)
+                self.assertTrue(references)
+                for link in references:
+                    self.assertTrue((entry.parent / link).is_file(), link)
+                for caller in ('company-workflow-help', 'company-expert-routing'):
+                    text = (skills / caller / 'SKILL.md').read_text()
+                    links = re.findall(r'\]\(([^)]+company-agent-routing/SKILL\.md)\)', text)
+                    self.assertTrue(links, caller)
+                    self.assertTrue(all((skills / caller / link).resolve() == entry.resolve() for link in links))
+
     def test_bilingual_dispatch_packets_preserve_same_contract(self):
         required = {
             'task_id', 'role', 'authority_source', 'goal_and_endpoint',

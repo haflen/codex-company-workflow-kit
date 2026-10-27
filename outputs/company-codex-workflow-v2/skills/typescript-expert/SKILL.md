@@ -3,8 +3,10 @@ name: typescript-expert
 description: Use when TypeScript types, JavaScript architecture, module boundaries, monorepos, strict typing, migrations, or frontend type safety needs expert guidance.
 upstream_risk: critical
 upstream_source: community
-upstream_date_added: 2026-02-27
+upstream_date_added: '2026-02-27'
 upstream_category: framework
+upstream_commit: 6d4ea18320984083107f07ff69587fa355ee94c0
+upstream_release: v20.0.0
 ---
 # TypeScript Expert
 
@@ -12,13 +14,7 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
 
 ### When invoked:
 
-0. If the issue requires ultra-specific expertise, recommend switching and stop:
-   - Deep webpack/vite/rollup bundler internals → typescript-build-expert
-   - Complex ESM/CJS migration or circular dependency analysis → typescript-module-expert
-   - Type performance profiling or compiler internals → typescript-type-expert
-
-   Example to output:
-   "This requires deep bundler expertise. Please invoke: 'Use the typescript-build-expert subagent.' Stopping here."
+0. For specialized bundler, module or compiler problems, identify the relevant expertise. Check the actual available skills/tools and authorization before delegating; the named roles are not bundled dependencies. Continue useful scoped analysis when delegation is unavailable.
 
 1. Analyze project setup comprehensively:
 
@@ -26,7 +22,8 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
 
    ```bash
    # Core versions and configuration
-   npx tsc --version
+   # --no-install: never download. Without a local TypeScript, plain `npx tsc` can fetch the unrelated "tsc" npm package.
+   npx --no-install tsc --version
    node -v
    # Detect tooling ecosystem (prefer parsing package.json)
    node -e "const p=require('./package.json');console.log(Object.keys({...p.devDependencies,...p.dependencies}||{}).join('\n'))" 2>/dev/null | grep -E 'biome|eslint|prettier|vitest|jest|turborepo|nx' || echo "No tooling detected"
@@ -47,13 +44,17 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
 4. Validate thoroughly:
    ```bash
    # Fast fail approach (avoid long-lived processes)
-   npm run -s typecheck || npx tsc --noEmit
-   npm test -s || npx vitest run --reporter=basic --no-watch
+   npm run -s typecheck # Use the existing project check; a failure remains a failure.
+   npm test -s # Do not replace a failing test suite with a different runner.
    # Only if needed and build affects outputs/config
    npm run -s build
    ```
 
    **Safety note:** Avoid watch/serve processes in validation. Use one-shot diagnostics only.
+
+## Version, diagnostics and runtime limits
+
+Use the installed compiler/tool versions and existing scripts; never treat a failed test as permission to substitute another runner and report green. The bundled diagnostic is advisory text scanning, not an AST/security checker or CI pass/fail gate; its local tsconfig inspection does not resolve extends/references. Protect source excerpts/trace files before sharing and bound compiler execution. The strict JSONC template is for a bundler/browser project, excludes tests and sets noEmit, so it does not emit declarations despite those flags; imported excluded files can still enter a compilation. Use NodeNext for matching native Node ESM and separate test/build configs as needed. Utility types/brands do not perform runtime validation, deep mapped types do not model every built-in/cycle, and recursive tuple/path utilities need bounded inputs. Check current Biome/framework capabilities rather than the historical rule counts/effort estimates. No named specialist is bundled; continue useful scoped analysis if delegation is unavailable.
 
 ## Advanced Type System Expertise
 
@@ -92,7 +93,7 @@ type PropEventSource<Type> = {
 
 **Type Inference Techniques**
 ```typescript
-// Use 'satisfies' for constraint validation (TS 5.0+)
+// Use 'satisfies' for assignability checking (introduced in TS 4.9; not runtime validation)
 const config = {
   api: "https://api.example.com",
   timeout: 5000
@@ -109,7 +110,7 @@ type Route = typeof routes[number]; // '/home' | '/about' | '/contact'
 **Type Checking Performance**
 ```bash
 # Diagnose slow type checking
-npx tsc --extendedDiagnostics --incremental false | grep -E "Check time|Files:|Lines:|Nodes:"
+npx --no-install tsc --extendedDiagnostics --incremental false | grep -E "Check time|Files:|Lines:|Nodes:"
 
 # Common fixes for "Type instantiation is excessively deep"
 # 1. Replace type intersections with interfaces
@@ -142,8 +143,9 @@ npx tsc --extendedDiagnostics --incremental false | grep -E "Check time|Files:|L
 // types/ambient.d.ts
 declare module 'some-untyped-package' {
   const value: unknown;
-  export default value;
-  export = value; // if CJS interop is needed
+  export default value; // ESM package
+  // OR, for a CommonJS package, use `export = value;` instead.
+  // Do not use both: TypeScript rejects that with TS2309.
 }
 ```
 - For more details: [Declaration Files Guide](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
@@ -254,7 +256,7 @@ command -v typesync >/dev/null 2>&1 && npx typesync  # Install missing @types pa
 **Vitest Type Testing (Recommended)**
 ```typescript
 // in avatar.test-d.ts
-import { expectTypeOf } from 'vitest'
+import { expectTypeOf, test } from 'vitest'
 import type { Avatar } from './avatar'
 
 test('Avatar props are correctly typed', () => {
@@ -278,11 +280,11 @@ command -v tsx >/dev/null 2>&1 && npx tsx --inspect src/file.ts
 command -v ts-node >/dev/null 2>&1 && npx ts-node --inspect-brk src/file.ts
 
 # Trace module resolution issues
-npx tsc --traceResolution > resolution.log 2>&1
+npx --no-install tsc --traceResolution > resolution.log 2>&1
 grep "Module resolution" resolution.log
 
 # Debug type checking performance (use --incremental false for clean trace)
-npx tsc --generateTrace trace --incremental false
+npx --no-install tsc --generateTrace trace --incremental false
 # Analyze trace (if installed)
 command -v @typescript/analyze-trace >/dev/null 2>&1 && npx @typescript/analyze-trace trace
 

@@ -1,13 +1,15 @@
 ---
 name: company-expert-routing
-description: Use when a company workflow needs to decide whether an expert skill, multi-agent delivery, subagent review, official documentation, or current-agent expert lens should be used.
+description: Use when a company workflow needs to decide whether an expert skill, official documentation, or current-agent expert lens should be used.
 ---
 
 # 公司专家路由
 
 按共享 `../../specs/global/assets/task-execution-policy.md` 的 READ-01 读取当前任务必需章节；已读未变的规则不重复加载。单点低风险修改在本技能完成局部验证即可结束；需要正式交付、打包或独立验收时保留对应阶段。
 
-按 [工作流入口](../company-workflow-help/SKILL.md) 的“工作流与多 Agent 的选择”和“简短告知本次使用方式”核对模式、有效授权与告知。普通工作流按需使用专家skills不等于派发agent；明确选择单执行者时保留质量门禁，不静默升级。
+普通工作流按需使用专家 skills，不等于派发 agent。用户明确要求多 Agent 交付时进入 [多 Agent 独立入口](../company-agent-routing/SKILL.md)，由该入口负责分工、告知和连续推进；本技能继续负责专家选择及下列派发约束。明确选择单执行者时保留质量门禁，不静默升级。
+
+已由多 Agent 入口派发的子任务只做当前专家选择与检查，不回跳入口或自行扩展代理团队。
 
 ## DELEGATE-01：结果复核与串行回退
 
@@ -19,7 +21,7 @@ description: Use when a company workflow needs to decide whether an expert skill
 
 ## 多 Agent 交付执行
 
-用户已明确要求从业务资料/需求起步的多 agent 交付、实施或独立审查时，读取并执行 [完整操作说明](references/multi-agent-delivery.md)。沿用真实授权与当前业务 workflow，不增加审批阶段、启用口令、新 skill 或调度器。DELEGATE-01 的串行限制针对并发执行收益；执行者完成后由另一个代理独立审查可以串行交接，无性能对照不宣称提速。派发前核对原生能力并显式传入角色正文；只有实际调用和返回的身份才算已派发。按说明第1a节选择当前阶段的现有 workflow 和必要专家，传递来源原义、需求ID、反例及未决项；在既有 inputs/结果中保存准确技能路径/章节、真实读取指纹和规则→产物证据。主代理按工具轨迹或原始输出及实际产物核对，角色名或自报不能代替。缺少不可替代技能或必要审查时，该要求保持未满足；缺工具回退单执行者，不能冒称独立审查。取消代理不等于其命令或服务已停止，按说明核对真实运行身份和停止证据后才能重派或释放依赖。
+用户已明确要求从业务资料/需求起步的多 agent 交付、实施或独立审查时，读取并执行 [完整操作说明](references/multi-agent-delivery.md)。沿用真实授权与当前业务 workflow，不增加审批阶段、启用口令或调度器。DELEGATE-01 的串行限制针对并发执行收益；执行者完成后由另一个代理独立审查可以串行交接，无性能对照不宣称提速。派发前核对原生能力并显式传入角色正文；只有实际调用和返回的身份才算已派发。按说明第1a节选择当前阶段的现有 workflow 和必要专家，传递来源原义、需求ID、反例及未决项；在既有 inputs/结果中保存准确技能路径/章节、真实读取指纹和规则→产物证据。主代理按工具轨迹或原始输出及实际产物核对，角色名或自报不能代替。缺少不可替代技能或必要审查时，该要求保持未满足；缺工具回退单执行者，不能冒称独立审查。取消代理不等于其命令或服务已停止，按说明核对真实运行身份和停止证据后才能重派或释放依赖。
 
 ## REVIEW-01：盲审输入与证据复用
 

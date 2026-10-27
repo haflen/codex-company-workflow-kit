@@ -34,6 +34,8 @@ All expert advice remains subordinate to the target clients confirmed in `specs/
 | `company-workflow-entry` | User is unsure which workflow to start, asks what to do next, or needs expert readiness confirmation | `company-workflow-help` | `company-expert-routing`, `company-expert-readiness` |
 | `company-legacy-onboarding` | Existing project adoption, project context draft generation, or first workflow pilot | `company-legacy-project-onboarding`, `company-context-index` | `company-workflow-help`, stack expert matching the project |
 
+| `company-agent-delivery` | Explicit multi-agent delivery request | `company-agent-routing` | `company-expert-routing`, current phase workflows and necessary experts |
+
 ## Phase Defaults
 
 | Phase | Bundle Use |

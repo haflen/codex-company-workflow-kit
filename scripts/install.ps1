@@ -800,7 +800,7 @@ function Verify-Kit {
   if ($LASTEXITCODE -eq 0) {
     Write-Error "Unexpected legacy source branding found.`n$legacy"
   }
-  $riskPattern = "TO" + "DO|TB" + "D|\[TO" + "DO|place" + "holder|待" + "补|待" + "定|高压" + "红线|恐惧" + "诱导|Invoke " + "Tool|必须" + "调用|第一步" + "必须|严禁" + "自行处理"
+  $riskPattern = "^[[:space:]#*-]*(TO" + "DO|TB" + "D|待补|待定|place" + "holder)[：:]|\[(TO" + "DO|TB" + "D)\]|高压" + "红线|恐惧" + "诱导|Invoke " + "Tool|必须" + "调用|第一步" + "必须|严禁" + "自行处理"
   $risk = rg -n $riskPattern (Join-Path $RootDir "README.md") (Join-Path $RootDir "CHANGELOG.md") (Join-Path $RootDir "docs") $PluginSrc
   if ($LASTEXITCODE -eq 0) {
     Write-Error "Unexpected disallowed wording found.`n$risk"

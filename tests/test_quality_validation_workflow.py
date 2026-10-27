@@ -317,7 +317,7 @@ class QualityValidationWorkflowTests(unittest.TestCase):
 
     def test_release_and_packaged_verification_are_wired(self):
         package = json.loads(read(ROOT / "package.json"))
-        self.assertEqual("0.2.39-rc.14", package["version"])
+        self.assertEqual("0.2.39-rc.17", package["version"])
         self.assertIn("unittest discover", package["scripts"]["verify"])
         for root in LANGUAGES.values():
             manifest = json.loads(read(root / ".codex-plugin/plugin.json"))

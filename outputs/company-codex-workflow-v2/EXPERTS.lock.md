@@ -4,15 +4,15 @@ All vertical expert skills in this workflow are managed as dependencies from:
 
 - Repository: `sickn33/antigravity-awesome-skills`
 - URL: https://github.com/sickn33/antigravity-awesome-skills
-- README-observed release: `V13.4.0`
-- README-observed size: `1,693+` skills
+- README-observed release: `V20.0.0`
+- README-observed size: `2,750+` skills
 - Codex install mode: required experts are vendored inside this company plugin under `skills/`; users do not install them one by one.
 - Repository code license: MIT
 - Repository original non-code content license: CC BY 4.0 unless a more specific upstream notice applies
 - Canonical manifest: `skills_index.json`
-- Current vendored pin: `e0ef87efd0ad5a18a23e21bb08406b3eaf563b35`
-- Candidate commit date: 2026-06-29T07:45:17Z
-- Dependency review date: 2026-06-29
+- Current vendored pin: `6d4ea18320984083107f07ff69587fa355ee94c0`
+- Candidate commit date: 2026-10-24 (v20.0.0)
+- Dependency review date: 2026-10-26
 
 Important note: upstream README and package metadata can drift. This company plugin uses its bundled copy as the runtime dependency. Future updates must go through `company-skill-maintenance` and automated or human review.
 
@@ -24,6 +24,9 @@ Important note: upstream README and package metadata can drift. This company plu
 - Use `company-skill-security-review` for new, updated, or self-improved skills.
 - Use `company-skill-maintenance` to update this lock file and record rollback information.
 - If a skill includes scripts, shell commands, network access, browser automation, or filesystem writes, treat it as higher risk even if the manifest marks setup as `none`.
+
+
+The default pin applies to all 13 AAS experts. product-manager is authorized for noncommercial use only; see its LICENSE/PROVENANCE and the dated adoption record.
 
 ## Install and Pin Guidance
 
@@ -43,6 +46,9 @@ Recommended production pinning options:
 Do not use `--tag main` for production unless the team intentionally wants current repository tip and accepts churn.
 
 ## Locked Expert Dependencies
+
+The table below records prior baseline decisions. The dated adoption record below governs current pins and the product-manager noncommercial restriction; historical approval labels do not override that scope.
+
 
 | Expert | AAS path | Category | Risk | Upstream source | License basis | Pin | Codex target | Setup | Status | Last Reviewed | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -118,3 +124,14 @@ professional-translation: company-authored conditional Markdown incremental path
 ## company-document-writing — company-authored writing capability
 
 Required bundled expert for `company-document-writing`, package 0.2.39-rc.9. Internal isolated candidate 0.7; no upstream repository or external runtime. SKILL.md SHA256 `3f6c12205b056783ed8826d5a01e7ca3d81e0234f4aebe039fed7e5f50c5f793`. Pure Markdown guidance and examples, plus Codex display metadata; low execution risk. Limited writing validation does not guarantee reader acceptance. See `skills/company-document-writing/PROVENANCE.md`.
+
+## 2026-10-26 approved local upgrade
+
+- Package: 0.2.39-rc.15. All 13 AAS experts use v20.0.0 at `6d4ea18320984083107f07ff69587fa355ee94c0`.
+- User approved the reviewed 12-expert update and readiness correction, source adoption and Chinese plugin installation/loading verification. No commit, push or publication.
+- User additionally approved product-manager for noncommercial use only after the license conflict was explained. Effective license CC BY-NC-SA 4.0; original LICENSE at initial commit `bedf44d06159e37d99e4f11c591761c7f70e96ec` is bundled, with provenance. The catalog's MIT label is not accepted as commercial permission.
+- Source overrides in the readiness script record the product-manager license/scope separately. Personal workflow and Superpowers remain unchanged.
+- Upstream risk labels are preserved separately from review/adoption authority. Existing two Python helpers updated; no new runtime or executable dependency. Scripts remain subject to source review, actual task authorization and sandbox rules.
+- Local triggers, names, bundles and company safeguards preserved; TypeScript handoff/fallback examples adapted to available tools and to preserve failed checks.
+- Prior baseline: e0ef87efd0ad5a18a23e21bb08406b3eaf563b35. Exact changes, tests, before/after hashes and rollback originals are under Workflow/执行记录/全技能审查升级-20261026/正式应用.
+- Static readiness is not security approval. Installation and actual loading are confirmed only by separately recorded runtime evidence.

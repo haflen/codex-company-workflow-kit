@@ -3,8 +3,10 @@ name: testing-qa
 description: Use when test strategy, QA gates, unit/integration/E2E coverage, regression risk, test design, or release quality needs expert review.
 upstream_risk: safe
 upstream_source: personal
-upstream_date_added: 2026-02-27
+upstream_date_added: "2026-02-27"
 upstream_category: workflow-bundle
+upstream_commit: 6d4ea18320984083107f07ff69587fa355ee94c0
+upstream_release: v20.0.0
 ---
 # Testing/QA Workflow Bundle
 
@@ -210,6 +212,8 @@ Use @verification-before-completion to verify changes
       /----     /      \  Integration Tests (20%)
     /--------   /          \ Unit Tests (70%)
   /------------```
+
+The 70/20/10 pyramid and coverage percentages are illustrative planning heuristics, not universal pass thresholds. Choose tests from actual failure risks and repository policy. Use isolated accounts/data, bound load tests and avoid production side effects; remote browser captures and paid runners need their actual scope. A code-review phase does not grant approval/merge authority.
 
 ## Quality Gates Checklist
 

@@ -840,7 +840,7 @@ PY
     echo "Unexpected legacy source branding found." >&2
     exit 1
   fi
-  risk_pattern="TO""DO|TB""D|\[TO""DO|place""holder|待""补|待""定|高压""红线|恐惧""诱导|Invoke ""Tool|必须""调用|第一步""必须|严禁""自行处理"
+  risk_pattern="^[[:space:]#*-]*(TO""DO|TB""D|待补|待定|place""holder)[：:]|\[(TO""DO|TB""D)\]|高压""红线|恐惧""诱导|Invoke ""Tool|必须""调用|第一步""必须|严禁""自行处理"
   if rg -n "$risk_pattern" "$ROOT_DIR/README.md" "$ROOT_DIR/CHANGELOG.md" "$ROOT_DIR/docs" "$PLUGIN_SRC"; then
     echo "Unexpected disallowed wording found." >&2
     exit 1

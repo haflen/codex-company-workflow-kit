@@ -18,7 +18,8 @@
 └── Codex built-in: file edits, commands, browser checks, Git
 
 入口帮助
-└── company-workflow-help
+├── company-workflow-help
+└── company-agent-routing
     └── 决定进入哪条 workflow，并自动判定 light/full-audit
 
 项目上下文
@@ -230,3 +231,5 @@ company-workflow-help
 | `company-skill-governance` | 技能升级、安全审查、自进化 |
 | `company-workflow-entry` | 用户不知道该从哪里开始 |
 | `company-legacy-onboarding` | 旧项目接入和上下文草稿确认 |
+
+`company-agent-routing` 是多 Agent 的独立入口：选择后由主代理自动组织当前阶段的执行与独立审查；普通工作流无需启用它。专家能力仍由 `company-expert-routing` 选择。

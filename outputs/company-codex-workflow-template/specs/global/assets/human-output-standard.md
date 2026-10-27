@@ -62,3 +62,23 @@ Use basic Markdown supported by the destination. Do not use HTML details/summary
 Check links, diagrams, and display. Identify any unverified portion; source presence does not prove rendering. A reader must answer directly: What is the conclusion? What supports it? What remains and why does it matter? Who does what now? Rewrite when the answer requires guessing, contradicts evidence, or requires deleting internal content before use. Structural/keyword tests do not replace this review.
 
 Example: Application checks passed; acceptance still needs confirmation that both owners are in the notification group. Of 235 tests, 61 used an isolated database. Receiving a direct test card proves that send only. The release owner confirms membership; already authorized preparation continues. Deployment follows its existing prerequisites. Production scheduling and natural recovery remain post-deployment observations under the agreed scope.
+
+## Delivery reading check
+
+Apply to deliverables people read, present or operate, especially reports, proposals and prototypes assembled by multiple roles, not machine handoff records.
+
+- Establish existing capabilities, the specific change and recommendation before details. Existing-system proposals start from verified pages, workflows and code; unknown is not missing or new work. Do not invent a baseline for a new project.
+- Organize around reader questions and actions, not agent assignments, test IDs or source arrival order. The coordinator unifies terminology and narrative. When an overview helps, put it before details and connect its steps to actual sections or prototype entries; do not force diagrams into short answers.
+- Use familiar, complete expressions. “Sample not loaded” could mean “No demonstration data for this time slot” or “This result has not arrived”; preserve the actual cause. Explain necessary technical terms by their effect on actions or decisions; retain precise fields in technical sections. Banned-word substitutions, shorter text and removed conditions do not prove readability.
+- Separate business scope from agent permissions. Unsupported product behavior and release dependencies matter to readers and stay in the document. “Do not commit Git or send to colleagues,” file-write limits and explanations of why a draft may be delivered belong in execution records and necessary user progress updates, not a colleague-facing proposal. Permissions belong in the body when the requested document itself is an operating or authorization procedure.
+- Describe product behavior and changes in reader prose. Source arbitration, historic review narration, author defenses and agent scores belong in internal records. Keep consequential limits next to their claims: explain who must assess interface work before setting a schedule instead of an unsupported delivery-date disclaimer.
+- Walk the reader's real entry using only deliverable text, diagrams and pages. Restate existing capabilities, intended changes, the usage flow and required coordination or decisions. Identify exact sentences or pages causing ambiguity or unanswered questions, then check the sources. For instructions, locate actions, expected results and failure handling. Do not rely on oral coaching or hidden logs to make a document understandable.
+
+When multi-agent delivery already includes independent review, use that reviewer, uninvolved in writing, for this check; add no role or round. Factual review still derives expectations from sources first. For the reading check use the deliverable as the basis for understanding and disclose previous source exposure; do not claim a blind test. The coordinator checks the restatement against the sources, fixes affected passages and verifies those changes. In ordinary mode the current executor self-checks and labels it honestly.
+
+Working links, passing checklists and expected keywords do not prove comprehension. Distinguish factual checks, understanding and actual rendering. Agent restatement is evidence of that check, not human acceptance. When users cannot understand a delivered artifact, retract the relevant ready-to-use claim and inspect related passages and pages, not only the named phrases. Keep rejected drafts in existing history and maintain one current reader entry.
+
+
+## Actual-use feedback
+
+When actual feedback affects delivery, when resuming a related task or handling a similar delivery, use [feedback reuse and rule consolidation](experience-candidate-template.md) to extend the existing internal record and check subsequent outcomes. Fix the artifact first; require no user form. Feedback itself does not authorize skill edits or new background monitoring.

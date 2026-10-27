@@ -1,6 +1,6 @@
 ---
 name: company-workflow-help
-description: Use when a company user requests managed task delivery within stated boundaries, including multi-agent delivery from business materials or unclear requirements through closeout and independent review, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
+description: Use when a company user requests managed task delivery within stated boundaries, is unsure which workflow to start, asks what to do next, needs long-conversation continuity, or needs routing between onboarding, health check, requirements, design, planning, implementation, quality validation, bugfix, hotfix, spike, expert readiness, skill updates, professional document translation, and Chinese reports or review documents.
 ---
 
 # 公司工作流入口帮助
@@ -214,11 +214,11 @@ Codex 计划模式适合在正式 workflow 前做路线判断，不替代需求�
 
 ## 多 Agent 交付入口
 
-用户说“用多agent从这些业务资料梳理需求并完成交付”“用多agent完成某任务及独立审查”或等价自然语言，已表达本任务的派发意图；不要求用户先给出已拆分任务。读取已授权材料与已有产物，区分事实、推断及未决决定，找到最早缺失阶段，沿用有效范围和终点，再实际进入 `company-expert-routing`，按其 [多 Agent 交付说明](../company-expert-routing/references/multi-agent-delivery.md) 执行。不要只给建议或要求用户重复启用口令；缺少业务决定只阻塞相关动作。业务理解、需求、设计、任务、实现、验证、审查和收口按说明第1a节的现有技能连续做到已授权终点，Git 与外部业务操作仍分别核对真实授权。仅讨论或仅需求仍按约定终点停止；资料中已经给出的答案先读取，不重复询问。派发传入本阶段技能准确路径/章节和原义来源，结果核对实际读取与采用证据；角色名不等于技能调用。未请求多 agent 时保留原推荐规则。
+明确要求多 Agent 的任务转到 [company-agent-routing](../company-agent-routing/SKILL.md)，由它自动选择阶段、角色和专家并连续推进。本入口只保留模式识别和兼容转交，不要求先经过 help；操作细节复用 [多 Agent 交付说明](../company-expert-routing/references/multi-agent-delivery.md)。未请求协作时继续普通工作流。
 
 ## Subagents 使用建议
 
-Subagents 适合隔离上下文、独立审查或处理互不影响的问题域，不是默认执行方式。未获派发授权时本 skill 只做建议；已有上述自然语言请求时进入专家路由执行。真正执行需要当前 Codex 环境支持，并且用户显式请求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
+Subagents 适合隔离上下文、独立审查或处理互不影响的问题域，不是默认执行方式。未获派发授权时本 skill 只做建议；已有上述自然语言请求时进入 company-agent-routing 执行。真正执行需要当前 Codex 环境支持，并且用户显式请求 `spawn agents`、`delegate in parallel`、`使用 subagents 并行审查` 或等价表达。
 
 Subagents 建议分三档：
 

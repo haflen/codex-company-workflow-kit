@@ -70,3 +70,5 @@ description: Use when preparing or revising Chinese reports, weekly meeting mate
 交付时从收件人位置实际读正文并看配图：是否还要删除内部记录、改成发件人口吻、重新组织顺序，或自己在图里找重点？存在这些工作就先改完再交稿。技术评审的必要细节和正文条件不因追求短而删除；独立转发段单独读。
 
 对检查结果说实话：事实核对、读者表达、显示与可转发性分别记录；事实正确、字数缩短、关键词齐全、模型自评和图的数量都不能证明适合汇报。用户否定表达后，纠正先前“可直接发”的评价并保留原失败稿；不能以内部评分覆盖用户反馈。交付可直接使用的正文；修改理由和追溯证据放在单独记录，不占据读者正文。不要宣称一次验证能保证以后永远无需纠正。
+
+For multi-author deliverables also apply the delivery reading check in the [output standard](../../specs/global/assets/human-output-standard.md): existing capabilities, change narrative and reader understanding. Reuse the existing independent review without adding rounds.

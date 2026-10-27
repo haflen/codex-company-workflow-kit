@@ -6,17 +6,20 @@
 
 - 仓库：`sickn33/antigravity-awesome-skills`
 - URL：https://github.com/sickn33/antigravity-awesome-skills
-- README 观察版本：`V13.4.0`
-- README 观察规模：`1,693+` skills
+- README 观察版本：`V20.0.0`
+- README 观察规模：`2,750+` skills
 - Codex 安装方式：强依赖专家已 vendored 到本公司插件 `skills/` 目录；不要求用户逐个运行外部安装命令。
 - 代码许可：MIT
 - 原始非代码内容许可：CC BY 4.0，除非上游有更具体声明
 - 清单：`skills_index.json`
-- 当前 vendored pin：`e0ef87efd0ad5a18a23e21bb08406b3eaf563b35`
-- 候选 commit 日期：2026-06-29T07:45:17Z
-- 审查日期：2026-06-29
+- 当前 vendored pin：`6d4ea18320984083107f07ff69587fa355ee94c0`
+- 候选 commit 日期：2026-10-24 (v20.0.0)
+- 审查日期：2026-10-26
 
 注意：README 和 package 元数据可能漂移。当前公司插件固定使用本仓库随包内置副本；后续更新必须走 `company-skill-maintenance` 和自动/人工复核。
+
+
+The default pin applies to all 13 AAS experts. product-manager is authorized for noncommercial use only; see its LICENSE/PROVENANCE and the dated adoption record.
 
 ## 策略
 
@@ -45,6 +48,9 @@
 不要在生产中直接跟随 `main`，除非团队明确接受上游变动风险。
 
 ## 已锁定专家依赖
+
+The table below records prior baseline decisions. The dated adoption record below governs current pins and the product-manager noncommercial restriction; historical approval labels do not override that scope.
+
 
 | Expert | AAS 路径 | 类别 | 风险 | 状态 | 说明 |
 | --- | --- | --- | --- | --- | --- |
@@ -98,3 +104,14 @@ professional-translation: company-authored conditional Markdown incremental path
 ## company-document-writing — company-authored writing capability
 
 Required bundled expert for `company-document-writing`, package 0.2.39-rc.9. Internal isolated candidate 0.7; no upstream repository or external runtime. SKILL.md SHA256 `3f6c12205b056783ed8826d5a01e7ca3d81e0234f4aebe039fed7e5f50c5f793`. Pure Markdown guidance and examples, plus Codex display metadata; low execution risk. Limited writing validation does not guarantee reader acceptance. See `skills/company-document-writing/PROVENANCE.md`.
+
+## 2026-10-26 approved local upgrade
+
+- Package: 0.2.39-rc.15. All 13 AAS experts use v20.0.0 at `6d4ea18320984083107f07ff69587fa355ee94c0`.
+- User approved the reviewed 12-expert update and readiness correction, source adoption and Chinese plugin installation/loading verification. No commit, push or publication.
+- User additionally approved product-manager for noncommercial use only after the license conflict was explained. Effective license CC BY-NC-SA 4.0; original LICENSE at initial commit `bedf44d06159e37d99e4f11c591761c7f70e96ec` is bundled, with provenance. The catalog's MIT label is not accepted as commercial permission.
+- Source overrides in the readiness script record the product-manager license/scope separately. Personal workflow and Superpowers remain unchanged.
+- Upstream risk labels are preserved separately from review/adoption authority. Existing two Python helpers updated; no new runtime or executable dependency. Scripts remain subject to source review, actual task authorization and sandbox rules.
+- Local triggers, names, bundles and company safeguards preserved; TypeScript handoff/fallback examples adapted to available tools and to preserve failed checks.
+- Prior baseline: e0ef87efd0ad5a18a23e21bb08406b3eaf563b35. Exact changes, tests, before/after hashes and rollback originals are under Workflow/执行记录/全技能审查升级-20261026/正式应用.
+- Static readiness is not security approval. Installation and actual loading are confirmed only by separately recorded runtime evidence.

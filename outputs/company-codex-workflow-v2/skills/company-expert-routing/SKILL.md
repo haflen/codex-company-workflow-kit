@@ -1,13 +1,15 @@
 ---
 name: company-expert-routing
-description: Use when a company workflow needs to decide whether an expert skill, multi-agent delivery, subagent review, official documentation, or current-agent expert lens should be used.
+description: Use when a company workflow needs to decide whether an expert skill, official documentation, or current-agent expert lens should be used.
 ---
 
 # Company Expert Routing
 
 Apply READ-01 in ../../specs/global/assets/task-execution-policy.md: read required sections and reuse unchanged rules. Single-point low-risk changes may finish after local verification here; formal delivery, packaging and independent acceptance retain their stages.
 
-Apply [workflow entry](../company-workflow-help/SKILL.md) sections “Choosing workflow or multi-agent execution” and “Briefly disclose the execution approach” for mode, effective authority and disclosure. Using expert skills in the ordinary workflow is not agent dispatch. Preserve quality gates when users choose one executor; do not silently upgrade.
+Expert skills in an ordinary workflow do not imply agent dispatch. Route explicit multi-agent delivery to the [dedicated agent entry](../company-agent-routing/SKILL.md) for roles, disclosure and continuation. This skill retains expert selection and dispatch safeguards. Preserve single-executor choices and quality gates.
+
+For a task already dispatched by the agent entry, select current experts and checks only; do not route back or expand the agent team.
 
 ## DELEGATE-01: Review results and fall back to serial execution
 
@@ -19,7 +21,7 @@ Before adoption, verify result_id, actual candidate identity, changed paths and 
 
 ## Multi-agent delivery execution
 
-When the user explicitly requests multi-agent delivery starting from business materials/requirements, implementation or independent review, read and execute the [complete procedure](references/multi-agent-delivery.md). Reuse actual authority and the current business workflow; add no approval phase, activation phrase, skill or scheduler. DELEGATE-01 serial execution limits concurrent work based on measured benefit; an executor followed by a separate independent reviewer can run sequentially, without claiming speedup. Check native capabilities and explicitly supply role instructions; only actual calls and returned identities count as dispatch. Use section 1a to select existing phase workflows and necessary experts, preserving source meaning, requirement IDs, counterexamples and open issues. In existing inputs/results, retain exact skill paths/sections, actual read fingerprints and rule-to-artifact evidence; the main agent verifies tool traces or raw outputs and actual artifacts, not role names or self-report. An unavailable irreplaceable skill or required review remains unmet. Without tools, fall back to a single executor and do not claim independent review. Cancelling an agent does not prove its commands or services stopped; verify actual runtime identities and stop evidence before redispatch or dependency release.
+When the user explicitly requests multi-agent delivery starting from business materials/requirements, implementation or independent review, read and execute the [complete procedure](references/multi-agent-delivery.md). Reuse actual authority and the current business workflow; add no approval phase, activation phrase or scheduler. DELEGATE-01 serial execution limits concurrent work based on measured benefit; an executor followed by a separate independent reviewer can run sequentially, without claiming speedup. Check native capabilities and explicitly supply role instructions; only actual calls and returned identities count as dispatch. Use section 1a to select existing phase workflows and necessary experts, preserving source meaning, requirement IDs, counterexamples and open issues. In existing inputs/results, retain exact skill paths/sections, actual read fingerprints and rule-to-artifact evidence; the main agent verifies tool traces or raw outputs and actual artifacts, not role names or self-report. An unavailable irreplaceable skill or required review remains unmet. Without tools, fall back to a single executor and do not claim independent review. Cancelling an agent does not prove its commands or services stopped; verify actual runtime identities and stop evidence before redispatch or dependency release.
 
 ## REVIEW-01: Blind-review inputs and evidence reuse
 
